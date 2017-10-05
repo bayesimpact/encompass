@@ -1,0 +1,5 @@
+# Compiled python files
+*.py[cod]
+
+# iPython notebook backups
+.ipynb_checkpoints
