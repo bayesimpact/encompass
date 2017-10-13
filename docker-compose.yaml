@@ -10,3 +10,11 @@ services:
           - 8888:8888
         environment:
           - PYTHONPATH=/home/jovyan/work
+        links:
+          - mongo
+    mongo:
+        build:
+          context: ./data
+          dockerfile: Dockerfile
+        ports:
+          - 27017:27017

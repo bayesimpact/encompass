@@ -3,3 +3,6 @@
 
 # iPython notebook backups
 .ipynb_checkpoints
+
+# iPython notebook cache
+models/notebooks/cache
