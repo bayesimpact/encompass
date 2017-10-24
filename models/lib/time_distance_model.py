@@ -20,6 +20,8 @@ class TimeDistanceModel(object):
         self.bounding_box = None
         self.graph = graph or None
         self.all_isolines = None
+        self.covered_point_as = []
+        self.uncovered_point_as = []
 
     def runner(self, point_as, point_bs, isoline_radius=15, enlarge_bbox_by_miles=15):
         """Run all necessary steps of the model."""
@@ -33,7 +35,9 @@ class TimeDistanceModel(object):
         self.build_all_isolines(point_as, isoline_radius)
 
         print('Finding all point As that are not covered by providers.')
-        return self.find_point_as_covered_by_all_providers(point_bs)
+        self.find_point_as_covered_by_all_providers(point_bs)
+
+        self.uncovered_point_as = set(range(len(point_as))) - self.covered_point_as
 
     def set_inclusive_bounding_box(self, enlarge_by_miles=15):
         """Given a polygon return a sufficiently large bbox with all possible nearest Point Bs."""
@@ -82,6 +86,8 @@ class TimeDistanceModel(object):
         res = []
         for provider_point in provider_points:
             res.append(self.if_single_provider_within_all_isolines(provider_point))
+
+        self.covered_point_as = set(sum([x['covering_points'] for x in res], []))
         return res
 
     def _get_bounding_box(self, polygon):
@@ -125,3 +131,7 @@ def enlarge_box(small_box, half_side_in_miles):
 
 def _miles_to_meters(distance_in_miles):
     return distance_in_miles * 1609.344
+
+
+def _meters_to_miles(distance_in_meters):
+    return distance_in_meters / 1609.344
