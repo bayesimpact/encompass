@@ -2,12 +2,16 @@ version: "2"
 services:
     explorer:
         build:
-          context: ./web-app/backend
+          context: ./models/explorer
           dockerfile: Dockerfile
         volumes:
           - ./:/home/jovyan/work:rw
           - ./models/:/usr/local/lib/python3.6/site-packages/network-adequacy:ro
+          - ./web-app/backend:/usr/local/lib/python3.6/site-packages/backend:ro
+          - ./web-app/backend:/home/jovyan/work/backend:ro
         command: bash -c "start-notebook.sh --NotebookApp.token=''"
+        env_file:
+          - .env
         ports:
           - 8888:8888
         environment:
