@@ -1,5 +1,12 @@
 {
   "devDependencies": {
-    "@types/material-ui": "^0.18.3"
+    "@types/material-ui": "^0.18.3",
+    "redux-devtools": "^3.4.0"
+  },
+  "dependencies": {
+    "react-redux": "^5.0.6",
+    "redrock": "^0.0.5",
+    "redux": "^3.7.2",
+    "typed-rx-emitter": "^0.2.2"
   }
 }
