@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
 import './Header.css'
 
-export let Header: React.StatelessComponent = () =>
+export let Header = () =>
   <AppBar
     className='Header'
     title='Network Adequacy Explorer'

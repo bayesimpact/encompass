@@ -4,7 +4,7 @@ import { FilterBar } from '../FilterBar/FilterBar'
 import { Header } from '../Header/Header'
 import './App.css'
 
-export let App: React.StatelessComponent = () =>
+export let App = () =>
   <MuiThemeProvider>
     <div className='App'>
       <Header />
