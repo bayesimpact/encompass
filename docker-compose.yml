@@ -1,0 +1,33 @@
+version: "2"
+services:
+    explorer:
+        build:
+          context: ./web-app/backend
+          dockerfile: Dockerfile
+        volumes:
+          - ./:/home/jovyan/work:rw
+          - ./models/:/usr/local/lib/python3.6/site-packages/network-adequacy:ro
+        command: bash -c "start-notebook.sh --NotebookApp.token=''"
+        ports:
+          - 8888:8888
+        environment:
+          - PYTHONPATH=/home/jovyan/work
+
+    backend:
+        build:
+          context: ./web-app/backend
+          dockerfile: Dockerfile
+        volumes:
+          - ./web-app/backend/app/main.py:/app/main.py:ro
+          - ./web-app/backend/config/uwsgi.ini:/app/uwsgi.ini:ro
+          - ./web-app/backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+          - ./web-app/backend/config/credentials:/app/credentials:ro # FIXME temp; philip's credentials
+          - ./web-app/backend/app/:/var/local/app/:ro
+          - ./web-app/backend/tests:/app/tests:ro
+          - .flake8:/app/.flake8:ro
+          - ./web-app/backend:/usr/local/lib/python3.6/site-packages/backend
+        env_file:
+          - .env
+        ports:
+          - 8080:8080
+

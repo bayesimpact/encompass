@@ -9,3 +9,9 @@
 
 # iPython notebook cache
 models/notebooks/cache
+
+# ENV
+.env
+
+# Build
+web-app/frontend/dist/*

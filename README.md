@@ -1,14 +1,18 @@
 Network Adequacy: Time and Distance Standards
 
+# Local Development
 
-# Local development
+Two dockers are available for development:
+- Explorer: A contaner running jupyter notebook for easy exploration and model testing.
+- Backend: A container running a Flask API served by uWSGI and Nginx.
 
-- Clone this repo
-- Build and start docker service
+## Explorer
+
 ```
 docker-compose up -d explorer
 ```
-- Open a browser and navigate to `localhost:8888`
+
+- Open a browser and navigate to `localhost:8888`.
 
 This environment gives you the following:
 - geopandas
@@ -16,7 +20,14 @@ This environment gives you the following:
 - statsmodels
 - seaborn
 
-Add more needed dependecies to `requirements.txt` file, and rebuild you docker images:
+## Backend - API
+
 ```
-docker-compose build explorer
+docker-compose up -d backend
 ```
+
+- The API will then be accessible on port 8080. `localhost:8080`.
+- Three POST endpoints are available to you:
+	- /api/providers
+	- /api/representative_points
+	- /api/adequacies

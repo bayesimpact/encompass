@@ -1,0 +1,51 @@
+"""Routing for backend API."""
+from backend.lib.database import dynamo_db
+from backend.lib.timer import timed
+
+import flask
+
+app = flask.Flask(__name__)
+
+DYNAMODB = dynamo_db.connect()
+
+service_areas_table = dynamo_db.get_table(DYNAMODB, 'network-adequacy-test-2')
+
+
+@timed
+@app.route('/api/available-service-areas/', methods=['GET'])
+def fetch_available_service_areas():
+    """Fetch and return all available service areas from db."""
+    app.logger.debug('Return service areas.')
+    # Get the available service areas from DynamoDB.
+    response = service_areas_table.scan()
+    items = response['Items']
+
+    return flask.jsonify({'result': items})
+
+
+@timed
+@app.route('/api/providers/', methods=['POST'])
+def fetch_providers():
+    """Fetch and return all available service areas from db."""
+    app.logger.debug('Return provider ids.')
+    return flask.jsonify({'result': flask.request.args})
+
+
+@timed
+@app.route('/api/representative_points/', methods=['POST'])
+def fetch_representative_points():
+    """Fetch and return all available service areas from db."""
+    app.logger.debug('Calculate time distance standards.')
+    return flask.jsonify({'result': flask.request.args})
+
+
+@timed
+@app.route('/api/adequacies/', methods=['POST'])
+def calculate_adequacies():
+    """Fetch and return all available service areas from db."""
+    app.logger.debug('Calculate time distance standards.')
+    return flask.jsonify({'result': flask.request.args})
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True, port=8080)
