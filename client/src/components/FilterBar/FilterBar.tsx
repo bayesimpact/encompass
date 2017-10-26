@@ -1,9 +1,8 @@
 import { DropDownMenu, MenuItem, Toolbar, ToolbarGroup } from 'material-ui'
 import * as React from 'react'
-import { connect } from '../../services/simple-redux'
-import { store } from '../../services/store'
+import { store, withStore } from '../../services/store'
 
-export let FilterBar = connect(store)(({ store }) =>
+export let FilterBar = withStore(({ store }) =>
   <Toolbar>
 
     <ToolbarGroup>

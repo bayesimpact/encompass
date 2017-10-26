@@ -12,6 +12,7 @@
     "watch": "webpack -w"
   },
   "dependencies": {
+    "babydux": "^1.0.1",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.41.0",
     "material-ui": "^0.19.4",
