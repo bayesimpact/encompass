@@ -22,6 +22,14 @@ html, body, #App, .App {
 }
 
 /*
+  Utilities
+*/
+
+.PullRight {
+  float: right;
+}
+
+/*
   Material-UI Augmentations
 */
 

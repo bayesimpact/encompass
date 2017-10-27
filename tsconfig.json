@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "allowSyntheticDefaultImports": false,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": [
       "dom",
-      "es2015"
+      "es2016"
     ],
     "module": "commonjs",
     "moduleResolution": "node",

@@ -1,0 +1,25 @@
+@import "../../index.css";
+
+.ZipCodeSelector {
+
+}
+
+.ZipCodeSelector .ZipList {
+  max-height: 151px; /* show 4.5 items as an affordance that the list is scrollable */
+  overflow-y: auto;
+}
+
+.ZipList .ListItem {
+  height: 10px;
+  padding: 16px 16px 6px 72px;
+}
+
+.ZipCodeSelectorHeadline {
+  display: flex;
+  flex: none;
+  margin: 5px 0 15px;
+}
+
+.ZipCodeSelectorHeadline .PullRight {
+  color: var(--secondary);
+}

@@ -25,5 +25,6 @@
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "tslint.autoFixOnSave": true,
   "typescript.format.enable": true,
-  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "typescript.tsdk": "node_modules/typescript/lib/"
 }
