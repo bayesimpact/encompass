@@ -6,6 +6,15 @@ Two dockers are available for development:
 - Explorer: A contaner running jupyter notebook for easy exploration and model testing.
 - Backend: A container running a Flask API served by uWSGI and Nginx.
 
+## Setup
+In the main folder, you should add a `.env` with the following info:
+```
+REACT_APP_MAPBOX_TOKEN=$MAPBOX_TOKEN
+AWS_ACCESS_KEY=YOUR_KEY
+AWS_SECRET_KEY=YOUR_SECRET
+```
+
+
 ## Explorer
 
 ```

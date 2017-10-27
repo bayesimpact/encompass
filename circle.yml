@@ -7,6 +7,7 @@ machine:
     - docker
 dependencies:
   pre:
+    - touch .env
     # - docker-compose build frontend
     - docker-compose build backend
     - docker-compose build explorer
