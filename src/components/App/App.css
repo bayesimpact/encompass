@@ -20,3 +20,12 @@ html, body, #App, .App {
   height: 100%;
   width: 100%;
 }
+
+/*
+  Material-UI Augmentations
+*/
+
+/* inline styles are the worst.. */
+.DropDownMenu.--Compact button + div {
+  display: none !important;
+}

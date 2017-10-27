@@ -1,0 +1,20 @@
+@import "../../index.css";
+
+.FilterBar {
+  display: flex;
+  padding-bottom: 10px;
+  position: fixed;
+    right: 20px;
+    top: calc(var(--header-height) + 20px);
+  z-index: 1;
+}
+
+.FilterBar .Filter {
+  color: var(--light);
+  display: flex;
+  flex-direction: column;
+}
+
+.FilterBar .Filter > span {
+  margin: 20px 0 -17px 24px;
+}
