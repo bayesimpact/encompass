@@ -1,0 +1,29 @@
+{
+  "autoimport.doubleQuotes": false,
+  "autoimport.filesToScan": "**/*.{ts,tsx}",
+  "css.lint.zeroUnits": "warning",
+  "csscomb.formatOnSave": true,
+  "csscomb.preset": {
+    "sort-order": [],
+    "sort-order-fallback": "abc",
+    "always-semicolon": true
+  },
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.rulers": [120],
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "dist": true,
+    "node_modules": true
+  },
+  "javascript.format.enable": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "tslint.autoFixOnSave": true,
+  "typescript.format.enable": true,
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
+}

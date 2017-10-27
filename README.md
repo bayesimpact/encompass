@@ -31,3 +31,7 @@ yarn start
 ```
 
 Then, open *https://localhost:9000* in your browser.
+
+## Editor
+
+I suggest editing this project using [VSCode](https://code.visualstudio.com/).
