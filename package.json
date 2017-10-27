@@ -7,8 +7,11 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
+    "lint": "tslint src/**/*",
+    "pretest": "npm run build",
     "start": "webpack-dev-server",
     "tdd": "concurrently -k 'npm run start' 'npm run watch'",
+    "test": "echo 'no tests yet...' && exit 0",
     "watch": "webpack -w"
   },
   "dependencies": {
