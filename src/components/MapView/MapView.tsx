@@ -14,12 +14,13 @@ let Map = ReactMapboxGl({
 })
 
 export let MapView = () =>
-  <Map
-    className='MapView'
-    style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
-    center={CENTER_OF_CALIFORNIA}
-    zoom={[5]}
-  >
-    <ZoomControl position='bottomLeft' />
-    <ScaleControl measurement='mi' position='bottomLeft' style={{ left: 48 }} />
-  </Map>
+  <div className='MapView'>
+    <Map
+      style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
+      center={CENTER_OF_CALIFORNIA}
+      zoom={[5]}
+    >
+      <ZoomControl position='bottomLeft' />
+      <ScaleControl measurement='mi' position='bottomLeft' style={{ left: 48 }} />
+    </Map>
+  </div>

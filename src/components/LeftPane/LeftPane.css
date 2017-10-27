@@ -1,0 +1,7 @@
+.LeftPane {
+  position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 64px;
+  width: 300px;
+}

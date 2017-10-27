@@ -1,0 +1,19 @@
+@import "../index.css";
+
+.IconBar {
+  background: var(--primary-dark);
+  color: #fff;
+  position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+  width: var(--iconbar-width);
+}
+
+.IconBar li {
+  list-style: none;
+}
+
+.IconBar li a {
+  display: block;
+}

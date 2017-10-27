@@ -21,7 +21,8 @@
     "material-ui": "^0.19.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-mapbox-gl": "^2.7.0"
+    "react-mapbox-gl": "^2.7.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.79",
@@ -30,6 +31,7 @@
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.18",
     "@types/react-dom": "^16.0.2",
+    "@types/react-router-dom": "^4.0.8",
     "awesome-typescript-loader": "^3.2.3",
     "concurrently": "^3.5.0",
     "css-loader": "^0.28.7",
