@@ -4,7 +4,7 @@
   "main": "dist/bundle.js",
   "repository": "git@github.com:bcherny/bayes-mvp.git",
   "author": "Boris Cherny <boris@performancejs.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "webpack",
     "lint": "tslint src/**/*",

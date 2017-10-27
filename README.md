@@ -1,7 +1,7 @@
-# bayes-mvp [![Build Status][build]](https://circleci.com/gh/bcherny/bayes-mvp) [![mit]](https://opensource.org/licenses/MIT)
+# bayes-mvp [![Build Status][build]](https://circleci.com/gh/bcherny/bayes-mvp) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
 [build]: https://img.shields.io/circleci/project/bcherny/bayes-mvp.svg?branch=master&style=flat-square
-[mit]: https://img.shields.io/npm/l/bayes-mvp.svg?style=flat-square
+[apache2]: https://img.shields.io/npm/l/bayes-mvp.svg?style=flat-square
 
 > Network adequacy tool for [Bayes Impact](https://github.com/bayesimpact)
 
@@ -35,3 +35,7 @@ Then, open *https://localhost:9000* in your browser.
 ## Editor
 
 I suggest editing this project using [VSCode](https://code.visualstudio.com/).
+
+## License
+
+Apache2
