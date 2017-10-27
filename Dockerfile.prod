@@ -7,6 +7,8 @@ COPY . /usr/src/app
 
 ADD src /usr/src/app/src
 
+EXPOSE 8081
+
 RUN yarn
 
-CMD ["yarn", "build"]
+CMD ["yarn", "build:docker"]
