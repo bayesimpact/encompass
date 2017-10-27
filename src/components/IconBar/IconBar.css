@@ -2,7 +2,6 @@
 
 .IconBar {
   background: var(--primary-dark);
-  color: #fff;
   position: absolute;
     bottom: 0;
     left: 0;
@@ -15,5 +14,6 @@
 }
 
 .IconBar li a {
+  color: #fff;
   display: block;
 }
