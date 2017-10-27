@@ -1,6 +1,6 @@
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { store } from '../../services/store'
+import { store, withStore } from '../../services/store'
 import { parseCSV } from '../../utils/csv'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 
@@ -8,27 +8,25 @@ type State = {
   file?: File
 }
 
-export class ServiceAreas extends React.Component {
-  state: State = {}
+/**
+ * TODO: Show loading indicator while CSV is uploading + parsing
+ */
+export let ServiceAreas = withStore('serviceAreasFilename')(({ store }) =>
+  <Drawer className='LeftDrawer' open={true}>
+    <h2>Service Areas</h2>
+    <CSVUploader onUpload={onFileSelected} />
+    <p className='Ellipsis Muted SmallFont'>{
+      store.get('serviceAreasFilename')
+        ? `Uploaded ${store.get('serviceAreasFilename')}`
+        : 'Upload valid zip codes and/or counties'
+    }</p>
+  </Drawer >
+)
 
-  render() {
-    return <Drawer className='LeftDrawer' open={true}>
-      <h2>Service Areas</h2>
-      <CSVUploader onUpload={this.onFileSelected} />
-      <p className='Ellipsis Muted SmallFont'>{
-        this.state.file
-          ? `Uploaded ${this.state.file.name}`
-          : 'Upload valid zip codes and/or counties'
-      }</p>
-    </Drawer>
-  }
-
-  onFileSelected = async (file: File) => {
-    this.setState({ file })
-    let serviceAreas = await parseServiceAreasCSV(file)
-    store.set('serviceAreas', serviceAreas) // TODO: use withStore HOC instead
-  }
-
+async function onFileSelected(file: File) {
+  let serviceAreas = await parseServiceAreasCSV(file)
+  store.set('serviceAreas', serviceAreas)
+  store.set('serviceAreasFilename', file.name)
 }
 
 /**

@@ -3,7 +3,7 @@ import * as React from 'react'
 import { store, withStore } from '../../services/store'
 import './FilterBar.css'
 
-export let FilterBar = withStore(({ store }) =>
+export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
   <Paper className='FilterBar' zDepth={1}>
 
     <div className='Filter'>
