@@ -20,9 +20,15 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.json']
   },
   module: {
-    rules: [
-      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+    rules: [{
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader'
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader'
+      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -30,10 +36,14 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: loader => [
-                  require('postcss-import')(),
-                  require('postcss-cssnext')({ browsers: '>2%' }),
-                  require('postcss-inline-svg')(),
-                  require('postcss-svgo')(),
+                require('postcss-import')(),
+                require('postcss-cssnext')({
+                  browsers: '>2%'
+                }),
+                require('postcss-inline-svg')({
+                  path: './node_modules'
+                }),
+                require('postcss-svgo')(),
               ]
             }
           }]

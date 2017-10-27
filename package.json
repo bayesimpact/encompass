@@ -19,6 +19,7 @@
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.41.0",
     "material-ui": "^0.19.4",
+    "mui-icons": "^1.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-mapbox-gl": "^2.7.0",
