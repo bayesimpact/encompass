@@ -11,13 +11,23 @@
 2. Install Node 8: `nvm install v8.1.3`
 3. Install [Yarn](https://yarnpkg.com/en/docs/install)
 4. Clone this repo: `git clone git@github.com:bcherny/bayes-mvp.git`
-5. Run it:
 
-  ```sh
-  cd bayes-mvp/client
-  yarn
-  yarn build
-  yarn start
-  ```
+## Environment
 
-6. Open *https://localhost:9000* in your browser
+Create a file called ".env" in the root of this repo and define `MAPBOX_TOKEN` in it. For example:
+
+```sh
+# contents of .env:
+MAPBOX_TOKEN=abcdefg
+```
+
+## Run
+
+```sh
+cd bayes-mvp/client
+yarn
+yarn build
+yarn start
+```
+
+Then, open *https://localhost:9000* in your browser.

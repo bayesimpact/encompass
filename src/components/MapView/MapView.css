@@ -1,0 +1,6 @@
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+.MapView {
+  height: 100%;
+  width: 100%;
+}
