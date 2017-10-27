@@ -13,9 +13,9 @@ export let LeftPane = () =>
       <div>
         <IconBar />
         <div className='LeftPaneContent'>
-          <Route path='/analytics' component={Analytics}/>
-          <Route path='/providers' component={Providers}/>
-          <Route path='/service-areas' component={ServiceAreas}/>
+          <Route path='/analytics' component={Analytics} />
+          <Route path='/providers' component={Providers} />
+          <Route path='/service-areas' component={ServiceAreas} />
           <Route path='/settings' component={Settings} />
         </div>
       </div>

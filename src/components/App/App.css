@@ -1,3 +1,5 @@
+@import "../../index.css";
+
 /*
   CSS Reset
 */
@@ -21,12 +23,37 @@ html, body, #App, .App {
   width: 100%;
 }
 
+h2 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 36px;
+  text-transform: uppercase;
+}
+
+p {
+  padding: 12px 0;
+}
+
 /*
   Utilities
 */
 
+.Ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Muted {
+  color: var(--muted);
+}
+
 .PullRight {
   float: right;
+}
+
+.SmallFont {
+  font-size: 12px;
 }
 
 /*
