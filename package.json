@@ -1,8 +1,8 @@
 {
-  "name": "bayes-mvp",
+  "name": "@bayesimpact/tds-frontend",
   "version": "1.0.0",
   "main": "dist/bundle.js",
-  "repository": "git@github.com:bcherny/bayes-mvp.git",
+  "repository": "git@github.com:bayesimpact/tds-frontend.git",
   "author": "Boris Cherny <boris@performancejs.com>",
   "license": "Apache-2.0",
   "scripts": {
