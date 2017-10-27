@@ -7,6 +7,8 @@ COPY . /usr/src/app
 
 ADD src /usr/src/app/src
 
+EXPOSE 9000
+
 RUN yarn
 RUN yarn build
 
