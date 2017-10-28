@@ -1,5 +1,6 @@
 import { MuiThemeProvider } from 'material-ui/styles'
 import * as React from 'react'
+import '../../services/effects'
 import { FilterBar } from '../FilterBar/FilterBar'
 import { Header } from '../Header/Header'
 import { LeftPane } from '../LeftPane/LeftPane'

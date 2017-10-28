@@ -1,6 +1,8 @@
 import { connect, createStore } from 'babydux'
+import { RepresentativePoint } from './api'
+import { withEffects } from './effects'
 
-type Store = {
+export type Actions = {
 
   /**
    * Counties selected by the user in the Service Area Drawer.
@@ -11,6 +13,11 @@ type Store = {
 
   distribution: number
   measure: '15_miles' | '20_miles' | '30_miles'
+
+  /**
+   * Representative points, fetched and cached given a `distribution` and `serviceArea`.
+   */
+  representativePoints: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | null
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -33,13 +40,14 @@ type Store = {
   uploadedServiceAreasFilename: string | null
 }
 
-export let store = createStore<Store>({
+export let store = withEffects(createStore<Actions>({
+  counties: [],
   distribution: 0.5,
   measure: '15_miles',
-  uploadedServiceAreasFilename: null,
+  representativePoints: null,
   serviceAreas: [],
-  counties: [],
-  standard: 'time_distance'
-}, true)
+  standard: 'time_distance',
+  uploadedServiceAreasFilename: null
+}, true))
 
 export let withStore = connect(store)
