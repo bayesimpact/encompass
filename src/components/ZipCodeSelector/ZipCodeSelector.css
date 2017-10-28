@@ -15,11 +15,5 @@
 }
 
 .ZipCodeSelectorHeadline {
-  display: flex;
-  flex: none;
-  margin: 5px 0 15px;
-}
-
-.ZipCodeSelectorHeadline .PullRight {
-  color: var(--secondary);
+  margin: 5px 20px 15px 0;
 }

@@ -8,6 +8,7 @@ import { capitalizeWords } from '../../utils/string'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
+import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
 
 type State = {
   file?: File
@@ -16,13 +17,17 @@ type State = {
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreas = withStore('serviceAreasCounties', 'serviceAreasFilename')(({ store }) =>
+export let ServiceAreas = withStore(
+  'countyZips',
+  'serviceAreasCounties',
+  'uploadedServiceAreasFilename'
+)(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Service Areas</h2>
     <CSVUploader onUpload={onFileSelected} />
     <p className='Ellipsis Muted SmallFont'>{
-      store.get('serviceAreasFilename')
-        ? `Uploaded ${store.get('serviceAreasFilename')}`
+      store.get('uploadedServiceAreasFilename')
+        ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
         : 'Upload valid zip codes and/or counties'
     }</p>
 
@@ -33,14 +38,19 @@ export let ServiceAreas = withStore('serviceAreasCounties', 'serviceAreasFilenam
       onChange={store.set('serviceAreasCounties')}
       selectedCounties={store.get('serviceAreasCounties')}
     />
+    <ZipCodeSelector
+      counties={store.get('serviceAreasCounties')}
+      onChange={store.set('countyZips')}
+      selectedCountyZips={store.get('countyZips')}
+    />
   </Drawer >
-)
+  )
 
 async function onFileSelected(file: File) {
   let serviceAreas = await parseServiceAreasCSV(file)
-  store.set('serviceAreas')(serviceAreas)
+  store.set('uploadedServiceAreas')(serviceAreas)
   store.set('serviceAreasCounties')(getCounties(serviceAreas))
-  store.set('serviceAreasFilename')(file.name)
+  store.set('uploadedServiceAreasFilename')(file.name)
 }
 
 function getCounties(serviceAreas: [string, number][]): string[] {

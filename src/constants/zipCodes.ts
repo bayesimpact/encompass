@@ -1,3 +1,5 @@
+import { chain } from 'lodash'
+
 export const SERVICE_AREAS_TO_ZIPS: {
   [county: string]: number[]
 } = {
@@ -62,3 +64,20 @@ export const SERVICE_AREAS_TO_ZIPS: {
   }
 
 export const COUNTIES = Object.keys(SERVICE_AREAS_TO_ZIPS).sort()
+
+export const ZIP_CODES = chain(SERVICE_AREAS_TO_ZIPS).values().flatten().uniq().sort().value()
+
+export const COUNTYZIPS = countyZipsFromCounties(COUNTIES)
+
+/** TODO: Move to utils */
+export function countyZip(county: string, zip: number) {
+  return `${county}-${zip}`
+}
+
+/** TODO: Move to utils */
+export function countyZipsFromCounties(counties: string[]) {
+  return chain(counties)
+    .map(_ => SERVICE_AREAS_TO_ZIPS[_].map(z => countyZip(_, z)))
+    .flatten()
+    .value()
+}
