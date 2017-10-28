@@ -10,7 +10,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Distribution</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('distribution', value)}
+        onChange={(e, i, value) => store.set('distribution')(value)}
         value={store.get('distribution')}
       >
         <MenuItem value={0.5} primaryText='0.5 miles' />
@@ -23,7 +23,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('standard', value)}
+        onChange={(e, i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
         <MenuItem value='time_distance' primaryText='Time and Distance' />
@@ -36,7 +36,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('measure', value)}
+        onChange={(e, i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >
         <MenuItem value='15_miles' primaryText='15 miles / 30 min' />

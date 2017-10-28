@@ -29,14 +29,18 @@ export let ServiceAreas = withStore('serviceAreasCounties', 'serviceAreasFilenam
     <hr />
 
     <StateSelector />
+    <CountySelector
+      onChange={store.set('serviceAreasCounties')}
+      selectedCounties={store.get('serviceAreasCounties')}
+    />
   </Drawer >
 )
 
 async function onFileSelected(file: File) {
   let serviceAreas = await parseServiceAreasCSV(file)
-  store.set('serviceAreas', serviceAreas)
-  store.set('serviceAreasCounties', getCounties(serviceAreas))
-  store.set('serviceAreasFilename', file.name)
+  store.set('serviceAreas')(serviceAreas)
+  store.set('serviceAreasCounties')(getCounties(serviceAreas))
+  store.set('serviceAreasFilename')(file.name)
 }
 
 function getCounties(serviceAreas: [string, number][]): string[] {

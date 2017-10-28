@@ -511,9 +511,9 @@ babel-runtime@^6.23.0, babel-runtime@^6.26.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
-babydux@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/babydux/-/babydux-1.2.0.tgz#dd13eb54ef4a9eb82deab2e606c9732e7aafdb2e"
+babydux@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/babydux/-/babydux-1.3.0.tgz#c7f5ab97ac706f9d01ea0c27fe7c073d9724da58"
   dependencies:
     typed-rx-emitter "^0.3.0"
 
