@@ -21,7 +21,7 @@ export type Actions = {
 
   /**
    * Strings representing county-zip tuples selected by the user in the
-   * Service Area Drawer. For example, `["Yolo", 95606]` maps to the
+   * Service Area Drawer. For example, `["Yolo", "95606"]` maps to the
    * string `"Yolo-95606"`. This representation makes it cheap to compare
    * county-zip tuples because strings are reference-equal, but arrays are
    * not. It also makes it easy to get back the original county-zip tuple.

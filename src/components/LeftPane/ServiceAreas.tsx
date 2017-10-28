@@ -52,7 +52,7 @@ async function onFileSelected(file: File) {
   store.set('uploadedServiceAreasFilename')(file.name)
 }
 
-function getCounties(serviceAreas: [string, number][]): string[] {
+function getCounties(serviceAreas: [string, string][]): string[] {
   return chain(serviceAreas)
     .map(_ => _[0])
     .uniq()
@@ -63,7 +63,7 @@ function getCounties(serviceAreas: [string, number][]): string[] {
  * TODO: Fuzzy matching for column names
  * TODO: Expose parse, validation errors to user
  */
-async function parseServiceAreasCSV(file: File): Promise<[string, number][]> {
+async function parseServiceAreasCSV(file: File): Promise<[string, string][]> {
   let csv = await parseCSV<string[]>(file)
   let countyIndex = csv[0].indexOf('CountyName')
   let zipIndex = csv[0].indexOf('ZipCode')
@@ -79,7 +79,7 @@ async function parseServiceAreasCSV(file: File): Promise<[string, number][]> {
     .map(_ => {
 
       let county = capitalizeWords(_[countyIndex])
-      let zip = Number(_[zipIndex]) // in case zip code isn't a number already
+      let zip = _[zipIndex]
 
       // validate that county exists
       if (!(county in COUNTIES_TO_ZIPS)) {
@@ -92,7 +92,7 @@ async function parseServiceAreasCSV(file: File): Promise<[string, number][]> {
         throw `Zip ${zip} does not exist in county "${county}"`
       }
 
-      return [county, zip] as [string, number]
+      return [county, zip] as [string, string]
     })
     .value()
 }
