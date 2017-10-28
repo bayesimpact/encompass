@@ -6,6 +6,7 @@ type Store = {
   /* [county, zip code][] */
   serviceAreas: [string, number][]
   serviceAreasFilename: string | null
+  serviceAreasCounties: string[]
   standard: 'time_distance' | 'time' | 'distance'
 }
 
@@ -13,6 +14,7 @@ export let store = createStore<Store>({
   distribution: 0.5,
   measure: '15_miles',
   serviceAreas: [],
+  serviceAreasCounties: [],
   serviceAreasFilename: null,
   standard: 'time_distance'
 }, true)
