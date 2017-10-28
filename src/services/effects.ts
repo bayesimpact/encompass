@@ -9,10 +9,11 @@ export function withEffects(store: Store<Actions>) {
    * Update representative points when distribution or serviceAreas change
    */
   Observable
-    .merge(store.on('distribution') as any, store.on('serviceAreas'))
-    .subscribe(async () => {
-      let distribution = store.get('distribution') // TODO: get from arguments
-      let serviceAreas = store.get('serviceAreas') // TODO: get from arguments
+    .combineLatest(
+    store.on('distribution').startWith(store.get('distribution')),
+    store.on('serviceAreas').startWith(store.get('serviceAreas'))
+    )
+    .subscribe(async ([distribution, serviceAreas]) => {
       let points = await getRepresentativePoints(distribution, serviceAreas)
       store.set('representativePoints')(toGeoJSON(points))
     })
