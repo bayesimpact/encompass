@@ -1,6 +1,6 @@
 import { chain } from 'lodash'
 
-export const SERVICE_AREAS_TO_ZIPS: {
+export const COUNTIES_TO_ZIPS: {
   [county: string]: number[]
 } = {
     Alameda: [94501, 94502, 94505, 94513, 94514, 94530, 94536, 94537, 94538, 94539, 94540, 94541, 94542, 94543, 94544, 94545, 94546, 94550, 94551, 94552, 94555, 94557, 94560, 94563, 94566, 94568, 94577, 94578, 94579, 94580, 94583, 94586, 94587, 94588, 94601, 94602, 94603, 94604, 94605, 94606, 94607, 94608, 94609, 94610, 94611, 94612, 94614, 94618, 94619, 94620, 94621, 94623, 94624, 94661, 94662, 94701, 94702, 94703, 94704, 94705, 94706, 94707, 94708, 94709, 94710, 94712, 94804, 95035, 95377, 95391],
@@ -63,21 +63,25 @@ export const SERVICE_AREAS_TO_ZIPS: {
     Yuba: [95648, 95674, 95681, 95692, 95901, 95903, 95914, 95918, 95919, 95922, 95925, 95930, 95935, 95941, 95949, 95960, 95961, 95962, 95966, 95972, 95977]
   }
 
-export const COUNTIES = Object.keys(SERVICE_AREAS_TO_ZIPS).sort()
+export const COUNTIES = Object.keys(COUNTIES_TO_ZIPS).sort()
 
-export const ZIP_CODES = chain(SERVICE_AREAS_TO_ZIPS).values().flatten().uniq().sort().value()
+export const ZIPS = chain(COUNTIES_TO_ZIPS).values().flatten().uniq().sort().value()
 
-export const COUNTYZIPS = countyZipsFromCounties(COUNTIES)
+/**
+ * TODO: Assign integer IDs to each county-zip tuple instead
+ * of using these ad-hoc string keys
+ */
+export const SERVICE_AREAS = serviceAreasFromCounties(COUNTIES)
 
 /** TODO: Move to utils */
-export function countyZip(county: string, zip: number) {
+export function serviceArea(county: string, zip: number) {
   return `${county}-${zip}`
 }
 
 /** TODO: Move to utils */
-export function countyZipsFromCounties(counties: string[]) {
+export function serviceAreasFromCounties(counties: string[]) {
   return chain(counties)
-    .map(_ => SERVICE_AREAS_TO_ZIPS[_].map(z => countyZip(_, z)))
+    .map(_ => COUNTIES_TO_ZIPS[_].map(z => serviceArea(_, z)))
     .flatten()
     .value()
 }
