@@ -79,6 +79,10 @@
   version "8.0.47"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.47.tgz#968e596f91acd59069054558a00708c445ca30c2"
 
+"@types/papaparse@^4.1.31":
+  version "4.1.31"
+  resolved "https://registry.yarnpkg.com/@types/papaparse/-/papaparse-4.1.31.tgz#4cf1b3588f91f7f64d73bf9f14f5ff8754d43312"
+
 "@types/prop-types@^15.5.2":
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.2.tgz#3c6b8dceb2906cc87fe4358e809f9d20c8d59be1"
@@ -507,9 +511,9 @@ babel-runtime@^6.23.0, babel-runtime@^6.26.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
-babydux@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/babydux/-/babydux-1.0.1.tgz#9fe07fd5396669f1353b028c7cea31e368a0e446"
+babydux@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/babydux/-/babydux-1.3.0.tgz#c7f5ab97ac706f9d01ea0c27fe7c073d9724da58"
   dependencies:
     typed-rx-emitter "^0.3.0"
 
@@ -3705,6 +3709,10 @@ package-json-versionify@^1.0.2:
 pako@~0.2.0:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/pako/-/pako-0.2.9.tgz#f3f7522f4ef782348da8161bad9ecfd51bf83a75"
+
+papaparse@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.3.6.tgz#9566eda0ecab13afcb740a62381c699f486cb145"
 
 param-case@2.1.x:
   version "2.1.1"

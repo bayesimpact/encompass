@@ -3,11 +3,10 @@ import * as React from 'react'
 import './CSVUploader.css'
 
 type Props = {
-  onFileSelected(file: File): void
-  selectedCSVFileName: string
+  onUpload(file: File): void
 }
 
-export let CSVUploader: React.StatelessComponent<Props> = ({ onFileSelected, selectedCSVFileName }) =>
+export let CSVUploader: React.StatelessComponent<Props> = ({ onUpload }) =>
   <div className='CSVUploader'>
     <RaisedButton
       containerElement='label'
@@ -15,14 +14,9 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ onFileSelected, sel
       label='upload CSV'
     >
       <input
-        onChange={e => onFileSelected(e.target.files[0])}
+        onChange={e => e.target.files && onUpload(e.target.files[0])}
         type='file'
         accept='.csv'
       />
     </RaisedButton>
-    <div className='UploadMessage'>{
-      selectedCSVFileName
-        ? `Uploaded - ${selectedCSVFileName}`
-        : `Upload valid ZIP Codes and/or Counties`
-    }</div>
   </div>

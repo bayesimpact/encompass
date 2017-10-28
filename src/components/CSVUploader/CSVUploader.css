@@ -1,17 +1,9 @@
 @import "../../index.css";
 
 .CSVUploader {
-  align-items: center;
-  display: flex;
+  padding: 12px 0 0;
 }
 
-.CSVUploader .UploadMessage {
-  color: var(--secondary);
-  font-size: 12px;
-  height: 24px;
-  margin-top: 10px;
-  max-width: 250px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.CSVUploader input[type="file"] {
+  display: none;
 }

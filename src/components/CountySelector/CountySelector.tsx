@@ -1,40 +1,26 @@
 import { difference } from 'lodash'
-import { MenuItem, SelectField } from 'material-ui'
+import { MenuItem, SelectField, TouchTapEvent } from 'material-ui'
 import * as React from 'react'
+import { COUNTIES } from '../../constants/zipCodes'
 
 type Props = {
-  counties: {
-    [county: string]: {
-      zips: string[]
-    }
-  }
-  onRemoveCounty(county: string): void
-  onSelectCounty(county: string): void
+  onChange(counties: string[]): void
   selectedCounties: string[]
 }
 
-export let CountySelector: React.StatelessComponent<Props> = props =>
+export let CountySelector: React.StatelessComponent<Props> = ({ onChange, selectedCounties }) =>
   <SelectField
     multiple={true}
     hintText='Select counties'
-    value={props.selectedCounties}
-    onChange={handleChange(props)}
+    value={selectedCounties}
+    onChange={(e, i, values: string[]) => onChange(values)}
   >
-    {Object.keys(props.counties).sort().map(_ =>
+    {COUNTIES.map(_ =>
       <MenuItem
         key={_}
         insetChildren={true}
-        checked={props.selectedCounties.includes(_)}
+        checked={selectedCounties.includes(_)}
         value={_}
         primaryText={_} />
     )}
   </SelectField>
-
-function handleChange({ onRemoveCounty, onSelectCounty, selectedCounties }: Props) {
-  return (_, __, values: string[]) => {
-    let removedValues = difference(selectedCounties, values)
-    removedValues.forEach(onRemoveCounty)
-    let selectedValues = difference(values, selectedCounties)
-    selectedValues.forEach(onSelectCounty)
-  }
-}

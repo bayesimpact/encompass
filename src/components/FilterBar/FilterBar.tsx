@@ -3,14 +3,14 @@ import * as React from 'react'
 import { store, withStore } from '../../services/store'
 import './FilterBar.css'
 
-export let FilterBar = withStore(({ store }) =>
+export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
   <Paper className='FilterBar' zDepth={1}>
 
     <div className='Filter'>
       <span>Distribution</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('distribution', value)}
+        onChange={(e, i, value) => store.set('distribution')(value)}
         value={store.get('distribution')}
       >
         <MenuItem value={0.5} primaryText='0.5 miles' />
@@ -23,7 +23,7 @@ export let FilterBar = withStore(({ store }) =>
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('standard', value)}
+        onChange={(e, i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
         <MenuItem value='time_distance' primaryText='Time and Distance' />
@@ -36,7 +36,7 @@ export let FilterBar = withStore(({ store }) =>
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu --Compact'
-        onChange={(e, i, value) => store.set('measure', value)}
+        onChange={(e, i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >
         <MenuItem value='15_miles' primaryText='15 miles / 30 min' />
