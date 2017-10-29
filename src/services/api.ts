@@ -5,7 +5,14 @@ const API_ROOT = 'https://localhost:9001'
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>
     <T>(body: object) =>
-      fetch(new Request(API_ROOT + url, { method, body })).then<T>(_ => _.json())
+      fetch(new Request(API_ROOT + url, {
+        body: JSON.stringify(body),
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        method
+      })).then<T>(_ => _.json())
 
 let POST = request('POST')
 
