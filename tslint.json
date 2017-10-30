@@ -3,7 +3,7 @@
   "rules": {
     "adjacent-overload-signatures": true,
     "class-name": true,
-    "comment-format": [true, "check-space"],
+    "comment-format": [true, "check-space", "check-uppercase"],
     "eofline": true,
     "indent": [true, "spaces"],
     "jsx-alignment": false,
@@ -41,7 +41,10 @@
     ],
     "quotemark": [true, "single", "avoid-escape"],
     "semicolon": [true, "never"],
-    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "trailing-comma": [true, {
+      "multiline": "never",
+      "singleline": "never"
+    }],
     "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [true, {
       "call-signature": "nospace",

@@ -25,7 +25,7 @@ export function parseRows<T>(
     let csv = await parseCSV<string[]>(file)
     let columnIndices = findColumns(csv, columns)
     return chain(csv)
-      .slice(1) // ignore header row
+      .slice(1) // Ignore header row
       .map((row, index) => {
         let fields = readRow(row, columnIndices)
         return getError(columns, fields, index) || f(fields)
