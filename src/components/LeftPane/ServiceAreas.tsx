@@ -1,13 +1,14 @@
 import { capitalize, chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { SERVICE_AREAS_TO_ZIPS } from '../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS } from '../../constants/zipCodes'
 import { store, withStore } from '../../services/store'
 import { parseCSV } from '../../utils/csv'
 import { capitalizeWords } from '../../utils/string'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
+import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
 
 type State = {
   file?: File
@@ -16,13 +17,17 @@ type State = {
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreas = withStore('serviceAreasCounties', 'serviceAreasFilename')(({ store }) =>
+export let ServiceAreas = withStore(
+  'counties',
+  'serviceAreas',
+  'uploadedServiceAreasFilename'
+)(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Service Areas</h2>
     <CSVUploader onUpload={onFileSelected} />
     <p className='Ellipsis Muted SmallFont'>{
-      store.get('serviceAreasFilename')
-        ? `Uploaded ${store.get('serviceAreasFilename')}`
+      store.get('uploadedServiceAreasFilename')
+        ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
         : 'Upload valid zip codes and/or counties'
     }</p>
 
@@ -30,20 +35,24 @@ export let ServiceAreas = withStore('serviceAreasCounties', 'serviceAreasFilenam
 
     <StateSelector />
     <CountySelector
-      onChange={store.set('serviceAreasCounties')}
-      selectedCounties={store.get('serviceAreasCounties')}
+      onChange={store.set('counties')}
+      selectedCounties={store.get('counties')}
+    />
+    <ZipCodeSelector
+      counties={store.get('counties')}
+      onChange={store.set('serviceAreas')}
+      selectedServiceAreas={store.get('serviceAreas')}
     />
   </Drawer >
-)
+  )
 
 async function onFileSelected(file: File) {
   let serviceAreas = await parseServiceAreasCSV(file)
-  store.set('serviceAreas')(serviceAreas)
-  store.set('serviceAreasCounties')(getCounties(serviceAreas))
-  store.set('serviceAreasFilename')(file.name)
+  store.set('counties')(getCounties(serviceAreas))
+  store.set('uploadedServiceAreasFilename')(file.name)
 }
 
-function getCounties(serviceAreas: [string, number][]): string[] {
+function getCounties(serviceAreas: [string, string][]): string[] {
   return chain(serviceAreas)
     .map(_ => _[0])
     .uniq()
@@ -54,7 +63,7 @@ function getCounties(serviceAreas: [string, number][]): string[] {
  * TODO: Fuzzy matching for column names
  * TODO: Expose parse, validation errors to user
  */
-async function parseServiceAreasCSV(file: File): Promise<[string, number][]> {
+async function parseServiceAreasCSV(file: File): Promise<[string, string][]> {
   let csv = await parseCSV<string[]>(file)
   let countyIndex = csv[0].indexOf('CountyName')
   let zipIndex = csv[0].indexOf('ZipCode')
@@ -70,20 +79,20 @@ async function parseServiceAreasCSV(file: File): Promise<[string, number][]> {
     .map(_ => {
 
       let county = capitalizeWords(_[countyIndex])
-      let zip = Number(_[zipIndex]) // in case zip code isn't a number already
+      let zip = _[zipIndex]
 
       // validate that county exists
-      if (!(county in SERVICE_AREAS_TO_ZIPS)) {
+      if (!(county in COUNTIES_TO_ZIPS)) {
         throw `County "${county}" is not supported`
       }
 
       // validate that zip code is in county
       // TODO: consider pre-hashing zips for O(1) lookup
-      if (!SERVICE_AREAS_TO_ZIPS[county].includes(zip)) {
+      if (!COUNTIES_TO_ZIPS[county].includes(zip)) {
         throw `Zip ${zip} does not exist in county "${county}"`
       }
 
-      return [county, zip] as [string, number]
+      return [county, zip] as [string, string]
     })
     .value()
 }

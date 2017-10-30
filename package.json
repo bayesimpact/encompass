@@ -24,7 +24,8 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-mapbox-gl": "^2.7.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "rx": "^4.1.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.79",
