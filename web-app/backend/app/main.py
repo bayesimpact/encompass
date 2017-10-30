@@ -1,4 +1,5 @@
 """Routing for backend API."""
+from backend.app.requests import providers
 from backend.lib.database import dynamo_db
 from backend.lib.timer import timed
 
@@ -19,7 +20,6 @@ def fetch_available_service_areas():
     # Get the available service areas from DynamoDB.
     response = service_areas_table.scan()
     items = response['Items']
-
     return flask.jsonify({'result': items})
 
 
@@ -28,7 +28,8 @@ def fetch_available_service_areas():
 def fetch_providers():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return provider ids.')
-    return flask.jsonify({'result': flask.request.args})
+    response = providers.providers_request(app, flask.request)
+    return flask.jsonify(response)
 
 
 @timed
