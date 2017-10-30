@@ -1,5 +1,5 @@
 import { connect, createStore } from 'babydux'
-import { HydratedProvider, POSTProvidersRequest, RepresentativePoint } from './api'
+import { HydratedProvider, RepresentativePoint, WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
 export type Actions = {
@@ -42,7 +42,7 @@ export type Actions = {
   /**
    * Parsed from the uploaded providers CSV
    */
-  uploadedProviders: POSTProvidersRequest[]
+  uploadedProviders: WriteProvidersRequest[]
 
   /**
    * Filename of the CSV the user uploaded to compute `providers`.

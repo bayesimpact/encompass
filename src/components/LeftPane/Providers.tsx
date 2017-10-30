@@ -1,7 +1,7 @@
 import { chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { POSTProvidersRequest } from '../../services/api'
+import { WriteProvidersRequest } from '../../services/api'
 import { store, withStore } from '../../services/store'
 import { ColumnDefinition, parseCSV, parseRows } from '../../utils/csv'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
@@ -65,7 +65,7 @@ let parse = parseRows(COLUMNS, ([address, address2, city, state, zip,
 /**
  * TODO: Expose parse, validation errors to user
  */
-async function parseProvidersCSV(file: File): Promise<POSTProvidersRequest[]> {
+async function parseProvidersCSV(file: File): Promise<WriteProvidersRequest[]> {
   let rows = await parse(file)
   console.log(rows)
   return rows[1]

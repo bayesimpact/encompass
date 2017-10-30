@@ -16,7 +16,7 @@ let request = (method: 'GET' | 'POST') =>
 
 let POST = request('POST')
 
-export type POSTProvidersRequest = {
+export type WriteProvidersRequest = {
   address: string
   /** Eg. "Burmese", "Chinese", "Spanish", etc.  */
   languages: string[]
@@ -27,13 +27,13 @@ export type POSTProvidersRequest = {
 }
 
 // TODO: Move this somewhere else
-export type HydratedProvider = POSTProvidersRequest & {
+export type HydratedProvider = WriteProvidersRequest & {
   id: number
   lat: number
   lng: number
 }
 
-type POSTProvidersResponse = {
+type WriteProvidersResponse = {
   successes: {
     address: string
     id: number
@@ -54,9 +54,9 @@ export type RepresentativePoint = {
   service_area_id: number
 }
 
-type GETRepresentativePointsResponse = RepresentativePoint[]
+type ReadRepresentativePointsResponse = RepresentativePoint[]
 
-type GETAdequaciesResponse = {
+type ReadAdequaciesResponse = {
   id: number
   distance_to_closest_provider: number
   time_to_closest_provider: number
@@ -64,17 +64,17 @@ type GETAdequaciesResponse = {
   closest_provider_by_time: number
 }
 
-export let postProviders = (providers: POSTProvidersRequest[]) =>
-  POST('/api/providers')<POSTProvidersResponse>(providers)
+export let postProviders = (providers: WriteProvidersRequest[]) =>
+  POST('/api/providers')<WriteProvidersResponse>(providers)
 
 export let getRepresentativePoints = memoize(
   (distribution: number, serviceAreaIds: string[]) =>
-    POST('/api/representative_points')<GETRepresentativePointsResponse>({ distribution, serviceAreaIds }),
+    POST('/api/representative_points')<ReadRepresentativePointsResponse>({ distribution, serviceAreaIds }),
   (distribution: number, serviceAreaIds: string[]) => `${distribution}-${serviceAreaIds.join(',')}`
 )
 
 export let getAdequacies = memoize(
   (providersIds: number[], serviceAreaIds: string[]) =>
-    POST('/api/adequacies')<GETAdequaciesResponse>({ providersIds, serviceAreaIds }),
+    POST('/api/adequacies')<ReadAdequaciesResponse>({ providersIds, serviceAreaIds }),
   (providersIds: number[], serviceAreaIds: string[]) => `${providersIds.join(',')}-${serviceAreaIds.join(',')}`
 )
