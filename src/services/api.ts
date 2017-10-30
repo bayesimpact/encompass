@@ -16,10 +16,35 @@ let request = (method: 'GET' | 'POST') =>
 
 let POST = request('POST')
 
-type POSTProvidersResponse = (
-  { status: 1, id: number, lat: number, lng: number }
-  | { status: 2 }
-)[]
+export type WriteProvidersRequest = {
+  address: string
+  /** Eg. "Burmese", "Chinese", "Spanish", etc.  */
+  languages: string[]
+  /** Unique 10-digit gov't ID assigned to each healthcare provider. */
+  npi: number
+  /** Eg. "Internal Medicine", "Obstetrics/Gynecology", etc. */
+  specialty: string
+}
+
+// TODO: Move this somewhere else
+export type HydratedProvider = WriteProvidersRequest & {
+  id: number
+  lat: number
+  lng: number
+}
+
+type WriteProvidersResponse = {
+  successes: {
+    address: string
+    id: number
+    lat: number
+    lng: number
+  }[]
+  errors: {
+    address: string
+    message: string
+  }[]
+}
 
 export type RepresentativePoint = {
   id: number
@@ -29,9 +54,9 @@ export type RepresentativePoint = {
   service_area_id: number
 }
 
-type GETRepresentativePointsResponse = RepresentativePoint[]
+type ReadRepresentativePointsResponse = RepresentativePoint[]
 
-type GETAdequaciesResponse = {
+type ReadAdequaciesResponse = {
   id: number
   distance_to_closest_provider: number
   time_to_closest_provider: number
@@ -39,17 +64,17 @@ type GETAdequaciesResponse = {
   closest_provider_by_time: number
 }
 
-export let postProviders = (providers: { address: string, type: number }[]) =>
-  POST('/api/providers')<POSTProvidersResponse>(providers)
+export let postProviders = (providers: WriteProvidersRequest[]) =>
+  POST('/api/providers')<WriteProvidersResponse>(providers)
 
 export let getRepresentativePoints = memoize(
   (distribution: number, serviceAreaIds: string[]) =>
-    POST('/api/representative_points')<GETRepresentativePointsResponse>({ distribution, serviceAreaIds }),
+    POST('/api/representative_points')<ReadRepresentativePointsResponse>({ distribution, serviceAreaIds }),
   (distribution: number, serviceAreaIds: string[]) => `${distribution}-${serviceAreaIds.join(',')}`
 )
 
 export let getAdequacies = memoize(
   (providersIds: number[], serviceAreaIds: string[]) =>
-    POST('/api/adequacies')<GETAdequaciesResponse>({ providersIds, serviceAreaIds }),
+    POST('/api/adequacies')<ReadAdequaciesResponse>({ providersIds, serviceAreaIds }),
   (providersIds: number[], serviceAreaIds: string[]) => `${providersIds.join(',')}-${serviceAreaIds.join(',')}`
 )

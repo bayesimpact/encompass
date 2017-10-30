@@ -15,11 +15,7 @@ let Map = ReactMapboxGl({
   accessToken: MAPBOX_TOKEN
 })
 
-const circleLayout: MapboxGL.CircleLayout = {
-  visibility: 'visible'
-}
-
-const circlePaint: MapboxGL.CirclePaint = {
+const representativePointCircleStyle: MapboxGL.CirclePaint = {
   'circle-color': '#8eacbb',
   'circle-opacity': 0.8,
   'circle-radius': {
@@ -32,7 +28,19 @@ const circlePaint: MapboxGL.CirclePaint = {
   }
 }
 
-export let MapView = withStore('representativePoints')(({ store }) => {
+/**
+ * TODO: Use icon?
+ *
+ * @see https://www.mapbox.com/maki-icons/
+ */
+const providerCircleStyle: MapboxGL.CirclePaint = {
+  'circle-color': '#757de8',
+  'circle-opacity': 0.8,
+  'circle-radius': 5
+}
+
+export let MapView = withStore('providers', 'representativePoints')(({ store }) => {
+  let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
   return <div className='MapView'>
     <Map
@@ -40,8 +48,14 @@ export let MapView = withStore('representativePoints')(({ store }) => {
       center={CENTER_OF_CALIFORNIA}
       zoom={[12]}
     >
-      {representativePoints && <GeoJSONLayer data={representativePoints}
-        circlePaint={circlePaint} />}
+      {representativePoints && <GeoJSONLayer
+        data={representativePoints}
+        circlePaint={representativePointCircleStyle}
+      />}
+      {providers && <GeoJSONLayer
+        data={providers}
+        circlePaint={providerCircleStyle}
+      />}
       <ZoomControl position='bottomLeft' />
       <ScaleControl measurement='mi' position='bottomLeft' style={{ left: 48 }} />
     </Map>

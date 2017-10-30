@@ -6,11 +6,20 @@ import * as React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import './IconBar.css'
 
+const links: [string, React.ComponentClass][] = [
+  ['/service-areas', MarkerIcon],
+  ['/providers', ProvidersIcon],
+  ['/analytics', ChartIcon],
+  ['/settings', SettingsIcon]
+]
+
 export let IconBar = withRouter(({ location: { pathname } }) =>
   <ul className='IconBar'>
-    <li><Link to={pathname === '/service-areas' ? '' : '/service-areas'}><MarkerIcon /></Link></li>
-    <li><Link to={pathname === '/providers' ? '' : '/providers'}><ProvidersIcon /></Link></li>
-    <li><Link to={pathname === '/analytics' ? '' : '/analytics'}><ChartIcon /></Link></li>
-    <li><Link to={pathname === '/settings' ? '' : '/settings'}><SettingsIcon /></Link></li>
+    {links.map(([path, Icon]) =>
+      <li key={path}><Link
+        className={pathname === path ? '-Active' : ''}
+        to={pathname === path ? '' : path}
+      ><Icon /></Link></li>
+    )}
   </ul>
 )
