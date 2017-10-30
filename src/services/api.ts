@@ -16,10 +16,35 @@ let request = (method: 'GET' | 'POST') =>
 
 let POST = request('POST')
 
-type POSTProvidersResponse = (
-  { status: 1, id: number, lat: number, lng: number }
-  | { status: 2 }
-)[]
+export type POSTProvidersRequest = {
+  address: string
+  /** Eg. "Burmese", "Chinese", "Spanish", etc.  */
+  languages: string[]
+  /** Unique 10-digit gov't ID assigned to each healthcare provider. */
+  npi: number
+  /** Eg. "Internal Medicine", "Obstetrics/Gynecology", etc. */
+  specialty: string
+}
+
+// TODO: Move this somewhere else
+export type HydratedProvider = POSTProvidersRequest & {
+  id: number
+  lat: number
+  lng: number
+}
+
+type POSTProvidersResponse = {
+  successes: {
+    address: string
+    id: number
+    lat: number
+    lng: number
+  }[]
+  errors: {
+    address: string
+    message: string
+  }[]
+}
 
 export type RepresentativePoint = {
   id: number
@@ -39,7 +64,7 @@ type GETAdequaciesResponse = {
   closest_provider_by_time: number
 }
 
-export let postProviders = (providers: { address: string, type: number }[]) =>
+export let postProviders = (providers: POSTProvidersRequest[]) =>
   POST('/api/providers')<POSTProvidersResponse>(providers)
 
 export let getRepresentativePoints = memoize(

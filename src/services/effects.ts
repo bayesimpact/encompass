@@ -1,6 +1,7 @@
 import { Store } from 'babydux'
+import { keyBy } from 'lodash'
 import { Observable } from 'rx'
-import { getRepresentativePoints, RepresentativePoint } from './api'
+import { getRepresentativePoints, HydratedProvider, postProviders, RepresentativePoint } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -15,20 +16,53 @@ export function withEffects(store: Store<Actions>) {
     )
     .subscribe(async ([distribution, serviceAreas]) => {
       let points = await getRepresentativePoints(distribution, serviceAreas)
-      store.set('representativePoints')(toGeoJSON(points))
+      store.set('representativePoints')(toGeoJSON(representativePointToFeature)(points))
     })
+
+  /**
+   * Geocode providers when uploadedProviders changes
+   */
+  store.on('uploadedProviders').subscribe(async providers => {
+    let result = await postProviders(providers)
+    let hash = keyBy(providers, 'address')
+    store.set('providers')(toGeoJSON(providerToFeature)(result.successes.map(_ => ({
+      ...hash[_.address],
+      ..._
+    }))))
+  })
 
   return store
 }
 
-function toGeoJSON(representativePoints: RepresentativePoint[]): GeoJSON.FeatureCollection<GeoJSON.GeometryObject> {
-  return {
+function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) {
+  return (points: T[]): GeoJSON.FeatureCollection<GeoJSON.GeometryObject> => ({
     type: 'FeatureCollection',
-    features: representativePoints.map(pointToFeature)
+    features: points.map(f)
+  })
+}
+
+function providerToFeature(
+  point: HydratedProvider
+): GeoJSON.Feature<GeoJSON.GeometryObject> {
+  return {
+    id: point.id,
+    type: 'Feature',
+    properties: {
+      address: point.address,
+      languages: point.languages,
+      npi: point.npi,
+      specialty: point.specialty
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [point.lng, point.lat]
+    }
   }
 }
 
-function pointToFeature(point: RepresentativePoint): GeoJSON.Feature<GeoJSON.GeometryObject> {
+function representativePointToFeature(
+  point: RepresentativePoint
+): GeoJSON.Feature<GeoJSON.GeometryObject> {
   return {
     id: point.id,
     type: 'Feature',

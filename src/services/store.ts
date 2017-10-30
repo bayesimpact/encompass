@@ -1,5 +1,5 @@
 import { connect, createStore } from 'babydux'
-import { RepresentativePoint } from './api'
+import { HydratedProvider, POSTProvidersRequest, RepresentativePoint } from './api'
 import { withEffects } from './effects'
 
 export type Actions = {
@@ -13,6 +13,11 @@ export type Actions = {
 
   distribution: number
   measure: '15_miles' | '20_miles' | '30_miles'
+
+  /**
+   * Geocoded providers, augmented with metadata from the uploaded providers CSV
+   */
+  providers: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | null
 
   /**
    * Representative points, fetched and cached given a `distribution` and `serviceArea`.
@@ -35,6 +40,16 @@ export type Actions = {
   standard: 'time_distance' | 'time' | 'distance'
 
   /**
+   * Parsed from the uploaded providers CSV
+   */
+  uploadedProviders: POSTProvidersRequest[]
+
+  /**
+   * Filename of the CSV the user uploaded to compute `providers`.
+   */
+  uploadedProvidersFilename: string | null
+
+  /**
    * Filename of the CSV the user uploaded to compute `serviceAreas`.
    */
   uploadedServiceAreasFilename: string | null
@@ -44,9 +59,12 @@ export let store = withEffects(createStore<Actions>({
   counties: [],
   distribution: 0.5,
   measure: '15_miles',
+  providers: null,
   representativePoints: null,
   serviceAreas: [],
   standard: 'time_distance',
+  uploadedProviders: [],
+  uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
 }, true))
 
