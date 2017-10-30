@@ -37,6 +37,7 @@
   z-index: 0;
 }
 
+.IconBar li a.-Active:before,
 .IconBar li a:hover:before {
   opacity: 1;
 }
