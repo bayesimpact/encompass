@@ -9,9 +9,11 @@ export type Provider = {
 }
 
 export type RepresentativePoint = {
+  county: string
   id: number
   lat: number
   lng: number
   population: number
   service_area_id: number
+  zip: string
 }

@@ -12,7 +12,7 @@ export type Actions = {
    */
   counties: string[]
 
-  distribution: number
+  distribution: 0.5 | 2.5 | 5
   measure: '15_miles' | '20_miles' | '30_miles'
 
   /**
