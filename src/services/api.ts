@@ -83,6 +83,9 @@ type ReadAdequaciesResponse = {
 
 export let getAdequacies = memoize(
   (providersIds: number[], serviceAreaIds: string[]) =>
-    POST('/api/adequacies')<ReadAdequaciesResponse>({ providersIds, serviceAreaIds }),
+    POST('/api/adequacies')<ReadAdequaciesResponse>({
+      provider_ids: providersIds,
+      service_area_ids: serviceAreaIds
+    }),
   (providersIds: number[], serviceAreaIds: string[]) => `${providersIds.join(',')}-${serviceAreaIds.join(',')}`
 )

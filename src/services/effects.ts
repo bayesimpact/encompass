@@ -2,7 +2,7 @@ import { Store } from 'babydux'
 import { chain, keyBy } from 'lodash'
 import { Observable } from 'rx'
 import { Provider, RepresentativePoint } from '../constants/datatypes'
-import { getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -42,6 +42,19 @@ export function withEffects(store: Store<Actions>) {
         .value()
     )
   })
+
+  /**
+   * Fetch adequacies when providers or service areas change
+   */
+  Observable
+    .combineLatest(
+    store.on('providers'),
+    store.on('serviceAreas')
+    )
+    .subscribe(async ([providers, serviceAreas]) => {
+      let adequacies = await getAdequacies(providers.map(_ => _.id), serviceAreas)
+      console.log('adequacies', adequacies)
+    })
 
   return store
 }
