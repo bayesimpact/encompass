@@ -1,5 +1,5 @@
 """Test providers requests for Time-Distance API."""
-from backend.app.requests import providers
+from backend.app.requests import representative_points
 
 import flask
 
@@ -10,7 +10,7 @@ import mock
 import pytest
 
 
-class TestProvidersRequest(LiveServerTestCase):
+class TestRepresentativePointsRequest(LiveServerTestCase):
     """Test class for providers request file."""
 
     def create_app(self):
@@ -21,14 +21,14 @@ class TestProvidersRequest(LiveServerTestCase):
 
     def test_provider_request(self):
         """Test provider requests in a simple case."""
-        request_providers = [{'address': 'provider_address_1'}, {'address': 'provider_address_1'}]
+        request_service_areas = {'service_area_ids': ['1', '2']}
 
         def _mock_get_json(force=True):
-            return request_providers
+            return request_service_areas
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
         try:
-            response = providers.providers_request(self.app, mock_request)
+            response = representative_points.representative_points_request(self.app, mock_request)
             print(response)
         except TypeError:
-            pytest.fail('Could not fetch providers.')
+            pytest.fail('Could not fetch representative_points.')

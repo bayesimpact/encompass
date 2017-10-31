@@ -1,5 +1,5 @@
 """Routing for backend API."""
-from backend.app.requests import providers
+from backend.app.requests import providers, representative_points
 from backend.lib.database import dynamo_db
 from backend.lib.timer import timed
 
@@ -18,9 +18,9 @@ def fetch_available_service_areas():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return service areas.')
     # Get the available service areas from DynamoDB.
-    response = service_areas_table.scan()
-    items = response['Items']
-    return flask.jsonify({'result': items})
+    db_response = service_areas_table.scan()
+    response = db_response['Items']
+    return flask.jsonify(response)
 
 
 @timed
@@ -36,8 +36,9 @@ def fetch_providers():
 @app.route('/api/representative_points/', methods=['POST'])
 def fetch_representative_points():
     """Fetch and return all available service areas from db."""
-    app.logger.debug('Calculate time distance standards.')
-    return flask.jsonify({'result': flask.request.args})
+    app.logger.debug('Fetch representative_points for the specifed service areas.')
+    response = representative_points.representative_points_request(app, flask.request)
+    return flask.jsonify(response)
 
 
 @timed
