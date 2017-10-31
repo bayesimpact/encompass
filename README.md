@@ -1,4 +1,4 @@
-# bayes-mvp [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds-frontend) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Time Distance Standards (frontend) [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds-frontend) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/tds-frontend.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/npm/l/bayes-mvp.svg?style=flat-square
