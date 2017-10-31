@@ -3,7 +3,7 @@
   "rules": {
     "adjacent-overload-signatures": true,
     "class-name": true,
-    "comment-format": [true, "check-space", "check-uppercase"],
+    "comment-format": [true, "check-space"],
     "eofline": true,
     "indent": [true, "spaces"],
     "jsx-alignment": false,
