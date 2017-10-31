@@ -52,7 +52,7 @@ export function isWriteProvidersSuccessResponse(
 }
 
 export let postProviders = (providers: WriteProvidersRequest[]) =>
-  POST('/api/providers')<WriteProvidersResponse[]>(providers)
+  POST('/api/providers/')<WriteProvidersResponse[]>(providers)
 
 //
 // POST /api/representative_points
@@ -62,7 +62,7 @@ type ReadRepresentativePointsResponse = RepresentativePoint[]
 
 export let getRepresentativePoints = memoize(
   (distribution: number, serviceAreaIds: string[]) =>
-    POST('/api/representative_points')<ReadRepresentativePointsResponse>({
+    POST('/api/representative_points/')<ReadRepresentativePointsResponse>({
       distribution,
       service_area_ids: serviceAreaIds
     }),
@@ -83,6 +83,9 @@ type ReadAdequaciesResponse = {
 
 export let getAdequacies = memoize(
   (providersIds: number[], serviceAreaIds: string[]) =>
-    POST('/api/adequacies')<ReadAdequaciesResponse>({ providersIds, serviceAreaIds }),
+    POST('/api/adequacies/')<ReadAdequaciesResponse>({
+      provider_ids: providersIds,
+      service_area_ids: serviceAreaIds
+    }),
   (providersIds: number[], serviceAreaIds: string[]) => `${providersIds.join(',')}-${serviceAreaIds.join(',')}`
 )
