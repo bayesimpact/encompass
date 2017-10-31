@@ -43,6 +43,7 @@ def representative_points_request(app, flask_request):
     return [
         mock_representative_point(
             service_area_id=service_area_id,
-            rp_id=i * 10)
+            rp_id=r)
         for i, service_area_id in enumerate(service_area_ids)
+        for r in range(i * 50, i * 50 + 40)
     ]

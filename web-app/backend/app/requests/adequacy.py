@@ -34,7 +34,7 @@ from backend.app.mocks.responses import mock_adequacy
 
 def mock_adequacy_calculation(provider_ids, service_area_ids):
     """Mock adequacy calculation."""
-    rp_ids = [i * 10 for i in range(0, len(service_area_ids))]
+    rp_ids = [i * 10 for i in range(0, 40 * len(service_area_ids))]
 
     return [
         mock_adequacy(rp_id, random.choice(provider_ids))
