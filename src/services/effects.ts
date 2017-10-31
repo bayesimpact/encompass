@@ -1,7 +1,8 @@
 import { Store } from 'babydux'
-import { keyBy } from 'lodash'
+import { chain, keyBy } from 'lodash'
 import { Observable } from 'rx'
-import { getRepresentativePoints, HydratedProvider, postProviders, RepresentativePoint } from './api'
+import { Provider, RepresentativePoint } from '../constants/datatypes'
+import { getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -21,14 +22,25 @@ export function withEffects(store: Store<Actions>) {
 
   /**
    * Geocode providers when uploadedProviders changes
+   *
+   * TODO: Expose errors to user
    */
   store.on('uploadedProviders').subscribe(async providers => {
     let result = await postProviders(providers)
-    let hash = keyBy(providers, 'address')
-    store.set('providers')(toGeoJSON(providerToFeature)(result.successes.map(_ => ({
-      ...hash[_.address],
-      ..._
-    }))))
+    store.set('providers')(toGeoJSON(providerToFeature)(
+      chain(result)
+        .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
+        .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
+        .tap(([_, errors]) => console.log('POST /api/provider errors:', errors))
+        .first()
+        .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({
+          ...req,
+          lat: res.lat,
+          lng: res.lng,
+          id: res.id
+        }))
+        .value()
+    ))
   })
 
   return store
@@ -42,7 +54,7 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
 }
 
 function providerToFeature(
-  point: HydratedProvider
+  point: Provider
 ): GeoJSON.Feature<GeoJSON.GeometryObject> {
   return {
     id: point.id,

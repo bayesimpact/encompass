@@ -1,4 +1,5 @@
 import { memoize } from 'lodash'
+import { RepresentativePoint } from '../constants/datatypes'
 
 const API_ROOT = 'https://localhost:9001'
 
@@ -16,6 +17,10 @@ let request = (method: 'GET' | 'POST') =>
 
 let POST = request('POST')
 
+//
+// POST /api/providers
+//
+
 export type WriteProvidersRequest = {
   address: string
   /** Eg. "Burmese", "Chinese", "Spanish", etc.  */
@@ -26,35 +31,47 @@ export type WriteProvidersRequest = {
   specialty: string
 }
 
-// TODO: Move this somewhere else
-export type HydratedProvider = WriteProvidersRequest & {
+export type WriteProvidersResponse = WriteProvidersSuccessResponse | WriteProvidersErrorResponse
+
+export type WriteProvidersSuccessResponse = {
+  status: 'success'
   id: number
   lat: number
   lng: number
 }
 
-type WriteProvidersResponse = {
-  successes: {
-    address: string
-    id: number
-    lat: number
-    lng: number
-  }[]
-  errors: {
-    address: string
-    message: string
-  }[]
+export type WriteProvidersErrorResponse = {
+  status: 'error'
+  message: string
 }
 
-export type RepresentativePoint = {
-  id: number
-  lat: number
-  lng: number
-  population: number
-  service_area_id: number
+export function isWriteProvidersSuccessResponse(
+  response: WriteProvidersSuccessResponse | WriteProvidersErrorResponse
+): response is WriteProvidersSuccessResponse {
+  return response.status === 'success'
 }
+
+export let postProviders = (providers: WriteProvidersRequest[]) =>
+  POST('/api/providers')<WriteProvidersResponse[]>(providers)
+
+//
+// POST /api/representative_points
+//
 
 type ReadRepresentativePointsResponse = RepresentativePoint[]
+
+export let getRepresentativePoints = memoize(
+  (distribution: number, serviceAreaIds: string[]) =>
+    POST('/api/representative_points')<ReadRepresentativePointsResponse>({
+      distribution,
+      service_area_ids: serviceAreaIds
+    }),
+  (distribution: number, serviceAreaIds: string[]) => `${distribution}-${serviceAreaIds.join(',')}`
+)
+
+//
+// POST /api/adequacies
+//
 
 type ReadAdequaciesResponse = {
   id: number
@@ -63,15 +80,6 @@ type ReadAdequaciesResponse = {
   closest_provider_by_distance: number
   closest_provider_by_time: number
 }
-
-export let postProviders = (providers: WriteProvidersRequest[]) =>
-  POST('/api/providers')<WriteProvidersResponse>(providers)
-
-export let getRepresentativePoints = memoize(
-  (distribution: number, serviceAreaIds: string[]) =>
-    POST('/api/representative_points')<ReadRepresentativePointsResponse>({ distribution, serviceAreaIds }),
-  (distribution: number, serviceAreaIds: string[]) => `${distribution}-${serviceAreaIds.join(',')}`
-)
 
 export let getAdequacies = memoize(
   (providersIds: number[], serviceAreaIds: string[]) =>
