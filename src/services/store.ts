@@ -1,4 +1,5 @@
 import { connect, createStore } from 'babydux'
+import { Provider, RepresentativePoint } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
@@ -17,12 +18,12 @@ export type Actions = {
   /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
    */
-  providers: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | null
+  providers: Provider[]
 
   /**
    * Representative points, fetched and cached given a `distribution` and `serviceArea`.
    */
-  representativePoints: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | null
+  representativePoints: RepresentativePoint[]
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -59,8 +60,8 @@ export let store = withEffects(createStore<Actions>({
   counties: [],
   distribution: 0.5,
   measure: '15_miles',
-  providers: null,
-  representativePoints: null,
+  providers: [],
+  representativePoints: [],
   serviceAreas: [],
   standard: 'time_distance',
   uploadedProviders: [],

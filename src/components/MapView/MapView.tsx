@@ -2,6 +2,7 @@ import * as MapboxGL from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
 import { withStore } from '../../services/store'
+import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
 
 const CENTER_OF_CALIFORNIA = [-122.444687, 37.765134] // [-119.182111, 36.250471]
@@ -49,11 +50,11 @@ export let MapView = withStore('providers', 'representativePoints')(({ store }) 
       zoom={[12]}
     >
       {representativePoints && <GeoJSONLayer
-        data={representativePoints}
+        data={representativePointsToGeoJSON(representativePoints)}
         circlePaint={representativePointCircleStyle}
       />}
-      {providers && <GeoJSONLayer
-        data={providers}
+      {providers.length && <GeoJSONLayer
+        data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
       />}
       <ZoomControl position='bottomLeft' />
