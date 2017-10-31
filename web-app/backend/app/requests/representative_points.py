@@ -36,10 +36,7 @@ def representative_points_request(app, flask_request):
     """Handle /api/providers requests."""
     app.logger.info('Fetching representative_points.')
     try:
-        request = flask_request.get_json(force=True)
-        if 'service_area_ids' not in request:
-            raise InvalidFormat(message='Invalid format. Could not find service_area_ids.')
-        service_areas = request['service_area_ids']
+        service_area_ids = flask_request.get_json(force=True)
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
 
@@ -47,5 +44,5 @@ def representative_points_request(app, flask_request):
         mock_representative_point(
             service_area_id=service_area_id,
             rp_id=i * 10)
-        for i, service_area_id in enumerate(service_areas)
+        for i, service_area_id in enumerate(service_area_ids)
     ]
