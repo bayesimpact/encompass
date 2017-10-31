@@ -2,7 +2,7 @@ import { Store } from 'babydux'
 import { chain, keyBy } from 'lodash'
 import { Observable } from 'rx'
 import { Provider, RepresentativePoint } from '../constants/datatypes'
-import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadRepresentativePointsResponse, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -16,8 +16,21 @@ export function withEffects(store: Store<Actions>) {
     store.on('serviceAreas').startWith(store.get('serviceAreas'))
     )
     .subscribe(async ([distribution, serviceAreas]) => {
-      let points = await getRepresentativePoints(distribution, serviceAreas)
-      store.set('representativePoints')(points)
+      let points = await getRepresentativePoints(serviceAreas)
+
+      // Backend returns representative points for all distances at once.
+      // Frontend then plucks out the points it needs, duck-typing on whether or
+      // not the given point's `population` object has the current distance
+      // defined as a key on it.
+      store.set('representativePoints')(
+        chain(points)
+          .filter(_ => distribution in _.population)
+          .map(_ => ({
+            ..._,
+            population: _.population[distribution]!
+          }))
+          .value()
+      )
     })
 
   /**
