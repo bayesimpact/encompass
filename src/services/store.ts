@@ -1,5 +1,5 @@
 import { connect, createStore } from 'babydux'
-import { HydratedProvider, RepresentativePoint, WriteProvidersRequest } from './api'
+import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
 export type Actions = {
