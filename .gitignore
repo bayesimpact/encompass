@@ -15,3 +15,6 @@ models/notebooks/cache
 
 # Build
 web-app/frontend/dist/*
+
+# NPM
+**/node_modules/
