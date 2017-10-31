@@ -1,5 +1,5 @@
 """Routing for backend API."""
-from backend.app.requests import providers, representative_points
+from backend.app.requests import adequacy, providers, representative_points
 from backend.lib.database import dynamo_db
 from backend.lib.timer import timed
 
@@ -46,7 +46,8 @@ def fetch_representative_points():
 def calculate_adequacies():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Calculate time distance standards.')
-    return flask.jsonify({'result': flask.request.args})
+    response = adequacy.adequacy_request(app, flask.request)
+    return flask.jsonify(response)
 
 
 if __name__ == '__main__':
