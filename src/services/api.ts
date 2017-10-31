@@ -1,7 +1,7 @@
 import { memoize } from 'lodash'
 import { RepresentativePoint } from '../constants/datatypes'
 
-const API_ROOT = 'https://localhost:9001'
+const API_ROOT = 'http://localhost:8080'
 
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>

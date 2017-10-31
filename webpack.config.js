@@ -8,8 +8,8 @@ module.exports = {
     contentBase: __dirname + '/dist',
     compress: true,
     // hot: true,
-    https: true,
-    port: 9000
+    https: false,
+    port: 8081
   },
   entry: './src/index.tsx',
   output: {
