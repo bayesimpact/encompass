@@ -66,3 +66,7 @@
 .Autocomplete .Item.-isHighlighted {
   color: rgb(255, 64, 129);
 }
+
+.Autocomplete .Item.-isPinned {
+  font-style: italic;
+}

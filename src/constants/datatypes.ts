@@ -22,6 +22,6 @@ export type RepresentativePoint = {
   lat: number
   lng: number
   population: number
-  service_area_id: number
+  service_area_id: string
   zip: string
 }

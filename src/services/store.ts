@@ -1,6 +1,7 @@
 import { connect, createStore, Store } from 'babydux'
 import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
+import { withDemo } from './demo'
 import { withEffects } from './effects'
 
 export type Actions = {
@@ -71,7 +72,7 @@ export type Actions = {
   uploadedServiceAreasFilename: string | null
 }
 
-export let store = withEffects(createStore<Actions>({
+export let store = withDemo(withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
   distribution: 0.5,
@@ -84,7 +85,7 @@ export let store = withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
-}, true))
+}, true)))
 
 export let withStore = connect(store)
 

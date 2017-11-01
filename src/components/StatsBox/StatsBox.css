@@ -1,0 +1,45 @@
+@import "../../index.css";
+
+.StatsBox {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.StatsBox td,
+.StatsBox th {
+  padding: 5px 7px;
+}
+
+.StatsBox td {
+  padding-top: 0;
+}
+
+.StatsBox th {
+  padding-bottom: 0;
+}
+
+.StatsBox td {
+  font-size: var(--mediumlarge-font);
+}
+
+.StatsBox th {
+  color: var(--muted);
+  font-weight: 400;
+  text-align: left;
+}
+
+.StatsBox.-withBorders {
+  border: 1px solid var(--verylight);
+  margin: 10px 0 30px;
+  padding: 10px 0;
+}
+
+.StatsBox.-withBorders td,
+.StatsBox.-withBorders th {
+  border-right: 1px solid var(--verylight);
+}
+
+.StatsBox.-withBorders td,
+.StatsBox.-withBorders th {
+  border-right: 1px solid var(--verylight);
+}

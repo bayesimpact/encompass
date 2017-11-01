@@ -1,8 +1,10 @@
-import { Drawer, DropDownMenu, MenuItem } from 'material-ui'
+import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
-import { ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
-import { ViewPicker } from './ViewPicker'
+import { ALL_SERVICE_AREAS, ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
+import './AnalyticsDrawer.css'
+import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
+import { TotalAnalytics } from './TotalAnalytics'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -11,18 +13,12 @@ import { ViewPicker } from './ViewPicker'
 export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceArea')(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Analytics</h2>
-    <ViewPicker
-      disabled={!store.get('serviceAreas').length}
-      onChange={_ => store.set('selectedServiceArea')(
-        _ === 'serviceArea'
-          ? store.get('serviceAreas')[0] // Select 0th service area by default
-          : null
-      )}
-      value={store.get('selectedServiceArea') ? 'serviceArea' : 'total'}
+    <ServiceAreaSelector
+      onChange={_ => store.set('selectedServiceArea')(_ === ALL_SERVICE_AREAS ? null : _)}
+      value={store.get('selectedServiceArea') || ALL_SERVICE_AREAS}
     />
-    {<ServiceAreaSelector
-      onChange={store.set('selectedServiceArea')}
-      value={store.get('selectedServiceArea')}
-    />}
+    {store.get('serviceAreas').length > 0 && (
+      store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />
+    )}
   </Drawer>
 )
