@@ -17,7 +17,7 @@ type Props = StoreProps & {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let AdequacyDonut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
+export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
 
   let serviceAreasHash = keyBy(serviceAreas)
   let adequacies = store.get('adequacies')
@@ -30,7 +30,7 @@ export let AdequacyDonut = withStore('adequacies')<Props>(({ serviceAreas, store
   let percentAdequate = round(100 * numAdequate / rpsInServiceAreas.length)
   let percentInadequate = 100 - percentAdequate
 
-  return <div className='AdequacyDonut'>
+  return <div className='AdequacyDoughnut'>
     <Doughnut
       data={{
         labels: ['Adequate', 'Inadequate'],
