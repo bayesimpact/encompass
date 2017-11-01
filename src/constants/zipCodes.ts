@@ -75,7 +75,7 @@ export const SERVICE_AREAS = serviceAreasFromCounties(COUNTIES)
 
 /** TODO: Move to utils */
 export function serviceArea(county: string, zip: string) {
-  return `${county}-${zip}`
+  return `${county} / ${zip}`
 }
 
 /** TODO: Move to utils */
