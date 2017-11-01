@@ -34,6 +34,7 @@ type ViewPickerProps = {
 
 let ViewPicker: React.StatelessComponent<ViewPickerProps> = ({ disabled, onChange, value }) =>
   <DropDownMenu
+    className='DropDownMenu -Compact'
     disabled={disabled}
     onChange={(e, i, value) => onChange(value)}
     value={value}
