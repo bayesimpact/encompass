@@ -1,13 +1,14 @@
 import { Drawer, DropDownMenu, MenuItem } from 'material-ui'
 import * as React from 'react'
-import { withStore } from '../../services/store'
-import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
+import { withStore } from '../../../../services/store'
+import { ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
+import { ViewPicker } from './ViewPicker'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  * or necessary data is being fetched.
  */
-export let Analytics = withStore('representativePoints', 'selectedServiceArea')(({ store }) =>
+export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceArea')(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Analytics</h2>
     <ViewPicker
@@ -25,20 +26,3 @@ export let Analytics = withStore('representativePoints', 'selectedServiceArea')(
     />}
   </Drawer>
 )
-
-type ViewPickerProps = {
-  disabled?: boolean
-  onChange(value: 'serviceArea' | 'total'): void
-  value: 'serviceArea' | 'total'
-}
-
-let ViewPicker: React.StatelessComponent<ViewPickerProps> = ({ disabled, onChange, value }) =>
-  <DropDownMenu
-    className='DropDownMenu -Compact'
-    disabled={disabled}
-    onChange={(e, i, value) => onChange(value)}
-    value={value}
-  >
-    <MenuItem value='total' primaryText='Total' />
-    <MenuItem value='serviceArea' primaryText='Service Area' />
-  </DropDownMenu>
