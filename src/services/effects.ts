@@ -39,25 +39,23 @@ export function withEffects(store: Store<Actions>) {
    *
    * TODO: Expose errors to user
    */
-  store.on('uploadedProviders')
-    .debounce(100)
-    .subscribe(async providers => {
-      let result = await postProviders(providers)
-      store.set('providers')(
-        chain(result)
-          .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
-          .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
-          .tap(([_, errors]) => console.log('POST /api/provider errors:', errors))
-          .first()
-          .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({
-            ...req,
-            lat: res.lat,
-            lng: res.lng,
-            id: res.id
-          }))
-          .value()
-      )
-    })
+  store.on('uploadedProviders').subscribe(async providers => {
+    let result = await postProviders(providers)
+    store.set('providers')(
+      chain(result)
+        .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
+        .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
+        .tap(([_, errors]) => console.log('POST /api/provider errors:', errors))
+        .first()
+        .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({
+          ...req,
+          lat: res.lat,
+          lng: res.lng,
+          id: res.id
+        }))
+        .value()
+    )
+  })
 
   /**
    * Fetch adequacies when providers, representative points, measure, or standard change
