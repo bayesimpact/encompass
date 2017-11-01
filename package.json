@@ -17,6 +17,7 @@
   "dependencies": {
     "babydux": "^1.3.0",
     "chart.js": "^2.7.1",
+    "chart.piecelabel.js": "^0.8.2",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.41.0",
     "material-ui": "^0.19.4",

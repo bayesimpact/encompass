@@ -935,12 +935,18 @@ change-emitter@^0.1.2:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
 
-chart.js@^2.7.1:
+chart.js@^2.1.5, chart.js@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.1.tgz#ae90b4aa4ff1f02decd6b1a2a8dabfd73c9f9886"
   dependencies:
     chartjs-color "~2.2.0"
     moment "~2.18.0"
+
+chart.piecelabel.js@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/chart.piecelabel.js/-/chart.piecelabel.js-0.8.2.tgz#de90f147c89f1f2928b88e3391ca39ae28e26ce7"
+  dependencies:
+    chart.js "^2.1.5"
 
 chartjs-color-string@^0.5.0:
   version "0.5.0"
