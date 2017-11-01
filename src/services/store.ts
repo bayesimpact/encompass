@@ -1,13 +1,11 @@
 import { connect, createStore } from 'babydux'
-import { Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
+import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
 export type Actions = {
 
-  adequacies: {
-    [representativePointId: string]: boolean
-  }
+  adequacies: Adequacies
 
   /**
    * Counties selected by the user in the Service Area Drawer.

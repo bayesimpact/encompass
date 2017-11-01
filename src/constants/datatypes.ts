@@ -1,3 +1,7 @@
+export type Adequacies = {
+  [representativePointId: string]: boolean
+}
+
 export type Measure = 15 | 20 | 30
 
 export type Provider = {

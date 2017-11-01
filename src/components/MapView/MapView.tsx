@@ -17,7 +17,15 @@ let Map = ReactMapboxGl({
 })
 
 const representativePointCircleStyle: MapboxGL.CirclePaint = {
-  'circle-color': '#8eacbb',
+  'circle-color': {
+    property: 'isAdequate',
+    type: 'categorical',
+    stops: [
+      ['true', '#3F51B5'],
+      ['false', '#DE5B5C'],
+      ['undefined', '#8eacbb']
+    ]
+  },
   'circle-opacity': 0.8,
   'circle-radius': {
     property: 'population',
@@ -40,7 +48,12 @@ const providerCircleStyle: MapboxGL.CirclePaint = {
   'circle-radius': 5
 }
 
-export let MapView = withStore('providers', 'representativePoints')(({ store }) => {
+export let MapView = withStore(
+  'adequacies',
+  'providers',
+  'representativePoints'
+)(({ store }) => {
+  let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
   return <div className='MapView'>
@@ -50,7 +63,7 @@ export let MapView = withStore('providers', 'representativePoints')(({ store }) 
       zoom={[12]}
     >
       {representativePoints.length && <GeoJSONLayer
-        data={representativePointsToGeoJSON(representativePoints)}
+        data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
       />}
       {providers.length && <GeoJSONLayer
