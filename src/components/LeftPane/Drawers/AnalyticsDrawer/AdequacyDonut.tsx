@@ -4,6 +4,7 @@ import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../../../services/store'
+import { StatsBox } from '../../../StatsBox/StatsBox'
 
 type Props = StoreProps & {
   serviceAreas: string[]
@@ -23,37 +24,49 @@ export let AdequacyDonut = withStore('adequacies')<Props>(({ serviceAreas, store
   let rps = store.get('representativePoints')
   let rpsInServiceAreas = rps.filter(_ => _.service_area_id in serviceAreasHash)
   let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] === true)
-  let adequatePercent = round(100 * adequateRpsInServiceAreas.length / rpsInServiceAreas.length, 1)
 
-  return <Doughnut
-    data={{
-      labels: ['Adequate', 'Inadequate'],
-      datasets: [{
-        data: [adequatePercent, 100 - adequatePercent],
-        backgroundColor: ['#3F51B5', 'rgba(214, 40, 41, 0.87)']
-      }]
-    }}
-    options={{
-      legend: {
-        fullWidth: false,
-        position: 'right'
-      },
-      // @see https://github.com/emn178/Chart.PieceLabel.js
-      pieceLabel: {
-        fontColor: '#333',
-        position: 'outside',
-        precision: 1
-      },
-      tooltips: {
-        callbacks: {
-          label: label(
-            adequateRpsInServiceAreas.length,
-            rpsInServiceAreas.length - adequateRpsInServiceAreas.length
-          )
+  let numAdequate = adequateRpsInServiceAreas.length
+  let numInadequate = rpsInServiceAreas.length - numAdequate
+  let percentAdequate = round(100 * numAdequate / rpsInServiceAreas.length)
+  let percentInadequate = 100 - percentAdequate
+
+  return <div className='AdequacyDonut'>
+    <Doughnut
+      data={{
+        labels: ['Adequate', 'Inadequate'],
+        datasets: [{
+          data: [percentAdequate, percentInadequate],
+          backgroundColor: ['#3F51B5', 'rgba(214, 40, 41, 0.87)']
+        }]
+      }}
+      options={{
+        legend: {
+          fullWidth: false,
+          position: 'right'
+        },
+        // @see https://github.com/emn178/Chart.PieceLabel.js
+        pieceLabel: {
+          fontColor: '#333',
+          position: 'outside'
+        },
+        tooltips: {
+          callbacks: {
+            label: label(numAdequate, numInadequate)
+          }
         }
-      }
-    } as any}
-  />
+      } as any}
+    />
+    <StatsBox withBorders>
+      <tr>
+        <th>Adequate access</th>
+        <th>Inadequate access</th>
+      </tr>
+      <tr>
+        <td>{numAdequate.toLocaleString()} ({percentAdequate}%)</td>
+        <td>{numInadequate.toLocaleString()} ({percentInadequate}%)</td>
+      </tr>
+    </StatsBox>
+  </div>
 })
 
 function label(withAccess: number, withoutAccess: number) {
@@ -62,8 +75,8 @@ function label(withAccess: number, withoutAccess: number) {
       return ''
     }
     switch (tooltipItem.index) {
-      case 0: return `With access: ${withAccess} (${data.datasets[0].data![0]}%)`
-      case 1: return `Without access: ${withoutAccess} (${data.datasets[0].data![1]}%)`
+      case 0: return `With access: ${withAccess.toLocaleString()} (${data.datasets[0].data![0]}%)`
+      case 1: return `Without access: ${withoutAccess.toLocaleString()} (${data.datasets[0].data![1]}%)`
     }
   }
 }

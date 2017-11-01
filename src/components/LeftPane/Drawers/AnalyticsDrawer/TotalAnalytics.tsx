@@ -7,7 +7,7 @@ import './TotalAnalytics.css'
 
 export let TotalAnalytics = withStore()(({ store }) =>
   <div className='TotalAnalytics'>
-    <StatsBox>
+    <StatsBox className='HighLevelStats' withBorders>
       <tr>
         <th>Service Areas</th>
         <th>Population</th>

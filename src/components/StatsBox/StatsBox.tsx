@@ -1,5 +1,16 @@
 import * as React from 'react'
 import './StatsBox.css'
 
-export let StatsBox: React.StatelessComponent = ({ children }) =>
-  <table className='StatsBox'><tbody>{children}</tbody></table>
+type Props = {
+  className?: string
+  withBorders?: true
+}
+
+export let StatsBox: React.StatelessComponent<Props> = ({ children, className, withBorders }) =>
+  <table className={
+    'StatsBox'
+    + (className ? ` ${className}` : '')
+    + (withBorders ? ' -withBorders' : '')
+  }>
+    <tbody>{children}</tbody>
+  </table>
