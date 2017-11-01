@@ -1,7 +1,8 @@
-import { Drawer, DropDownMenu, MenuItem } from 'material-ui'
+import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
-import { ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
+import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
+import { TotalAnalytics } from './TotalAnalytics'
 import { ViewPicker } from './ViewPicker'
 
 /**
@@ -20,9 +21,8 @@ export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceA
       )}
       value={store.get('selectedServiceArea') ? 'serviceArea' : 'total'}
     />
-    {<ServiceAreaSelector
-      onChange={store.set('selectedServiceArea')}
-      value={store.get('selectedServiceArea')}
-    />}
+    {store.get('serviceAreas').length > 0 && (
+      store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />
+    )}
   </Drawer>
 )
