@@ -25,7 +25,8 @@ export function parseRows<T>(
     let csv = await parseCSV<string[]>(file)
     let columnIndices = findColumns(csv, columns)
     return chain(csv)
-      .slice(1) // Ignore header row
+      .slice(1)         // Ignore header row
+      .filter(Boolean)  // Ignore empty rows (whitespace)
       .map((row, index) => {
         let fields = readRow(row, columnIndices)
         return getError(columns, fields, index) || f(fields)
@@ -46,7 +47,8 @@ function getError(
   for (let i = 0; i < columns.length; i++) {
     let { required } = columns[i]
     let field = fields[i]
-    if (required && (field === null || field.trim() === '')) {
+    // TODO: Why is field sometimes undefined?
+    if (required && (field == null || field.trim() === '')) {
       return new ParseError(rowIndex, i, columns[i], fields)
     }
   }
