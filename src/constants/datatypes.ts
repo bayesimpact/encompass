@@ -1,5 +1,12 @@
 export type Adequacies = {
-  [representativePointId: string]: boolean
+  [representativePointId: string]: {
+    isAdequate: boolean
+    id: number
+    distanceToClosestProvider: number
+    timeToClosestProvider: number
+    closestProviderByDistance: number
+    closestProviderByTime: number
+  }
 }
 
 export type Measure = 15 | 20 | 30

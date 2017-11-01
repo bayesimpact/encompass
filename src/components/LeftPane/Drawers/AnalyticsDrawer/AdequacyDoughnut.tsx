@@ -23,7 +23,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   let adequacies = store.get('adequacies')
   let rps = store.get('representativePoints')
   let rpsInServiceAreas = rps.filter(_ => _.service_area_id in serviceAreasHash)
-  let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] === true)
+  let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id].isAdequate)
 
   let numAdequate = adequateRpsInServiceAreas.length
   let numInadequate = rpsInServiceAreas.length - numAdequate

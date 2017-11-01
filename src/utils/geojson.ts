@@ -56,9 +56,11 @@ export function representativePointToFeature(adequacies: Adequacies) {
  * types are the same when we pass them to Mapbox.
  */
 function colorAdequacy(adequacies: Adequacies, pointId: number) {
-  switch (adequacies[pointId]) {
+  if (!(pointId in adequacies)) {
+    return 'undefined'
+  }
+  switch (adequacies[pointId].isAdequate) {
     case true: return 'true'
     case false: return 'false'
-    default: return 'undefined'
   }
 }
