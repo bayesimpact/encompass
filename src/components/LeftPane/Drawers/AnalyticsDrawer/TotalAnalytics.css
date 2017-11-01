@@ -1,0 +1,8 @@
+@import "../../../../index.css";
+
+.TotalAnalytics .StatsBox {
+  border-bottom: 1px solid var(--light);
+  border-top: 1px solid var(--light);
+  margin: 10px 0 30px;
+  padding: 10px 0;
+}

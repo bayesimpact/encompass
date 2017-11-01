@@ -10,7 +10,7 @@
 }
 
 .FilterBar .Filter {
-  color: var(--light);
+  color: var(--muted);
   display: flex;
   flex-direction: column;
 }

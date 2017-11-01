@@ -18,4 +18,7 @@
   /* dimensions */
   --header-height: 64px;
   --iconbar-width: 64px;
+
+  /* fonts */
+  --mediumlarge-font: 15px;
 }

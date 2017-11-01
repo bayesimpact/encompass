@@ -1,0 +1,15 @@
+@import "../../index.css";
+
+.StatsBox {
+  width: 100%;
+}
+
+.StatsBox td {
+  font-size: var(--mediumlarge-font);
+}
+
+.StatsBox th {
+  color: var(--muted);
+  font-weight: 400;
+  text-align: left;
+}
