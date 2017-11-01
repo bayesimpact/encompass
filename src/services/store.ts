@@ -38,7 +38,7 @@ export type Actions = {
    * We support just one selection for now, but will likely support
    * multi-select in the future.
    */
-  selectedServiceAreas: string[]
+  selectedServiceArea: string | null
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -78,7 +78,7 @@ export let store = withEffects(createStore<Actions>({
   measure: 15,
   providers: [],
   representativePoints: [],
-  selectedServiceAreas: [],
+  selectedServiceArea: null,
   serviceAreas: [],
   standard: 'time_distance',
   uploadedProviders: [],

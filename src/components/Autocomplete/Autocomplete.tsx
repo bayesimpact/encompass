@@ -7,7 +7,7 @@ import './Autocomplete.css'
 type Props = {
   items: string[]
   onChange(item: string): void
-  value: string
+  value: string | null
 }
 
 type State = {
@@ -23,6 +23,10 @@ let ItemTemplate = (item: string, isHighlighted: boolean) =>
 let MenuTemplate = (items: string[], value: string) =>
   <div children={items} className='Menu' />
 
+/**
+ * TODO: Find a more full-featured React autocomplete and use that instead
+ * of rolling one ourselves.
+ */
 export class Autocomplete extends React.Component<Props> {
   state: State = {
     text: ''
