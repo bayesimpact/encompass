@@ -33,8 +33,7 @@ class TestProvidersRequest(LiveServerTestCase):
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
         try:
-            response = adequacy.adequacy_request(self.app, mock_request)
-            print(response)
+            adequacy.adequacy_request(self.app, mock_request)
         except TypeError:
             pytest.fail('Could not fetch providers.')
 

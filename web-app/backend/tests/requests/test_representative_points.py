@@ -28,7 +28,6 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
         try:
-            response = representative_points.representative_points_request(self.app, mock_request)
-            print(response)
+            representative_points.representative_points_request(self.app, mock_request)
         except TypeError:
             pytest.fail('Could not fetch representative_points.')

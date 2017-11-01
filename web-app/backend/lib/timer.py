@@ -5,6 +5,7 @@ from time import time
 
 
 def timed(f):
+    """Timer wrapper."""
     @wraps(f)
     def wrapper(*args, **kwds):
         args_name = inspect.getargspec(f)[0]

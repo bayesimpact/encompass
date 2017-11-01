@@ -19,13 +19,15 @@ services:
           dockerfile: Dockerfile
         volumes:
           - ./web-app/backend/app/main.py:/app/main.py:ro
+          - ./web-app/backend/lib/:/app/lib/:ro
           - ./web-app/backend/config/uwsgi.ini:/app/uwsgi.ini:ro
           - ./web-app/backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
-          - ./web-app/backend/config/credentials:/app/credentials:ro # FIXME temp; philip's credentials
-          - ./web-app/backend/app/:/var/local/app/:ro
           - ./web-app/backend/tests:/app/tests:ro
+          - ./web-app/backend/app/:/var/local/app/:ro
           - .flake8:/app/.flake8:ro
           - ./web-app/backend:/usr/local/lib/python3.6/site-packages/backend
+        environment:
+          - POSTGRES_URL=$POSTGRES_URL
         env_file:
           - .env
         ports:

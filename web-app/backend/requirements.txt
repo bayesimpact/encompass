@@ -2,13 +2,12 @@
 boto3==1.4.7
 # Flask and UWSGI
 flask==0.12.2
-Flask-PyMongo==0.5.1
-uwsgi==2.0.15
-# Need to rollback to an older pymongo version
-# due to threading errors.
-# Fix - Find better workaround.
-pymongo==2.8
 flask-cors
+uwsgi==2.0.15
+# Database
+psycopg2==2.7.1
+sqlalchemy==1.1.4
+sqlalchemy-postgres-copy==0.5.0
 # Used by `make test` only:
 mock==2.0.0
 pytest==3.2.2
