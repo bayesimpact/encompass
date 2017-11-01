@@ -75,8 +75,8 @@ function label(withAccess: number, withoutAccess: number) {
       return ''
     }
     switch (tooltipItem.index) {
-      case 0: return `With access: ${withAccess.toLocaleString()} (${data.datasets[0].data![0]}%)`
-      case 1: return `Without access: ${withoutAccess.toLocaleString()} (${data.datasets[0].data![1]}%)`
+      case 0: return ` With access: ${withAccess.toLocaleString()} (${data.datasets[0].data![0]}%)`
+      case 1: return ` Without access: ${withoutAccess.toLocaleString()} (${data.datasets[0].data![1]}%)`
     }
   }
 }

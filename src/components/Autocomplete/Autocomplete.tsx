@@ -7,18 +7,24 @@ import './Autocomplete.css'
 type Props = {
   items: string[]
   onChange(item: string): void
+  pinnedItems?: string[]
   value: string | null
 }
 
 type State = {
-  text: string
+  text?: string
 }
 
-let ItemTemplate = (item: string, isHighlighted: boolean) =>
-  <span
-    className={'Item' + (isHighlighted ? ' -isHighlighted' : '')}
-    key={item}
-  >{item}</span>
+let ItemTemplate = (pinnedItems: string[] = []) =>
+  (item: string, isHighlighted: boolean) =>
+    <span
+      className={
+        'Item'
+        + (isHighlighted ? ' -isHighlighted' : '')
+        + (pinnedItems.includes(item) ? ' -isPinned' : '')
+      }
+      key={item}
+    >{item}</span>
 
 let MenuTemplate = (items: string[], value: string) =>
   <div children={items} className='Menu' />
@@ -29,7 +35,13 @@ let MenuTemplate = (items: string[], value: string) =>
  */
 export class Autocomplete extends React.Component<Props> {
   state: State = {
-    text: ''
+    text: undefined
+  }
+
+  componentDidMount() {
+    if (this.state.text === undefined && this.props.value !== null) {
+      this.setState({ text: this.props.value })
+    }
   }
 
   render() {
@@ -40,8 +52,8 @@ export class Autocomplete extends React.Component<Props> {
       <Arrow />
       <ReactAutocomplete
         getItemValue={identity}
-        items={this.props.items}
-        renderItem={ItemTemplate}
+        items={(this.props.pinnedItems || []).concat(this.props.items)}
+        renderItem={ItemTemplate(this.props.pinnedItems)}
         renderMenu={MenuTemplate}
         value={this.state.text}
         onChange={(e: any) => this.onType(e.target.value)}
@@ -56,9 +68,9 @@ export class Autocomplete extends React.Component<Props> {
   /**
    * TODO: Benchmark - do we need a faster comparison here?
    */
-  shouldItemRender(item: string, value: string) {
-    return item.toLowerCase().includes(value.toLowerCase())
-  }
+  shouldItemRender = (item: string, value: string) =>
+    (this.props.pinnedItems && this.props.pinnedItems.includes(item))
+    || item.toLowerCase().includes(value.toLowerCase())
 
   onSelect(item: string) {
     this.setState({ text: item })
