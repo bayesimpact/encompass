@@ -69,6 +69,6 @@ p {
 */
 
 /* inline styles are the worst.. */
-.DropDownMenu.--Compact button + div {
+.DropDownMenu.-Compact button + div {
   display: none !important;
 }

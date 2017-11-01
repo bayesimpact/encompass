@@ -10,7 +10,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
     <div className='Filter'>
       <span>Distribution</span>
       <DropDownMenu
-        className='DropDownMenu --Compact'
+        className='DropDownMenu -Compact'
         onChange={(e, i, value) => store.set('distribution')(value)}
         value={store.get('distribution')}
       >
@@ -23,7 +23,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
     <div className='Filter'>
       <span>Adequacy standard</span>
       <DropDownMenu
-        className='DropDownMenu --Compact'
+        className='DropDownMenu -Compact'
         onChange={(e, i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
@@ -36,7 +36,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
     <div className='Filter'>
       <span>Measure</span>
       <DropDownMenu
-        className='DropDownMenu --Compact'
+        className='DropDownMenu -Compact'
         onChange={(e, i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >

@@ -1,15 +1,15 @@
 import { chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { WriteProvidersRequest } from '../../services/api'
-import { store, withStore } from '../../services/store'
-import { ColumnDefinition, parseCSV, parseRows } from '../../utils/csv'
-import { CSVUploader } from '../CSVUploader/CSVUploader'
+import { WriteProvidersRequest } from '../../../../services/api'
+import { store, withStore } from '../../../../services/store'
+import { ColumnDefinition, parseCSV, parseRows } from '../../../../utils/csv'
+import { CSVUploader } from '../../../CSVUploader/CSVUploader'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let Providers = withStore(
+export let ProvidersDrawer = withStore(
   'counties',
   'serviceAreas',
   'uploadedProvidersFilename'

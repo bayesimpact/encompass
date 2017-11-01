@@ -1,14 +1,14 @@
 import { capitalize, chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS } from '../../constants/zipCodes'
-import { store, withStore } from '../../services/store'
-import { parseCSV, parseRows } from '../../utils/csv'
-import { capitalizeWords } from '../../utils/string'
-import { CountySelector } from '../CountySelector/CountySelector'
-import { CSVUploader } from '../CSVUploader/CSVUploader'
-import { StateSelector } from '../StateSelector/StateSelector'
-import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
+import { COUNTIES_TO_ZIPS } from '../../../../constants/zipCodes'
+import { store, withStore } from '../../../../services/store'
+import { parseCSV, parseRows } from '../../../../utils/csv'
+import { capitalizeWords } from '../../../../utils/string'
+import { CountySelector } from '../../../CountySelector/CountySelector'
+import { CSVUploader } from '../../../CSVUploader/CSVUploader'
+import { StateSelector } from '../../../StateSelector/StateSelector'
+import { ZipCodeSelector } from '../../../ZipCodeSelector/ZipCodeSelector'
 
 type State = {
   file?: File
@@ -17,7 +17,7 @@ type State = {
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreas = withStore(
+export let ServiceAreasDrawer = withStore(
   'counties',
   'serviceAreas',
   'uploadedServiceAreasFilename'

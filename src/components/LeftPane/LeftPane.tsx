@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { IconBar } from '../IconBar/IconBar'
-import { Analytics } from './Analytics'
+import { AnalyticsDrawer } from './Drawers/AnalyticsDrawer/AnalyticsDrawer'
+import { ProvidersDrawer } from './Drawers/ProvidersDrawer/ProvidersDrawer'
+import { ServiceAreasDrawer } from './Drawers/ServiceAreasDrawer/ServiceAreasDrawer'
+import { SettingsDrawer } from './Drawers/SettingsDrawer/SettingsDrawer'
 import './LeftPane.css'
-import { Providers } from './Providers'
-import { ServiceAreas } from './ServiceAreas'
-import { Settings } from './Settings'
 
 export let LeftPane = () =>
   <div className='LeftPane'>
@@ -13,10 +13,10 @@ export let LeftPane = () =>
       <div>
         <IconBar />
         <div className='LeftPaneContent'>
-          <Route path='/analytics' component={Analytics} />
-          <Route path='/providers' component={Providers} />
-          <Route path='/service-areas' component={ServiceAreas} />
-          <Route path='/settings' component={Settings} />
+          <Route path='/analytics' component={AnalyticsDrawer} />
+          <Route path='/providers' component={ProvidersDrawer} />
+          <Route path='/service-areas' component={ServiceAreasDrawer} />
+          <Route path='/settings' component={SettingsDrawer} />
         </div>
       </div>
     </Router>

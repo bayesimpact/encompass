@@ -1,4 +1,4 @@
 import * as React from 'react'
 
-export let Settings = () =>
+export let SettingsDrawer = () =>
   <div>Settings</div>
