@@ -68,7 +68,7 @@ type ReadRepresentativePointsResponse = {
     2.5?: number
     5: number
   }
-  service_area_id: number
+  service_area_id: string
   zip: string
 }[]
 
