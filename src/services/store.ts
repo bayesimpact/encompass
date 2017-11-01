@@ -1,9 +1,13 @@
 import { connect, createStore } from 'babydux'
-import { Provider, RepresentativePoint } from '../constants/datatypes'
+import { Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
 export type Actions = {
+
+  adequacies: {
+    [representativePointId: string]: boolean
+  }
 
   /**
    * Counties selected by the user in the Service Area Drawer.
@@ -13,7 +17,7 @@ export type Actions = {
   counties: string[]
 
   distribution: 0.5 | 2.5 | 5
-  measure: '15_miles' | '20_miles' | '30_miles'
+  measure: Measure
 
   /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
@@ -38,7 +42,7 @@ export type Actions = {
    */
   serviceAreas: string[]
 
-  standard: 'time_distance' | 'time' | 'distance'
+  standard: Standard
 
   /**
    * Parsed from the uploaded providers CSV
@@ -57,9 +61,10 @@ export type Actions = {
 }
 
 export let store = withEffects(createStore<Actions>({
+  adequacies: {},
   counties: [],
   distribution: 0.5,
-  measure: '15_miles',
+  measure: 15,
   providers: [],
   representativePoints: [],
   serviceAreas: [],

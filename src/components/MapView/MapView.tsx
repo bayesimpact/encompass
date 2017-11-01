@@ -35,8 +35,8 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
  * @see https://www.mapbox.com/maki-icons/
  */
 const providerCircleStyle: MapboxGL.CirclePaint = {
-  'circle-color': '#757de8',
-  'circle-opacity': 0.8,
+  'circle-color': '#000',
+  'circle-opacity': 0.6,
   'circle-radius': 5
 }
 
@@ -49,7 +49,7 @@ export let MapView = withStore('providers', 'representativePoints')(({ store }) 
       center={CENTER_OF_CALIFORNIA}
       zoom={[12]}
     >
-      {representativePoints && <GeoJSONLayer
+      {representativePoints.length && <GeoJSONLayer
         data={representativePointsToGeoJSON(representativePoints)}
         circlePaint={representativePointCircleStyle}
       />}
