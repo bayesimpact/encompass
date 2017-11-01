@@ -1,8 +1,9 @@
 import { Store } from 'babydux'
 import { chain, keyBy } from 'lodash'
 import { Observable } from 'rx'
-import { Provider, RepresentativePoint } from '../constants/datatypes'
-import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadRepresentativePointsResponse, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { Measure, RepresentativePoint, Standard } from '../constants/datatypes'
+import { TIME_DISTANCES } from '../constants/timeDistances'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -57,17 +58,45 @@ export function withEffects(store: Store<Actions>) {
   })
 
   /**
-   * Fetch adequacies when providers or service areas change
+   * Fetch adequacies when providers, representative points, measure, or standard change
    */
   Observable
     .combineLatest(
     store.on('providers'),
-    store.on('serviceAreas')
+    store.on('representativePoints'),
+    store.on('measure').startWith(store.get('measure')),
+    store.on('standard').startWith(store.get('standard'))
     )
-    .subscribe(async ([providers, serviceAreas]) => {
-      let adequacies = await getAdequacies(providers.map(_ => _.id), serviceAreas)
-      console.log('adequacies', adequacies)
+    .subscribe(async ([providers, representativePoints, measure, standard]) => {
+      let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
+      store.set('adequacies')(
+        chain(representativePoints.map(_ => _.id))
+          .zipObject(adequacies)
+          .mapValues(_ => isAdequate(
+            _.distance_to_closest_provider,
+            _.time_to_closest_provider,
+            measure,
+            standard
+          ))
+          .value()
+      )
     })
 
   return store
+}
+
+function isAdequate(
+  distance: number,
+  time: number,
+  measure: Measure,
+  standard: Standard
+) {
+  switch (standard) {
+    case 'distance':
+      return distance < measure
+    case 'time_distance':
+      return distance < measure && time < TIME_DISTANCES.get(measure)!
+    case 'time':
+      return time < TIME_DISTANCES.get(measure)!
+  }
 }

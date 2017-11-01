@@ -1,3 +1,9 @@
+export type Adequacies = {
+  [representativePointId: string]: boolean
+}
+
+export type Measure = 15 | 20 | 30
+
 export type Provider = {
   address: string
   id: number
@@ -7,6 +13,8 @@ export type Provider = {
   npi: number
   specialty: string
 }
+
+export type Standard = 'time_distance' | 'time' | 'distance'
 
 export type RepresentativePoint = {
   county: string

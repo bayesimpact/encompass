@@ -1,5 +1,6 @@
 import { DropDownMenu, MenuItem, Paper } from 'material-ui'
 import * as React from 'react'
+import { TIME_DISTANCES } from '../../constants/timeDistances'
 import { store, withStore } from '../../services/store'
 import './FilterBar.css'
 
@@ -39,9 +40,9 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
         onChange={(e, i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >
-        <MenuItem value='15_miles' primaryText='15 miles / 30 min' />
-        <MenuItem value='20_miles' primaryText='20 miles / 40 min' />
-        <MenuItem value='30_miles' primaryText='30 miles / 60 min' />
+        {Array.from(TIME_DISTANCES).map(([miles, mins]) =>
+          <MenuItem key={miles} value={miles} primaryText={`${miles} miles / ${mins} min`} />
+        )}
       </DropDownMenu>
     </div>
 
