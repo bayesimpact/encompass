@@ -8,8 +8,8 @@ def mock_provider(provider_id, success=True):
         return {
             'status': 'success',
             'id': provider_id,
-            'lat': 37 + random.uniform(0, 0.3),
-            'lng': -122 - random.uniform(0, 0.3)
+            'lat': random_lat(),
+            'lng': random_lng(),
         }
     return {
         'status': 'error',
@@ -24,10 +24,14 @@ def mock_representative_point(service_area_id=0, rp_id=0):
     return {
         'id': rp_id,
         'service_area_id': service_area_id,
-        'lat': 37 + random.uniform(0, 0.3),
-        'lng': -122 - random.uniform(0, 0.3),
+        'lat': random_lat(),
+        'lng': random_lng(),
         'county': county,
-        'population': {0.5: 18, 2.5: 30, 5: 2000},
+        'population': {
+          0.5: random.randint(10, 10000),
+          2.5: random.randint(100, 100000),
+          5: random.randint(1000, 1000000)
+        },
         'zip': zip_code,
         'census_block_group': 105,
         'census_block': 3,
@@ -41,6 +45,15 @@ def mock_adequacy(rp_id, provider_id):
         'id': rp_id,
         'closest_provider_by_distance': provider_id,
         'closest_provider_by_time': provider_id,
-        'time_to_clostest_provider': round(random.uniform(10, 60)),
-        'distance_to_closest_povider': random.uniform(5, 40)
+        'time_to_closest_provider': round(random.uniform(10, 60)),
+        'distance_to_closest_provider': random.uniform(5, 40)
     }
+
+### helpers
+
+def random_coord(seed):
+    """Generate a mock lat/lng coordinate."""
+    return lambda: seed + random.uniform(-0.03, 0.03)
+
+random_lat = random_coord(37.765134)
+random_lng = random_coord(-122.444687)
