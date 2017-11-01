@@ -5,7 +5,6 @@ import { ALL_SERVICE_AREAS, ServiceAreaSelector } from '../../../ServiceAreaSele
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 import { TotalAnalytics } from './TotalAnalytics'
-import { ViewPicker } from './ViewPicker'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing

@@ -12,5 +12,7 @@ export function withDemo(store: Store<Actions>) {
 
   store.set('adequacies')({ 0: false, 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false, 10: false, 11: false, 12: false, 13: true, 14: true, 15: true, 16: false, 17: false, 18: true, 19: false, 20: true, 21: false, 22: false, 23: false, 24: false, 25: false, 26: true, 27: true, 28: true, 29: false, 30: false, 31: false, 32: true, 33: false, 34: false, 35: false, 36: false, 37: false, 38: true, 39: false, 50: false, 51: false, 52: false, 53: false, 54: false, 55: false, 56: false, 57: false, 58: true, 59: false, 60: true, 61: false, 62: false, 63: false, 64: false, 65: false, 66: false, 67: false, 68: false, 69: false, 70: false, 71: false, 72: true, 73: false, 74: false, 75: false, 76: false, 77: false, 78: false, 79: false, 80: true, 81: false, 82: false, 83: false, 84: false, 85: false, 86: false, 87: false, 88: false, 89: false })
 
+  store.set('selectedServiceArea')('San Francisco / 94014')
+
   return store
 }

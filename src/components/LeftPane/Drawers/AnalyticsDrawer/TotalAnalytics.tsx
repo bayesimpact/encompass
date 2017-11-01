@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
-import { population, providers } from '../../../../utils/analytics'
+import { population } from '../../../../utils/analytics'
 import { StatsBox } from '../../../StatsBox/StatsBox'
 import { AdequacyDonut } from './AdequacyDonut'
 import './TotalAnalytics.css'
@@ -16,7 +16,7 @@ export let TotalAnalytics = withStore()(({ store }) =>
       <tr>
         <td>{store.get('serviceAreas').length}</td>
         <td>{population(store.get('serviceAreas'), store.get('representativePoints')).toLocaleString()}</td>
-        <td>{providers(store.get('serviceAreas'), store.get('providers')).toLocaleString()}</td>
+        <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>
     <AdequacyDonut serviceAreas={store.get('serviceAreas')} />

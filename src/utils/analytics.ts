@@ -11,13 +11,3 @@ export function population(
     .sumBy(_ => _.population)
     .value()
 }
-
-/**
- * TODO (blocked on https://github.com/bayesimpact/time-distance-standards/issues/30)
- */
-export function providers(
-  serviceAreas: string[],
-  providers: Provider[]
-) {
-  return 42
-}
