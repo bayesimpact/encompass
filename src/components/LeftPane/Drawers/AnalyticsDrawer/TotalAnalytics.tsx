@@ -15,7 +15,7 @@ export let TotalAnalytics = withStore()(({ store }) =>
       </tr>
       <tr>
         <td>{store.get('serviceAreas').length}</td>
-        <td>{population(store.get('serviceAreas'), store.get('representativePoints')).toLocaleString()}</td>
+        <td>{population(store.get('serviceAreas'))(store.get('representativePoints')).toLocaleString()}</td>
         <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>

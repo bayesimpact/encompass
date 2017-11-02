@@ -83,7 +83,7 @@ export let getRepresentativePoints = memoize(
 //
 
 export type ReadAdequaciesResponse = {
-  id: number
+  id: string
   distance_to_closest_provider: number
   time_to_closest_provider: number
   closest_provider_by_distance: number
