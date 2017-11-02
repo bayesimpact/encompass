@@ -5,7 +5,7 @@ export function formatNumber(n: number) {
   switch (n) {
     case Infinity:
     case -Infinity:
-      return ''
+      return '-'
     default:
       return n.toLocaleString()
   }
