@@ -28,7 +28,8 @@ export function withEffects(store: Store<Actions>) {
           .filter(_ => distribution in _.population)
           .map(_ => ({
             ..._,
-            population: _.population[distribution]!
+            population: _.population[distribution]!,
+            serviceAreaId: _.service_area_id
           }))
           .value()
       )
@@ -72,12 +73,19 @@ export function withEffects(store: Store<Actions>) {
       store.set('adequacies')(
         chain(representativePoints.map(_ => _.id))
           .zipObject(adequacies)
-          .mapValues(_ => isAdequate(
-            _.distance_to_closest_provider,
-            _.time_to_closest_provider,
-            measure,
-            standard
-          ))
+          .mapValues(_ => ({
+            isAdequate: isAdequate(
+              _.distance_to_closest_provider,
+              _.time_to_closest_provider,
+              measure,
+              standard
+            ),
+            id: _.id,
+            distanceToClosestProvider: _.distance_to_closest_provider,
+            timeToClosestProvider: _.time_to_closest_provider,
+            closestProviderByDistance: _.closest_provider_by_distance,
+            closestProviderByTime: _.closest_provider_by_time
+          }))
           .value()
       )
     })

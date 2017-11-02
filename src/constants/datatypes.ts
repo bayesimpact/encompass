@@ -1,5 +1,15 @@
 export type Adequacies = {
-  [representativePointId: string]: boolean
+  [representativePointId: string]: Adequacy
+}
+
+export type Adequacy = {
+  isAdequate: boolean
+  /** Representative point Id */
+  id: number
+  distanceToClosestProvider: number
+  timeToClosestProvider: number
+  closestProviderByDistance: number
+  closestProviderByTime: number
 }
 
 export type Measure = 15 | 20 | 30
@@ -22,6 +32,6 @@ export type RepresentativePoint = {
   lat: number
   lng: number
   population: number
-  service_area_id: string
+  serviceAreaId: string
   zip: string
 }
