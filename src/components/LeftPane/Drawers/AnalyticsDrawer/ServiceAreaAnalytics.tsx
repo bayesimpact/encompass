@@ -1,24 +1,23 @@
-import { values } from 'lodash'
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
 import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime } from '../../../../utils/analytics'
+import { adequaciesFromServiceArea } from '../../../../utils/data'
+import { formatNumber } from '../../../../utils/formatters'
 import { StatsBox } from '../../../StatsBox/StatsBox'
 import { AdequacyDoughnut } from './AdequacyDoughnut'
 import './ServiceAreaAnalytics.css'
 
 export let ServiceAreaAnalytics = withStore(
   'adequacies',
-  'selectedServiceArea',
-  'serviceAreas'
+  'selectedServiceArea'
 )(({ store }) => {
 
-  let adequacies = values(store.get('adequacies'))
   let selectedServiceArea = store.get('selectedServiceArea')!
-  let serviceAreas = store.get('serviceAreas')
+  let adequacies = adequaciesFromServiceArea(selectedServiceArea, store)
 
   return <div className='ServiceAreaAnalytics'>
     <AdequacyDoughnut serviceAreas={[store.get('selectedServiceArea')!]} />
-    <StatsBox withBorders>
+    <StatsBox withBorders withHorizontalLines>
       <tr>
         <th />
         <th>Avg</th>
@@ -27,15 +26,15 @@ export let ServiceAreaAnalytics = withStore(
       </tr>
       <tr>
         <th>Distance (mi)</th>
-        <td>{averageDistance([selectedServiceArea])(adequacies).toLocaleString()}</td>
-        <td>{minDistance([selectedServiceArea])(adequacies).toLocaleString()}</td>
-        <td>{maxDistance([selectedServiceArea])(adequacies).toLocaleString()}</td>
+        <td>{formatNumber(averageDistance(adequacies))}</td>
+        <td>{formatNumber(minDistance(adequacies))}</td>
+        <td>{formatNumber(maxDistance(adequacies))}</td>
       </tr>
       <tr>
         <th>Time (min)</th>
-        <td>{averageTime([selectedServiceArea])(adequacies).toLocaleString()}</td>
-        <td>{minTime([selectedServiceArea])(adequacies).toLocaleString()}</td>
-        <td>{maxTime([selectedServiceArea])(adequacies).toLocaleString()}</td>
+        <td>{formatNumber(averageTime(adequacies))}</td>
+        <td>{formatNumber(minTime(adequacies))}</td>
+        <td>{formatNumber(maxTime(adequacies))}</td>
       </tr>
     </StatsBox>
   </div>

@@ -43,3 +43,10 @@
 .StatsBox.-withBorders th {
   border-right: 1px solid var(--verylight);
 }
+
+.StatsBox.-withHorizontalLines td,
+.StatsBox.-withHorizontalLines th {
+  border-top: 1px solid var(--verylight);
+  border-right: 0;
+  padding: 5px 7px;
+}

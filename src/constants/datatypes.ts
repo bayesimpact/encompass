@@ -4,7 +4,8 @@ export type Adequacies = {
 
 export type Adequacy = {
   isAdequate: boolean
-  serviceAreaId: string
+  /** Representative point Id */
+  id: number
   distanceToClosestProvider: number
   timeToClosestProvider: number
   closestProviderByDistance: number

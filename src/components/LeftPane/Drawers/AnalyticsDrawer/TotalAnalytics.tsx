@@ -1,12 +1,18 @@
+import { filter, keyBy } from 'lodash'
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
 import { population } from '../../../../utils/analytics'
+import { representativePointsFromServiceAreas } from '../../../../utils/data'
 import { StatsBox } from '../../../StatsBox/StatsBox'
 import { AdequacyDoughnut } from './AdequacyDoughnut'
 import './TotalAnalytics.css'
 
-export let TotalAnalytics = withStore()(({ store }) =>
-  <div className='TotalAnalytics'>
+export let TotalAnalytics = withStore()(({ store }) => {
+
+  let serviceAreas = store.get('serviceAreas')
+  let representativePoints = representativePointsFromServiceAreas(serviceAreas, store)
+
+  return <div className='TotalAnalytics'>
     <StatsBox className='HighLevelStats' withBorders>
       <tr>
         <th>Service Areas</th>
@@ -14,11 +20,11 @@ export let TotalAnalytics = withStore()(({ store }) =>
         <th>Providers</th>
       </tr>
       <tr>
-        <td>{store.get('serviceAreas').length}</td>
-        <td>{population(store.get('serviceAreas'))(store.get('representativePoints')).toLocaleString()}</td>
+        <td>{serviceAreas.length}</td>
+        <td>{population(representativePoints).toLocaleString()}</td>
         <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>
-    <AdequacyDoughnut serviceAreas={store.get('serviceAreas')} />
+    <AdequacyDoughnut serviceAreas={serviceAreas} />
   </div>
-)
+})

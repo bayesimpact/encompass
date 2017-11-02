@@ -80,7 +80,7 @@ export function withEffects(store: Store<Actions>) {
               measure,
               standard
             ),
-            serviceAreaId: _.id,
+            id: _.id,
             distanceToClosestProvider: _.distance_to_closest_provider,
             timeToClosestProvider: _.time_to_closest_provider,
             closestProviderByDistance: _.closest_provider_by_distance,
