@@ -7,4 +7,3 @@ RUN conda install --yes --no-pin \
 
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-

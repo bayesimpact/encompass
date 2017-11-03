@@ -1,8 +1,7 @@
 """All methods for measuring distance between two series of points."""
-
 import math
 
-from models.lib.time_distance_model import _meters_to_miles
+from backend.models.time_distance_model import _meters_to_miles
 
 
 class MeasureDistance():
@@ -15,7 +14,7 @@ class MeasureDistance():
 
     def get_distance_in_miles(self, point_a, point_b):
         """Get distance between two points."""
-        raise NotImplementedError("get_isocrone is a required method.")
+        raise NotImplementedError('get_isocrone is a required method.')
 
 
 class HaversineDistance(MeasureDistance):

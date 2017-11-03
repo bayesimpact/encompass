@@ -1,12 +1,17 @@
 """All methods that create or fetch Isolines from different services."""
-import networkx as nx
-import osmnx
 import json
-import requests
-from shapely import geometry
+
+from backend.models.time_distance_model import _miles_to_meters
+
 import geopandas as gpd
 
-from models.lib.time_distance_model import _miles_to_meters
+import networkx as nx
+
+import osmnx
+
+import requests
+
+from shapely import geometry
 
 MILE_TO_METERS = 1609.34
 
@@ -21,7 +26,7 @@ class Isoliner():
 
     def get_single_isodistance_polygon(self, point, radius_in_miles):
         """Get an isodistance polygon for the given point and radius."""
-        raise NotImplementedError("get_isocrone is a required method.")
+        raise NotImplementedError('get_isocrone is a required method.')
 
 
 class OSMIsonliner(Isoliner):

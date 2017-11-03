@@ -1,11 +1,7 @@
 """Methods to handle point A and Bs."""
-from shapely import geometry
 import pandas as pd
 
-# client = pymongo.MongoClient('mongo', 27017)
-# na_db = client['na-db']
-# boundaries = na_db['boundaries']
-# point_b_collection = na_db['point_bs']
+from shapely import geometry
 
 
 def fetch_point_as(db_client, zip_code, county_name, collection='representative_points'):

@@ -1,10 +1,12 @@
 """All implementations of isochorne model for time and distance problem of network adequacy."""
-
-import math
-from shapely import geometry
-import osmnx as ox
-import pandas as pd
 import logging
+import math
+
+import osmnx as ox
+
+import pandas as pd
+
+from shapely import geometry
 
 logger = logging.getLogger(__name__)
 
@@ -51,9 +53,9 @@ class TimeDistanceModel(object):
             if self.bounding_box:
                 self.graph = ox.graph_from_polygon(self.bounding_box, network_type='drive')
             else:
-                print("No bounding box is defined.")
+                print('No bounding box is defined.')
         else:
-            print("Already fetched a graph. To override, clear_graph first")
+            print('Already fetched a graph. To override, clear_graph first')
 
     def clear_graph(self):
         """Clear current model's graph."""

@@ -10,7 +10,7 @@ HEADERS = {
     'Accept': 'application/json',
 }
 
-BASE_URL = '''https://gis.usps.com/arcgis/rest/services/EDDM/EDDM_ZIP5/MapServer/1/query'''
+BASE_URL = 'https://gis.usps.com/arcgis/rest/services/EDDM/EDDM_ZIP5/MapServer/1/query'
 
 BASE_PARAMS = {
     'where': '1=1',
@@ -60,6 +60,7 @@ def fetch_zip_boundary_polygons(zip_codes):
 def _request_zip_boundary_polygons(zip_codes_first_two_digits, retries=10):
     """
     Request ZIP boundary polygons from the EDDM tool.
+
     Returns a list of features in GeoJSON format.
     """
     features = []
@@ -96,10 +97,7 @@ def _request_zip_boundary_polygons(zip_codes_first_two_digits, retries=10):
 
 
 def main(output_file):
-    """
-    Main function for extracting GeoJSON for CA.
-    """
-
+    """Main function for extracting GeoJSON for CA."""
     california_zips_first_digits = range(90, 100)
     with open(output_file, 'w') as fp:
         geojson.dump(fetch_zip_boundary_polygons(california_zips_first_digits), fp)

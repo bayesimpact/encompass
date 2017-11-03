@@ -1,7 +1,7 @@
 """Methods to geocode a given address."""
+import osmnx as ox
 
 from shapely import geometry
-import osmnx as ox
 
 
 class Geocoder():
