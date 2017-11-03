@@ -24,7 +24,6 @@ MAPBOX_TOKEN=abcdefg
 ## Run
 
 ```sh
-cd bayes-mvp/client
 yarn
 yarn build
 yarn start
