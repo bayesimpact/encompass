@@ -59,7 +59,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.ejs',
-      title: 'bayes-mvp'
+      title: 'bayes-network-adequacy-explorer'
     })
   ]
 }
