@@ -2,11 +2,11 @@
 import logging
 
 from sqlalchemy import MetaData, Table
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 # from io import StringIO
 
 logger = logging.getLogger(__name__)
-
-EXCLUDED_COLUMNS = ['id', 'created_at', 'updated_at']
 
 
 def _get_table(engine, table_name):
@@ -18,22 +18,78 @@ def _get_table(engine, table_name):
     return Table(table_name, metadata, autoload=True)
 
 
-def core_insert(engine, sql_class, data):
+def get_ids(conn, sql_class, columns, data):
+    """
+    Get row ids based on data and column_names.
+
+    This function returns only the first id per data point.
+    Be careful if the columns do not ensure uniqueness.
+    """
+    return [
+        _get_id(conn, sql_class, {k: row[k] for k in row if k in columns})
+        for row in data
+    ]
+
+
+def _get_id(conn, sql_class, key_values):
+    """Get first available id based on a list of column_name:value pairs."""
+    key_values = 'AND '.join(["{k} = '{v}'".format(k=k, v=v) for k, v in key_values.items()])
+    id_query = 'SELECT id FROM {table_name} WHERE {key_values};'.format(
+        table_name=sql_class.__tablename__,
+        key_values=key_values)
+    results = conn.execute(id_query)
+    return results.first()[0]
+
+
+def _safe_core_insert(conn, sql_class, row):
+    """Safe insert in case of duplicates."""
+    try:
+        result = conn.execute(sql_class.__table__.insert(), row)
+        return result.inserted_primary_key[0]
+    except IntegrityError:
+        return _get_id(conn, sql_class, {'address': row['address']})
+
+
+def core_insert(engine, sql_class, data, return_insert_ids=False, unique=True):
     """
     A single Core INSERT construct inserting mappings in bulk.
 
     This is one of the fastest method possible for bulk inserts.
+
+    sql_class (Base): a sqlAlchemy declarative class.
+    data ([dicts]): list of dictionary with the key corresponsing to the sql_class
+          column names.
+    return_insert_ids (boolean): flag to return row ids after insert.
+    unique: flag to warn of uniqueness constraints one or more of the inserted fields.
     """
     with engine.connect() as conn:
-        inserts = conn.execute(sql_class.__table__.insert(), data)
-        return inserts.inserted_primary_key
+        if return_insert_ids or unique:
+            return [
+                _safe_core_insert(conn, sql_class, row)
+                for row in data
+            ]
+        return conn.execute(sql_class.__table__.insert(), data)
 
 
-def delete(engine, table_name, ids):
+def bulk_insert(engine, sql_class, data):
+    """
+    Bulk insert using a session.
+
+    sql_class (Base): a sqlAlchemy declarative class.
+    data ([dicts]): list of dictionary with the key corresponsing to the sql_class
+          column names.
+    """
+    with Session(bind=engine) as session:
+        session.bulk_insert_mappings(sql_class, data)
+        session.commit()
+
+
+def delete(engine, sql_class, ids):
     """Delete ids."""
     id_list = '(' + ', '.join([str(_id) for _id in ids]) + ')'
     delete_query = 'DELETE FROM {table_name} WHERE id in {id_list};'.format(
-        table_name=table_name, id_list=id_list)
+        table_name=sql_class.__tablename__,
+        id_list=id_list)
     engine.execute(delete_query)
 
 

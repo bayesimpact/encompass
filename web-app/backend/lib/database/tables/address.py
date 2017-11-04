@@ -12,7 +12,7 @@ class Address(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
-    address = Column(String, nullable=False, index=True)
+    address = Column(String, nullable=False, index=True, unique=True)
     latitude = Column(Float)
     longitude = Column(Float)
     isodistancePolygon = Column(JSON)
