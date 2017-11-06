@@ -1,4 +1,4 @@
-import { chain } from 'lodash'
+import { chain, noop } from 'lodash'
 import { parse as papaparse } from 'papaparse'
 
 export function parseCSV<T>(csvFile: File): Promise<T[]> {
@@ -19,11 +19,13 @@ export type ColumnDefinition = {
 
 export function parseRows<T>(
   columns: ColumnDefinition[],
-  f: (fields: (string | null)[]) => T
+  f: (fields: (string | null)[]) => T,
+  validateHeaders: (fields: string[]) => Error[] = (_ => [])
 ) {
   return async (file: File): Promise<[ParseError[], T[]]> => {
     let csv = await parseCSV<string[]>(file)
     let columnIndices = findColumns(csv, columns)
+    validateHeaders(columnIndices.map(_ => csv[0][_])).forEach(e => { throw e })
     return chain(csv)
       .slice(1)         // Ignore header row
       .filter(Boolean)  // Ignore empty rows (whitespace)
@@ -48,10 +50,17 @@ function getError(
     let { required } = columns[i]
     let field = fields[i]
     // TODO: Why is field sometimes undefined?
-    if (required && (field == null || field.trim() === '')) {
+    if (required && isEmpty(field)) {
       return new ParseError(rowIndex, i, columns[i], fields)
     }
   }
+}
+
+/**
+ * Returns whether or not the given CSV field is empty.
+ */
+export function isEmpty(a: string | null) {
+  return a == null || a.trim() === ''
 }
 
 /**

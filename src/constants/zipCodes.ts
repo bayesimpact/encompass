@@ -1,4 +1,4 @@
-import { chain } from 'lodash'
+import { chain, memoize } from 'lodash'
 
 export const COUNTIES_TO_ZIPS: {
   [county: string]: string[]
@@ -85,3 +85,16 @@ export function serviceAreasFromCounties(counties: string[]) {
     .flatten()
     .value()
 }
+
+/** TODO: Move to utils */
+export let countiesFromZip = memoize((zip: string) => {
+  return chain(COUNTIES_TO_ZIPS)
+    .toPairs()
+    .filter(([_, v]) => v.includes(zip))
+    .map(([k]) => k)
+    .value()
+})
+
+/** TODO: Move to utils */
+export let zipsFromCounty = (county: string) =>
+  COUNTIES_TO_ZIPS[county]

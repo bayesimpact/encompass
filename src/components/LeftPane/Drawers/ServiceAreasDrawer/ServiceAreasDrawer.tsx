@@ -1,9 +1,9 @@
-import { capitalize, chain } from 'lodash'
+import { chain, flatten, spread } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS } from '../../../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS, countiesFromZip, serviceArea, zipsFromCounty } from '../../../../constants/zipCodes'
 import { store, withStore } from '../../../../services/store'
-import { parseCSV, parseRows } from '../../../../utils/csv'
+import { isEmpty, parseCSV, parseRows } from '../../../../utils/csv'
 import { capitalizeWords } from '../../../../utils/string'
 import { CountySelector } from '../../../CountySelector/CountySelector'
 import { CSVUploader } from '../../../CSVUploader/CSVUploader'
@@ -49,6 +49,7 @@ export let ServiceAreasDrawer = withStore(
 async function onFileSelected(file: File) {
   let serviceAreas = await parseServiceAreasCSV(file)
   store.set('counties')(getCounties(serviceAreas))
+  store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serviceArea(county, zip)))
   store.set('uploadedServiceAreasFilename')(file.name)
 }
 
@@ -60,32 +61,94 @@ function getCounties(serviceAreas: [string, string][]): string[] {
 }
 
 const COLUMNS = [
-  { aliases: ['CountyName'], required: true },
-  { aliases: ['ZipCode'], required: true }
+  { aliases: ['CountyName', 'county'] },
+  { aliases: ['ZipCode', 'zip'] }
 ]
 
-let parse = parseRows(COLUMNS, (([county, zip]) => {
-  let _county = capitalizeWords(county!)
+let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
 
-  // validate that county exists
-  if (!(_county in COUNTIES_TO_ZIPS)) {
-    throw `County "${county}" is not supported`
-  }
+  // We infer missing zips and counties, so one zip might map to
+  // more than one county, and one county maps to many zips.
+  let pairs = getCountyAndZip(county, zip)
+    .map(([county, zip]) => [capitalizeWords(county), zip] as [string, string])
+
+  // validate that counties exist
+  pairs.forEach(([county]) => {
+    if (!(county in COUNTIES_TO_ZIPS)) {
+      throw `County "${county}" is not supported`
+    }
+  })
 
   // validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
-  if (!COUNTIES_TO_ZIPS[_county].includes(zip!)) {
-    throw `Zip ${zip} does not exist in county "${county}"`
-  }
+  pairs.forEach(([county, zip]) => {
+    if (!COUNTIES_TO_ZIPS[county].includes(zip)) {
+      throw `Zip ${zip} does not exist in county "${county}"`
+    }
+  })
 
-  return [_county, zip] as [string, string]
-}))
+  return pairs
+    .uniqBy(spread(serviceArea))
+    .value()
+}), validateHeaders)
+
+function validateHeaders(fields: string[]) {
+  if (isEmpty(fields[0]) && isEmpty(fields[1])) {
+    return [Error(`CSV must define columns "CountyName" and/or "ZipCode"`)]
+  }
+  return []
+}
+
+function getCountyAndZip(county: string | null, zip: string | null): Lazy<[string, string][]> {
+  switch (getParseMode(county, zip)) {
+
+    case ParseMode.INFER_COUNTY:
+      // If county isn't defined but zip is, default to all counties
+      // that contain the given zip.
+      return chain(countiesFromZip(zip!))
+        .map(county => [county, zip] as [string, string])
+
+    case ParseMode.INFER_ZIP:
+      // If county is defined but zip isn't, default to all zips for
+      // the given county.
+      return chain(zipsFromCounty(capitalizeWords(county!)))
+        .map(zip => [county, zip] as [string, string])
+
+    case ParseMode.WELL_FORMED:
+      return chain([[county, zip] as [string, string]])
+
+    case ParseMode.INSUFFICIENT_DATA:
+      // TODO: Add support for dependent requires in `ColumnDefinitions`.
+      // What we want to express is "either CountyName or ZipCode must
+      // be defined". We can't do this today, so we explicitly return an
+      // empty row here instead.
+      return chain([])
+  }
+}
+
+enum ParseMode {
+  INFER_COUNTY,
+  INFER_ZIP,
+  INSUFFICIENT_DATA,
+  WELL_FORMED
+}
+
+function getParseMode(county: string | null, zip: string | null): ParseMode {
+  if (county && zip) {
+    return ParseMode.WELL_FORMED
+  } else if (county && !zip) {
+    return ParseMode.INFER_ZIP
+  } else if (!county && zip) {
+    return ParseMode.INFER_COUNTY
+  } else {
+    return ParseMode.INSUFFICIENT_DATA
+  }
+}
 
 /**
  * TODO: Expose parse, validation errors to user
  */
 async function parseServiceAreasCSV(file: File): Promise<[string, string][]> {
   let result = await parse(file)
-  console.log(result)
-  return result[1]
+  return flatten(result[1])
 }
