@@ -1,7 +1,7 @@
 import { filter, keyBy } from 'lodash'
 import * as React from 'react'
 import { withStore } from '../../../../services/store'
-import { population } from '../../../../utils/analytics'
+import { totalPopulation } from '../../../../utils/analytics'
 import { representativePointsFromServiceAreas } from '../../../../utils/data'
 import { StatsBox } from '../../../StatsBox/StatsBox'
 import { AdequacyDoughnut } from './AdequacyDoughnut'
@@ -21,7 +21,7 @@ export let TotalAnalytics = withStore()(({ store }) => {
       </tr>
       <tr>
         <td>{serviceAreas.length}</td>
-        <td>{population(representativePoints).toLocaleString()}</td>
+        <td>{totalPopulation(representativePoints).toLocaleString()}</td>
         <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>

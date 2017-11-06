@@ -44,4 +44,4 @@ export let averageTime = mean<Adequacy>(_ => _.timeToClosestProvider)
 export let maxTime = max<Adequacy>(_ => _.timeToClosestProvider)
 export let minTime = min<Adequacy>(_ => _.timeToClosestProvider)
 
-export let population = sum<RepresentativePoint>(_ => _.population)
+export let totalPopulation = sum<RepresentativePoint>(_ => _.population)

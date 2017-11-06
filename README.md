@@ -29,11 +29,13 @@ yarn build
 yarn start
 ```
 
-Then, open *https://localhost:9000* in your browser.
+Then, open *https://localhost:8081* in your browser.
 
-## Editor
+## Tests
 
-I suggest editing this project using [VSCode](https://code.visualstudio.com/).
+```sh
+yarn test
+```
 
 ## License
 
