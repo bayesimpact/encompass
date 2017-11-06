@@ -50,6 +50,41 @@ def _safe_core_insert(conn, sql_class, row):
         return _get_id(conn, sql_class, {'address': row['address']})
 
 
+def bulk_insert_via_query(engine, sql_class, data):
+    """
+    Insert data into a table using a single INSERT statement.
+
+    The argument `data` should be a list of dictionaries, each of whose keys are
+        a) identical across different list elements,
+        b) contained in the schema for `sql_class`
+        c) cover all NOT NULL columns in the schema for `sql_class`
+    """
+    # TODO: Handle NULL and None.
+    if not data:
+        logger.info('No data provided. Passing.')
+        return
+
+    bulk_insert_str = []
+    columns = sorted(data[0].keys())
+    base_value_string = ', '.join(['\'{{{col}}}\''.format(col=col) for col in columns])
+
+    for entry in data:
+        current_value_string = '(' + base_value_string.format(**entry) + ')'
+        bulk_insert_str.append(current_value_string)
+
+    query = """
+            INSERT INTO {table} ({insert_columns})
+            VALUES {values}
+        """.format(
+            table=sql_class.__tablename__,
+            insert_columns=', '.join(columns),
+            values=', '.join(bulk_insert_str))
+
+    with engine.connect() as conn:
+        results = conn.execute(query)
+        return results
+
+
 def core_insert(engine, sql_class, data, return_insert_ids=False, unique=True):
     """
     A single Core INSERT construct inserting mappings in bulk.
@@ -68,7 +103,12 @@ def core_insert(engine, sql_class, data, return_insert_ids=False, unique=True):
                 _safe_core_insert(conn, sql_class, row)
                 for row in data
             ]
-        return conn.execute(sql_class.__table__.insert(), data)
+        results = conn.execute(sql_class.__table__.insert().values(data))
+        logger.info('{n_rows} rows inserted into {table}.'.format(
+            n_rows=results.rowcount,
+            table=sql_class.__tablename__
+        ))
+        return results
 
 
 def bulk_insert(engine, sql_class, data):

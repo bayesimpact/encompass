@@ -1,6 +1,7 @@
 """Methods for geocoding with Geocodio."""
-from geocodio import GeocodioClient
 import os
+
+from geocodio import GeocodioClient
 
 
 class GeocodioCoder():

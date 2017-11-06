@@ -25,7 +25,7 @@ services:
           - ./web-app/backend/app/main.py:/app/main.py:ro
           - ./web-app/backend/lib/:/app/lib/:ro
           - ./runners/:/app/runners:ro
-          - ./data/:/app/data/:ro
+          - ./data/:/app/data/:rw
           - ./web-app/backend/config/uwsgi.ini:/app/uwsgi.ini:ro
           - ./web-app/backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
           - ./web-app/backend/tests:/app/tests:ro
