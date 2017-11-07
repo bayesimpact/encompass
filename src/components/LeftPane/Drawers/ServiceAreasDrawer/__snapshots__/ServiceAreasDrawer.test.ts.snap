@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parseServiceAreasCSV (duplicate counties) 1`] = `
+exports[`parseServiceAreasCSV (county only) 1`] = `
 Array [
   Array [],
   Array [
@@ -836,7 +836,7 @@ Array [
 ]
 `;
 
-exports[`parseServiceAreasCSV (duplicate counties) 2`] = `
+exports[`parseServiceAreasCSV (duplicate counties) 1`] = `
 Array [
   Array [],
   Array [

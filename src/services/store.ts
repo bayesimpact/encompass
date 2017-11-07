@@ -85,7 +85,7 @@ export let store = withDemo(withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
-}, true)))
+})))
 
 export let withStore = connect(store)
 

@@ -1,9 +1,6 @@
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {
-  sync
-} = require('glob')
 
 module.exports = {
   devtool: 'source-map',
@@ -14,12 +11,9 @@ module.exports = {
     https: false,
     port: 8081
   },
-  entry: {
-    bundle: './src/index.tsx',
-    test: [...sync('./src/**/*.test.ts'), ...sync('./src/**/*.test.tsx')]
-  },
+  entry: './src/index.tsx',
   output: {
-    filename: '[name].js',
+    filename: 'bundle.js',
     path: __dirname + '/dist'
   },
   resolve: {

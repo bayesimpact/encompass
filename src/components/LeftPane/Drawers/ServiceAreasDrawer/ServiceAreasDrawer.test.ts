@@ -44,7 +44,8 @@ test('parseServiceAreasCSV (duplicate counties)', async () =>
 )
 
 test('parseServiceAreasCSV (invalid input)', async () =>
-  expect((await parseServiceAreasCSV(pointAsInvalidInputFile))[0][0].toString()).toMatchSnapshot()
+  expect((await parseServiceAreasCSV(pointAsInvalidInputFile))[0][0].toString())
+    .toBe('CSV must define columns "CountyName" and/or "ZipCode"')
 )
 
 test('parseServiceAreasCSV (zip and county)', async () =>
