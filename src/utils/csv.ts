@@ -17,15 +17,27 @@ export type ColumnDefinition = {
   required?: boolean
 }
 
+type ValidateHeaders = (columns: ColumnDefinition[], fields: string[]) => Error[]
+
+let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
+  chain(columns)
+    .filter(c => c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0)
+    .map(_ => Error(`CSV must define column "${_.aliases[0]}"`))
+    .value()
+
 export function parseRows<T>(
   columns: ColumnDefinition[],
   f: (fields: (string | null)[]) => T,
-  validateHeaders: (fields: string[]) => Error[] = (_ => [])
+  validateHeaders: ValidateHeaders = validateHeadersDefault
 ) {
   return async (file: File): Promise<[ParseError[], T[]]> => {
     let csv = await parseCSV<string[]>(file)
-    let columnIndices = findColumns(csv, columns)
-    validateHeaders(columnIndices.map(_ => csv[0][_])).forEach(e => { throw e })
+    let columnIndices = findColumns(columns, csv)
+
+    // TODO: Expose errors to user.
+    validateHeaders(columns, columnIndices.map(_ => csv[0][_]))
+      .forEach(e => { throw e })
+
     return chain(csv)
       .slice(1)         // Ignore header row
       .filter(Boolean)  // Ignore empty rows (whitespace)
@@ -59,24 +71,19 @@ function getError(
 /**
  * Returns whether or not the given CSV field is empty.
  */
-export function isEmpty(a: string | null) {
+export function isEmpty(a: string | null | undefined) {
   return a == null || a.trim() === ''
 }
 
 /**
  * Finds indices of the given columns in the given CSV.
- * Throws an exception if column is not found.
  *
  * TODO: Fuzzy matching for column names
  */
-function findColumns(csv: string[][], columns: ColumnDefinition[]) {
-  return columns.map(({ aliases, required }) => {
-    let index = csv[0].findIndex(_ => aliases.some(a => a === _))
-    if (required && index < 0) {
-      throw `CSV must define column "${aliases[0]}"`
-    }
-    return index
-  })
+function findColumns(columns: ColumnDefinition[], csv: string[][]) {
+  return columns.map(({ aliases }) =>
+    csv[0].findIndex(_ => aliases.some(a => a === _))
+  )
 }
 
 function readRow(csvRow: string[], columnIndices: number[]) {
@@ -88,7 +95,7 @@ function readRow(csvRow: string[], columnIndices: number[]) {
   })
 }
 
-class ParseError {
+export class ParseError {
   constructor(
     public rowIndex: number,
     public columnIndex: number,

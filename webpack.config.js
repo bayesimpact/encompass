@@ -16,7 +16,7 @@ module.exports = {
   },
   entry: {
     bundle: './src/index.tsx',
-    test: sync('./src/**/*.test.ts')
+    test: [...sync('./src/**/*.test.ts'), ...sync('./src/**/*.test.tsx')]
   },
   output: {
     filename: '[name].js',

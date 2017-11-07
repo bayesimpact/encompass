@@ -3,7 +3,7 @@ import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { COUNTIES_TO_ZIPS, countiesFromZip, serviceArea, zipsFromCounty } from '../../../../constants/zipCodes'
 import { store, withStore } from '../../../../services/store'
-import { isEmpty, parseCSV, parseRows } from '../../../../utils/csv'
+import { ColumnDefinition, isEmpty, parseCSV, ParseError, parseRows } from '../../../../utils/csv'
 import { capitalizeWords } from '../../../../utils/string'
 import { CountySelector } from '../../../CountySelector/CountySelector'
 import { CSVUploader } from '../../../CSVUploader/CSVUploader'
@@ -46,8 +46,11 @@ export let ServiceAreasDrawer = withStore(
   </Drawer >
   )
 
+/**
+ * TODO: Expose parse, validation errors to user
+ */
 async function onFileSelected(file: File) {
-  let serviceAreas = await parseServiceAreasCSV(file)
+  let [_, serviceAreas] = await parseServiceAreasCSV(file)
   store.set('counties')(getCounties(serviceAreas))
   store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serviceArea(county, zip)))
   store.set('uploadedServiceAreasFilename')(file.name)
@@ -92,7 +95,7 @@ let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
     .value()
 }), validateHeaders)
 
-function validateHeaders(fields: string[]) {
+function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   if (isEmpty(fields[0]) && isEmpty(fields[1])) {
     return [Error(`CSV must define columns "CountyName" and/or "ZipCode"`)]
   }
@@ -146,9 +149,10 @@ function getParseMode(county: string | null, zip: string | null): ParseMode {
 }
 
 /**
- * TODO: Expose parse, validation errors to user
+
+ * @private Exposed for unit testing.
  */
-async function parseServiceAreasCSV(file: File): Promise<[string, string][]> {
-  let result = await parse(file)
-  return flatten(result[1])
+export async function parseServiceAreasCSV(file: File): Promise<[ParseError[], [string, string][]]> {
+  let [l, r] = await parse(file)
+  return [l, flatten(r)]
 }
