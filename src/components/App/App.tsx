@@ -1,4 +1,3 @@
-import { Snackbar } from 'material-ui'
 import { MuiThemeProvider } from 'material-ui/styles'
 import * as React from 'react'
 import '../../services/effects'
