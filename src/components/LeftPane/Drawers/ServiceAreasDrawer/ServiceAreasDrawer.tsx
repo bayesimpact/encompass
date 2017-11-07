@@ -122,10 +122,6 @@ function getCountyAndZip(county: string | null, zip: string | null): Lazy<[strin
       return chain([[county, zip] as [string, string]])
 
     case ParseMode.INSUFFICIENT_DATA:
-      // TODO: Add support for dependent requires in `ColumnDefinitions`.
-      // What we want to express is "either CountyName or ZipCode must
-      // be defined". We can't do this today, so we explicitly return an
-      // empty row here instead.
       return chain([])
   }
 }
