@@ -14,7 +14,7 @@ RESPONSE
 [
     {
       id: 17323,
-      service_area_id: "alameda_94100",
+      service_area_id: "ca_alameda_94100",
       lat: 74.38732,
       lng: -122.323331
       county: "Alameda",
@@ -28,7 +28,7 @@ RESPONSE
 """
 import json
 
-from backend.app.mocks.responses import mock_representative_point
+from backend.lib import fetch
 from backend.app.exceptions.format import InvalidFormat
 
 
@@ -36,14 +36,8 @@ def representative_points_request(app, flask_request):
     """Handle /api/providers requests."""
     app.logger.info('Fetching representative_points.')
     try:
-        service_area_ids = flask_request.get_json(force=True)
-    except json.JSONDecodeError:
+        request_json = flask_request.get_json(force=True)
+        service_area_ids = request_json['service_area_ids']
+    except (json.JSONDecodeError, KeyError):
         raise InvalidFormat(message='Invalid JSON format.')
-
-    return [
-        mock_representative_point(
-            service_area_id=service_area_id,
-            rp_id=r)
-        for i, service_area_id in enumerate(service_area_ids)
-        for r in range(i * 50, i * 50 + 40)
-    ]
+    return fetch.fetch_representative_points(service_area_ids)

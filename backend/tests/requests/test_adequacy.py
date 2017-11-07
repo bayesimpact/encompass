@@ -24,7 +24,7 @@ class TestProvidersRequest(LiveServerTestCase):
         """Test provider requests in a simple case."""
         request_adequacy = {
             'provider_ids': [1, 2],
-            'service_area_ids': ['alameda_0000']
+            'service_area_ids': ['ca_alameda_0000']
         }
 
         def _mock_get_json(force=True):

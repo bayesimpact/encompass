@@ -10,6 +10,7 @@ def initialize_postgres():
     postgres_engine = connect.create_db_engine(echo=True)
     # Install Postgis
     postgis.install()
+    # Create tables
     Base.metadata.create_all(postgres_engine, checkfirst=True)
 
 
