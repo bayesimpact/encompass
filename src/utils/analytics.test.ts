@@ -57,7 +57,7 @@ test('minTime', () => {
   expect(minTime(adequacies2)).toBe(0)
 })
 
-test('totalPoulation', () => {
+test('totalPopulation', () => {
   expect(totalPopulation(representativePoints1)).toBe(103324)
   expect(totalPopulation(representativePoints2)).toBe(0)
 })

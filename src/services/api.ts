@@ -6,14 +6,14 @@ const API_ROOT = 'http://localhost:8080'
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>
     <T>(body: object) =>
-      fetch(new Request(API_ROOT + url, {
+      fetch(API_ROOT + url, {
         body: JSON.stringify(body),
         headers: {
           Accept: 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
         method
-      })).then<T>(_ => _.json())
+      }).then<T>(_ => _.json())
 
 let POST = request('POST')
 
