@@ -50,7 +50,8 @@ export let ServiceAreasDrawer = withStore(
  * TODO: Expose parse, validation errors to user
  */
 async function onFileSelected(file: File) {
-  let [_, serviceAreas] = await parseServiceAreasCSV(file)
+  let [errors, serviceAreas] = await parseServiceAreasCSV(file)
+  errors.forEach(console.error)
   store.set('counties')(getCounties(serviceAreas))
   store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serviceArea(county, zip)))
   store.set('uploadedServiceAreasFilename')(file.name)
@@ -97,7 +98,7 @@ let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
 
 function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   if (isEmpty(fields[0]) && isEmpty(fields[1])) {
-    return [Error(`CSV must define columns "CountyName" and/or "ZipCode"`)]
+    return [new ParseError(0, 0, columns[0], fields, `CSV must define columns "CountyName" and/or "ZipCode"`)]
   }
   return []
 }

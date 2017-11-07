@@ -1172,6 +1172,8 @@ Array [
 ]
 `;
 
+exports[`parseServiceAreasCSV (invalid input) 1`] = `"Error at row 0 field 0 (CountyName): CSV must define columns \\"CountyName\\" and/or \\"ZipCode\\". Row=\\",\\""`;
+
 exports[`parseServiceAreasCSV (zip and county) 1`] = `
 Array [
   Array [],

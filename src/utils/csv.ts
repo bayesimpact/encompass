@@ -17,16 +17,26 @@ export type ColumnDefinition = {
   required?: boolean
 }
 
-type ValidateHeaders = (columns: ColumnDefinition[], fields: string[]) => Error[]
+type ValidateHeaders = (columns: ColumnDefinition[], fields: string[]) => ParseError[]
 
 let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
-    .filter(c => c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0)
-    .map(_ => Error(`CSV must define column "${_.aliases[0]}"`))
+    .map((c, n) => {
+      if (c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0) {
+        return new ParseError(0, n, c, fields, `CSV must define column "${c.aliases[0]}"`)
+      }
+      return undefined
+    })
+    .filter(Boolean)
     .value()
 
 export function parseRows<T>(
   columns: ColumnDefinition[],
+  /**
+   * Returns a value, or throws a string.
+   *
+   * TODO: Return a value or a `ParseError`.
+   */
   f: (fields: (string | null)[]) => T,
   validateHeaders: ValidateHeaders = validateHeadersDefault
 ) {
@@ -34,16 +44,32 @@ export function parseRows<T>(
     let csv = await parseCSV<string[]>(file)
     let columnIndices = findColumns(columns, csv)
 
-    // TODO: Expose errors to user.
-    validateHeaders(columns, columnIndices.map(_ => csv[0][_]))
-      .forEach(e => { throw e })
+    // Header parse errors are fatal. If header validation fails, return early.
+    let errors = validateHeaders(columns, columnIndices.map(_ => csv[0][_]))
+    if (errors.length) {
+      return [errors, []]
+    }
 
     return chain(csv)
       .slice(1)         // Ignore header row
       .filter(Boolean)  // Ignore empty rows (whitespace)
       .map((row, index) => {
         let fields = readRow(row, columnIndices)
-        return getError(columns, fields, index) || f(fields)
+
+        // Check that fields aren't empty.
+        let error = getEmptyError(columns, fields, index)
+        if (error) {
+          return error
+        }
+
+        // Try to parse.
+        try {
+          return f(fields)
+        } catch (e) {
+          console.log(e)
+          return new ParseError(index, 0, columns[0], fields, e)
+        }
+
       })
       .partition(_ => _ instanceof ParseError)
       .value() as [ParseError[], T[]]
@@ -53,7 +79,7 @@ export function parseRows<T>(
 /**
  * TODO: Is there a more elegant way to implement this?
  */
-function getError(
+function getEmptyError(
   columns: ColumnDefinition[],
   fields: (string | null)[],
   rowIndex: number
@@ -63,7 +89,7 @@ function getError(
     let field = fields[i]
     // TODO: Why is field sometimes undefined?
     if (required && isEmpty(field)) {
-      return new ParseError(rowIndex, i, columns[i], fields)
+      return new ParseError(rowIndex, i, columns[i], fields, 'Expected a value, but the field is empty')
     }
   }
 }
@@ -100,10 +126,10 @@ export class ParseError {
     public rowIndex: number,
     public columnIndex: number,
     public column: ColumnDefinition,
-    public fields: (string | null)[]
+    public fields: (string | null)[],
+    public message: string
   ) { }
   toString() {
-    // TODO: Customizable error message
-    return `Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): Expected a value, but the field is empty. Row="${this.fields}"`
+    return `Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}. Row="${this.fields}"`
   }
 }
