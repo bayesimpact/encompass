@@ -1174,6 +1174,14 @@ Array [
 
 exports[`parseServiceAreasCSV (invalid input) 1`] = `"CSV Parse Error at row 0 field 0 (CountyName): CSV must define columns \\"CountyName\\" and/or \\"ZipCode\\""`;
 
+exports[`parseServiceAreasCSV (invalid input: invalid county name) 1`] = `"CSV Parse Error at row 1 field 0 (CountyName): County \\"Fake County\\" is not supported"`;
+
+exports[`parseServiceAreasCSV (invalid input: missing column header) 1`] = `"CSV Parse Error at row 0 field 0 (CountyName): CSV must define columns \\"CountyName\\" and/or \\"ZipCode\\""`;
+
+exports[`parseServiceAreasCSV (invalid input: missing zip) 1`] = `"CSV Parse Error at row 1 field 1 (ZipCode): County \\"Alameda\\" does not contain zip code \\"   \\""`;
+
+exports[`parseServiceAreasCSV (invalid input: zip not in county) 1`] = `"CSV Parse Error at row 1 field 1 (ZipCode): County \\"Alameda\\" does not contain zip code \\"12345\\""`;
+
 exports[`parseServiceAreasCSV (zip and county) 1`] = `
 Array [
   Array [],

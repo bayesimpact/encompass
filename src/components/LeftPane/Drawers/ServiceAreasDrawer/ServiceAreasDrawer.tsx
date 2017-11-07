@@ -71,7 +71,7 @@ const COLUMNS = [
   { aliases: ['ZipCode', 'zip'] }
 ]
 
-let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
+let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
 
   // We infer missing zips and counties, so one zip might map to
   // more than one county, and one county maps to many zips.
@@ -79,19 +79,17 @@ let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
     .map(([county, zip]) => [capitalizeWords(county), zip] as [string, string])
 
   // validate that counties exist
-  pairs.forEach(([county]) => {
-    if (!(county in COUNTIES_TO_ZIPS)) {
-      throw `County "${county}" is not supported`
-    }
-  })
+  let badCounty = pairs.value().find(([county]) => !(county in COUNTIES_TO_ZIPS))
+  if (badCounty) {
+    return new ParseError(rowIndex, 0, COLUMNS[0], `County "${badCounty[0]}" is not supported`)
+  }
 
   // validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
-  pairs.forEach(([county, zip]) => {
-    if (!COUNTIES_TO_ZIPS[county].includes(zip)) {
-      throw `Zip ${zip} does not exist in county "${county}"`
-    }
-  })
+  let badZip = pairs.value().find(([county, zip]) => !COUNTIES_TO_ZIPS[county].includes(zip))
+  if (badZip) {
+    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain zip code "${badZip[1]}"`)
+  }
 
   return pairs
     .uniqBy(spread(serviceArea))

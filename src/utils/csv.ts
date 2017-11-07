@@ -32,12 +32,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
 
 export function parseRows<T>(
   columns: ColumnDefinition[],
-  /**
-   * Returns a value, or throws a string.
-   *
-   * TODO: Return a value or a `ParseError`.
-   */
-  f: (fields: (string | null)[]) => T,
+  f: (fields: (string | null)[], rowIndex: number) => ParseError | T,
   validateHeaders: ValidateHeaders = validateHeadersDefault
 ) {
   return async (file: File): Promise<[ParseError[], T[]]> => {
@@ -53,22 +48,17 @@ export function parseRows<T>(
     return chain(csv)
       .slice(1)         // Ignore header row
       .filter(Boolean)  // Ignore empty rows (whitespace)
-      .map((row, index) => {
+      .map((row, rowIndex) => {
         let fields = readRow(row, columnIndices)
 
         // Check that fields aren't empty.
-        let error = getEmptyError(columns, fields, index)
+        let error = getEmptyError(columns, fields, rowIndex)
         if (error) {
           return error
         }
 
         // Try to parse.
-        try {
-          return f(fields)
-        } catch (e) {
-          console.log(e)
-          return new ParseError(index, 0, columns[0], e)
-        }
+        return f(fields, rowIndex)
 
       })
       .partition(_ => _ instanceof ParseError)
