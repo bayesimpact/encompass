@@ -46,12 +46,14 @@ export let ServiceAreasDrawer = withStore(
   </Drawer >
   )
 
-/**
- * TODO: Expose parse, validation errors to user
- */
 async function onFileSelected(file: File) {
   let [errors, serviceAreas] = await parseServiceAreasCSV(file)
-  errors.forEach(console.error)
+
+  // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
+  errors.slice(0, 1).forEach(e =>
+    store.set('error')(e.toString())
+  )
+
   store.set('counties')(getCounties(serviceAreas))
   store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serviceArea(county, zip)))
   store.set('uploadedServiceAreasFilename')(file.name)
@@ -69,7 +71,7 @@ const COLUMNS = [
   { aliases: ['ZipCode', 'zip'] }
 ]
 
-let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
+let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
 
   // We infer missing zips and counties, so one zip might map to
   // more than one county, and one county maps to many zips.
@@ -77,19 +79,17 @@ let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
     .map(([county, zip]) => [capitalizeWords(county), zip] as [string, string])
 
   // validate that counties exist
-  pairs.forEach(([county]) => {
-    if (!(county in COUNTIES_TO_ZIPS)) {
-      throw `County "${county}" is not supported`
-    }
-  })
+  let badCounty = pairs.value().find(([county]) => !(county in COUNTIES_TO_ZIPS))
+  if (badCounty) {
+    return new ParseError(rowIndex, 0, COLUMNS[0], `County "${badCounty[0]}" is not supported`)
+  }
 
   // validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
-  pairs.forEach(([county, zip]) => {
-    if (!COUNTIES_TO_ZIPS[county].includes(zip)) {
-      throw `Zip ${zip} does not exist in county "${county}"`
-    }
-  })
+  let badZip = pairs.value().find(([county, zip]) => !COUNTIES_TO_ZIPS[county].includes(zip))
+  if (badZip) {
+    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain zip code "${badZip[1]}"`)
+  }
 
   return pairs
     .uniqBy(spread(serviceArea))
@@ -98,7 +98,7 @@ let parse = parseRows(COLUMNS, (([county, zip]): [string, string][] => {
 
 function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   if (isEmpty(fields[0]) && isEmpty(fields[1])) {
-    return [new ParseError(0, 0, columns[0], fields, `CSV must define columns "CountyName" and/or "ZipCode"`)]
+    return [new ParseError(0, 0, columns[0], `CSV must define columns "CountyName" and/or "ZipCode"`)]
   }
   return []
 }

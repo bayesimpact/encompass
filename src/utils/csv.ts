@@ -23,7 +23,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
       if (c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0) {
-        return new ParseError(0, n, c, fields, `CSV must define column "${c.aliases[0]}"`)
+        return new ParseError(0, n, c, `CSV must define column "${c.aliases[0]}"`)
       }
       return undefined
     })
@@ -32,12 +32,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
 
 export function parseRows<T>(
   columns: ColumnDefinition[],
-  /**
-   * Returns a value, or throws a string.
-   *
-   * TODO: Return a value or a `ParseError`.
-   */
-  f: (fields: (string | null)[]) => T,
+  f: (fields: (string | null)[], rowIndex: number) => ParseError | T,
   validateHeaders: ValidateHeaders = validateHeadersDefault
 ) {
   return async (file: File): Promise<[ParseError[], T[]]> => {
@@ -53,22 +48,17 @@ export function parseRows<T>(
     return chain(csv)
       .slice(1)         // Ignore header row
       .filter(Boolean)  // Ignore empty rows (whitespace)
-      .map((row, index) => {
+      .map((row, rowIndex) => {
         let fields = readRow(row, columnIndices)
 
         // Check that fields aren't empty.
-        let error = getEmptyError(columns, fields, index)
+        let error = getEmptyError(columns, fields, rowIndex)
         if (error) {
           return error
         }
 
         // Try to parse.
-        try {
-          return f(fields)
-        } catch (e) {
-          console.log(e)
-          return new ParseError(index, 0, columns[0], fields, e)
-        }
+        return f(fields, rowIndex)
 
       })
       .partition(_ => _ instanceof ParseError)
@@ -89,7 +79,7 @@ function getEmptyError(
     let field = fields[i]
     // TODO: Why is field sometimes undefined?
     if (required && isEmpty(field)) {
-      return new ParseError(rowIndex, i, columns[i], fields, 'Expected a value, but the field is empty')
+      return new ParseError(rowIndex, i, columns[i], 'Expected a value, but the field is empty')
     }
   }
 }
@@ -126,10 +116,9 @@ export class ParseError {
     public rowIndex: number,
     public columnIndex: number,
     public column: ColumnDefinition,
-    public fields: (string | null)[],
     public message: string
   ) { }
   toString() {
-    return `Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}. Row="${this.fields}"`
+    return `CSV Parse Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}`
   }
 }

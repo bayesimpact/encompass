@@ -16,6 +16,12 @@ export type Actions = {
   counties: string[]
 
   distribution: 0.5 | 2.5 | 5
+
+  /**
+   * Error, exposed to user via Snackbar.
+   */
+  error: string | null
+
   measure: Measure
 
   /**
@@ -76,6 +82,7 @@ export let store = withDemo(withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
   distribution: 0.5,
+  error: null,
   measure: 15,
   providers: [],
   representativePoints: [],

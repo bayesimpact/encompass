@@ -19,6 +19,21 @@ Vista\asdqw\qwewq\asdas, wqei, wqeoiwq
 san Francisco
 `], 'pointAsInvalidInputFile.csv')
 
+let pointAsInvalidInputFile2 = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
+San Diego,Vista,92084,100
+Fake County,Berkeley,94505,1001
+`], 'pointAsInvalidInputFile2.csv')
+
+let pointAsInvalidInputFile3 = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
+San Diego,Vista,92084,100
+Alameda,Berkeley,12345,1001
+`], 'pointAsInvalidInputFile3.csv')
+
+let pointAsInvalidInputFile4 = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
+San Diego,Vista,92084,100
+Alameda,Berkeley,   ,1001
+`], 'pointAsInvalidInputFile4.csv')
+
 let pointAsZipAndCounty = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
 San Diego,Vista,92084,100
 san francisco,san Francisco,94117,1001
@@ -43,8 +58,20 @@ test('parseServiceAreasCSV (duplicate counties)', async () =>
   expect(await parseServiceAreasCSV(pointAsDuplicateCountyOnly)).toMatchSnapshot()
 )
 
-test('parseServiceAreasCSV (invalid input)', async () =>
+test('parseServiceAreasCSV (invalid input: missing column header)', async () =>
   expect((await parseServiceAreasCSV(pointAsInvalidInputFile))[0][0].toString()).toMatchSnapshot()
+)
+
+test('parseServiceAreasCSV (invalid input: invalid county name)', async () =>
+  expect((await parseServiceAreasCSV(pointAsInvalidInputFile2))[0][0].toString()).toMatchSnapshot()
+)
+
+test('parseServiceAreasCSV (invalid input: zip not in county)', async () =>
+  expect((await parseServiceAreasCSV(pointAsInvalidInputFile3))[0][0].toString()).toMatchSnapshot()
+)
+
+test('parseServiceAreasCSV (invalid input: missing zip)', async () =>
+  expect((await parseServiceAreasCSV(pointAsInvalidInputFile4))[0][0].toString()).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (zip and county)', async () =>
