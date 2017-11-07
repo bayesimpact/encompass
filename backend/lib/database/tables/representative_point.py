@@ -1,5 +1,6 @@
 """File holding the main representative point table and mapping definitions."""
 from backend.lib.database.postgres.base import Base
+from backend.lib.utils import list_to_dict
 
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, JSON, String, func
 
@@ -23,6 +24,16 @@ class RepresentativePoint(Base):
     census_tract = Column(Integer)
 
 
+# We store population as a list in the database, but return
+# it as a dict keyed on distribution to the frontend.
+# FIXME - Update DB rows to contain key based population (Github #56)
+POPULATION_MAPPING = {
+    0: '0.5',
+    1: '2.5',
+    2: '5'
+}
+
+
 def row_to_dict(rp_row):
     """
     Transform a representative point row to a dictionary.
@@ -43,10 +54,13 @@ def row_to_dict(rp_row):
     }
     """
     rp_dict = dict(rp_row)
-    # Revisit naming to latitude and longitude if perofrmance is ok.
-    rp_dict['lat'] = rp_dict['latitude']
-    rp_dict['lng'] = rp_dict['longitude']
-    # Delete unused keys.
-    # TODO - Make clearer using dict creation and list comprehension?
-    [rp_dict.pop(key, None) for key in ['latitude', 'longitude', 'created_at', 'updated_at']]
-    return rp_dict
+    # TODO - Revisit naming to latitude and longitude if performance is ok.
+    return {
+        'id': rp_dict['id'],
+        'county': rp_dict['county'],
+        'lat': rp_dict['latitude'],
+        'lng': rp_dict['longitude'],
+        'population': list_to_dict(rp_dict['population'], POPULATION_MAPPING),
+        'service_area_id': rp_dict['service_area_id'],
+        'zip': rp_dict['zip_code']
+    }

@@ -9,15 +9,12 @@ REQUEST - POST  /api/adequacies
 {
   provider_ids: [int]
   service_area_ids: [str]
-  rpg_ids: [int]
 }
-
-NOTE - The backend will use the union of service_areas and rps provided.
 
 RESPONSE
 [
   {
-    rp_id: 17323,
+    id: 17323,
     closest_provider_by_distance: int,
     closest_provider_by_time: int,
     time_to_clostest_provider: int,
@@ -30,15 +27,17 @@ import random
 
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.mocks.responses import mock_adequacy
+from backend.lib import fetch
 
 
 def mock_adequacy_calculation(provider_ids, service_area_ids):
     """Mock adequacy calculation."""
-    rp_ids = [i * 10 for i in range(0, 40 * len(service_area_ids))]
+    representative_points = fetch.fetch_representative_points(service_area_ids)
+    point_ids = [point['id'] for point in representative_points]
 
     return [
-        mock_adequacy(rp_id, random.choice(provider_ids))
-        for rp_id in rp_ids
+        mock_adequacy(point_id, random.choice(provider_ids))
+        for point_id in point_ids
     ]
 
 
@@ -56,7 +55,7 @@ def adequacy_request(app, flask_request):
         raise InvalidFormat(message='Invalid format. Could not find service_area_ids.')
 
     provider_ids = request['provider_ids']
-    service_area_ids = request.get('service_area_ids', [])
+    service_area_ids = request['service_area_ids']
 
     return mock_adequacy_calculation(
         provider_ids=provider_ids,

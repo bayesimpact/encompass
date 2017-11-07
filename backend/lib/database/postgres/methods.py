@@ -26,19 +26,34 @@ def get_ids(conn, sql_class, columns, data):
     Be careful if the columns do not ensure uniqueness.
     """
     return [
-        _get_id(conn, sql_class, {k: row[k] for k in row if k in columns})
+        _get_data(
+            conn=conn,
+            sql_class=sql_class,
+            columns_to_select=['id'],
+            column_to_value_map={k: row[k] for k in row if k in columns})[0]
         for row in data
     ]
 
 
-def _get_id(conn, sql_class, key_values):
-    """Get first available id based on a list of column_name:value pairs."""
-    key_values = 'AND '.join(["{k} = '{v}'".format(k=k, v=v) for k, v in key_values.items()])
-    id_query = 'SELECT id FROM {table_name} WHERE {key_values};'.format(
+def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
+    """
+    Get first available row based on a list of column_name:value pairs.
+
+    Return the data as a dictionary.
+    """
+    columns = ', '.join(columns_to_select)
+    column_to_value_clause = 'AND '.join(
+        ["{k} = '{v}'".format(k=k, v=v) for k, v in column_to_value_map.items()]
+    )
+    query = 'SELECT {columns} FROM {table_name} WHERE {column_to_value_clause};'.format(
+        columns=columns,
         table_name=sql_class.__tablename__,
-        key_values=key_values)
-    results = conn.execute(id_query)
-    return results.first()[0]
+        column_to_value_clause=column_to_value_clause)
+    results = conn.execute(query)
+    data = results.first()
+    if data:
+        return dict(data)
+    return {}
 
 
 def _safe_core_insert(conn, sql_class, row):
@@ -47,7 +62,14 @@ def _safe_core_insert(conn, sql_class, row):
         result = conn.execute(sql_class.__table__.insert(), row)
         return result.inserted_primary_key[0]
     except IntegrityError:
-        return _get_id(conn, sql_class, {'address': row['address']})
+        # FIXME - SHOULD NOT DEPEND ON ADDRESS_ID.
+        data = _get_data(
+            conn,
+            sql_class,
+            columns_to_select=['id'],
+            column_to_value_map={'address_id': row['address_id']}
+        )
+        return data.get('id', None)
 
 
 def bulk_insert_via_query(engine, sql_class, data):

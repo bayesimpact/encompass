@@ -21,7 +21,9 @@ class TestProvidersRequest(LiveServerTestCase):
 
     def test_provider_request(self):
         """Test provider requests in a simple case."""
-        request_providers = [{'address': 'provider_address_1'}, {'address': 'provider_address_1'}]
+        request_providers = {
+            'providers': [{'address': 'provider_address_1'}, {'address': 'provider_address_1'}]
+        }
 
         def _mock_get_json(force=True):
             return request_providers
@@ -29,5 +31,5 @@ class TestProvidersRequest(LiveServerTestCase):
         mock_request.get_json = _mock_get_json
         try:
             providers.providers_request(self.app, mock_request)
-        except TypeError:
-            pytest.fail('Could not fetch providers.')
+        except:
+            pytest.fail('Could not process providers.')

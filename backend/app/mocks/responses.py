@@ -49,8 +49,8 @@ def mock_adequacy(rp_id, provider_id):
         'distance_to_closest_provider': random.uniform(5, 40)
     }
 
-### helpers
 
+### Helpers
 def random_coord(seed):
     """Generate a mock lat/lng coordinate."""
     return lambda: seed + random.uniform(-0.03, 0.03)
