@@ -1,6 +1,9 @@
 import { Drawer } from 'material-ui'
+import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { withStore } from '../../../../services/store'
+import { InfoBox } from '../../../InfoBox/InfoBox'
 import { ALL_SERVICE_AREAS, ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
@@ -17,8 +20,11 @@ export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceA
       onChange={_ => store.set('selectedServiceArea')(_ === ALL_SERVICE_AREAS ? null : _)}
       value={store.get('selectedServiceArea') || ALL_SERVICE_AREAS}
     />
-    {store.get('serviceAreas').length > 0 && (
-      store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />
-    )}
+    {store.get('serviceAreas').length > 0
+      ? (store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />)
+      : <InfoBox large>
+        Please choose a service area in the <Link to='/service-areas'><MarkerIcon /> Service Areas drawer</Link>
+      </InfoBox>
+    }
   </Drawer>
 )

@@ -1,3 +1,17 @@
-.AnalyticsDrawer .Autocomplete {
-  margin-bottom: 40px;
+@import "../../../../index.css";
+
+.LeftDrawer .InfoBox {
+  margin-top: 20px;
+}
+
+.LeftDrawer .InfoBox svg {
+  fill: var(--muted) !important;
+  position: relative;
+    bottom: -7px;
+}
+
+.LeftDrawer .InfoBox a {
+  color: var(--muted);
+  display: block;
+  text-decoration: none;
 }
