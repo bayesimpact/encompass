@@ -1,5 +1,5 @@
-import { AppBar } from 'material-ui'
-import FlatButton from 'material-ui/FlatButton'
+import { AppBar, IconButton } from 'material-ui'
+import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
 import './Header.css'
 
@@ -8,14 +8,13 @@ export let Header = () =>
     className='Header'
     title='Network Adequacy Explorer'
     iconElementRight={
-      <FlatButton
-        href='https://github.com/bcherny/bayes-mvp'
-        label='Github'
-        style={{ color: '#fff' }}
+      <IconButton
+        href='https://github.com/bayesimpact/tds-frontend'
         target='_blank'
-      />
+        tooltip='Go to this project on Github'
+        tooltipPosition='bottom-left'
+        touch={true}
+      ><GithubIcon /></IconButton>
     }
-    style={{
-      backgroundColor: '#607D8B'
-    }}
+    showMenuIconButton={false}
   />
