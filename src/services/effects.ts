@@ -90,6 +90,18 @@ export function withEffects(store: Store<Actions>) {
       )
     })
 
+  /**
+   * If the user selects a service area, then deselects that service area's
+   * zip code or county in the Service Area drawer, we should de-select the
+   * service area too.
+   */
+  store.on('serviceAreas').subscribe(serviceAreas => {
+    let selectedServiceArea = store.get('selectedServiceArea')
+    if (selectedServiceArea && !serviceAreas.includes(selectedServiceArea)) {
+      store.set('selectedServiceArea')(null)
+    }
+  })
+
   return store
 }
 
