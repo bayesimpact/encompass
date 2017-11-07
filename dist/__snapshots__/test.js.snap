@@ -1,0 +1,1225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseServiceAreasCSV (duplicate counties) 1`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "San Diego",
+      "91901",
+    ],
+    Array [
+      "San Diego",
+      "91902",
+    ],
+    Array [
+      "San Diego",
+      "91903",
+    ],
+    Array [
+      "San Diego",
+      "91905",
+    ],
+    Array [
+      "San Diego",
+      "91906",
+    ],
+    Array [
+      "San Diego",
+      "91908",
+    ],
+    Array [
+      "San Diego",
+      "91909",
+    ],
+    Array [
+      "San Diego",
+      "91910",
+    ],
+    Array [
+      "San Diego",
+      "91911",
+    ],
+    Array [
+      "San Diego",
+      "91912",
+    ],
+    Array [
+      "San Diego",
+      "91913",
+    ],
+    Array [
+      "San Diego",
+      "91914",
+    ],
+    Array [
+      "San Diego",
+      "91915",
+    ],
+    Array [
+      "San Diego",
+      "91916",
+    ],
+    Array [
+      "San Diego",
+      "91917",
+    ],
+    Array [
+      "San Diego",
+      "91921",
+    ],
+    Array [
+      "San Diego",
+      "91931",
+    ],
+    Array [
+      "San Diego",
+      "91932",
+    ],
+    Array [
+      "San Diego",
+      "91933",
+    ],
+    Array [
+      "San Diego",
+      "91934",
+    ],
+    Array [
+      "San Diego",
+      "91935",
+    ],
+    Array [
+      "San Diego",
+      "91941",
+    ],
+    Array [
+      "San Diego",
+      "91942",
+    ],
+    Array [
+      "San Diego",
+      "91943",
+    ],
+    Array [
+      "San Diego",
+      "91944",
+    ],
+    Array [
+      "San Diego",
+      "91945",
+    ],
+    Array [
+      "San Diego",
+      "91946",
+    ],
+    Array [
+      "San Diego",
+      "91948",
+    ],
+    Array [
+      "San Diego",
+      "91950",
+    ],
+    Array [
+      "San Diego",
+      "91951",
+    ],
+    Array [
+      "San Diego",
+      "91962",
+    ],
+    Array [
+      "San Diego",
+      "91963",
+    ],
+    Array [
+      "San Diego",
+      "91976",
+    ],
+    Array [
+      "San Diego",
+      "91977",
+    ],
+    Array [
+      "San Diego",
+      "91978",
+    ],
+    Array [
+      "San Diego",
+      "91979",
+    ],
+    Array [
+      "San Diego",
+      "91980",
+    ],
+    Array [
+      "San Diego",
+      "92003",
+    ],
+    Array [
+      "San Diego",
+      "92004",
+    ],
+    Array [
+      "San Diego",
+      "92007",
+    ],
+    Array [
+      "San Diego",
+      "92008",
+    ],
+    Array [
+      "San Diego",
+      "92009",
+    ],
+    Array [
+      "San Diego",
+      "92010",
+    ],
+    Array [
+      "San Diego",
+      "92011",
+    ],
+    Array [
+      "San Diego",
+      "92013",
+    ],
+    Array [
+      "San Diego",
+      "92014",
+    ],
+    Array [
+      "San Diego",
+      "92018",
+    ],
+    Array [
+      "San Diego",
+      "92019",
+    ],
+    Array [
+      "San Diego",
+      "92020",
+    ],
+    Array [
+      "San Diego",
+      "92021",
+    ],
+    Array [
+      "San Diego",
+      "92022",
+    ],
+    Array [
+      "San Diego",
+      "92023",
+    ],
+    Array [
+      "San Diego",
+      "92024",
+    ],
+    Array [
+      "San Diego",
+      "92025",
+    ],
+    Array [
+      "San Diego",
+      "92026",
+    ],
+    Array [
+      "San Diego",
+      "92027",
+    ],
+    Array [
+      "San Diego",
+      "92028",
+    ],
+    Array [
+      "San Diego",
+      "92029",
+    ],
+    Array [
+      "San Diego",
+      "92030",
+    ],
+    Array [
+      "San Diego",
+      "92033",
+    ],
+    Array [
+      "San Diego",
+      "92036",
+    ],
+    Array [
+      "San Diego",
+      "92037",
+    ],
+    Array [
+      "San Diego",
+      "92038",
+    ],
+    Array [
+      "San Diego",
+      "92039",
+    ],
+    Array [
+      "San Diego",
+      "92040",
+    ],
+    Array [
+      "San Diego",
+      "92046",
+    ],
+    Array [
+      "San Diego",
+      "92049",
+    ],
+    Array [
+      "San Diego",
+      "92051",
+    ],
+    Array [
+      "San Diego",
+      "92052",
+    ],
+    Array [
+      "San Diego",
+      "92054",
+    ],
+    Array [
+      "San Diego",
+      "92056",
+    ],
+    Array [
+      "San Diego",
+      "92057",
+    ],
+    Array [
+      "San Diego",
+      "92058",
+    ],
+    Array [
+      "San Diego",
+      "92059",
+    ],
+    Array [
+      "San Diego",
+      "92060",
+    ],
+    Array [
+      "San Diego",
+      "92061",
+    ],
+    Array [
+      "San Diego",
+      "92064",
+    ],
+    Array [
+      "San Diego",
+      "92065",
+    ],
+    Array [
+      "San Diego",
+      "92066",
+    ],
+    Array [
+      "San Diego",
+      "92067",
+    ],
+    Array [
+      "San Diego",
+      "92068",
+    ],
+    Array [
+      "San Diego",
+      "92069",
+    ],
+    Array [
+      "San Diego",
+      "92070",
+    ],
+    Array [
+      "San Diego",
+      "92071",
+    ],
+    Array [
+      "San Diego",
+      "92072",
+    ],
+    Array [
+      "San Diego",
+      "92074",
+    ],
+    Array [
+      "San Diego",
+      "92075",
+    ],
+    Array [
+      "San Diego",
+      "92078",
+    ],
+    Array [
+      "San Diego",
+      "92079",
+    ],
+    Array [
+      "San Diego",
+      "92081",
+    ],
+    Array [
+      "San Diego",
+      "92082",
+    ],
+    Array [
+      "San Diego",
+      "92083",
+    ],
+    Array [
+      "San Diego",
+      "92084",
+    ],
+    Array [
+      "San Diego",
+      "92085",
+    ],
+    Array [
+      "San Diego",
+      "92086",
+    ],
+    Array [
+      "San Diego",
+      "92088",
+    ],
+    Array [
+      "San Diego",
+      "92091",
+    ],
+    Array [
+      "San Diego",
+      "92101",
+    ],
+    Array [
+      "San Diego",
+      "92102",
+    ],
+    Array [
+      "San Diego",
+      "92103",
+    ],
+    Array [
+      "San Diego",
+      "92104",
+    ],
+    Array [
+      "San Diego",
+      "92105",
+    ],
+    Array [
+      "San Diego",
+      "92106",
+    ],
+    Array [
+      "San Diego",
+      "92107",
+    ],
+    Array [
+      "San Diego",
+      "92108",
+    ],
+    Array [
+      "San Diego",
+      "92109",
+    ],
+    Array [
+      "San Diego",
+      "92110",
+    ],
+    Array [
+      "San Diego",
+      "92111",
+    ],
+    Array [
+      "San Diego",
+      "92112",
+    ],
+    Array [
+      "San Diego",
+      "92113",
+    ],
+    Array [
+      "San Diego",
+      "92114",
+    ],
+    Array [
+      "San Diego",
+      "92115",
+    ],
+    Array [
+      "San Diego",
+      "92116",
+    ],
+    Array [
+      "San Diego",
+      "92117",
+    ],
+    Array [
+      "San Diego",
+      "92118",
+    ],
+    Array [
+      "San Diego",
+      "92119",
+    ],
+    Array [
+      "San Diego",
+      "92120",
+    ],
+    Array [
+      "San Diego",
+      "92121",
+    ],
+    Array [
+      "San Diego",
+      "92122",
+    ],
+    Array [
+      "San Diego",
+      "92123",
+    ],
+    Array [
+      "San Diego",
+      "92124",
+    ],
+    Array [
+      "San Diego",
+      "92126",
+    ],
+    Array [
+      "San Diego",
+      "92127",
+    ],
+    Array [
+      "San Diego",
+      "92128",
+    ],
+    Array [
+      "San Diego",
+      "92129",
+    ],
+    Array [
+      "San Diego",
+      "92130",
+    ],
+    Array [
+      "San Diego",
+      "92131",
+    ],
+    Array [
+      "San Diego",
+      "92137",
+    ],
+    Array [
+      "San Diego",
+      "92138",
+    ],
+    Array [
+      "San Diego",
+      "92139",
+    ],
+    Array [
+      "San Diego",
+      "92142",
+    ],
+    Array [
+      "San Diego",
+      "92143",
+    ],
+    Array [
+      "San Diego",
+      "92149",
+    ],
+    Array [
+      "San Diego",
+      "92150",
+    ],
+    Array [
+      "San Diego",
+      "92153",
+    ],
+    Array [
+      "San Diego",
+      "92154",
+    ],
+    Array [
+      "San Diego",
+      "92159",
+    ],
+    Array [
+      "San Diego",
+      "92160",
+    ],
+    Array [
+      "San Diego",
+      "92163",
+    ],
+    Array [
+      "San Diego",
+      "92165",
+    ],
+    Array [
+      "San Diego",
+      "92166",
+    ],
+    Array [
+      "San Diego",
+      "92167",
+    ],
+    Array [
+      "San Diego",
+      "92168",
+    ],
+    Array [
+      "San Diego",
+      "92169",
+    ],
+    Array [
+      "San Diego",
+      "92170",
+    ],
+    Array [
+      "San Diego",
+      "92171",
+    ],
+    Array [
+      "San Diego",
+      "92172",
+    ],
+    Array [
+      "San Diego",
+      "92173",
+    ],
+    Array [
+      "San Diego",
+      "92174",
+    ],
+    Array [
+      "San Diego",
+      "92175",
+    ],
+    Array [
+      "San Diego",
+      "92176",
+    ],
+    Array [
+      "San Diego",
+      "92177",
+    ],
+    Array [
+      "San Diego",
+      "92178",
+    ],
+    Array [
+      "San Diego",
+      "92179",
+    ],
+    Array [
+      "San Diego",
+      "92186",
+    ],
+    Array [
+      "San Diego",
+      "92191",
+    ],
+    Array [
+      "San Diego",
+      "92192",
+    ],
+    Array [
+      "San Diego",
+      "92193",
+    ],
+    Array [
+      "San Diego",
+      "92195",
+    ],
+    Array [
+      "San Diego",
+      "92196",
+    ],
+    Array [
+      "San Diego",
+      "92198",
+    ],
+    Array [
+      "San Diego",
+      "92536",
+    ],
+    Array [
+      "San Diego",
+      "92562",
+    ],
+    Array [
+      "San Diego",
+      "92590",
+    ],
+    Array [
+      "San Diego",
+      "92592",
+    ],
+    Array [
+      "San Diego",
+      "92672",
+    ],
+    Array [
+      "San Francisco",
+      "94014",
+    ],
+    Array [
+      "San Francisco",
+      "94102",
+    ],
+    Array [
+      "San Francisco",
+      "94103",
+    ],
+    Array [
+      "San Francisco",
+      "94104",
+    ],
+    Array [
+      "San Francisco",
+      "94105",
+    ],
+    Array [
+      "San Francisco",
+      "94107",
+    ],
+    Array [
+      "San Francisco",
+      "94108",
+    ],
+    Array [
+      "San Francisco",
+      "94109",
+    ],
+    Array [
+      "San Francisco",
+      "94110",
+    ],
+    Array [
+      "San Francisco",
+      "94111",
+    ],
+    Array [
+      "San Francisco",
+      "94112",
+    ],
+    Array [
+      "San Francisco",
+      "94114",
+    ],
+    Array [
+      "San Francisco",
+      "94115",
+    ],
+    Array [
+      "San Francisco",
+      "94116",
+    ],
+    Array [
+      "San Francisco",
+      "94117",
+    ],
+    Array [
+      "San Francisco",
+      "94118",
+    ],
+    Array [
+      "San Francisco",
+      "94119",
+    ],
+    Array [
+      "San Francisco",
+      "94120",
+    ],
+    Array [
+      "San Francisco",
+      "94121",
+    ],
+    Array [
+      "San Francisco",
+      "94122",
+    ],
+    Array [
+      "San Francisco",
+      "94123",
+    ],
+    Array [
+      "San Francisco",
+      "94124",
+    ],
+    Array [
+      "San Francisco",
+      "94126",
+    ],
+    Array [
+      "San Francisco",
+      "94127",
+    ],
+    Array [
+      "San Francisco",
+      "94129",
+    ],
+    Array [
+      "San Francisco",
+      "94130",
+    ],
+    Array [
+      "San Francisco",
+      "94131",
+    ],
+    Array [
+      "San Francisco",
+      "94132",
+    ],
+    Array [
+      "San Francisco",
+      "94133",
+    ],
+    Array [
+      "San Francisco",
+      "94134",
+    ],
+    Array [
+      "San Francisco",
+      "94140",
+    ],
+    Array [
+      "San Francisco",
+      "94141",
+    ],
+    Array [
+      "San Francisco",
+      "94142",
+    ],
+    Array [
+      "San Francisco",
+      "94143",
+    ],
+    Array [
+      "San Francisco",
+      "94146",
+    ],
+    Array [
+      "San Francisco",
+      "94147",
+    ],
+    Array [
+      "San Francisco",
+      "94158",
+    ],
+    Array [
+      "San Francisco",
+      "94159",
+    ],
+    Array [
+      "San Francisco",
+      "94164",
+    ],
+    Array [
+      "San Francisco",
+      "94172",
+    ],
+    Array [
+      "San Francisco",
+      "94188",
+    ],
+  ],
+]
+`;
+
+exports[`parseServiceAreasCSV (duplicate counties) 2`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "San Francisco",
+      "94014",
+    ],
+    Array [
+      "San Francisco",
+      "94102",
+    ],
+    Array [
+      "San Francisco",
+      "94103",
+    ],
+    Array [
+      "San Francisco",
+      "94104",
+    ],
+    Array [
+      "San Francisco",
+      "94105",
+    ],
+    Array [
+      "San Francisco",
+      "94107",
+    ],
+    Array [
+      "San Francisco",
+      "94108",
+    ],
+    Array [
+      "San Francisco",
+      "94109",
+    ],
+    Array [
+      "San Francisco",
+      "94110",
+    ],
+    Array [
+      "San Francisco",
+      "94111",
+    ],
+    Array [
+      "San Francisco",
+      "94112",
+    ],
+    Array [
+      "San Francisco",
+      "94114",
+    ],
+    Array [
+      "San Francisco",
+      "94115",
+    ],
+    Array [
+      "San Francisco",
+      "94116",
+    ],
+    Array [
+      "San Francisco",
+      "94117",
+    ],
+    Array [
+      "San Francisco",
+      "94118",
+    ],
+    Array [
+      "San Francisco",
+      "94119",
+    ],
+    Array [
+      "San Francisco",
+      "94120",
+    ],
+    Array [
+      "San Francisco",
+      "94121",
+    ],
+    Array [
+      "San Francisco",
+      "94122",
+    ],
+    Array [
+      "San Francisco",
+      "94123",
+    ],
+    Array [
+      "San Francisco",
+      "94124",
+    ],
+    Array [
+      "San Francisco",
+      "94126",
+    ],
+    Array [
+      "San Francisco",
+      "94127",
+    ],
+    Array [
+      "San Francisco",
+      "94129",
+    ],
+    Array [
+      "San Francisco",
+      "94130",
+    ],
+    Array [
+      "San Francisco",
+      "94131",
+    ],
+    Array [
+      "San Francisco",
+      "94132",
+    ],
+    Array [
+      "San Francisco",
+      "94133",
+    ],
+    Array [
+      "San Francisco",
+      "94134",
+    ],
+    Array [
+      "San Francisco",
+      "94140",
+    ],
+    Array [
+      "San Francisco",
+      "94141",
+    ],
+    Array [
+      "San Francisco",
+      "94142",
+    ],
+    Array [
+      "San Francisco",
+      "94143",
+    ],
+    Array [
+      "San Francisco",
+      "94146",
+    ],
+    Array [
+      "San Francisco",
+      "94147",
+    ],
+    Array [
+      "San Francisco",
+      "94158",
+    ],
+    Array [
+      "San Francisco",
+      "94159",
+    ],
+    Array [
+      "San Francisco",
+      "94164",
+    ],
+    Array [
+      "San Francisco",
+      "94172",
+    ],
+    Array [
+      "San Francisco",
+      "94188",
+    ],
+    Array [
+      "San Francisco",
+      "94014",
+    ],
+    Array [
+      "San Francisco",
+      "94102",
+    ],
+    Array [
+      "San Francisco",
+      "94103",
+    ],
+    Array [
+      "San Francisco",
+      "94104",
+    ],
+    Array [
+      "San Francisco",
+      "94105",
+    ],
+    Array [
+      "San Francisco",
+      "94107",
+    ],
+    Array [
+      "San Francisco",
+      "94108",
+    ],
+    Array [
+      "San Francisco",
+      "94109",
+    ],
+    Array [
+      "San Francisco",
+      "94110",
+    ],
+    Array [
+      "San Francisco",
+      "94111",
+    ],
+    Array [
+      "San Francisco",
+      "94112",
+    ],
+    Array [
+      "San Francisco",
+      "94114",
+    ],
+    Array [
+      "San Francisco",
+      "94115",
+    ],
+    Array [
+      "San Francisco",
+      "94116",
+    ],
+    Array [
+      "San Francisco",
+      "94117",
+    ],
+    Array [
+      "San Francisco",
+      "94118",
+    ],
+    Array [
+      "San Francisco",
+      "94119",
+    ],
+    Array [
+      "San Francisco",
+      "94120",
+    ],
+    Array [
+      "San Francisco",
+      "94121",
+    ],
+    Array [
+      "San Francisco",
+      "94122",
+    ],
+    Array [
+      "San Francisco",
+      "94123",
+    ],
+    Array [
+      "San Francisco",
+      "94124",
+    ],
+    Array [
+      "San Francisco",
+      "94126",
+    ],
+    Array [
+      "San Francisco",
+      "94127",
+    ],
+    Array [
+      "San Francisco",
+      "94129",
+    ],
+    Array [
+      "San Francisco",
+      "94130",
+    ],
+    Array [
+      "San Francisco",
+      "94131",
+    ],
+    Array [
+      "San Francisco",
+      "94132",
+    ],
+    Array [
+      "San Francisco",
+      "94133",
+    ],
+    Array [
+      "San Francisco",
+      "94134",
+    ],
+    Array [
+      "San Francisco",
+      "94140",
+    ],
+    Array [
+      "San Francisco",
+      "94141",
+    ],
+    Array [
+      "San Francisco",
+      "94142",
+    ],
+    Array [
+      "San Francisco",
+      "94143",
+    ],
+    Array [
+      "San Francisco",
+      "94146",
+    ],
+    Array [
+      "San Francisco",
+      "94147",
+    ],
+    Array [
+      "San Francisco",
+      "94158",
+    ],
+    Array [
+      "San Francisco",
+      "94159",
+    ],
+    Array [
+      "San Francisco",
+      "94164",
+    ],
+    Array [
+      "San Francisco",
+      "94172",
+    ],
+    Array [
+      "San Francisco",
+      "94188",
+    ],
+  ],
+]
+`;
+
+exports[`parseServiceAreasCSV (zip and county) 1`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "San Diego",
+      "92084",
+    ],
+    Array [
+      "San Francisco",
+      "94117",
+    ],
+  ],
+]
+`;
+
+exports[`parseServiceAreasCSV (zip only) 1`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "San Francisco",
+      "94117",
+    ],
+    Array [
+      "San Francisco",
+      "94103",
+    ],
+    Array [
+      "San Francisco",
+      "94102",
+    ],
+    Array [
+      "San Francisco",
+      "94110",
+    ],
+    Array [
+      "San Francisco",
+      "94114",
+    ],
+    Array [
+      "San Diego",
+      "92154",
+    ],
+    Array [
+      "San Diego",
+      "91935",
+    ],
+  ],
+]
+`;
