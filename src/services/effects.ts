@@ -46,7 +46,9 @@ export function withEffects(store: Store<Actions>) {
       chain(result)
         .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
         .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
-        .tap(([_, errors]) => console.log('POST /api/provider errors:', errors))
+        .tap(([successes, errors]) =>
+          store.set('error')(`Failed to geocode ${errors.length} (of ${successes.length}) providers`)
+        )
         .first()
         .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({
           ...req,

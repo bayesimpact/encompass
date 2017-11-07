@@ -23,7 +23,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
       if (c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0) {
-        return new ParseError(0, n, c, fields, `CSV must define column "${c.aliases[0]}"`)
+        return new ParseError(0, n, c, `CSV must define column "${c.aliases[0]}"`)
       }
       return undefined
     })
@@ -67,7 +67,7 @@ export function parseRows<T>(
           return f(fields)
         } catch (e) {
           console.log(e)
-          return new ParseError(index, 0, columns[0], fields, e)
+          return new ParseError(index, 0, columns[0], e)
         }
 
       })
@@ -89,7 +89,7 @@ function getEmptyError(
     let field = fields[i]
     // TODO: Why is field sometimes undefined?
     if (required && isEmpty(field)) {
-      return new ParseError(rowIndex, i, columns[i], fields, 'Expected a value, but the field is empty')
+      return new ParseError(rowIndex, i, columns[i], 'Expected a value, but the field is empty')
     }
   }
 }
@@ -126,10 +126,9 @@ export class ParseError {
     public rowIndex: number,
     public columnIndex: number,
     public column: ColumnDefinition,
-    public fields: (string | null)[],
     public message: string
   ) { }
   toString() {
-    return `Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}. Row="${this.fields}"`
+    return `CSV Parse Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}`
   }
 }

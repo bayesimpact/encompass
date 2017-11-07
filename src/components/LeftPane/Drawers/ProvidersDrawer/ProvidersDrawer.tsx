@@ -3,7 +3,7 @@ import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { WriteProvidersRequest } from '../../../../services/api'
 import { store, withStore } from '../../../../services/store'
-import { ColumnDefinition, parseCSV, parseRows } from '../../../../utils/csv'
+import { ColumnDefinition, parseCSV, ParseError, parseRows } from '../../../../utils/csv'
 import { CSVUploader } from '../../../CSVUploader/CSVUploader'
 
 /**
@@ -26,7 +26,13 @@ export let ProvidersDrawer = withStore(
   )
 
 async function onFileSelected(file: File) {
-  let providers = await parseProvidersCSV(file)
+  let [errors, providers] = await parse(file)
+
+  // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
+  errors.slice(0, 1).forEach(e =>
+    store.set('error')(e.toString())
+  )
+
   store.set('uploadedProviders')(providers)
   store.set('uploadedProvidersFilename')(file.name)
 }
@@ -61,12 +67,3 @@ let parse = parseRows(COLUMNS, ([address, address2, city, state, zip,
     specialty: specialty! // TODO
   }
 })
-
-/**
- * TODO: Expose parse, validation errors to user
- */
-async function parseProvidersCSV(file: File): Promise<WriteProvidersRequest[]> {
-  let rows = await parse(file)
-  console.log(rows)
-  return rows[1]
-}
