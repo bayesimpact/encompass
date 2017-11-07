@@ -1,7 +1,9 @@
-"""Methods for geocoding with Geocodio."""
+"""Methods for geocoding with Geocodio or Open Street Map."""
 import os
 
 from geocodio import GeocodioClient
+
+import osmnx as ox
 
 
 class GeocodioCoder():
@@ -33,3 +35,24 @@ class GeocodioCoder():
             'latitude': results.get(address).coords[0],
             'longitude': results.get(address).coords[1]
         } for address in addresses]
+
+
+class OxCoder():
+    """Open Street Maps geocoder class."""
+
+    def __init__(self, api_url=None, api_key=None):
+        """Initialize the geocoder class."""
+        self.api_url = api_url
+        self.api_key = api_key
+
+    def geocode(self, address):
+        """Geocode a single address with OSM."""
+        try:
+            result = ox.geocode(address)
+            return {
+                'address': address,
+                'latitude': result[0],
+                'longitude': result[1]
+            }
+        except:
+            return None

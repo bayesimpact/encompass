@@ -105,4 +105,4 @@ def main(output_file):
 
 
 if __name__ == '__main__':
-    main('california_zips.geojson')
+    main(output_file='california_zips.geojson')
