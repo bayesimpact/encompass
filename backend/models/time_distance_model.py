@@ -4,6 +4,8 @@ import math
 
 import osmnx as ox
 
+import geopy.distance
+
 import pandas as pd
 
 from shapely import geometry
@@ -109,31 +111,31 @@ def enlarge_box(small_box, half_side_in_miles):
     assert small_box_coords[2] >= -180.0 and small_box_coords[2] <= 180.0
     assert small_box_coords[3] >= -90.0 and small_box_coords[3] <= 90.0
 
+    # Caclulate the radius of a fixed parallel at a given latitude.
+    radius_in_km = geopy.distance.EARTH_RADIUS
+    parallel_radius = radius_in_km * math.cos(math.radians(small_box_coords[1]))
+
     half_side_in_km = _miles_to_meters(half_side_in_miles) / 1000
 
-    radius = 6371
-    # Radius of the parallel at given latitude
-    parallel_radius = radius * math.cos(math.radians(small_box_coords[1]))
-
     lon_min = math.radians(small_box_coords[0]) - half_side_in_km / parallel_radius
-    lat_min = math.radians(small_box_coords[1]) - half_side_in_km / radius
+    lat_min = math.radians(small_box_coords[1]) - half_side_in_km / radius_in_km
     lon_max = math.radians(small_box_coords[2]) + half_side_in_km / parallel_radius
-    lat_max = math.radians(small_box_coords[3]) + half_side_in_km / radius
+    lat_max = math.radians(small_box_coords[3]) + half_side_in_km / radius_in_km
 
-    rad2deg = math.degrees
-
-    lat_min = rad2deg(lat_min)
-    lon_min = rad2deg(lon_min)
-    lat_max = rad2deg(lat_max)
-    lon_max = rad2deg(lon_max)
+    lat_min = math.degrees(lat_min)
+    lon_min = math.degrees(lon_min)
+    lat_max = math.degrees(lat_max)
+    lon_max = math.degrees(lon_max)
     large_box = geometry.box(lon_min, lat_min, lon_max, lat_max)
 
     return (large_box)
 
 
 def _miles_to_meters(distance_in_miles):
-    return distance_in_miles * 1609.344
+    # TODO: Move this method to a helpers file.
+    return geopy.distance.units.meters(miles=distance_in_miles)
 
 
 def _meters_to_miles(distance_in_meters):
-    return distance_in_meters / 1609.344
+    # TODO: Move this method to a helpers file.
+    return geopy.distance.units.miles(meters=distance_in_meters)

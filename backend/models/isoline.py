@@ -13,11 +13,9 @@ import requests
 
 from shapely import geometry
 
-MILE_TO_METERS = 1609.34
-
 
 class Isoliner():
-    """Base Isoliner Class to be inherited."""
+    """Base Isoliner class to be inherited from."""
 
     def __init__(self, api_url=None, api_key=None):
         """Initialize the isoliner class."""
@@ -26,15 +24,16 @@ class Isoliner():
 
     def get_single_isodistance_polygon(self, point, radius_in_miles):
         """Get an isodistance polygon for the given point and radius."""
-        raise NotImplementedError('get_isocrone is a required method.')
+        raise NotImplementedError('Isoline source must be specified.')
 
 
-class OSMIsonliner(Isoliner):
-    """Generic Isoliner class."""
+class OSMIsoliner(Isoliner):
+    """Generic Isoliner class based on Open Street Maps."""
 
     def __init__(self, *args, **kwargs):
-        """Instantiate a OSMIsoliner."""
-        super(OSMIsonliner, self).__init__(*args, **kwargs)
+        """Instantiate an OSMIsoliner."""
+        # TODO: Include graph as an attribute so that functions match interface specifications."""
+        super(OSMIsoliner, self).__init__(*args, **kwargs)
 
     def get_single_isodistance_polygon(self, graph, point, radius_in_miles):
         """Given a point, return the isodistance polygon."""
@@ -78,10 +77,10 @@ class MapzenIsoliner(Isoliner):
 
     def get_single_isochrone_polygon(self, point, time_in_minutes):
         """
-        Given a  returns a geojson blob containing the MapZen polygon Isochrone.
+        Return a GeoJSON blob containing the MapZen polygon isochrone around a given point.
 
-        point: shapely point to calculate times from.
-        time: Time in minutes to calculate isochrone for. Defaults to 30 mins.
+        point: Shapely point to calculate times from.
+        time: Time (in minutes) to calculate isochrone for. Defaults to 30 minutes.
         """
         json_params = {
             'locations': [

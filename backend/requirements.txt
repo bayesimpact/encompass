@@ -7,6 +7,7 @@ uwsgi==2.0.15
 # Geo methods
 geopy==1.11.0
 Shapely==1.6.2
+osmnx==0.6
 # Database
 geojson==2.3.0
 psycopg2==2.7.1
