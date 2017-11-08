@@ -15,3 +15,4 @@ dependencies:
 test:
   override:
     - make backend-test
+    - make backend-coverage
