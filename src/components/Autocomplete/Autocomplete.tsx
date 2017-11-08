@@ -1,7 +1,7 @@
 import { identity } from 'lodash'
 import Arrow from 'material-ui/svg-icons/navigation/arrow-drop-down'
 import * as React from 'react'
-import ReactAutocomplete = require('react-autocomplete')
+import * as ReactAutocomplete from 'react-autocomplete'
 import './Autocomplete.css'
 
 type Props = {

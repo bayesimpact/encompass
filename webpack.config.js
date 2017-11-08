@@ -12,6 +12,14 @@ module.exports = {
     port: 8081
   },
   entry: './src/index.tsx',
+  externals: {
+    'chart.js': 'Chart',
+    lodash: '_',
+    mapboxgl: 'mapboxgl',
+    rx: 'Rx',
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
   output: {
     filename: 'bundle.js',
     path: __dirname + '/dist'
