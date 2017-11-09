@@ -5,8 +5,11 @@ from backend.lib.timer import timed
 
 import flask
 
+from flask_cors import CORS
+
 app = flask.Flask(__name__)
 
+CORS(app, resources={r'/api/*': {'origins': '*'}})
 DYNAMODB = dynamo_db.connect()
 
 service_areas_table = dynamo_db.get_table(DYNAMODB, 'network-adequacy-test-2')
