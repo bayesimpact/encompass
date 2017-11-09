@@ -15,8 +15,19 @@ class MeasureDistance():
         self.api_key = api_key
 
     def get_distance_in_miles(self, point_a, point_b):
-        """Get distance between two points."""
+        """
+        Get distance between two points.
+
+        Expects points as dicts with latitude and longitude.
+        """
         raise NotImplementedError('Distance type must be specified.')
+
+    def closest(self, origin, point_list):
+        """Find closest point in a list of points."""
+        return min(
+            point_list,
+            key=lambda p: self.get_distance_in_miles(origin, p)
+        )
 
 
 class HaversineDistance(MeasureDistance):
@@ -24,15 +35,10 @@ class HaversineDistance(MeasureDistance):
 
     def get_distance_in_miles(self, point_a, point_b):
         """Get haversine distance between two points."""
+        # GeoPy expects points to be given as (latitude, longitude) pairs.
         if point_a and point_b:
-            return(haversine_distance(point_a, point_b))
+            return geopy.distance.great_circle(
+                (point_a['latitude'], point_a['longitude']),
+                (point_b['latitude'], point_b['longitude'])
+            ).miles
         return
-
-
-def haversine_distance(origin, destination):
-    """Haversine distance between origin and destination."""
-    # GeoPy expects points to be given as (latitude, longitude) pairs.
-    return geopy.distance.great_circle(
-        (origin.y, origin.x),
-        (destination.y, destination.x)
-    ).miles
