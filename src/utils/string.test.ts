@@ -7,5 +7,6 @@ test('capitalizeWords', () => {
   expect(capitalizeWords('abc1')).toBe('Abc1')
   expect(capitalizeWords('fooBar')).toBe('Foo Bar')
   expect(capitalizeWords('foo bar')).toBe('Foo Bar')
+  expect(capitalizeWords('foo_bar')).toBe('Foo Bar')
   expect(capitalizeWords('foo1')).toBe('Foo1')
 })

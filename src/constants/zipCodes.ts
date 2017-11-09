@@ -1,4 +1,5 @@
 import { chain, memoize } from 'lodash'
+import { serializeServiceArea } from '../utils/serializers'
 
 export const COUNTIES_TO_ZIPS: {
   [county: string]: string[]
@@ -74,14 +75,9 @@ export const ZIPS = chain(COUNTIES_TO_ZIPS).values().flatten().uniq().sort().val
 export const SERVICE_AREAS = serviceAreasFromCounties(COUNTIES)
 
 /** TODO: Move to utils */
-export function serviceArea(county: string, zip: string) {
-  return `${county} / ${zip}`
-}
-
-/** TODO: Move to utils */
 export function serviceAreasFromCounties(counties: string[]) {
   return chain(counties)
-    .map(_ => COUNTIES_TO_ZIPS[_].map(z => serviceArea(_, z)))
+    .map(_ => COUNTIES_TO_ZIPS[_].map(z => serializeServiceArea('ca', _, z)))
     .flatten()
     .value()
 }
