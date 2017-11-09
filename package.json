@@ -10,6 +10,7 @@
     "lint": "tslint src/**/*",
     "pretest": "npm run build",
     "start": "webpack-dev-server",
+    "start:docker": "webpack-dev-server --host 0.0.0.0",
     "tdd": "concurrently -k 'jest --watch' 'npm run start' 'npm run watch'",
     "test": "jest",
     "watch": "webpack -w"

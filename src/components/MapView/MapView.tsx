@@ -31,8 +31,8 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     property: 'population',
     type: 'exponential',
     stops: [
-      [100, 2],
-      [100000, 10]
+      [10, 2],
+      [10000, 10]
     ]
   }
 }
