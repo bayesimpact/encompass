@@ -57,7 +57,7 @@ let parse = parseRows(COLUMNS, ([address, address2, city, state, zip,
   npi, language1, language2, language3, specialty]) => {
 
   let suite = address2 ? `Suite ${address2}` : ''
-  let fullAddress = `${address} ${suite} ${city} ${state} ${zip}`
+  let fullAddress = `${address}, ${city}, ${state} ${zip}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
 
   return {
