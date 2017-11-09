@@ -7,6 +7,7 @@ import { capitalize, memoize } from 'lodash'
 export let capitalizeWords = memoize((string: string) =>
   string
     .replace(/([^A-Z ])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
     .split(' ')
     .map(capitalize)
     .join(' ')

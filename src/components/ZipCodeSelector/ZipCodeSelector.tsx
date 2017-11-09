@@ -1,7 +1,8 @@
 import { chain, without } from 'lodash'
 import { Checkbox, List, ListItem, Subheader } from 'material-ui'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, SERVICE_AREAS, serviceArea, serviceAreasFromCounties, ZIPS } from '../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS, SERVICE_AREAS, serviceAreasFromCounties, ZIPS } from '../../constants/zipCodes'
+import { serializeServiceArea } from '../../utils/serializers'
 import './ZipCodeSelector.css'
 
 type Props = {
@@ -35,7 +36,7 @@ export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
         <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
         <div className='ZipList'>
           {COUNTIES_TO_ZIPS[county].map(zip => {
-            let key = serviceArea(county, zip)
+            let key = serializeServiceArea('ca', county, zip)
             return <ListItem
               className='ListItem'
               key={key}
@@ -56,8 +57,8 @@ export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
 /**
  * TODO: Is this safe?
  */
-function areAllSelected(zips: string[], selectedZips: string[]) {
-  return zips.length === selectedZips.length
+function areAllSelected(serviceAreas: string[], selectedServiceAreas: string[]) {
+  return serviceAreas.length === selectedServiceAreas.length
 }
 
 function handleChange(props: Props) {

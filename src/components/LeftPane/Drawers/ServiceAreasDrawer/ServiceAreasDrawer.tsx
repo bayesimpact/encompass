@@ -1,9 +1,10 @@
-import { chain, flatten, spread } from 'lodash'
+import { chain, flatten } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, countiesFromZip, serviceArea, zipsFromCounty } from '../../../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../../../constants/zipCodes'
 import { store, withStore } from '../../../../services/store'
 import { ColumnDefinition, isEmpty, parseCSV, ParseError, parseRows } from '../../../../utils/csv'
+import { serializeServiceArea } from '../../../../utils/serializers'
 import { capitalizeWords } from '../../../../utils/string'
 import { CountySelector } from '../../../CountySelector/CountySelector'
 import { CSVUploader } from '../../../CSVUploader/CSVUploader'
@@ -55,7 +56,7 @@ async function onFileSelected(file: File) {
   )
 
   store.set('counties')(getCounties(serviceAreas))
-  store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serviceArea(county, zip)))
+  store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
   store.set('uploadedServiceAreasFilename')(file.name)
 }
 
@@ -92,7 +93,7 @@ let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
   }
 
   return pairs
-    .uniqBy(spread(serviceArea))
+    .uniqBy(([c, z]) => serializeServiceArea('ca', c, z))
     .value()
 }), validateHeaders)
 
