@@ -1,4 +1,4 @@
-import { capitalizeWords } from './string'
+import { capitalizeWords, fuzz } from './string'
 
 test('capitalizeWords', () => {
   expect(capitalizeWords('')).toBe('')
@@ -9,4 +9,10 @@ test('capitalizeWords', () => {
   expect(capitalizeWords('foo bar')).toBe('Foo Bar')
   expect(capitalizeWords('foo_bar')).toBe('Foo Bar')
   expect(capitalizeWords('foo1')).toBe('Foo1')
+})
+
+test('fuzz', () => {
+  expect(fuzz('abc def')).toBe('abcdef')
+  expect(fuzz('ABC DEF')).toBe('abcdef')
+  expect(fuzz('ABC  def')).toBe('abcdef')
 })

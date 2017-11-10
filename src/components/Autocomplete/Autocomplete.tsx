@@ -2,9 +2,11 @@ import { identity } from 'lodash'
 import Arrow from 'material-ui/svg-icons/navigation/arrow-drop-down'
 import * as React from 'react'
 import ReactAutocomplete = require('react-autocomplete')
+import { fuzz } from '../../utils/string'
 import './Autocomplete.css'
 
 type Props = {
+  defaultValue?: string
   items: string[]
   onChange(item: string): void
   pinnedItems?: string[]
@@ -41,6 +43,8 @@ export class Autocomplete extends React.Component<Props> {
   componentDidMount() {
     if (this.state.text === undefined && this.props.value !== null) {
       this.setState({ text: this.props.value })
+    } else if (this.state.text === undefined && this.props.defaultValue !== null) {
+      this.setState({ text: this.props.defaultValue })
     }
   }
 
@@ -69,8 +73,15 @@ export class Autocomplete extends React.Component<Props> {
    * TODO: Benchmark - do we need a faster comparison here?
    */
   shouldItemRender = (item: string, value: string) =>
-    (this.props.pinnedItems && this.props.pinnedItems.includes(item))
-    || item.toLowerCase().includes(value.toLowerCase())
+
+    // If the default value is selected, show all items
+    (this.props.value === this.props.defaultValue)
+
+    // Always show pinned items
+    || (this.props.pinnedItems && this.props.pinnedItems.includes(item))
+
+    // Otherwise, do a case-insensitive comparison
+    || fuzz(item).includes(fuzz(value))
 
   onSelect(item: string) {
     this.setState({ text: item })
@@ -84,7 +95,7 @@ export class Autocomplete extends React.Component<Props> {
    */
   onType(text: string) {
     this.setState({ text })
-    let match = this.props.items.find(_ => _.toLowerCase() === text.toLowerCase())
+    let match = this.props.items.find(_ => fuzz(_) === fuzz(text)) // TODO: Is this safe?
     if (match) {
       this.props.onChange(match)
     }
