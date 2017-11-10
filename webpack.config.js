@@ -39,11 +39,7 @@ module.exports = {
                 require('postcss-import')(),
                 require('postcss-cssnext')({
                   browsers: '>2%'
-                }),
-                require('postcss-inline-svg')({
-                  path: './node_modules'
-                }),
-                require('postcss-svgo')(),
+                })
               ]
             }
           }]
