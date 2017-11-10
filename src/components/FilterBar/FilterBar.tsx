@@ -54,6 +54,10 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
   </Paper>
 )
 
+/**
+ * Depending on the Standard filter the user selected, we change the units shown
+ * in the Measure filter.
+ */
 function getMeasureText(miles: Measure, mins: number, standard: Standard) {
   switch (standard) {
     case 'distance': return `${miles} miles`
