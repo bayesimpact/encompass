@@ -2,7 +2,7 @@
 import os
 
 from geocodio import GeocodioClient
-from geocodio.exceptions import GeocodioDataError  # noqa: F401
+from geocodio.exceptions import GeocodioAuthError, GeocodioDataError  # noqa: F401
 
 import osmnx as ox
 
@@ -60,8 +60,8 @@ class OxCoder():
 
 
 def get_geocoder(name):
-    """Return the geocoder with the given name."""
-    return GEOCODER_NAME_TO_FUNCTION_MAPPING[name.lower()]
+    """Return an instantiated geocoder of the required class."""
+    return GEOCODER_NAME_TO_FUNCTION_MAPPING[name.lower()]()
 
 
 GEOCODER_NAME_TO_FUNCTION_MAPPING = {

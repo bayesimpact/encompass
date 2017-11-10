@@ -3,14 +3,21 @@ from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods
 from backend.lib.database.tables import address, provider, representative_point, service_area
 
+from backend.models import distance
+
 from sqlalchemy.orm import sessionmaker
 
 # TODO - Use config or environment variable.
 # Consider
 GEOCODING = False
+MEASURER = distance.get_measure('haversine')
 
 
-def fetch_representative_points(service_areas, engine=connect.create_db_engine()):
+def fetch_representative_points(
+    service_areas,
+    format_response=True,
+    engine=connect.create_db_engine()
+):
     """Fetch representative points for a list of service areas."""
     if not service_areas:
         return []
@@ -20,7 +27,9 @@ def fetch_representative_points(service_areas, engine=connect.create_db_engine()
         table_name=representative_point.RepresentativePoint.__tablename__,
         id_list=id_list)
     representative_points = engine.execute(select_query)
-    return [representative_point.row_to_dict(point) for point in representative_points]
+    return [
+        representative_point.row_to_dict(point, format_response) for point in representative_points
+    ]
 
 
 def _fetch_address_from_db(raw_address, session):
@@ -55,10 +64,10 @@ def fetch_all_service_areas(engine=connect.create_db_engine()):
     ).all()
 
 
-def _return_geocoded_address(engine, geocodiocoder, raw_address):
-    if geocodiocoder:
+def _return_geocoded_address(engine, local_geocoder, raw_address):
+    if local_geocoder:
         print('Geocoing address {}.'.format(raw_address))
-        geocoded_address = geocodiocoder.geocode(raw_address)
+        geocoded_address = local_geocoder.geocode(raw_address)
         print('Inserting {}'.format(geocoded_address))
         address_id = methods.core_insert(
             engine,
@@ -68,6 +77,7 @@ def _return_geocoded_address(engine, geocodiocoder, raw_address):
         )[0]
         geocoded_address['id'] = address_id
         return geocoded_address
+    # TODO - Implement specific error.
     raise NotImplementedError('Unable to geocode address. Geocoding is off.')
 
 
@@ -100,9 +110,10 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
     Session = sessionmaker(bind=engine)
     session = Session()
     provider_responses = []
-    geocodiocoder = geocoder.get_geocoder(geocoder_name) if GEOCODING else None
+    local_geocoder = geocoder.get_geocoder(geocoder_name) if GEOCODING else None
 
-    for raw_provider in providers:
+    for i, raw_provider in enumerate(providers):
+        print(i)
         try:
             # TODO - Fuzzy matching.
             # Retrieve lat, lng from DB.
@@ -119,7 +130,7 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
             else:
                 geocoded_address = _return_geocoded_address(
                     engine=engine,
-                    geocodiocoder=geocodiocoder,
+                    local_geocoder=local_geocoder,
                     raw_address=raw_address
                 )
 
@@ -142,10 +153,64 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
                     geocoded_address=geocoded_address
                 )
             )
-        except (geocoder.GeocodioDataError, NotImplementedError) as error:
+        # TODO: Have each Geocoder class raise the same errors.
+        except (
+            geocoder.GeocodioAuthError,
+            geocoder.GeocodioDataError,
+            NotImplementedError
+        ) as error:
             print(error)
             provider_responses.append(_format_provider_response(success=False))
 
     session.close()
-    print(provider_responses)
     return provider_responses
+
+
+def _find_closest_provider(point, providers):
+    """Find closest provider from to a representative point."""
+    closest_provider = MEASURER.closest(
+        origin=point,
+        point_list=providers
+    )
+    provider_distance = MEASURER.get_distance_in_miles(point, closest_provider)
+    provider_time = provider_distance * 2
+    return {
+        'id': point['id'],
+        'closest_provider_by_distance': closest_provider['id'],
+        'closest_provider_by_time': closest_provider['id'],
+        'time_to_closest_provider': provider_distance,
+        'distance_to_closest_provider': provider_time
+    }
+
+
+def _fetch_provider_from_ids(provider_ids, engine):
+    session = sessionmaker(bind=engine)()
+    results = session.query(
+        provider.Provider, address.Address
+    ).filter(
+        provider.Provider.address_id == address.Address.id
+    ).filter(
+        provider.Provider.id.in_(provider_ids)
+    ).all()
+    if results:
+        return [
+            {
+                'id': result.Provider.id,
+                'latitude': result.Address.latitude,
+                'longitude': result.Address.longitude
+            } for result in results
+        ]
+    return []
+
+
+def fetch_adeqacies(service_area_ids, provider_ids, engine=connect.create_db_engine()):
+    """Calculate adequacies."""
+    representative_points = fetch_representative_points(service_area_ids, format_response=False)
+    providers = _fetch_provider_from_ids(
+        provider_ids=provider_ids, engine=engine
+    )
+    adequacies_response = [
+        _find_closest_provider(point, providers)
+        for point in representative_points
+    ]
+    return adequacies_response

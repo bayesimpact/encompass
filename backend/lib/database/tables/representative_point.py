@@ -23,7 +23,7 @@ class RepresentativePoint(Base):
     census_tract = Column(Integer)
 
 
-def row_to_dict(rp_row):
+def row_to_dict(rp_row, format_response=True):
     """
     Transform a representative point row to a dictionary.
 
@@ -44,6 +44,8 @@ def row_to_dict(rp_row):
     """
     rp_dict = dict(rp_row)
     # TODO - Revisit naming to latitude and longitude if performance is ok.
+    if not format_response:
+        return rp_dict
     return {
         'id': rp_dict['id'],
         'county': rp_dict['county'],

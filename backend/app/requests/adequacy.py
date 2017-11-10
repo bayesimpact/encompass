@@ -57,7 +57,7 @@ def adequacy_request(app, flask_request):
     provider_ids = request['provider_ids']
     service_area_ids = request['service_area_ids']
 
-    return mock_adequacy_calculation(
-        provider_ids=provider_ids,
+    return fetch.fetch_adeqacies(
         service_area_ids=service_area_ids,
+        provider_ids=provider_ids
     )
