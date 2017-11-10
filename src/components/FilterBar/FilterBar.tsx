@@ -1,5 +1,6 @@
 import { DropDownMenu, MenuItem, Paper } from 'material-ui'
 import * as React from 'react'
+import { Measure, Standard } from '../../constants/datatypes'
 import { TIME_DISTANCES } from '../../constants/timeDistances'
 import { store, withStore } from '../../services/store'
 import './FilterBar.css'
@@ -7,7 +8,7 @@ import './FilterBar.css'
 export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
   <Paper className='FilterBar' zDepth={1}>
 
-    <div className='Filter'>
+    <div className='Filter -FixedWidthSmall'>
       <span>Distribution</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
@@ -20,7 +21,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       </DropDownMenu>
     </div>
 
-    <div className='Filter'>
+    <div className='Filter -FixedWidthBig'>
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
@@ -33,7 +34,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       </DropDownMenu>
     </div>
 
-    <div className='Filter'>
+    <div className='Filter -FixedWidthBig'>
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
@@ -41,10 +42,26 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
         value={store.get('measure')}
       >
         {Array.from(TIME_DISTANCES).map(([miles, mins]) =>
-          <MenuItem key={miles} value={miles} primaryText={`${miles} miles / ${mins} min`} />
+          <MenuItem
+            key={miles}
+            value={miles}
+            primaryText={getMeasureText(miles, mins, store.get('standard'))}
+          />
         )}
       </DropDownMenu>
     </div>
 
   </Paper>
 )
+
+/**
+ * Depending on the Standard filter the user selected, we change the units shown
+ * in the Measure filter.
+ */
+function getMeasureText(miles: Measure, mins: number, standard: Standard) {
+  switch (standard) {
+    case 'distance': return `${miles} miles`
+    case 'time': return `${mins} min`
+    case 'time_distance': return `${miles} miles / ${mins} min`
+  }
+}
