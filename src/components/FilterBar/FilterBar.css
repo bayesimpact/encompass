@@ -15,6 +15,16 @@
   flex-direction: column;
 }
 
+/* So filter bar doesn't suddenly resize when user changes dropdown */
+.FilterBar .Filter.-FixedWidthBig {
+  width: 220px;
+}
+
+/* So filter bar doesn't suddenly resize when user changes dropdown */
+.FilterBar .Filter.-FixedWidthSmall {
+  width: 160px;
+}
+
 .FilterBar .Filter > span {
   margin: 20px 0 -17px 24px;
 }
