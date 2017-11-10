@@ -14,7 +14,7 @@ def test_representative_point_to_row():
         'county': 'county',
         'latitude': 40,
         'longitude': -79,
-        'population': [200, 233, 122],
+        'population': {'0.5': 200, '2.5': 233, '5': 122},
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code'
     }

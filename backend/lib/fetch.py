@@ -71,7 +71,7 @@ def fetch_providers(providers, engine=connect.create_db_engine()):
             # TODO - Geocode missing addresses and add to DB.
             # TODO - Fuzzy matching.
             # Retrieve lat, lng from DB.
-            # Poping address to avoid confusion by Postgres between address and address_id.
+            # Pop address to avoid confusion by Postgres between address and address_id.
             geocoded_address = _fetch_address(raw_provider.pop('address'), session)
             # TODO - Decide on the behavior, early ?exit if no complete address is found.
             # Add address_id to each provider.

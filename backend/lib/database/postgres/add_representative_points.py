@@ -8,6 +8,7 @@ import geojson
 
 # TODO: Add tests for these methods.
 
+
 def insert_service_areas(json_path='data/representative_points.geojson'):
     """Insert service areas into the database from a GeoJSON file."""
     with open(json_path, 'r') as f:
@@ -34,7 +35,7 @@ def insert_representative_population_points(json_path='data/representative_point
 
     results = methods.core_insert(
         engine=connect.create_db_engine(),
-        sql_class=representative_point.RepresentativePoints,
+        sql_class=representative_point.RepresentativePoint,
         data=data,
         return_insert_ids=False,
         unique=False
@@ -43,10 +44,11 @@ def insert_representative_population_points(json_path='data/representative_point
 
 
 def _transform_single_point(point):
+    """Convert a single feature to the format expected by the database."""
     return {
         'latitude': point['geometry']['coordinates'][1],
         'longitude': point['geometry']['coordinates'][0],
-        'population': point['properties']['population'],
+        'population': convert_population_list_to_population_dict(point['properties']['population']),
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip'],
         'service_area_id': '{state}_{county}_{zip}'.format(
@@ -57,7 +59,24 @@ def _transform_single_point(point):
     }
 
 
+def convert_population_list_to_population_dict(population_list, cutoffs=[0.5, 2.5, 5.0]):
+    """
+    Convert a list of populations at different cutoffs to a dictionary.
+
+    Assumes that the population list is non-decreasing (starts with the largest cutoff).
+    """
+    return {
+        cutoff: population
+        for population, cutoff in zip(population_list[::-1], cutoffs)
+    }
+
+
 def _get_all_service_areas(features):
+    """
+    Extract service area information from a list of JSON features.
+
+    Each feature should have `county` and `zip` attributes.
+    """
     service_area_tuples = {
         (point['properties']['county'], point['properties']['zip'])
         for point in features

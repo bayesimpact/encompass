@@ -1,6 +1,5 @@
 """File holding the main representative point table and mapping definitions."""
 from backend.lib.database.postgres.base import Base
-from backend.lib.utils import list_to_dict
 
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, JSON, String, func
 
@@ -22,16 +21,6 @@ class RepresentativePoint(Base):
     census_block_group = Column(Integer)
     census_block = Column(Integer)
     census_tract = Column(Integer)
-
-
-# We store population as a list in the database, but return
-# it as a dict keyed on distribution to the frontend.
-# FIXME - Update DB rows to contain key based population (Github #56)
-POPULATION_MAPPING = {
-    0: '0.5',
-    1: '2.5',
-    2: '5'
-}
 
 
 def row_to_dict(rp_row):
@@ -60,7 +49,7 @@ def row_to_dict(rp_row):
         'county': rp_dict['county'],
         'lat': rp_dict['latitude'],
         'lng': rp_dict['longitude'],
-        'population': list_to_dict(rp_dict['population'], POPULATION_MAPPING),
+        'population': rp_dict['population'],
         'service_area_id': rp_dict['service_area_id'],
         'zip': rp_dict['zip_code']
     }
