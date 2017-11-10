@@ -1,6 +1,6 @@
 """Fetch data from database."""
 from backend.lib.database.postgres import connect, methods
-from backend.lib.database.tables import address, provider, representative_point
+from backend.lib.database.tables import address, provider, representative_point, service_area
 
 from sqlalchemy.orm import sessionmaker
 
@@ -34,6 +34,20 @@ def _fetch_address(raw_address, session):
         address.Address.address == raw_address
     ).first()
     return result
+
+
+def fetch_all_service_areas(engine=connect.create_db_engine()):
+    """
+    Fetch all available service areas from the database.
+
+    Returns a dictionary containing service_area_id, county, and zip_code.
+    """
+    session = sessionmaker(bind=engine)()
+    return session.query(
+        service_area.ServiceArea.service_area_id,
+        service_area.ServiceArea.county,
+        service_area.ServiceArea.zip_code
+    ).all()
 
 
 def _format_provider_response(success=True, provider_id=0, geocoded_address=None):

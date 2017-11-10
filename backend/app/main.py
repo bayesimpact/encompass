@@ -1,6 +1,5 @@
 """Routing for backend API."""
-from backend.app.requests import adequacy, providers, representative_points
-from backend.lib.database import dynamo_db
+from backend.app.requests import adequacy, providers, representative_points, service_area
 from backend.lib.timer import timed
 
 import flask
@@ -10,19 +9,14 @@ from flask_cors import CORS
 app = flask.Flask(__name__)
 
 CORS(app, resources={r'/api/*': {'origins': '*'}})
-DYNAMODB = dynamo_db.connect()
-
-service_areas_table = dynamo_db.get_table(DYNAMODB, 'network-adequacy-test-2')
 
 
 @timed
 @app.route('/api/available-service-areas/', methods=['GET'])
-def fetch_available_service_areas():
+def fetch_service_areas():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return service areas.')
-    # Get the available service areas from DynamoDB.
-    db_response = service_areas_table.scan()
-    response = db_response['Items']
+    response = service_area.service_area_request(app, flask.request)
     return flask.jsonify(response)
 
 

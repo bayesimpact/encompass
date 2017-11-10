@@ -1,7 +1,7 @@
 """
 Handle requests to the representative_points endpoint.
 
-The /api/representative_points/ enpoint accepts a list service areas and returns a list
+The /api/representative_points/ endpoint accepts a list service areas and returns a list
 of ids and associated data.
 
 REQUEST - POST /api/representative_points
@@ -33,8 +33,8 @@ from backend.app.exceptions.format import InvalidFormat
 
 
 def representative_points_request(app, flask_request):
-    """Handle /api/providers requests."""
-    app.logger.info('Fetching representative_points.')
+    """Handle /api/representative_points requests."""
+    app.logger.info('Fetching representative points.')
     try:
         request_json = flask_request.get_json(force=True)
         service_area_ids = request_json['service_area_ids']

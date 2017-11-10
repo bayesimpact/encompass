@@ -38,8 +38,8 @@ class TestFetchProviders():
     """Test fetch providers."""
 
     @staticmethod
-    def test_fetch_providers():
-        """Test fetch_representative_points."""
+    def test_fetch_providers_existing_address():
+        """Test fetch_providers when the address exists."""
         # Note - This address should exist in the database.
         providers_input = [
             {
@@ -52,9 +52,19 @@ class TestFetchProviders():
         assert results[0]['id'] is not None
 
     @staticmethod
-    def test_fetch_providers_inexisting_address():
+    def test_fetch_providers_address_does_not_exist():
         """Test fetch_representative_points."""
         providers_input = [{'address': 'I DO NOT EXIST, CARSON, CA 90746'}]
         results = fetch.fetch_providers(providers_input)
         assert len(results) == 1
         assert results[0]['status'] == 'error'
+
+
+class TestFetchServiceAreas():
+    """Test methods to fetch service areas."""
+
+    @staticmethod
+    def test_fetch_all_service_areas():
+        """Test fetch_all_service_areas."""
+        results = fetch.fetch_all_service_areas()
+        assert len(results) > 0
