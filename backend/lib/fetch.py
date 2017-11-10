@@ -1,8 +1,13 @@
 """Fetch data from database."""
+from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods
 from backend.lib.database.tables import address, provider, representative_point, service_area
 
 from sqlalchemy.orm import sessionmaker
+
+# TODO - Use config or environment variable.
+# Consider
+GEOCODING = False
 
 
 def fetch_representative_points(service_areas, engine=connect.create_db_engine()):
@@ -18,7 +23,7 @@ def fetch_representative_points(service_areas, engine=connect.create_db_engine()
     return [representative_point.row_to_dict(point) for point in representative_points]
 
 
-def _fetch_address(raw_address, session):
+def _fetch_address_from_db(raw_address, session):
     """
     Fetch address from DB.
 
@@ -50,13 +55,29 @@ def fetch_all_service_areas(engine=connect.create_db_engine()):
     ).all()
 
 
+def _return_geocoded_address(engine, geocodiocoder, raw_address):
+    if geocodiocoder:
+        print('Geocoing address {}.'.format(raw_address))
+        geocoded_address = geocodiocoder.geocode(raw_address)
+        print('Inserting {}'.format(geocoded_address))
+        address_id = methods.core_insert(
+            engine,
+            sql_class=address.Address,
+            data=[geocoded_address],
+            return_insert_ids=True
+        )[0]
+        geocoded_address['id'] = address_id
+        return geocoded_address
+    raise NotImplementedError('Unable to geocode address. Geocoding is off.')
+
+
 def _format_provider_response(success=True, provider_id=0, geocoded_address=None):
     if success and geocoded_address:
         return {
             'status': 'success',
             'id': provider_id,
-            'lat': geocoded_address.latitude,
-            'lng': geocoded_address.longitude
+            'lat': geocoded_address['latitude'],
+            'lng': geocoded_address['longitude']
         }
 
     return {
@@ -65,7 +86,7 @@ def _format_provider_response(success=True, provider_id=0, geocoded_address=None
     }
 
 
-def fetch_providers(providers, engine=connect.create_db_engine()):
+def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_db_engine()):
     """
     Fetch providers location and IDs from a list of provider inputs.
 
@@ -79,19 +100,32 @@ def fetch_providers(providers, engine=connect.create_db_engine()):
     Session = sessionmaker(bind=engine)
     session = Session()
     provider_responses = []
+    geocodiocoder = geocoder.get_geocoder(geocoder_name) if GEOCODING else None
 
     for raw_provider in providers:
         try:
-            # TODO - Geocode missing addresses and add to DB.
             # TODO - Fuzzy matching.
             # Retrieve lat, lng from DB.
-            # Pop address to avoid confusion by Postgres between address and address_id.
-            geocoded_address = _fetch_address(raw_provider.pop('address'), session)
+            # Popping address to avoid confusion by Postgres between address and address_id.
+            raw_address = raw_provider.pop('address')
+            result_address = _fetch_address_from_db(raw_address, session)
+            if result_address:
+                geocoded_address = {
+                    'id': result_address.id,
+                    'address': raw_address,
+                    'latitude': result_address.latitude,
+                    'longitude': result_address.longitude,
+                }
+            else:
+                geocoded_address = _return_geocoded_address(
+                    engine=engine,
+                    geocodiocoder=geocodiocoder,
+                    raw_address=raw_address
+                )
+
             # TODO - Decide on the behavior, early ?exit if no complete address is found.
             # Add address_id to each provider.
-            address_id = 0 if not geocoded_address else geocoded_address.id
-            raw_provider['address_id'] = address_id
-
+            raw_provider['address_id'] = geocoded_address['id']
             # Upload provider to the DB if needed and get the corresponding id.
             provider_id = methods.core_insert(
                 engine,
@@ -108,9 +142,10 @@ def fetch_providers(providers, engine=connect.create_db_engine()):
                     geocoded_address=geocoded_address
                 )
             )
-        except Exception as error:
+        except (geocoder.GeocodioDataError, NotImplementedError) as error:
             print(error)
             provider_responses.append(_format_provider_response(success=False))
 
     session.close()
+    print(provider_responses)
     return provider_responses

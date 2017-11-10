@@ -42,3 +42,13 @@ class HaversineDistance(MeasureDistance):
                 (point_b['latitude'], point_b['longitude'])
             ).miles
         return
+
+
+def get_measure(name):
+    """Return the measure with the given name."""
+    return MEASURE_NAME_TO_FUNCTION_MAPPING[name.lower()]
+
+
+MEASURE_NAME_TO_FUNCTION_MAPPING = {
+    'haversine': HaversineDistance
+}

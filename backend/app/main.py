@@ -1,5 +1,5 @@
 """Routing for backend API."""
-from backend.app.requests import adequacy, providers, representative_points, service_area
+from backend.app.requests import adequacy, providers, representative_points, service_areas
 from backend.lib.timer import timed
 
 import flask
@@ -16,7 +16,7 @@ CORS(app, resources={r'/api/*': {'origins': '*'}})
 def fetch_service_areas():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return service areas.')
-    response = service_area.service_area_request(app, flask.request)
+    response = service_areas.service_area_request(app, flask.request)
     return flask.jsonify(response)
 
 

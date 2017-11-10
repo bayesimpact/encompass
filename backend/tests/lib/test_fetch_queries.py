@@ -54,7 +54,7 @@ class TestFetchProviders():
     @staticmethod
     def test_fetch_providers_address_does_not_exist():
         """Test fetch_representative_points."""
-        providers_input = [{'address': 'I DO NOT EXIST, CARSON, CA 90746'}]
+        providers_input = [{'address': 'I DO NOT EXIST'}]
         results = fetch.fetch_providers(providers_input)
         assert len(results) == 1
         assert results[0]['status'] == 'error'

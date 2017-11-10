@@ -2,6 +2,7 @@
 import os
 
 from geocodio import GeocodioClient
+from geocodio.exceptions import GeocodioDataError  # noqa: F401
 
 import osmnx as ox
 
@@ -9,7 +10,7 @@ import osmnx as ox
 class GeocodioCoder():
     """Geocodio geocoder class."""
 
-    def __init__(self, api_key=os.environ['GEOCODIO_KEY']):
+    def __init__(self, api_key=os.environ.get('GEOCODIO_KEY', None)):
         """Initialize Geocodio geocoder class."""
         self.client = GeocodioClient(api_key)
 
@@ -56,3 +57,14 @@ class OxCoder():
             }
         except:
             return None
+
+
+def get_geocoder(name):
+    """Return the geocoder with the given name."""
+    return GEOCODER_NAME_TO_FUNCTION_MAPPING[name.lower()]
+
+
+GEOCODER_NAME_TO_FUNCTION_MAPPING = {
+    'geocodio': GeocodioCoder,
+    'oxcoder': OxCoder
+}
