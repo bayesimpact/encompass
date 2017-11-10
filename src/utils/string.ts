@@ -12,3 +12,10 @@ export let capitalizeWords = memoize((string: string) =>
     .map(capitalize)
     .join(' ')
 )
+
+/**
+ * Useful for fuzzy comparisons.
+ */
+export let fuzz = memoize((s: string) =>
+  s.toLowerCase().replace(/ /g, '')
+)

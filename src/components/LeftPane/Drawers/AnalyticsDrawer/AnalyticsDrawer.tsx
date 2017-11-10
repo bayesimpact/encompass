@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { withStore } from '../../../../services/store'
 import { InfoBox } from '../../../InfoBox/InfoBox'
-import { ALL_SERVICE_AREAS, ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
+import { ServiceAreaSelector } from '../../../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 import { TotalAnalytics } from './TotalAnalytics'
@@ -17,8 +17,8 @@ export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceA
   <Drawer className='LeftDrawer' open={true}>
     <h2>Analytics</h2>
     <ServiceAreaSelector
-      onChange={_ => store.set('selectedServiceArea')(_ === ALL_SERVICE_AREAS ? null : _)}
-      value={store.get('selectedServiceArea') || ALL_SERVICE_AREAS}
+      onChange={store.set('selectedServiceArea')}
+      value={store.get('selectedServiceArea')}
     />
     {store.get('serviceAreas').length > 0
       ? (store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />)

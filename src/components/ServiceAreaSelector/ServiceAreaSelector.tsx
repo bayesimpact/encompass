@@ -4,17 +4,19 @@ import { formatServiceArea, unformatServiceArea } from '../../utils/formatters'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
 
 type Props = StoreProps & {
-  onChange(serviceArea: string): void
+  onChange(serviceArea: string | null): void
   value: string | null
 }
 
-export const ALL_SERVICE_AREAS = 'All service areas'
+const ALL_SERVICE_AREAS = 'All service areas'
 
-export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, store, value }) =>
-  <Autocomplete
+export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, store, value }) => {
+  console.log('ServiceAreaSelector', value)
+  return <Autocomplete
+    defaultValue={ALL_SERVICE_AREAS}
     items={store.get('serviceAreas').map(formatServiceArea)}
-    onChange={_ => onChange(unformatServiceArea(_))}
+    onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : unformatServiceArea(_))}
     pinnedItems={[ALL_SERVICE_AREAS]}
-    value={value === null ? null : formatServiceArea(value)}
+    value={value === null ? ALL_SERVICE_AREAS : formatServiceArea(value)}
   />
-)
+})
