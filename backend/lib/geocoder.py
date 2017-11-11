@@ -30,12 +30,16 @@ class GeocodioCoder():
         Returns a list of tuples with addresses, and coordinates in the format:
         [(address, (long, lat)), ...]
         """
-        results = self.client.geocode(addresses)
-        return [{
-            'address': address,
-            'latitude': results.get(address).coords[0],
-            'longitude': results.get(address).coords[1]
-        } for address in addresses]
+        try:
+            results = self.client.geocode(addresses)
+            return [{
+                'address': address,
+                'latitude': results.get(address).coords[0],
+                'longitude': results.get(address).coords[1]
+            } for address in addresses]
+        except Exception as error:
+            print(error, 'geocoding - switching to single geocoding.')
+            return [self.geocode(address) for address in addresses]
 
 
 class OxCoder():

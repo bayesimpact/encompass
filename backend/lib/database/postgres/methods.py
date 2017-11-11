@@ -107,7 +107,7 @@ def bulk_insert_via_query(engine, sql_class, data):
         return results
 
 
-def core_insert(engine, sql_class, data, return_insert_ids=False, unique=True):
+def core_insert(engine, sql_class, data, return_insert_ids=False, unique=False):
     """
     A single Core INSERT construct inserting mappings in bulk.
 

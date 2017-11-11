@@ -24,7 +24,7 @@ def fetch_service_areas():
 @app.route('/api/providers/', methods=['POST'])
 def fetch_providers():
     """Fetch and return all available service areas from db."""
-    app.logger.debug('Return provider ids.')
+    app.logger.debug('Fetch provider ids.')
     response = providers.providers_request(app, flask.request)
     return flask.jsonify(response)
 
