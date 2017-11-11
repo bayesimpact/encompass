@@ -7,21 +7,21 @@ Two dockers are available for development:
 - Backend: A container running a Flask API served by uWSGI and Nginx.
 
 ## Setup
-In the main folder, you should add a `.env` with the following info:
+In the main folder, you should add a `.env` with the following info (replacing `???` with real values):
 ```
-REACT_APP_MAPBOX_TOKEN=$MAPBOX_TOKEN
-AWS_ACCESS_KEY=YOUR_KEY
-AWS_SECRET_KEY=YOUR_SECRET
-```
-
-
-## Explorer
-
-```
-docker-compose up -d explorer
+MAPBOX_TOKEN=???
+AWS_ACCESS_KEY=???
+AWS_SECRET_KEY=???
+POSTGRES_URL=???
 ```
 
-- Open a browser and navigate to `localhost:8888`.
+## App
+
+```
+docker-compose up
+```
+
+- Open a browser and navigate to `localhost:9001`.
 
 This environment gives you the following:
 - geopandas

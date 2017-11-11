@@ -40,3 +40,14 @@ services:
           - .env
         ports:
           - 8080:8080
+
+    frontend:
+        build:
+          context: ./web-app/frontend
+          dockerfile: Dockerfile
+        volumes:
+          - .env:/usr/src/app/tds-frontend/.env:ro
+        env_file:
+          - .env
+        ports:
+          - 8081:8081
