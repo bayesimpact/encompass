@@ -1,5 +1,5 @@
 local:
-	docker-compose up
+	docker-compose up backend frontend
 
 rebuild:
 	docker-compose build --no-cache
