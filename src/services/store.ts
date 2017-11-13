@@ -21,6 +21,11 @@ export type Actions = {
    */
   error: string | null
 
+  /**
+   * Success, exposed to user via Snackbar.
+   */
+  success: string | null
+
   measure: Measure
 
   /**
@@ -82,6 +87,7 @@ export let store = withLogger(withEffects(createStore<Actions>({
   counties: [],
   distribution: 0.5,
   error: null,
+  success: null,
   measure: 15,
   providers: [],
   representativePoints: [],

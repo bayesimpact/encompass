@@ -4,3 +4,9 @@
   max-width: 800px !important;
   text-align: center;
 }
+
+.SuccessBar > div {
+  background: rgba(0, 204, 102, 0.88) !important;
+  max-width: 800px !important;
+  text-align: center;
+}

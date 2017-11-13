@@ -17,3 +17,12 @@ export let ErrorBar: React.StatelessComponent<Props> = ({ message, onClose }) =>
     onRequestClose={onClose}
     open={message !== null}
   />
+
+export let SuccessBar: React.StatelessComponent<Props> = ({ message, onClose }) =>
+  <Snackbar
+    autoHideDuration={THIRTY_SECONDS}
+    className='SuccessBar'
+    message={message || ''}
+    onRequestClose={onClose}
+    open={message !== null}
+  />
