@@ -22,7 +22,7 @@ backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
 backend-coverage:
-	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=20 --cov-report term-missing
+	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=55 --cov-report term-missing
 
 # [Dummy dependency to force a make command to always run.]
 FORCE:

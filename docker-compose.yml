@@ -43,7 +43,7 @@ services:
 
     frontend:
         build:
-          context: ./web-app/frontend
+          context: ./frontend
           dockerfile: Dockerfile
         volumes:
           - .env:/usr/src/app/tds-frontend/.env:ro
