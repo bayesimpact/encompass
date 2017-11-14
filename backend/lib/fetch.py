@@ -229,7 +229,10 @@ def _find_closest_provider(point, providers):
 def _fetch_address_from_ids(address_ids, engine):
     session = sessionmaker(bind=engine)()
     results = session.query(
-        address.Address
+        address.Address.id,
+        address.Address.address,
+        address.Address.latitude,
+        address.Address.longitude
     ).filter(
         address.Address.id.in_(address_ids)
     ).all()
