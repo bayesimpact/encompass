@@ -20,7 +20,7 @@ class GeocodioCoder():
         return {
             'address': address,
             'latitude': result.coords[0],
-            'longitude': result.coords[1]
+            'longitude': result.coords[1],
         }
 
     def geocode_batch(self, addresses):
@@ -35,7 +35,7 @@ class GeocodioCoder():
             return [{
                 'address': address,
                 'latitude': results.get(address).coords[0],
-                'longitude': results.get(address).coords[1]
+                'longitude': results.get(address).coords[1],
             } for address in addresses]
         except Exception as error:
             print(error, 'geocoding - switching to single geocoding.')
@@ -57,7 +57,7 @@ class OxCoder():
             return {
                 'address': address,
                 'latitude': result[0],
-                'longitude': result[1]
+                'longitude': result[1],
             }
         except:
             return None

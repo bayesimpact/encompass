@@ -1,6 +1,8 @@
 """File holding the main address table and mapping definitions."""
 from backend.lib.database.postgres.base import Base
 
+from geoalchemy2 import Geometry
+
 from sqlalchemy import Column, DateTime, Float, Integer, JSON, String, func
 
 
@@ -15,4 +17,6 @@ class Address(Base):
     address = Column(String, nullable=False, index=True, unique=True)
     latitude = Column(Float)
     longitude = Column(Float)
+    # TODO - Add special GIST index on 'location'.
+    location = Column(Geometry('GEOMETRY'))
     isodistancePolygon = Column(JSON)

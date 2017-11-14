@@ -1,12 +1,10 @@
 """Methods to update representative population points in the database."""
+# TODO: Add tests for these methods.
 from backend.lib.database.postgres import connect
 from backend.lib.database.postgres import methods
 from backend.lib.database.tables import representative_point, service_area
 
 import geojson
-
-
-# TODO: Add tests for these methods.
 
 
 def insert_service_areas(json_path='data/representative_points.geojson'):
@@ -48,6 +46,7 @@ def _transform_single_point(point):
     return {
         'latitude': point['geometry']['coordinates'][1],
         'longitude': point['geometry']['coordinates'][0],
+        'location': point['geometry']['coordinates'],
         'population': convert_population_list_to_population_dict(point['properties']['population']),
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip'],

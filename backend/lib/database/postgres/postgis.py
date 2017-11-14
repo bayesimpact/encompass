@@ -1,4 +1,4 @@
-"""Setup PostGIS."""
+"""Functions to install and work with PostGIS."""
 import os
 
 from backend.lib.database.postgres import connect
@@ -26,6 +26,11 @@ TRANSFER_OWNERSHIP = """
 """
 
 ADD_TIGER_TO_PATH = 'SET search_path=public,tiger;'
+
+
+def to_point(longitude, latitude):
+    """Format point for insertion into Postgres."""
+    return 'SRID=4326;POINT({} {})'.format(longitude, latitude)
 
 
 def install():

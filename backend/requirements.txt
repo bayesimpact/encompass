@@ -9,6 +9,7 @@ geopy==1.11.0
 Shapely==1.6.2
 osmnx==0.6
 # Database
+geoalchemy2==0.4.0
 geojson==2.3.0
 psycopg2==2.7.1
 sqlalchemy==1.1.4

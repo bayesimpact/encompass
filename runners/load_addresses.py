@@ -21,7 +21,8 @@ def load_csv(csv_file=CSV_FILE):
         {
             'address': temp['address'],
             'latitude': temp['latitude'],
-            'longitude': temp['longitude']
+            'longitude': temp['longitude'],
+            'location': (temp['longitude'], temp['latitude'])
         }
         for temp in data
     ]

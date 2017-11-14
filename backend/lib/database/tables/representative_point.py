@@ -1,6 +1,8 @@
 """File holding the main representative point table and mapping definitions."""
 from backend.lib.database.postgres.base import Base
 
+from geoalchemy2 import Geometry
+
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, JSON, String, func
 
 
@@ -14,6 +16,7 @@ class RepresentativePoint(Base):
     service_area_id = Column(String, ForeignKey('service_areas.service_area_id'), index=True)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
+    location = Column(Geometry('GEOMETRY'), nullable=False)
     population = Column(JSON, nullable=False)
     county = Column(String, nullable=False, index=True)
     isodistancePolygon = Column(JSON)

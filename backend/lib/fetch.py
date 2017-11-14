@@ -1,6 +1,6 @@
 """Fetch data from database."""
 from backend.lib import geocoder
-from backend.lib.database.postgres import connect, methods
+from backend.lib.database.postgres import connect, methods, postgis
 from backend.lib.database.tables import address, provider, representative_point, service_area
 from backend.lib.timer import timed
 from backend.models import distance
@@ -152,12 +152,17 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
         local_geocoder = geocoder.get_geocoder(geocoder_name)()
         print('Geocoding...')
         try:
-            geocoded_address = local_geocoder.geocode_batch(addresses_to_geocode)
-            # Add new addresses to DB
+            geocoded_addresses = local_geocoder.geocode_batch(addresses_to_geocode)
+            for geocoded_address in geocoded_addresses:
+                geocoded_address['location'] = postgis.to_point(
+                    longitude=geocoded_address['longitude'],
+                    latitude=geocoded_address['latitude']
+                )
+            # Add new addresses to DB.
             methods.core_insert(
                 engine=engine,
                 sql_class=address.Address,
-                data=geocoded_address,
+                data=geocoded_addresses,
                 return_insert_ids=False
             )
             existing_addresses.update({
@@ -240,7 +245,7 @@ def _fetch_address_from_ids(address_ids, engine):
 
 
 @timed
-def fetch_adeqacies(service_area_ids, provider_ids, engine=connect.create_db_engine()):
+def fetch_adequacies(service_area_ids, provider_ids, engine=connect.create_db_engine()):
     """Calculate adequacies."""
     representative_points = fetch_representative_points(service_area_ids, format_response=False)
     providers = _fetch_address_from_ids(

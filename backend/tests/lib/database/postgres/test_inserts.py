@@ -1,5 +1,5 @@
 """Test Postgres inserts."""
-from backend.lib.database.postgres import connect
+from backend.lib.database.postgres import connect, postgis
 from backend.lib.database.postgres import methods
 from backend.lib.database.tables import address, provider
 
@@ -11,6 +11,7 @@ def test_core():
             'address': "Aaaat Brian's House",
             'latitude': 23,
             'longitude': 35,
+            'location': postgis.to_point(35, 22)
         }
     ]
 
