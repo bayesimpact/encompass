@@ -26,11 +26,30 @@ class MeasureDistance():
         raise NotImplementedError('Distance type must be specified.')
 
     def closest(self, origin, point_list):
-        """Find closest point in a list of points."""
-        return min(
+        """Find closest point in a list of points and returns min_distance, min_point."""
+        min_point = min(
             point_list,
             key=lambda p: self.get_distance_in_miles(origin, p)
         )
+        min_distance = self.get_distance_in_miles(origin, min_point)
+        return min_distance, min_point
+
+    def closest_with_early_exit(self, origin, point_list, exit_distance):
+        """
+        Find closest point in a list of points, exiting early if min_distance is reached.
+
+        Returns min_distance, min_point.
+        """
+        min_distance = float('inf')
+        min_point = None
+        for point in point_list:
+            distance = self.get_distance_in_miles(origin, point)
+            if distance < min_distance:
+                min_distance = distance
+                min_point = point
+                if min_distance <= exit_distance:
+                    break
+        return min_distance, min_point
 
 
 class HaversineDistance(MeasureDistance):

@@ -12,6 +12,7 @@ class TestMetrics():
         self.newport_ri = {'town': 'newport_ri', 'longitude': -71.312796, 'latitude': 41.49008}
         self.cleveland_oh = {'town': 'cleveland_oh', 'longitude': -81.695391, 'latitude': 41.499498}
         self.nassau = {'town': 'nassau', 'longitude': -77.3554, 'latitude': 25.0480}
+        self.miami = {'town': 'nassau', 'longitude': -80.1918, 'latitude': 25.7617}
 
     def test_haversine_distance_class(self):
         """Check that the haversine distance matches expectations."""
@@ -37,8 +38,25 @@ class TestMetrics():
     def test_haversine_distance_closest(self):
         """Check that the haversine closest distance works."""
         measurer = distance.HaversineDistance()
-        closest_town = measurer.closest(
+        closest_distance, closest_town = measurer.closest(
             origin=self.nassau,
             point_list=[self.newport_ri, self.cleveland_oh]
         )
         assert closest_town == self.cleveland_oh
+
+    def test_haversine_distance_closest_with_early_exit(self):
+        """Check that the haversine closest_with_early_exit distance works."""
+        measurer = distance.HaversineDistance()
+        closest_distance, closest_town = measurer.closest_with_early_exit(
+            origin=self.nassau,
+            point_list=[self.miami, self.nassau, self.newport_ri, self.cleveland_oh],
+            exit_distance=200
+        )
+        assert closest_town == self.miami
+
+        closest_distance, closest_town = measurer.closest_with_early_exit(
+            origin=self.nassau,
+            point_list=[self.miami, self.nassau, self.newport_ri, self.cleveland_oh],
+            exit_distance=50
+        )
+        assert closest_town == self.nassau

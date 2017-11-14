@@ -10,23 +10,31 @@ from sqlalchemy.orm import sessionmaker
 
 # TODO - Use config or environment variable.
 MEASURER = distance.get_measure('haversine')
+EXIT_DISTANCE = 10.0
 
 
-def _find_closest_provider(point, providers):
+def _find_closest_provider(point, providers, exit_distance_in_miles=None):
     """Find closest provider from to a representative point."""
-    closest_provider = MEASURER.closest(
-        origin=point,
-        point_list=providers
-    )
-    provider_distance = MEASURER.get_distance_in_miles(point, closest_provider)
-    provider_time = provider_distance * 2
-    return {
+    if not exit_distance_in_miles:
+        closest_distance, closest_provider = MEASURER.closest(
+            origin=point,
+            point_list=providers,
+        )
+    else:
+        closest_distance, closest_provider = MEASURER.closest_with_early_exit(
+            origin=point,
+            point_list=providers,
+            exit_distance=exit_distance_in_miles
+        )
+    provider_time = closest_distance * 2
+    provider = {
         'id': point['id'],
         'closest_provider_by_distance': closest_provider['id'],
         'closest_provider_by_time': closest_provider['id'],
-        'time_to_closest_provider': provider_distance,
-        'distance_to_closest_provider': provider_time
+        'time_to_closest_provider': provider_time,
+        'distance_to_closest_provider': closest_distance
     }
+    return provider
 
 
 def _fetch_address_from_ids(address_ids, engine):
@@ -60,7 +68,7 @@ def calculate_adequacies(service_area_ids, provider_ids, engine=connect.create_d
     )
     # TODO - Split analyis by specialty.
     adequacies_response = [
-        _find_closest_provider(point, providers)
+        _find_closest_provider(point, providers, exit_distance_in_miles=EXIT_DISTANCE)
         for point in points
     ]
     print('Returning adequacy results.')

@@ -109,7 +109,7 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
             geocoded_address = []
 
     for i, raw_provider in enumerate(providers):
-        if i % 100 == 0:
+        if i % 1000 == 0:
             print('Processsing {} out of {}'.format(i, len(providers)))
         try:
             # TODO: Fuzzy matching.
