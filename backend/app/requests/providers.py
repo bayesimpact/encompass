@@ -32,7 +32,7 @@ RESPONSE
 """
 import json
 
-from backend.lib import fetch
+from backend.lib.fetch import providers
 from backend.app.exceptions.format import InvalidFormat
 
 
@@ -44,4 +44,4 @@ def providers_request(app, flask_request):
         provider_addresses = request_json['providers']
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
-    return fetch.fetch_providers(provider_addresses)
+    return providers.fetch_providers(provider_addresses)
