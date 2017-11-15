@@ -43,7 +43,6 @@ async function onFileSelected(file: File) {
  */
 const COLUMNS = [
   { aliases: ['Address'], required: true },
-  { aliases: ['Address 2'] },
   { aliases: ['City'], required: true },
   { aliases: ['State'], required: true },
   { aliases: ['Zip Code'], required: true },
@@ -54,10 +53,9 @@ const COLUMNS = [
   { aliases: ['Specialty'], required: true }
 ]
 
-let parse = parseRows(COLUMNS, ([address, address2, city, state, zip,
+let parse = parseRows(COLUMNS, ([address, city, state, zip,
   npi, language1, language2, language3, specialty]) => {
 
-  let suite = address2 ? `Suite ${address2}` : ''
   let fullAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
 
