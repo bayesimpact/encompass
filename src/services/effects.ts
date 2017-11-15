@@ -37,8 +37,6 @@ export function withEffects(store: Store<Actions>) {
 
   /**
    * Geocode providers when uploadedProviders changes
-   *
-   * TODO: Expose errors to user
    */
   store.on('uploadedProviders').subscribe(async providers => {
     let result = await postProviders(providers)
