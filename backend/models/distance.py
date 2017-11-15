@@ -1,5 +1,8 @@
 """All methods for measuring distance between two series of points."""
-import geopy.distance
+from cHaversine import haversine
+
+
+ONE_METER_IN_MILES = 0.0006213711922373339
 
 
 class MeasureDistance():
@@ -35,12 +38,12 @@ class HaversineDistance(MeasureDistance):
 
     def get_distance_in_miles(self, point_a, point_b):
         """Get haversine distance between two points."""
-        # GeoPy expects points to be given as (latitude, longitude) pairs.
+        # cHaversine expects points to be given as (latitude, longitude) pairs.
         if point_a and point_b:
-            return geopy.distance.great_circle(
+            return haversine(
                 (point_a['latitude'], point_a['longitude']),
                 (point_b['latitude'], point_b['longitude'])
-            ).miles
+            ) * ONE_METER_IN_MILES
         return
 
 

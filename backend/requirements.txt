@@ -5,6 +5,7 @@ flask==0.12.2
 Flask-Cors==3.0.3
 uwsgi==2.0.15
 # Geo methods
+cHaversine==0.3.0
 geopy==1.11.0
 Shapely==1.6.2
 osmnx==0.6

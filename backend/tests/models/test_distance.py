@@ -17,7 +17,7 @@ class TestMetrics():
         """Check that the haversine distance matches expectations."""
         measurer = distance.HaversineDistance()
         d = measurer.get_distance_in_miles(self.newport_ri, self.cleveland_oh)
-        assert abs(d - 537.148525) < 10**-5
+        assert abs(d - 536.6975637) < 10**-5
 
     def test_haversine_distance_returns_none_when_a_point_is_missing(self):
         """Check that the haversine distance matches expectations."""

@@ -23,4 +23,4 @@ CMD ["/usr/bin/supervisord"]
 EXPOSE 8080
 
 COPY requirements.txt ./requirements.txt
-RUN pip install -qr ./requirements.txt
+RUN pip install -r ./requirements.txt
