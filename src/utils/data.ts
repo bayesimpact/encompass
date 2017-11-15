@@ -21,3 +21,10 @@ export function representativePointsFromServiceAreas(
   return chain(store.get('representativePoints'))
     .filter(_ => _.serviceAreaId in hash)
 }
+
+/**
+ * Converts 9-digit ZIP Codes to 5-digit codes.
+ */
+export function normalizeZip(zipCode: string) {
+  return zipCode.split('-')[0]
+}

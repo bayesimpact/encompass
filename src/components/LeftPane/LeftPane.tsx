@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
+import { AnalyticsDrawer } from '../AnalyticsDrawer/AnalyticsDrawer'
 import { IconBar } from '../IconBar/IconBar'
-import { AnalyticsDrawer } from './Drawers/AnalyticsDrawer/AnalyticsDrawer'
-import { ProvidersDrawer } from './Drawers/ProvidersDrawer/ProvidersDrawer'
-import { ServiceAreasDrawer } from './Drawers/ServiceAreasDrawer/ServiceAreasDrawer'
+import { ProvidersDrawer } from '../ProvidersDrawer/ProvidersDrawer'
+import { ServiceAreasDrawer } from '../ServiceAreasDrawer/ServiceAreasDrawer'
 import './LeftPane.css'
 
 export let LeftPane = () =>

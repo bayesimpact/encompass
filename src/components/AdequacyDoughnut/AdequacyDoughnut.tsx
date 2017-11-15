@@ -3,8 +3,8 @@ import 'chart.piecelabel.js'
 import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
-import { StoreProps, withStore } from '../../../../services/store'
-import { StatsBox } from '../../../StatsBox/StatsBox'
+import { StoreProps, withStore } from '../../services/store'
+import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
   serviceAreas: string[]
