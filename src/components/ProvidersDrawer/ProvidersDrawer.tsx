@@ -4,6 +4,7 @@ import * as React from 'react'
 import { WriteProvidersRequest } from '../../services/api'
 import { store, withStore } from '../../services/store'
 import { ColumnDefinition, parseCSV, ParseError, parseRows } from '../../utils/csv'
+import { normalizeZip } from '../../utils/data'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 
 /**
@@ -57,7 +58,7 @@ let parse = parseRows(COLUMNS, ([address, address2, city, state, zip,
   npi, language1, language2, language3, specialty]) => {
 
   let suite = address2 ? `Suite ${address2}` : ''
-  let fullAddress = `${address}, ${city}, ${state} ${zip}`
+  let fullAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
 
   return {
