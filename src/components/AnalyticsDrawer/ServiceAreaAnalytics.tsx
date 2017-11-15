@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { withStore } from '../../../../services/store'
-import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime } from '../../../../utils/analytics'
-import { adequaciesFromServiceArea } from '../../../../utils/data'
-import { formatNumber } from '../../../../utils/formatters'
-import { StatsBox } from '../../../StatsBox/StatsBox'
-import { AdequacyDoughnut } from './AdequacyDoughnut'
+import { withStore } from '../../services/store'
+import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime } from '../../utils/analytics'
+import { adequaciesFromServiceArea } from '../../utils/data'
+import { formatNumber } from '../../utils/formatters'
+import { AdequacyDoughnut } from '../AdequacyDoughnut/AdequacyDoughnut'
+import { StatsBox } from '../StatsBox/StatsBox'
 import './ServiceAreaAnalytics.css'
 
 export let ServiceAreaAnalytics = withStore(

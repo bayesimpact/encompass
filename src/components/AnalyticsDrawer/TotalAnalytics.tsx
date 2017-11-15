@@ -1,10 +1,10 @@
 import { filter, keyBy } from 'lodash'
 import * as React from 'react'
-import { withStore } from '../../../../services/store'
-import { totalPopulation } from '../../../../utils/analytics'
-import { representativePointsFromServiceAreas } from '../../../../utils/data'
-import { StatsBox } from '../../../StatsBox/StatsBox'
-import { AdequacyDoughnut } from './AdequacyDoughnut'
+import { withStore } from '../../services/store'
+import { totalPopulation } from '../../utils/analytics'
+import { representativePointsFromServiceAreas } from '../../utils/data'
+import { AdequacyDoughnut } from '../AdequacyDoughnut/AdequacyDoughnut'
+import { StatsBox } from '../StatsBox/StatsBox'
 import './TotalAnalytics.css'
 
 export let TotalAnalytics = withStore()(({ store }) => {
