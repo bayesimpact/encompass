@@ -4,6 +4,8 @@ import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
+import { totalPopulation } from '../../utils/analytics'
+import { lazy } from '../../utils/lazy'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
@@ -21,14 +23,20 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
 
   let serviceAreasHash = keyBy(serviceAreas)
   let adequacies = store.get('adequacies')
-  let rps = store.get('representativePoints')
-  let rpsInServiceAreas = rps.filter(_ => _.serviceAreaId in serviceAreasHash)
+  let representativePoints = lazy(store.get('representativePoints'))
+  let rpsInServiceAreas = representativePoints.filter(_ => _.serviceAreaId in serviceAreasHash)
   let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && adequacies[_.id].isAdequate)
 
-  let numAdequate = adequateRpsInServiceAreas.length
-  let numInadequate = rpsInServiceAreas.length - numAdequate
-  let percentAdequate = round(100 * numAdequate / rpsInServiceAreas.length)
+  let populationInServiceArea = totalPopulation(rpsInServiceAreas)
+  let numAdequate = totalPopulation(adequateRpsInServiceAreas)
+  let numInadequate = populationInServiceArea - numAdequate
+
+  let percentAdequate = round(100 * numAdequate / populationInServiceArea)
   let percentInadequate = 100 - percentAdequate
+
+  let numRp = rpsInServiceAreas.size().value()
+  let numAdequateRp = adequateRpsInServiceAreas.size().value()
+  let numInadequateRp = numRp - numAdequateRp
 
   return <div className='AdequacyDoughnut'>
     <Doughnut
@@ -58,12 +66,20 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
     />
     <StatsBox withBorders>
       <tr>
-        <th>Adequate access</th>
-        <th>Inadequate access</th>
+        <th>Adequate Access</th>
+        <th>Inadequate Access</th>
       </tr>
       <tr>
         <td>{numAdequate.toLocaleString()} ({percentAdequate}%)</td>
         <td>{numInadequate.toLocaleString()} ({percentInadequate}%)</td>
+      </tr>
+      <tr>
+        <th>Adequate Population Points</th>
+        <th>Inadequate Population Points</th>
+      </tr>
+      <tr>
+        <td>{numAdequateRp.toLocaleString()}</td>
+        <td>{numInadequateRp.toLocaleString()}</td>
       </tr>
     </StatsBox>
   </div>
