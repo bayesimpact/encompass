@@ -1,13 +1,5 @@
 {
-  "autoimport.doubleQuotes": false,
-  "autoimport.filesToScan": "**/*.{ts,tsx}",
   "css.lint.zeroUnits": "warning",
-  "csscomb.formatOnSave": true,
-  "csscomb.preset": {
-    "sort-order": [],
-    "sort-order-fallback": "abc",
-    "always-semicolon": true
-  },
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
   "editor.rulers": [120],
