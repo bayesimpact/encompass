@@ -81,7 +81,7 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
     print('{} addresses to geocode.'.format(len(addresses_to_geocode)))
 
     if len(addresses_to_geocode) > 0 and GEOCODING:
-        local_geocoder = geocoder.get_geocoder(geocoder_name)()
+        local_geocoder = geocoder.get_geocoder(geocoder_name)
         print('Geocoding...')
         try:
             geocoded_addresses = local_geocoder.geocode_batch(addresses_to_geocode)
