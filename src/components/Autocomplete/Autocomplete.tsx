@@ -28,7 +28,7 @@ let ItemTemplate = (pinnedItems: string[] = []) =>
       key={item}
     >{item}</span>
 
-let MenuTemplate = (items: string[], value: string) =>
+let MenuTemplate = (items: string[]) =>
   <div children={items} className='Menu' />
 
 /**
@@ -49,9 +49,6 @@ export class Autocomplete extends React.Component<Props> {
   }
 
   render() {
-
-    let { onChange, value } = this.props
-
     return <span className='Autocomplete'>
       <Arrow />
       <ReactAutocomplete

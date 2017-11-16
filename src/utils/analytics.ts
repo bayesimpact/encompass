@@ -1,5 +1,5 @@
-import { chain, identity, keyBy } from 'lodash'
-import { Adequacies, Adequacy, Provider, RepresentativePoint } from '../constants/datatypes'
+import { identity } from 'lodash'
+import { Adequacy, RepresentativePoint } from '../constants/datatypes'
 
 /**
  * A big generic partially appliable reducer for building math pipelines.
@@ -25,7 +25,7 @@ let fold = <T>(initial: T) =>
 type FoldFn<T, U = T> = (acc: U, current: T, index: number, array: T[]) => U
 
 let fns = {
-  mean: (a: number, b: number, index: number, array: number[]) => a + b / array.length,
+  mean: (a: number, b: number, _index: number, array: number[]) => a + b / array.length,
   max: (a: number, b: number) => Math.max(a, b),
   min: (a: number, b: number) => Math.min(a, b),
   sum: (a: number, b: number) => a + b

@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "webpack",
-    "lint": "tslint src/**/*",
+    "lint": "tslint -p .",
     "pretest": "npm run lint && npm run build",
     "start": "webpack-dev-server",
     "start:docker": "webpack-dev-server --host 0.0.0.0",

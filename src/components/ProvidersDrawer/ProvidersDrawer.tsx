@@ -1,9 +1,7 @@
-import { chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { WriteProvidersRequest } from '../../services/api'
 import { Store, withStore } from '../../services/store'
-import { ColumnDefinition, parseCSV, ParseError, parseRows } from '../../utils/csv'
+import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 

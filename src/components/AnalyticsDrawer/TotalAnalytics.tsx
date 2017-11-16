@@ -1,4 +1,3 @@
-import { filter, keyBy } from 'lodash'
 import * as React from 'react'
 import { withStore } from '../../services/store'
 import { totalPopulation } from '../../utils/analytics'

@@ -3,17 +3,13 @@ import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
-import { ColumnDefinition, isEmpty, parseCSV, ParseError, parseRows } from '../../utils/csv'
+import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
 import { capitalizeWords } from '../../utils/string'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
 import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
-
-type State = {
-  file?: File
-}
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing

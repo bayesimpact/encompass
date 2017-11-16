@@ -1,7 +1,7 @@
-import { chain, without } from 'lodash'
+import { without } from 'lodash'
 import { Checkbox, List, ListItem, Subheader } from 'material-ui'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, SERVICE_AREAS, serviceAreasFromCounties, ZIPS } from '../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS, serviceAreasFromCounties } from '../../constants/zipCodes'
 import { serializeServiceArea } from '../../utils/serializers'
 import './ZipCodeSelector.css'
 

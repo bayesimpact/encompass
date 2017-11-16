@@ -6581,7 +6581,13 @@ tslint@^5.8.0:
     tslib "^1.7.1"
     tsutils "^2.12.1"
 
-tsutils@^2.12.1, tsutils@^2.8.0:
+tsutils@^2.12.1:
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.12.2.tgz#ad58a4865d17ec3ddb6631b6ca53be14a5656ff3"
+  dependencies:
+    tslib "^1.7.1"
+
+tsutils@^2.8.0:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.12.1.tgz#f4d95ce3391c8971e46e54c4cf0edb0a21dd5b24"
   dependencies:
