@@ -2,7 +2,9 @@
   "css.lint.zeroUnits": "warning",
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
-  "editor.rulers": [120],
+  "editor.rulers": [
+    120
+  ],
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
   "editor.wordWrap": "wordWrapColumn",
@@ -13,6 +15,8 @@
     "dist": true,
     "node_modules": true
   },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
   "javascript.format.enable": true,
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "tslint.autoFixOnSave": true,
