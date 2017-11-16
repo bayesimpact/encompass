@@ -68,20 +68,20 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
     />
     <StatsBox withBorders>
       <tr>
-        <th>Adequate access</th>
-        <th>Inadequate access</th>
+        <th>Adequate Access</th>
+        <th>Inadequate Access</th>
       </tr>
       <tr>
         <td>{numAdequate.toLocaleString()} ({percentAdequate}%)</td>
         <td>{numInadequate.toLocaleString()} ({percentInadequate}%)</td>
       </tr>
       <tr>
-        <th>Adequate Rps</th>
-        <th>Inadequate Rps</th>
+        <th>Adequate Population Points</th>
+        <th>Inadequate Population Points</th>
       </tr>
       <tr>
-        <td>{numAdequateRp.toLocaleString()} ({percentAdequateRp}%)</td>
-        <td>{numInadequateRp.toLocaleString()} ({percentInadequateRp}%)</td>
+        <td>{numAdequateRp.toLocaleString()}</td>
+        <td>{numInadequateRp.toLocaleString()}</td>
       </tr>
     </StatsBox>
   </div>
