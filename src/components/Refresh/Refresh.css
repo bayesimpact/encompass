@@ -1,0 +1,10 @@
+@import "../../index.css";
+
+.RefreshButton {
+  padding: 12px 0 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 20px;
+}
+

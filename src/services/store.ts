@@ -7,6 +7,10 @@ export type Actions = {
 
   adequacies: Adequacies
 
+  adequaciesComputed: boolean
+  
+  adequacyComputationInProgress: boolean
+
   /**
    * Counties selected by the user in the Service Area Drawer.
    *
@@ -84,6 +88,8 @@ export type Actions = {
 
 export let store = withLogger(withEffects(createStore<Actions>({
   adequacies: {},
+  adequaciesComputed: false,
+  adequacyComputationInProgress: false,
   counties: [],
   distribution: 0.5,
   error: null,
