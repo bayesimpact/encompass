@@ -19,7 +19,6 @@ type Props = StoreProps & {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-
 export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
 
   let serviceAreasHash = keyBy(serviceAreas)
