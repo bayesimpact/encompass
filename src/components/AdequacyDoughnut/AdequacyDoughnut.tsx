@@ -1,10 +1,11 @@
 import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
-import { totalPopulation } from '../../utils/analytics'
 import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
+import { totalPopulation } from '../../utils/analytics'
+import { lazy } from '../../utils/lazy'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
@@ -18,8 +19,6 @@ type Props = StoreProps & {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-
-
 export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
 
   let serviceAreasHash = keyBy(serviceAreas)
@@ -27,11 +26,11 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   let rps = store.get('representativePoints')
   let rpsInServiceAreas = rps.filter(_ => _.serviceAreaId in serviceAreasHash)
   let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && adequacies[_.id].isAdequate)
-  let inAdequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && ! adequacies[_.id].isAdequate)
+  let inAdequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && !adequacies[_.id].isAdequate)
 
-  let numAdequate = totalPopulation(adequateRpsInServiceAreas)
-  let numInadequate = totalPopulation(inAdequateRpsInServiceAreas)
-  let populationInServiceArea = totalPopulation(rpsInServiceAreas)
+  let numAdequate = totalPopulation(lazy(adequateRpsInServiceAreas))
+  let numInadequate = totalPopulation(lazy(inAdequateRpsInServiceAreas))
+  let populationInServiceArea = totalPopulation(lazy(rpsInServiceAreas))
 
   let percentAdequate = round(100 * numAdequate / populationInServiceArea)
   let percentInadequate = 100 - percentAdequate
