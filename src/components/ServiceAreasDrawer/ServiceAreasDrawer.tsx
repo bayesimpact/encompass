@@ -2,7 +2,7 @@ import { chain, flatten } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
 import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
-import { store, withStore } from '../../services/store'
+import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, parseCSV, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
 import { capitalizeWords } from '../../utils/string'
@@ -25,7 +25,7 @@ export let ServiceAreasDrawer = withStore(
 )(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Service Areas</h2>
-    <CSVUploader onUpload={onFileSelected} />
+    <CSVUploader onUpload={onFileSelected(store)} />
     <p className='Ellipsis Muted SmallFont'>{
       store.get('uploadedServiceAreasFilename')
         ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
@@ -47,17 +47,19 @@ export let ServiceAreasDrawer = withStore(
   </Drawer >
   )
 
-async function onFileSelected(file: File) {
-  let [errors, serviceAreas] = await parseServiceAreasCSV(file)
+function onFileSelected(store: Store) {
+  return async (file: File) => {
+    let [errors, serviceAreas] = await parseServiceAreasCSV(file)
 
-  // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
-  errors.slice(0, 1).forEach(e =>
-    store.set('error')(e.toString())
-  )
+    // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
+    errors.slice(0, 1).forEach(e =>
+      store.set('error')(e.toString())
+    )
 
-  store.set('counties')(getCounties(serviceAreas))
-  store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
-  store.set('uploadedServiceAreasFilename')(file.name)
+    store.set('counties')(getCounties(serviceAreas))
+    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
+    store.set('uploadedServiceAreasFilename')(file.name)
+  }
 }
 
 function getCounties(serviceAreas: [string, string][]): string[] {

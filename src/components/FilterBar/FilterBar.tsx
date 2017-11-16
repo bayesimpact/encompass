@@ -2,7 +2,7 @@ import { DropDownMenu, MenuItem, Paper } from 'material-ui'
 import * as React from 'react'
 import { Measure, Standard } from '../../constants/datatypes'
 import { TIME_DISTANCES } from '../../constants/timeDistances'
-import { store, withStore } from '../../services/store'
+import { withStore } from '../../services/store'
 import './FilterBar.css'
 
 export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
