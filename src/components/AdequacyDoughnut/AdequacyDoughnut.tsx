@@ -1,10 +1,11 @@
 import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
-import { totalPopulation } from '../../utils/analytics'
 import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
+import { totalPopulation } from '../../utils/analytics'
+import { lazy } from '../../utils/lazy'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
@@ -27,11 +28,11 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   let rps = store.get('representativePoints')
   let rpsInServiceAreas = rps.filter(_ => _.serviceAreaId in serviceAreasHash)
   let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && adequacies[_.id].isAdequate)
-  let inAdequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && ! adequacies[_.id].isAdequate)
+  let inAdequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && !adequacies[_.id].isAdequate)
 
-  let numAdequate = totalPopulation(adequateRpsInServiceAreas)
-  let numInadequate = totalPopulation(inAdequateRpsInServiceAreas)
-  let populationInServiceArea = totalPopulation(rpsInServiceAreas)
+  let numAdequate = totalPopulation(lazy(adequateRpsInServiceAreas))
+  let numInadequate = totalPopulation(lazy(inAdequateRpsInServiceAreas))
+  let populationInServiceArea = totalPopulation(lazy(rpsInServiceAreas))
 
   let percentAdequate = round(100 * numAdequate / populationInServiceArea)
   let percentInadequate = 100 - percentAdequate
@@ -46,7 +47,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
       data={{
         labels: ['Adequate', 'Inadequate'],
         datasets: [{
-          data: [percentAdequateRp, percentInadequateRp],
+          data: [percentAdequate, percentInadequate],
           backgroundColor: ['#3F51B5', 'rgba(214, 40, 41, 0.87)']
         }]
       }}
@@ -62,20 +63,12 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         },
         tooltips: {
           callbacks: {
-            label: label(numAdequateRp, numInadequateRp)
+            label: label(numAdequate, numInadequate)
           }
         }
       } as any}
     />
     <StatsBox withBorders>
-      <tr>
-        <th>Adequate access Rps</th>
-        <th>Inadequate access Rps</th>
-      </tr>
-      <tr>
-        <td>{numAdequateRp.toLocaleString()} ({percentAdequateRp}%)</td>
-        <td>{numInadequateRp.toLocaleString()} ({percentInadequateRp}%)</td>
-      </tr>
       <tr>
         <th>Adequate access</th>
         <th>Inadequate access</th>
@@ -83,6 +76,14 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
       <tr>
         <td>{numAdequate.toLocaleString()} ({percentAdequate}%)</td>
         <td>{numInadequate.toLocaleString()} ({percentInadequate}%)</td>
+      </tr>
+      <tr>
+        <th>Adequate Rps</th>
+        <th>Inadequate Rps</th>
+      </tr>
+      <tr>
+        <td>{numAdequateRp.toLocaleString()} ({percentAdequateRp}%)</td>
+        <td>{numInadequateRp.toLocaleString()} ({percentInadequateRp}%)</td>
       </tr>
     </StatsBox>
   </div>
