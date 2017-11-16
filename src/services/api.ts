@@ -1,5 +1,4 @@
 import { memoize } from 'lodash'
-import { RepresentativePoint } from '../constants/datatypes'
 
 const API_ROOT = 'http://localhost:8080'
 

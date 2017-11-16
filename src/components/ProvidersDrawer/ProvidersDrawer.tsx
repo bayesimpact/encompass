@@ -1,9 +1,7 @@
-import { chain } from 'lodash'
 import { Drawer } from 'material-ui'
 import * as React from 'react'
-import { WriteProvidersRequest } from '../../services/api'
-import { store, withStore } from '../../services/store'
-import { ColumnDefinition, parseCSV, ParseError, parseRows } from '../../utils/csv'
+import { Store, withStore } from '../../services/store'
+import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 
@@ -17,7 +15,7 @@ export let ProvidersDrawer = withStore(
 )(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Providers</h2>
-    <CSVUploader onUpload={onFileSelected} />
+    <CSVUploader onUpload={onFileSelected(store)} />
     <p className='Ellipsis Muted SmallFont'>{
       store.get('uploadedProvidersFilename')
         ? `Uploaded ${store.get('uploadedProvidersFilename')}`
@@ -26,16 +24,18 @@ export let ProvidersDrawer = withStore(
   </Drawer>
   )
 
-async function onFileSelected(file: File) {
-  let [errors, providers] = await parse(file)
+function onFileSelected(store: Store) {
+  return async (file: File) => {
+    let [errors, providers] = await parse(file)
 
-  // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
-  errors.slice(0, 1).forEach(e =>
-    store.set('error')(e.toString())
-  )
+    // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
+    errors.slice(0, 1).forEach(e =>
+      store.set('error')(e.toString())
+    )
 
-  store.set('uploadedProviders')(providers)
-  store.set('uploadedProvidersFilename')(file.name)
+    store.set('uploadedProviders')(providers)
+    store.set('uploadedProvidersFilename')(file.name)
+  }
 }
 
 /**

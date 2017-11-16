@@ -11,14 +11,15 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "dist",
     "preserveConstEnums": true,
     "sourceMap": true,
     "strict": true,
     "target": "es5"
   },
-  "files": [
-    "src/types.d.ts",
-    "src/index.tsx"
+  "exclude": [
+    "node_modules"
   ]
 }

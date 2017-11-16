@@ -1,9 +1,9 @@
 import { Store } from 'babydux'
-import { chain, keyBy } from 'lodash'
+import { chain } from 'lodash'
 import { Observable } from 'rx'
-import { Measure, RepresentativePoint, Standard } from '../constants/datatypes'
+import { Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
-import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersErrorResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Actions } from './store'
 
 export function withEffects(store: Store<Actions>) {
@@ -47,12 +47,12 @@ export function withEffects(store: Store<Actions>) {
         .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
         .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
         .tap(([successes, errors]) => {
-            if (errors.length > 0) {
-              store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
-            } else {
-              store.set('success')(`All ${successes.length} providers geocoded`)
-            }
+          if (errors.length > 0) {
+            store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
+          } else {
+            store.set('success')(`All ${successes.length} providers geocoded`)
           }
+        }
         )
         .first()
         .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({

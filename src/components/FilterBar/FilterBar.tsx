@@ -2,7 +2,7 @@ import { DropDownMenu, MenuItem, Paper } from 'material-ui'
 import * as React from 'react'
 import { Measure, Standard } from '../../constants/datatypes'
 import { TIME_DISTANCES } from '../../constants/timeDistances'
-import { store, withStore } from '../../services/store'
+import { withStore } from '../../services/store'
 import './FilterBar.css'
 
 export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
@@ -12,7 +12,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Distribution</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        onChange={(e, i, value) => store.set('distribution')(value)}
+        onChange={(_e, _i, value) => store.set('distribution')(value)}
         value={store.get('distribution')}
       >
         <MenuItem value={0.5} primaryText='0.5 miles' />
@@ -25,7 +25,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        onChange={(e, i, value) => store.set('standard')(value)}
+        onChange={(_e, _i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
         <MenuItem value='time_distance' primaryText='Time and Distance' />
@@ -38,7 +38,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        onChange={(e, i, value) => store.set('measure')(value)}
+        onChange={(_e, _i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >
         {Array.from(TIME_DISTANCES).map(([miles, mins]) =>

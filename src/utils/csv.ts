@@ -1,4 +1,4 @@
-import { chain, noop } from 'lodash'
+import { chain } from 'lodash'
 import { parse as papaparse } from 'papaparse'
 
 export function parseCSV<T>(csvFile: File): Promise<T[]> {
