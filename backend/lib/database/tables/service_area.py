@@ -1,6 +1,8 @@
 """File holding the main service area table and mapping definitions."""
 from backend.lib.database.postgres.base import Base
 
+from geoalchemy2 import Geography
+
 from sqlalchemy import Column, DateTime, Integer, String, func
 
 
@@ -15,3 +17,7 @@ class ServiceArea(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     county = Column(String, nullable=False, index=True)
     zip_code = Column(String, nullable=False, index=True)
+    location = Column(
+        Geography(geometry_type='POLYGON', srid=4326, spatial_index=True),
+        nullable=False
+    )

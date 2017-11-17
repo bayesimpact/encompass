@@ -33,6 +33,15 @@ def to_point(longitude, latitude):
     return 'SRID=4326;POINT({} {})'.format(longitude, latitude)
 
 
+def to_polygon(long_lat_tuples):
+    """Format polygon for insertion into Postgres."""
+    long_lat_string = ', '.join([
+        '{} {}'.format(longitude, latitude)
+        for longitude, latitude in long_lat_tuples
+    ])
+    return 'POLYGON(({}))'.format(long_lat_string)
+
+
 def install():
     """Install Postgis to Postgres on AWS."""
     # In the postgres database.
