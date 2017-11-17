@@ -38,8 +38,6 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   let numRp = rpsInServiceAreas.size().value()
   let numAdequateRp = adequateRpsInServiceAreas.size().value()
   let numInadequateRp = numRp - numAdequateRp
-  let percentAdequateRp = round(100 * numAdequateRp / numRp)
-  let percentInadequateRp = 100 - percentAdequateRp
 
   return <div className='AdequacyDoughnut'>
     <Doughnut
