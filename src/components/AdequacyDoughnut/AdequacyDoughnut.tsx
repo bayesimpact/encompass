@@ -1,7 +1,6 @@
 import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
-import { representativePointsFromServiceAreas } from '../../utils/data'
-import { round, size } from 'lodash'
+import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
@@ -22,6 +21,7 @@ type Props = StoreProps & {
 
 export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
 
+  let serviceAreasHash = keyBy(serviceAreas)
   let adequacies = store.get('adequacies')
   let representativePoints = lazy(store.get('representativePoints'))
   let rpsInServiceAreas = representativePoints.filter(_ => _.serviceAreaId in serviceAreasHash)
@@ -34,7 +34,6 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
 
   let percentAdequate = round(100 * numAdequate / populationInServiceArea)
   let percentInadequate = 100 - percentAdequate
-
 
   let numRp = rpsInServiceAreas.size().value()
   let numAdequateRp = adequateRpsInServiceAreas.size().value()
