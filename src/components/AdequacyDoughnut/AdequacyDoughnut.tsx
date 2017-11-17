@@ -23,21 +23,22 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
 
   let serviceAreasHash = keyBy(serviceAreas)
   let adequacies = store.get('adequacies')
-  let rps = store.get('representativePoints')
+  let rps = lazy(store.get('representativePoints'))
   let rpsInServiceAreas = rps.filter(_ => _.serviceAreaId in serviceAreasHash)
   let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && adequacies[_.id].isAdequate)
   let inAdequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && !adequacies[_.id].isAdequate)
 
-  let numAdequate = totalPopulation(lazy(adequateRpsInServiceAreas))
-  let numInadequate = totalPopulation(lazy(inAdequateRpsInServiceAreas))
-  let populationInServiceArea = totalPopulation(lazy(rpsInServiceAreas))
+  let numAdequate = totalPopulation(adequateRpsInServiceAreas)
+  let numInadequate = totalPopulation(inAdequateRpsInServiceAreas)
+  let populationInServiceArea = totalPopulation(rpsInServiceAreas)
 
   let percentAdequate = round(100 * numAdequate / populationInServiceArea)
   let percentInadequate = 100 - percentAdequate
 
-  let numAdequateRp = adequateRpsInServiceAreas.length
-  let numInadequateRp = rpsInServiceAreas.length - numAdequateRp
-  let percentAdequateRp = round(100 * numAdequateRp / rpsInServiceAreas.length)
+  let numRp = rpsInServiceAreas.size().value()
+  let numAdequateRp = adequateRpsInServiceAreas.size().value()
+  let numInadequateRp = numRp - numAdequateRp
+  let percentAdequateRp = round(100 * numAdequateRp / numRp)
   let percentInadequateRp = 100 - percentAdequateRp
 
   return <div className='AdequacyDoughnut'>
