@@ -65,7 +65,7 @@ type ReadRepresentativePointsResponse = {
   population: {
     0.5?: number,
     2.5?: number
-    5: number
+    5.0?: number
   }
   service_area_id: string
   zip: string

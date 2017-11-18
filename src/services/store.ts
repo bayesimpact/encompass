@@ -14,7 +14,7 @@ export type Actions = {
    */
   counties: string[]
 
-  distribution: 0.5 | 2.5 | 5
+  distribution: 0.5 | 2.5 | 5.0
 
   /**
    * Error, exposed to user via Snackbar.
