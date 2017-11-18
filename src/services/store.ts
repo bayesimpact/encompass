@@ -26,6 +26,13 @@ export type Actions = {
    */
   success: string | null
 
+  mapCenter: {
+    lat: number
+    lng: number
+  }
+
+  mapZoom: number
+
   measure: Measure
 
   /**
@@ -91,6 +98,11 @@ let store = withLogger(withEffects(createStore<Actions>({
   distribution: 0.5,
   error: null,
   success: null,
+  mapCenter: {
+    lat: 37.765134,
+    lng: -122.444687
+  },
+  mapZoom: 12,
   measure: 15,
   providers: [],
   representativePoints: [],

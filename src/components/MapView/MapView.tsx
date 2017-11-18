@@ -5,7 +5,6 @@ import { withStore } from '../../services/store'
 import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
 
-const CENTER_OF_CALIFORNIA = [-122.444687, 37.765134] // [-119.182111, 36.250471]
 const { MAPBOX_TOKEN } = process.env
 
 if (!MAPBOX_TOKEN) {
@@ -50,6 +49,8 @@ const providerCircleStyle: MapboxGL.CirclePaint = {
 
 export let MapView = withStore(
   'adequacies',
+  'mapCenter',
+  'mapZoom',
   'providers',
   'representativePoints'
 )(({ store }) => {
@@ -59,8 +60,10 @@ export let MapView = withStore(
   return <div className='MapView'>
     <Map
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
-      center={CENTER_OF_CALIFORNIA}
-      zoom={[12]}
+      center={store.get('mapCenter')}
+      onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
+      onZoomEnd={(map: MapboxGL.Map) => store.set('mapZoom')(map.getZoom())}
+      zoom={[store.get('mapZoom')]}
     >
       {representativePoints.length && <GeoJSONLayer
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
