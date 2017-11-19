@@ -6,6 +6,8 @@ fetch.post(/\/api\/providers\//, [])
 
 fetch.post(/\/api\/representative_points\//, [])
 
+global.Headers = Map
+
 // Mock `requestAnimationFrame` (required for React tests)
 global.requestAnimationFrame = callback =>
   setTimeout(callback, 0)

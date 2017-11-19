@@ -17,6 +17,7 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "strict": true,
+    "strictFunctionTypes": false,
     "target": "es5"
   },
   "exclude": [
