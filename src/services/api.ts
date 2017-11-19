@@ -4,15 +4,20 @@ const API_ROOT = 'http://localhost:8080'
 
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>
-    <T>(body: object) =>
-      fetch(API_ROOT + url, {
+    <T>(body: object) => {
+
+      // Set JSON headers
+      let headers = new Headers
+      headers.set('Accept', 'application/json, text/plain, */*')
+      headers.set('Content-Type', 'application/json')
+
+      // Send request
+      return fetch(API_ROOT + url, {
         body: JSON.stringify(body),
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
+        headers,
         method
       }).then<T>(_ => _.json())
+    }
 
 let POST = request('POST')
 
