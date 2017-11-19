@@ -19,13 +19,19 @@ export function withEffects(store: Store<Actions>) {
     .subscribe(async ([distribution, serviceAreas]) => {
       let points = await getRepresentativePoints(serviceAreas)
 
+      // JavaScript doesn't preserve zero points for numbers. Because
+      // `population` keys are strings in ("0.5", "2.5", "5.0"), when
+      // `distribution` is 5 we need to manually convert it to the string
+      // "5.0" so that we can check it against its corresponding key.
+      let _distribution = distribution.toFixed(1)
+
       // Backend returns representative points for all distances at once.
       // Frontend then plucks out the points it needs, duck-typing on whether or
       // not the given point's `population` object has the current distance
       // defined as a key on it.
       store.set('representativePoints')(
         chain(points)
-          .filter(_ => distribution in _.population)
+          .filter(_ => _distribution in _.population)
           .map(_ => ({
             ..._,
             population: _.population[distribution]!,

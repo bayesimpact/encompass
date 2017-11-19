@@ -14,7 +14,7 @@ export type Actions = {
    */
   counties: string[]
 
-  distribution: 0.5 | 2.5 | 5
+  distribution: 0.5 | 2.5 | 5.0
 
   /**
    * Error, exposed to user via Snackbar.
@@ -25,6 +25,13 @@ export type Actions = {
    * Success, exposed to user via Snackbar.
    */
   success: string | null
+
+  mapCenter: {
+    lat: number
+    lng: number
+  }
+
+  mapZoom: number
 
   measure: Measure
 
@@ -91,6 +98,11 @@ let store = withLogger(withEffects(createStore<Actions>({
   distribution: 0.5,
   error: null,
   success: null,
+  mapCenter: {
+    lat: 37.765134,
+    lng: -122.444687
+  },
+  mapZoom: 12,
   measure: 15,
   providers: [],
   representativePoints: [],
