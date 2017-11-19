@@ -21,34 +21,30 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader'
-    },
-    {
-      enforce: 'pre',
-      test: /\.js$/,
-      loader: 'source-map-loader'
-    },
-    {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        use: ['css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: loader => [
-              require('postcss-import')(),
-              require('postcss-cssnext')({
-                browsers: '>2%'
-              }),
-              require('postcss-inline-svg')({
-                path: './node_modules'
-              }),
-              require('postcss-svgo')(),
-            ]
-          }
-        }]
-      })
-    },
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader'
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', {
+            loader: 'postcss-loader',
+            options: {
+              plugins: loader => [
+                require('postcss-import')(),
+                require('postcss-cssnext')({
+                  browsers: '>2%'
+                })
+              ]
+            }
+          }]
+        })
+      },
     ]
   },
   plugins: [
