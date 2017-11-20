@@ -34,7 +34,7 @@ export function withEffects(store: Store<Actions>) {
           .filter(_ => _distribution in _.population)
           .map(_ => ({
             ..._,
-            population: _.population[distribution]!,
+            population: (_.population as any)[_distribution]!, // TODO: Avoid any
             serviceAreaId: _.service_area_id
           }))
           .value()
