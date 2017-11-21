@@ -71,6 +71,13 @@ export type Actions = {
    */
   serviceAreas: string[]
 
+  /**
+   * We auto-center and auto-zoom the map after the user uploads service areas,
+   * but we don't want to do it otherwise. We use this state to keep track of
+   * whether or not the map should auto-adjust after it renders.
+   */
+  shouldAutoAdjustMap: boolean
+
   standard: Standard
 
   /**
@@ -108,6 +115,7 @@ let store = withLogger(withEffects(createStore<Actions>({
   representativePoints: [],
   selectedServiceArea: null,
   serviceAreas: [],
+  shouldAutoAdjustMap: true,
   standard: 'time_distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,

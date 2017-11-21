@@ -1,3 +1,4 @@
+import * as extent from 'esri-extent'
 import { Adequacies, Provider, RepresentativePoint } from '../constants/datatypes'
 
 /** TODO: Memoize */
@@ -62,5 +63,32 @@ function colorAdequacy(adequacies: Adequacies, pointId: number) {
   switch (adequacies[pointId].isAdequate) {
     case true: return 'true'
     case false: return 'false'
+  }
+}
+
+/**
+ * Computes a bounding box for the given representative points.
+ */
+export function boundingBox(points: RepresentativePoint[]) {
+
+  if (!points.length) {
+    return null
+  }
+
+  let { xmin, ymin, xmax, ymax } = extent({
+    type: 'FeatureCollection',
+    features: points.map(_ => ({
+      id: _.id,
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [_.lng, _.lat]
+      }
+    }))
+  })
+
+  return {
+    sw: { lat: ymin, lng: xmin },
+    ne: { lat: ymax, lng: xmax }
   }
 }

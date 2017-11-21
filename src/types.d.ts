@@ -4,6 +4,23 @@
 
 declare module 'chart.piecelabel.js'
 
+declare module 'esri-extent' {
+  namespace esriExtent {
+    type Extent = {
+      xmin: number
+      ymin: number
+      xmax: number
+      ymax: number
+      spatialReference: {
+        wkid: number
+        latestWkid: number
+      }
+    }
+  }
+  function esriExtent(json: object): esriExtent.Extent
+  export = esriExtent
+}
+
 declare module 'mui-icons'
 
 declare module 'mui-icons/cmdi/*'

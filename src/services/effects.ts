@@ -42,6 +42,14 @@ export function withEffects(store: Store<Actions>) {
     })
 
   /**
+   * When service areas change, auto-center and auto-zoom to a bounding
+   * box containing all service areas.
+   */
+  store.on('serviceAreas').subscribe(() =>
+    store.set('shouldAutoAdjustMap')(true)
+  )
+
+  /**
    * Geocode providers when uploadedProviders changes
    *
    * TODO: Expose errors to user

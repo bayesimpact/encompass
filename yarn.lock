@@ -777,6 +777,10 @@ batch@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/batch/-/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
 
+bbox2extent@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/bbox2extent/-/bbox2extent-1.1.1.tgz#351a0a0b3c0119a2039f8da477646d1aec4f486c"
+
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -2152,6 +2156,12 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
     object-assign "^4.0.1"
+
+esri-extent@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/esri-extent/-/esri-extent-1.1.1.tgz#32bc0e2a8645590d7414fa9938d8148ecb33bbe5"
+  dependencies:
+    bbox2extent "^1.0.1"
 
 estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.2.0"
