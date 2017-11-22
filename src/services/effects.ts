@@ -80,7 +80,7 @@ export function withEffects(store: Store<Actions>) {
   })
 
   /**
-   * Fetch adequacies when providers, representative points, measure, or standard change
+   * Set uncomputed when providers, representative points, measure, or standard change
    */
   Observable
     .combineLatest(
@@ -90,25 +90,7 @@ export function withEffects(store: Store<Actions>) {
     store.on('standard').startWith(store.get('standard'))
     )
     .subscribe(async ([providers, representativePoints, measure, standard]) => {
-      let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
-      store.set('adequacies')(
-        chain(representativePoints.map(_ => _.id))
-          .zipObject(adequacies)
-          .mapValues(_ => ({
-            isAdequate: isAdequate(
-              _.distance_to_closest_provider,
-              _.time_to_closest_provider,
-              measure,
-              standard
-            ),
-            id: _.id,
-            distanceToClosestProvider: _.distance_to_closest_provider,
-            timeToClosestProvider: _.time_to_closest_provider,
-            closestProviderByDistance: _.closest_provider_by_distance,
-            closestProviderByTime: _.closest_provider_by_time
-          }))
-          .value()
-      )
+      store.set('adequaciesComputed')(false)
     })
 
   /**
@@ -126,18 +108,3 @@ export function withEffects(store: Store<Actions>) {
   return store
 }
 
-function isAdequate(
-  distance: number,
-  time: number,
-  measure: Measure,
-  standard: Standard
-) {
-  switch (standard) {
-    case 'distance':
-      return distance < measure
-    case 'time_distance':
-      return distance < measure && time < TIME_DISTANCES.get(measure)!
-    case 'time':
-      return time < TIME_DISTANCES.get(measure)!
-  }
-}

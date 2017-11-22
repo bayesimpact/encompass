@@ -19,6 +19,10 @@
 .LeftDrawer {
 }
 
+.CSVUploader {
+  padding: 12px 0 0;
+}
+
 /* silly inline styles... */
 .LeftDrawer > div {
   left: 64px !important;
