@@ -1,11 +1,10 @@
 import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
-import { keyBy, round } from 'lodash'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
-import { totalPopulation } from '../../utils/analytics'
-import { lazy } from '../../utils/lazy'
+import { summaryStatistics } from '../../utils/data'
+import { formatNumber } from '../../utils/formatters'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
@@ -21,29 +20,21 @@ type Props = StoreProps & {
 
 export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
 
-  let serviceAreasHash = keyBy(serviceAreas)
-  let adequacies = store.get('adequacies')
-  let representativePoints = lazy(store.get('representativePoints'))
-  let rpsInServiceAreas = representativePoints.filter(_ => _.serviceAreaId in serviceAreasHash)
-  let adequateRpsInServiceAreas = rpsInServiceAreas.filter(_ => adequacies[_.id] && adequacies[_.id].isAdequate)
-
-  let populationInServiceArea = totalPopulation(rpsInServiceAreas)
-  let numAdequate = totalPopulation(adequateRpsInServiceAreas)
-  let numInadequate = populationInServiceArea - numAdequate
-
-  let percentAdequate = round(100 * numAdequate / populationInServiceArea)
-  let percentInadequate = 100 - percentAdequate
-
-  let numRp = rpsInServiceAreas.size().value()
-  let numAdequateRp = adequateRpsInServiceAreas.size().value()
-  let numInadequateRp = numRp - numAdequateRp
+  let {
+    numAdequatePopulation,
+    numInadequatePopulation,
+    percentAdequatePopulation,
+    percentInadequatePopulation,
+    numAdequateRps,
+    numInadequateRps
+  } = summaryStatistics(serviceAreas, store)
 
   return <div className='AdequacyDoughnut'>
     <Doughnut
       data={{
         labels: ['Adequate', 'Inadequate'],
         datasets: [{
-          data: [percentAdequate, percentInadequate],
+          data: [percentAdequatePopulation, percentInadequatePopulation],
           backgroundColor: ['#3F51B5', 'rgba(214, 40, 41, 0.87)']
         }]
       }}
@@ -59,7 +50,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         },
         tooltips: {
           callbacks: {
-            label: label(numAdequate, numInadequate)
+            label: label(numAdequatePopulation, numInadequatePopulation)
           }
         }
       } as any}
@@ -70,16 +61,16 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         <th>Inadequate Access</th>
       </tr>
       <tr>
-        <td>{numAdequate.toLocaleString()} ({percentAdequate}%)</td>
-        <td>{numInadequate.toLocaleString()} ({percentInadequate}%)</td>
+        <td>{formatNumber(numAdequatePopulation)} ({percentAdequatePopulation}%)</td>
+        <td>{formatNumber(numInadequatePopulation)} ({percentInadequatePopulation}%)</td>
       </tr>
       <tr>
-        <th>Adequate Population Points</th>
-        <th>Inadequate Population Points</th>
+        <th>Adequate Points</th>
+        <th>Inadequate Points</th>
       </tr>
       <tr>
-        <td>{numAdequateRp.toLocaleString()}</td>
-        <td>{numInadequateRp.toLocaleString()}</td>
+        <td>{formatNumber(numAdequateRps)}</td>
+        <td>{formatNumber(numInadequateRps)}</td>
       </tr>
     </StatsBox>
   </div>
@@ -91,8 +82,8 @@ function label(withAccess: number, withoutAccess: number) {
       return ''
     }
     switch (tooltipItem.index) {
-      case 0: return ` With access: ${withAccess.toLocaleString()} (${data.datasets[0].data![0]}%)`
-      case 1: return ` Without access: ${withoutAccess.toLocaleString()} (${data.datasets[0].data![1]}%)`
+      case 0: return ` With access: ${formatNumber(withAccess)} (${data.datasets[0].data![0]}%)`
+      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${data.datasets[0].data![1]}%)`
     }
   }
 }

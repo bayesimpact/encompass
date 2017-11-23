@@ -1,13 +1,47 @@
 import { Drawer } from 'material-ui'
+import ProvidersIcon from 'mui-icons/cmdi/account-multiple'
 import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { withStore } from '../../services/store'
+import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { InfoBox } from '../InfoBox/InfoBox'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 import { TotalAnalytics } from './TotalAnalytics'
+
+let Analytics = withStore(
+  'providers',
+  'selectedServiceArea',
+  'serviceAreas'
+)(({ store }) => {
+
+  if (store.get('serviceAreas').length === 0) {
+    return <InfoBox large>
+      Please choose a service area in the <Link to='/service-areas'><MarkerIcon /> Service Areas drawer</Link>
+    </InfoBox>
+  }
+
+  if (store.get('providers').length === 0) {
+    return <InfoBox large>
+      Please upload providers in the <Link to='/providers'><ProvidersIcon /> Providers drawer</Link>
+    </InfoBox>
+  }
+
+  if (store.get('selectedServiceArea')) {
+    return <div>
+      <ServiceAreaAnalytics />
+      <DownloadAnalysisLink />
+    </div>
+  }
+
+  return <div>
+    <TotalAnalytics />
+    <DownloadAnalysisLink />
+  </div>
+
+})
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -20,11 +54,6 @@ export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceA
       onChange={store.set('selectedServiceArea')}
       value={store.get('selectedServiceArea')}
     />
-    {store.get('serviceAreas').length > 0
-      ? (store.get('selectedServiceArea') ? <ServiceAreaAnalytics /> : <TotalAnalytics />)
-      : <InfoBox large>
-        Please choose a service area in the <Link to='/service-areas'><MarkerIcon /> Service Areas drawer</Link>
-      </InfoBox>
-    }
+    <Analytics />
   </Drawer>
 )

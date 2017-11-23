@@ -15,3 +15,20 @@
   display: block;
   text-decoration: none;
 }
+
+.LeftDrawer .DownloadAnalysisLink {
+  position: absolute !important; /* override material-ui inline style */
+    bottom: 80px;
+    right: 20px;
+}
+
+/* Don't cover up Download CSV link */
+.LeftDrawer .ServiceAreaAnalytics,
+.LeftDrawer .TotalAnalytics {
+  overflow-y: auto;
+  position: absolute;
+    bottom: 124px;
+    right: 20px;
+    left: 20px;
+    top: 95px;
+}

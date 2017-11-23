@@ -1,25 +1,56 @@
-import { Store } from 'babydux'
-import { chain, keyBy } from 'lodash'
+import { chain, keyBy, round } from 'lodash'
 import { Adequacy, RepresentativePoint } from '../constants/datatypes'
-import { Actions } from '../services/store'
+import { Store } from '../services/store'
+import { totalPopulation } from './analytics'
 
 export function adequaciesFromServiceArea(
-  serviceAreaId: string,
-  store: Store<Actions>
+  serviceArea: string,
+  store: Store
 ): Lazy<Adequacy[]> {
   return chain(store.get('representativePoints'))
-    .filter(_ => _.serviceAreaId === serviceAreaId)
+    .filter(_ => _.serviceAreaId === serviceArea)
     .map(_ => store.get('adequacies')[_.id])
     .filter(Boolean)
 }
 
 export function representativePointsFromServiceAreas(
-  serviceAreaIds: string[],
-  store: Store<Actions>
+  serviceAreas: string[],
+  store: Store
 ): Lazy<RepresentativePoint[]> {
-  let hash = keyBy(serviceAreaIds)
+  let hash = keyBy(serviceAreas)
   return chain(store.get('representativePoints'))
     .filter(_ => _.serviceAreaId in hash)
+}
+
+export function summaryStatistics(
+  serviceAreas: string[],
+  store: Store
+) {
+  let adequacies = store.get('adequacies')
+  let rps = representativePointsFromServiceAreas(serviceAreas, store)
+  let adequateRps = rps.filter(_ =>
+    adequacies[_.id] && adequacies[_.id].isAdequate
+  )
+
+  let population = totalPopulation(rps)
+  let numAdequatePopulation = totalPopulation(adequateRps)
+  let numInadequatePopulation = population - numAdequatePopulation
+
+  let percentAdequatePopulation = round(100 * numAdequatePopulation / population)
+  let percentInadequatePopulation = 100 - percentAdequatePopulation
+
+  let numRps = rps.size().value()
+  let numAdequateRps = adequateRps.size().value()
+  let numInadequateRps = numRps - numAdequateRps
+
+  return {
+    numAdequatePopulation,
+    numInadequatePopulation,
+    percentAdequatePopulation,
+    percentInadequatePopulation,
+    numAdequateRps,
+    numInadequateRps
+  }
 }
 
 /**

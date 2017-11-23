@@ -1,5 +1,5 @@
 import { chain } from 'lodash'
-import { parse as papaparse } from 'papaparse'
+import { parse as papaparse, unparse } from 'papaparse'
 
 export function parseCSV<T>(csvFile: File): Promise<T[]> {
   return new Promise((resolve, reject) =>
@@ -109,6 +109,10 @@ function readRow(csvRow: string[], columnIndices: number[]) {
     }
     return csvRow[index]
   })
+}
+
+export function generateCSV(headers: string[], data: (string | number)[][]) {
+  return unparse({ fields: headers, data })
 }
 
 export class ParseError {
