@@ -63,7 +63,7 @@ export function withEffects(store: Store<Actions>) {
         .tap(([successes, errors]) => {
           if (errors.length > 0) {
             store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
-          } else {
+          } else if (successes.length > 0) {
             store.set('success')(`All ${successes.length} providers geocoded`)
           }
         }

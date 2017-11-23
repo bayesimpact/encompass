@@ -23,7 +23,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
       if (c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0) {
-        return new ParseError(0, n, c, `CSV must define column "${c.aliases[0]}"`)
+        return new ParseError(0, n, c, `Your CSV must define a column called "${c.aliases[0]}"`)
       }
       return undefined
     })

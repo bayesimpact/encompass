@@ -32,7 +32,7 @@ export type WriteProvidersRequest = {
   /** Unique 10-digit gov't ID assigned to each healthcare provider. */
   npi: number
   /** Eg. "Internal Medicine", "Obstetrics/Gynecology", etc. */
-  specialty: string
+  specialty: string | null
 }
 
 export type WriteProvidersResponse = WriteProvidersSuccessResponse | WriteProvidersErrorResponse

@@ -45,12 +45,12 @@ const COLUMNS = [
   { aliases: ['Address'], required: true },
   { aliases: ['City'], required: true },
   { aliases: ['State'], required: true },
-  { aliases: ['Zip Code'], required: true },
-  { aliases: ['NPI'], required: true },
+  { aliases: ['Postal Code', 'Zip', 'Zip Code'], required: true },
+  { aliases: ['NPI'] },
   { aliases: ['Provider Language 1'] },
   { aliases: ['Provider Language 2'] },
   { aliases: ['Provider Language 3'] },
-  { aliases: ['Specialty'], required: true }
+  { aliases: ['Specialty'] }
 ]
 
 let parse = parseRows(COLUMNS, ([address, city, state, zip,
@@ -63,6 +63,6 @@ let parse = parseRows(COLUMNS, ([address, city, state, zip,
     address: fullAddress,
     languages,
     npi: Number(npi),
-    specialty: specialty! // TODO
+    specialty
   }
 })

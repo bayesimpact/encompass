@@ -80,7 +80,7 @@ let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
   // validate that counties exist
   let badCounty = pairs.value().find(([county]) => !(county in COUNTIES_TO_ZIPS))
   if (badCounty) {
-    return new ParseError(rowIndex, 0, COLUMNS[0], `County "${badCounty[0]}" is not supported`)
+    return new ParseError(rowIndex, 0, COLUMNS[0], `We don't support county "${badCounty[0]}" yet. Reach out to us at health@bayesimpact.org.`)
   }
 
   // validate that zip code is in county
@@ -97,7 +97,7 @@ let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
 
 function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   if (isEmpty(fields[0]) && isEmpty(fields[1])) {
-    return [new ParseError(0, 0, columns[0], `CSV must define columns "CountyName" and/or "ZipCode"`)]
+    return [new ParseError(0, 0, columns[0], `Your CSV must define the columns "CountyName" and/or "ZipCode"`)]
   }
   return []
 }
