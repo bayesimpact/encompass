@@ -1,4 +1,4 @@
-import { MuiThemeProvider } from 'material-ui/styles'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import * as React from 'react'
 import '../../services/effects'
 import { withStore } from '../../services/store'

@@ -1,4 +1,4 @@
-import { RaisedButton } from 'material-ui'
+import RaisedButton from 'material-ui/RaisedButton'
 import * as React from 'react'
 import './CSVUploader.css'
 
