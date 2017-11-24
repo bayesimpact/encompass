@@ -1,6 +1,8 @@
+const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -12,6 +14,15 @@ module.exports = {
     port: 8081
   },
   entry: './src/index.tsx',
+  externals: {
+    'chart.js': 'Chart',
+    lodash: '_',
+    'mapbox-gl': 'mapboxgl',
+    moment: 'moment',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    rx: 'Rx'
+  },
   output: {
     filename: 'bundle.js',
     path: __dirname + '/dist'
@@ -54,8 +65,15 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.ejs',
+      template: 'src/index.prod.ejs',
       title: 'bayes-network-adequacy-explorer'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new UglifyJsPlugin({
+      parallel: true,
+      sourceMap: true
     })
   ]
 }
