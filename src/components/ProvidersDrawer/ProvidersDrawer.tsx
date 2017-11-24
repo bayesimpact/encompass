@@ -1,4 +1,4 @@
-import { Drawer } from 'material-ui'
+import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'

@@ -1,4 +1,4 @@
-import { Drawer } from 'material-ui'
+import Drawer from 'material-ui/Drawer'
 import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
