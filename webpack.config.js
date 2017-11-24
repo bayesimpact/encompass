@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -56,6 +57,9 @@ module.exports = {
       filename: 'index.html',
       template: 'src/index.ejs',
       title: 'bayes-network-adequacy-explorer'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
   ]
 }

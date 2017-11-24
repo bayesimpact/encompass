@@ -13,7 +13,7 @@ import { TotalAnalytics } from './TotalAnalytics'
  * TODO: Show loading indicator while CSV is uploading + parsing
  * or necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceArea')(({ store }) =>
+export let AnalyticsDrawer = withStore('selectedServiceArea')(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Analytics</h2>
     <ServiceAreaSelector

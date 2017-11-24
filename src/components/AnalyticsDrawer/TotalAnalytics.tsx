@@ -1,15 +1,19 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
 import { totalPopulation } from '../../utils/analytics'
-import { representativePointsFromServiceAreas } from '../../utils/data'
+import { lazy } from '../../utils/lazy'
 import { AdequacyDoughnut } from '../AdequacyDoughnut/AdequacyDoughnut'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './TotalAnalytics.css'
 
-export let TotalAnalytics = withStore()(({ store }) => {
+export let TotalAnalytics = withStore(
+  'providers',
+  'representativePoints',
+  'serviceAreas'
+)(({ store }) => {
 
+  let representativePoints = lazy(store.get('representativePoints'))
   let serviceAreas = store.get('serviceAreas')
-  let representativePoints = representativePointsFromServiceAreas(serviceAreas, store)
 
   return <div className='TotalAnalytics'>
     <StatsBox className='HighLevelStats' withBorders>

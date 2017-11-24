@@ -1,4 +1,4 @@
-import { connect, createStore, Store as BabyduxStore, withLogger } from 'babydux'
+import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
@@ -99,7 +99,7 @@ export type Actions = {
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */
-let store = withLogger(withEffects(createStore<Actions>({
+let store = withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
   distribution: 0.5,
@@ -120,7 +120,7 @@ let store = withLogger(withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
-})))
+}))
 
 export let withStore = connect(store)
 
