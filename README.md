@@ -21,12 +21,22 @@ Create a file called ".env" in the root of this repo and define `MAPBOX_TOKEN` i
 MAPBOX_TOKEN=abcdefg
 ```
 
-## Run
+## Run (development version)
 
 ```sh
 yarn
 yarn build
 yarn start
+```
+
+Then, open *https://localhost:8081* in your browser.
+
+## Run (production version)
+
+```sh
+yarn
+yarn build:prod
+yarn start:prod
 ```
 
 Then, open *https://localhost:8081* in your browser.
