@@ -107,6 +107,8 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
         except geocoder.GeocodioAuthError as error:
             print(error)
             geocoded_address = []
+    else:
+        print('Warning - Geocoding is not active. Processing without missing addresses.')
 
     for i, raw_provider in enumerate(providers):
         if i % 1000 == 0:
