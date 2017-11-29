@@ -91,6 +91,7 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
                     latitude=geocoded_address['latitude']
                 )
             # Add new addresses to DB.
+            # TODO: Add addresses to DB as they are geocoded to make ingestion more robust.
             methods.core_insert(
                 engine=engine,
                 sql_class=address.Address,
