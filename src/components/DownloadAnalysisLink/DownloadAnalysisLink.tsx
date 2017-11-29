@@ -22,16 +22,17 @@ function onClick(store: Store) {
   return () => {
     let headers = [
       'CountyName',
-      // 'City', // TODO
       'ZipCode',
       'SpecDesc',
+      'BeneficiariesWithAccess',
       'BeneficiariesWithoutAccess',
+      'PctWithAccess',
       'PctWithoutAccess',
       'MinDist (mi)',
-      'MinTime (min)',
       'AvgDist (mi)',
-      'AvgTime (min)',
       'MaxDist (mi)',
+      'MinTime (min)',
+      'AvgTime (min)',
       'MaxTime (min)'
     ]
     let selectedServiceArea = store.get('selectedServiceArea')
@@ -41,18 +42,25 @@ function onClick(store: Store) {
     let data = serviceAreas.map(_ => {
       let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
       let adequacies = adequaciesFromServiceArea(_, store)
-      let { numInadequatePopulation, percentInadequatePopulation } = summaryStatistics([_], store)
+      let {
+        numAdequatePopulation,
+        numInadequatePopulation,
+        percentAdequatePopulation,
+        percentInadequatePopulation
+      } = summaryStatistics([_], store)
       return [
         representativePoint.county,
         representativePoint.zip,
         store.get('providers')[0].specialty, // TODO: Is this safe to assume?
+        numAdequatePopulation,
         numInadequatePopulation,
+        percentAdequatePopulation,
         percentInadequatePopulation,
         minDistance(adequacies),
-        minTime(adequacies),
         averageDistance(adequacies),
-        averageTime(adequacies),
         maxDistance(adequacies),
+        minTime(adequacies),
+        averageTime(adequacies),
         maxTime(adequacies)
       ]
     })
