@@ -1,0 +1,5 @@
+@import "../../index.css";
+
+.DownloadAnalysisLink {
+  color: var(--primary-dark);
+}

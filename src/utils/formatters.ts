@@ -11,6 +11,9 @@ export function formatNumber(n: number) {
     case -Infinity:
       return '-'
     default:
+      if (Number.isNaN(n)) {
+        return '-'
+      }
       return n.toLocaleString()
   }
 }

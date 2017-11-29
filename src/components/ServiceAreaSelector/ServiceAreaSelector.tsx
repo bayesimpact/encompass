@@ -10,13 +10,12 @@ type Props = StoreProps & {
 
 const ALL_SERVICE_AREAS = 'All service areas'
 
-export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, store, value }) => {
-  console.log('ServiceAreaSelector', value)
-  return <Autocomplete
+export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, store, value }) =>
+  <Autocomplete
     defaultValue={ALL_SERVICE_AREAS}
     items={store.get('serviceAreas').map(formatServiceArea)}
     onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : unformatServiceArea(_))}
     pinnedItems={[ALL_SERVICE_AREAS]}
     value={value === null ? ALL_SERVICE_AREAS : formatServiceArea(value)}
   />
-})
+)

@@ -70,9 +70,17 @@ p {
 
 /*
   Material-UI Augmentations
+
+  Inline styles are the worst..
 */
 
-/* inline styles are the worst.. */
+.Button.-Primary {
+  color: var(--primary) !important;
+}
+.Button.-Primary path {
+  fill: var(--primary) !important;
+}
+
 .DropDownMenu.-Compact button + div {
   display: none !important;
 }
