@@ -93,8 +93,8 @@ export let MapView = withStore(
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
       />}
-      <ZoomControl position='bottomLeft' />
-      <ScaleControl measurement='mi' position='bottomLeft' style={{ left: 48 }} />
+      <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
+      <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />
     </Map>
   </div>
 })
