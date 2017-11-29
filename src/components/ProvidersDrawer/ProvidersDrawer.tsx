@@ -1,4 +1,4 @@
-import { Drawer } from 'material-ui'
+import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
@@ -8,11 +8,7 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ProvidersDrawer = withStore(
-  'counties',
-  'serviceAreas',
-  'uploadedProvidersFilename'
-)(({ store }) =>
+export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Providers</h2>
     <CSVUploader onUpload={onFileSelected(store)} />
@@ -22,7 +18,7 @@ export let ProvidersDrawer = withStore(
         : 'Upload valid list of providers'
     }</p>
   </Drawer>
-  )
+)
 
 function onFileSelected(store: Store) {
   return async (file: File) => {

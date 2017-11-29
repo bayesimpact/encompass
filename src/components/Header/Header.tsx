@@ -1,4 +1,5 @@
-import { AppBar, IconButton } from 'material-ui'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
 import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
 import './Header.css'

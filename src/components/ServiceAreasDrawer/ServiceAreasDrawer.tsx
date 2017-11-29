@@ -1,5 +1,5 @@
 import { chain, flatten } from 'lodash'
-import { Drawer } from 'material-ui'
+import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'

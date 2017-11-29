@@ -1,4 +1,4 @@
-import { Snackbar } from 'material-ui'
+import Snackbar from 'material-ui/Snackbar'
 import * as React from 'react'
 import './ErrorBar.css'
 

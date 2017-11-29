@@ -1,4 +1,6 @@
-import { DropDownMenu, MenuItem, Paper } from 'material-ui'
+import DropDownMenu from 'material-ui/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui/Paper'
 import * as React from 'react'
 import { Measure, Standard } from '../../constants/datatypes'
 import { TIME_DISTANCES } from '../../constants/timeDistances'

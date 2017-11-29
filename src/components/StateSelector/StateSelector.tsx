@@ -1,4 +1,5 @@
-import { MenuItem, SelectField } from 'material-ui'
+import MenuItem from 'material-ui/MenuItem'
+import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
 
 export let StateSelector = () =>

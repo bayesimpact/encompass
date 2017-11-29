@@ -1,4 +1,4 @@
-import { Drawer } from 'material-ui'
+import Drawer from 'material-ui/Drawer'
 import ProvidersIcon from 'mui-icons/cmdi/account-multiple'
 import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
@@ -47,7 +47,7 @@ let Analytics = withStore(
  * TODO: Show loading indicator while CSV is uploading + parsing
  * or necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('representativePoints', 'selectedServiceArea')(({ store }) =>
+export let AnalyticsDrawer = withStore('selectedServiceArea')(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
     <h2>Analytics</h2>
     <ServiceAreaSelector
