@@ -108,8 +108,6 @@ export type Actions = {
   representativePointClicked: any | null
 }
 
-
-
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */

@@ -88,7 +88,7 @@ function providerPopup(point: any) {
       </table>
     </Popup>
   )
-};
+}
 
 function representativePointPopup(point: any) {
   let pointProps = point.features[0].properties
@@ -110,7 +110,7 @@ function representativePointPopup(point: any) {
       </table>
     </Popup>
   )
-};
+}
 
 function removePopup(store: Store) {
   store.set('providerClicked')(null)
