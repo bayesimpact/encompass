@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
+import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 
 /**
@@ -17,6 +18,7 @@ export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) 
         ? `Uploaded ${store.get('uploadedProvidersFilename')}`
         : 'Upload valid list of providers'
     }</p>
+    <ClearInputsButton onClearInputs={onClearInputs(store)} />
   </Drawer>
 )
 
@@ -31,6 +33,15 @@ function onFileSelected(store: Store) {
 
     store.set('uploadedProviders')(providers)
     store.set('uploadedProvidersFilename')(file.name)
+  }
+}
+
+function onClearInputs(store: Store) {
+  return () => {
+    store.set('providers')([])
+    store.set('uploadedProvidersFilename')('')
+    // TODO: Resolve issues in effects.tsx to remove need for this.
+    store.set('adequacies')({})
   }
 }
 

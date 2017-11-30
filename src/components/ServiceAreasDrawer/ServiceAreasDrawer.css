@@ -1,0 +1,11 @@
+@import "../../index.css";
+
+/* Don't cover up Download CSV link */
+.LeftDrawer .ZipCodeSelector {
+  overflow-y: auto;
+  position: absolute;
+    bottom: 124px;
+    right: 20px;
+    left: 20px;
+    top: 275px;
+}

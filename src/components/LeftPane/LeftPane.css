@@ -26,3 +26,10 @@
   top: 64px !important;
   width: 320px !important;
 }
+
+
+.LeftDrawer .ClearInputsButton {
+  position: absolute !important; /* override material-ui inline style */
+    bottom: 70px;
+    right: 20px;
+}
