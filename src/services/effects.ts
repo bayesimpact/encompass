@@ -56,7 +56,6 @@ export function withEffects(store: Store<Actions>) {
    */
   store.on('uploadedProviders').subscribe(async providers => {
     let result = await postProviders(providers)
-    console.log('Store.on uploadedProviders!')
     store.set('providers')(
       chain(result)
         .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)

@@ -10,6 +10,7 @@ import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
 import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
+import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -40,6 +41,7 @@ export let ServiceAreasDrawer = withStore(
       onChange={store.set('serviceAreas')}
       selectedServiceAreas={store.get('serviceAreas')}
     />
+    <ClearInputsButton onClearInputs={onClearInputs(store)} />
   </Drawer >
   )
 
@@ -54,7 +56,14 @@ function onFileSelected(store: Store) {
 
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
-    store.set('uploadedServiceAreasFilename')(file.name)
+  }
+}
+
+function onClearInputs(store: Store) {
+  return () => {
+    store.set('counties')([])
+    store.set('serviceAreas')([])
+    store.set('uploadedServiceAreasFilename')('')
   }
 }
 

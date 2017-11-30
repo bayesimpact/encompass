@@ -24,8 +24,6 @@ export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) 
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
-    console.log('File was onFileSelected!')
-    console.log(store)
     let [errors, providers] = await parse(file)
 
     // Show just 1 error at a time, because that's what our Snackbar-based UI supports.

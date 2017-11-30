@@ -16,9 +16,10 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ onUpload }) =>
       <input
         onChange={
           e => {
-            console.log(e.target.files)
             e.target.files && onUpload(e.target.files[0])
-          }}
+            e.currentTarget.value = ''
+          }
+        }
         type='file'
         accept='.csv'
       />
