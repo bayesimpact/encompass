@@ -3,6 +3,16 @@ import { serializeServiceArea } from './serializers'
 import { capitalizeWords } from './string'
 
 /**
+ * Formats coordinates for display in the UI.
+ */
+export function formatCoordinate(n: number) {
+  if (Number.isNaN(n)) {
+    return '-'
+  }
+  return n.toFixed(4).toLocaleString()
+}
+
+/**
  * Formats numbers for display in the UI.
  */
 export function formatNumber(n: number) {

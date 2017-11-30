@@ -15,6 +15,9 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
   })
 }
 
+/**
+ * Expose name info.
+ */
 function providerToFeature(
   point: Provider
 ): GeoJSON.Feature<GeoJSON.GeometryObject> {
@@ -39,9 +42,11 @@ export function representativePointToFeature(adequacies: Adequacies) {
     id: point.id,
     type: 'Feature',
     properties: {
+      county: point.county,
       isAdequate: colorAdequacy(adequacies, point.id),
       population: point.population,
-      service_area_id: point.serviceAreaId
+      service_area_id: point.serviceAreaId,
+      zip: point.zip
     },
     geometry: {
       type: 'Point',
