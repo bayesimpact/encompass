@@ -14,3 +14,12 @@
   height: 100%;
   width: 100%;
 }
+
+.Popup .h2 {
+  color: '#ddd';
+}
+
+.Popup .table {
+  font-size: 14;
+  color: '#ddd';
+}

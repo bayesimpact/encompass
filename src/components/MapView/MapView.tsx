@@ -1,8 +1,8 @@
 import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
-import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
-import { withStore } from '../../services/store'
+import ReactMapboxGl, { GeoJSONLayer, Popup, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import { Store, withStore } from '../../services/store'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
 
@@ -52,18 +52,87 @@ const FIT_BOUNDS_OPTIONS = {
   padding: 20
 }
 
+type TableRowProps = {
+  name: string
+  value: number
+}
+
+const TableRow = ({ name, value }: TableRowProps) => (
+  <tr>
+    <td>{name}</td>
+    <td style={{ paddingLeft: 15 }}>{value}</td>
+  </tr>
+)
+
+function providerPopup(point: any) {
+  console.log(point)
+  /*
+    TODO: expose info for all providers with the same address,
+    not only the first one.
+  */
+  let pointProps = point.features[0].properties
+  return (
+    <Popup
+      offset={[0, -20]}
+      anchor="bottom"
+      coordinates={point.lngLat}
+      className='Popup' >
+      <h2> Provider </h2>
+      <table>
+        <tbody>
+          <TableRow name="Address" value={pointProps.address} />
+          <TableRow name="Specialty" value={pointProps.specialty} />
+          <TableRow name="Lat" value={point.lngLat['lat']} />
+          <TableRow name="Long" value={point.lngLat['lng']} />
+        </tbody>
+      </table>
+    </Popup>
+  )
+};
+
+function representativePointPopup(point: any) {
+  let pointProps = point.features[0].properties
+  console.log(point)
+  return (
+    <Popup
+      offset={[0, -20]}
+      anchor="bottom"
+      coordinates={point.lngLat}
+      className='Popup' >
+      <h2> Representative Point </h2>
+      <table>
+        <tbody>
+          <TableRow name="Service Area Id" value={pointProps.service_area_id} />
+          <TableRow name="No. Residents" value={pointProps.population} />
+          <TableRow name="Lat" value={point.lngLat['lat']} />
+          <TableRow name="Long" value={point.lngLat['lng']} />
+        </tbody>
+      </table>
+    </Popup>
+  )
+};
+
+function removePopup(store: Store) {
+  store.set('providerClicked')(null)
+  store.set('representativePointClicked')(null)
+}
+
 export let MapView = withStore(
   'adequacies',
   'mapCenter',
   'mapZoom',
   'providers',
-  'representativePoints'
+  'representativePoints',
+  'providerClicked',
+  'representativePointClicked'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
   let bounds = boundingBox(representativePoints)
   let shouldAutoAdjustMap = store.get('shouldAutoAdjustMap')
+  let representativePointClicked = store.get('representativePointClicked')
+  let providerClicked = store.get('providerClicked')
 
   // Don't auto-adjust on next render (manual pan/zoom, etc. rerender the map).
   if (shouldAutoAdjustMap) {
@@ -84,15 +153,27 @@ export let MapView = withStore(
       onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
       onZoomEnd={(map: MapboxGL.Map) => store.set('mapZoom')(map.getZoom())}
       zoom={[store.get('mapZoom')]}
+      onClick={() => removePopup(store)}
     >
       {representativePoints.length && <GeoJSONLayer
+        id='representativePoints'
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
+        circleOnClick={(point: any) => store.set('representativePointClicked')(point)}
+        circleOnMouseEnter={() => store.set('mapCursor')('pointer')}
+        circleOnMouseLeave={() => store.set('mapCursor')('')}
       />}
       {providers.length && <GeoJSONLayer
+        id='providers'
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
+        circleOnClick={(point: any) => store.set('providerClicked')(point)}
+        circleOnMouseEnter={() => store.set('mapCursor')('pointer')}
+        circleOnMouseLeave={() => store.set('mapCursor')('')}
       />}
+      {representativePointClicked && representativePointPopup(representativePointClicked)}
+      {providerClicked && providerPopup(providerClicked)}
+
       <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
       <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />
     </Map>

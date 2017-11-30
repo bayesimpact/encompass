@@ -31,6 +31,8 @@ export type Actions = {
     lng: number
   }
 
+  mapCursor: string
+
   mapZoom: number
 
   measure: Measure
@@ -94,7 +96,19 @@ export type Actions = {
    * Filename of the CSV the user uploaded to compute `serviceAreas`.
    */
   uploadedServiceAreasFilename: string | null
+
+  /**
+   * Selected povider for popup.
+   */
+  providerClicked: any | null
+
+  /**
+   * Selected representativePoint for popup.
+   */
+  representativePointClicked: any | null
 }
+
+
 
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
@@ -109,6 +123,7 @@ let store = withEffects(createStore<Actions>({
     lat: 37.765134,
     lng: -122.444687
   },
+  mapCursor: '',
   mapZoom: 12,
   measure: 15,
   providers: [],
@@ -119,7 +134,9 @@ let store = withEffects(createStore<Actions>({
   standard: 'time_distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
-  uploadedServiceAreasFilename: null
+  uploadedServiceAreasFilename: null,
+  providerClicked: null,
+  representativePointClicked: null
 }))
 
 export let withStore = connect(store)
