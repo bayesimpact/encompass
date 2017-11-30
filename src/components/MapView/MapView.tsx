@@ -74,16 +74,16 @@ function providerPopup(point: any) {
   return (
     <Popup
       offset={[0, -20]}
-      anchor="bottom"
+      anchor='bottom'
       coordinates={point.lngLat}
       className='Popup' >
       <h2> Provider </h2>
       <table>
         <tbody>
-          <TableRow name="Address" value={pointProps.address} />
-          <TableRow name="Specialty" value={pointProps.specialty} />
-          <TableRow name="Lat" value={point.lngLat['lat']} />
-          <TableRow name="Long" value={point.lngLat['lng']} />
+          <TableRow name='Address' value={pointProps.address} />
+          <TableRow name='Specialty' value={pointProps.specialty} />
+          <TableRow name='Lat' value={point.lngLat['lat']} />
+          <TableRow name='Long' value={point.lngLat['lng']} />
         </tbody>
       </table>
     </Popup>
@@ -96,16 +96,16 @@ function representativePointPopup(point: any) {
   return (
     <Popup
       offset={[0, -20]}
-      anchor="bottom"
+      anchor='bottom'
       coordinates={point.lngLat}
       className='Popup' >
       <h2> Representative Point </h2>
       <table>
         <tbody>
-          <TableRow name="Service Area Id" value={pointProps.service_area_id} />
-          <TableRow name="No. Residents" value={pointProps.population} />
-          <TableRow name="Lat" value={point.lngLat['lat']} />
-          <TableRow name="Long" value={point.lngLat['lng']} />
+          <TableRow name='Service Area Id' value={pointProps.service_area_id} />
+          <TableRow name='No. Residents' value={pointProps.population} />
+          <TableRow name='Lat' value={point.lngLat['lat']} />
+          <TableRow name='Long' value={point.lngLat['lng']} />
         </tbody>
       </table>
     </Popup>
