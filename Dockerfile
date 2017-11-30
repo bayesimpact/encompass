@@ -10,6 +10,6 @@ ADD src /usr/src/app/src
 EXPOSE 8081
 
 RUN yarn
-RUN yarn build
+RUN yarn run build:prod
 
-CMD ["yarn", "start:docker"]
+CMD ["yarn", "run", "start:prod"]
