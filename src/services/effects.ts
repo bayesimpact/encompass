@@ -56,6 +56,7 @@ export function withEffects(store: Store<Actions>) {
    */
   store.on('uploadedProviders').subscribe(async providers => {
     let result = await postProviders(providers)
+    console.log('Store.on uploadedProviders!')
     store.set('providers')(
       chain(result)
         .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
@@ -80,7 +81,7 @@ export function withEffects(store: Store<Actions>) {
   })
 
   /**
-   * Fetch adequacies when providers, representative points, measure, or standard change
+   * Fetch adequacies when providers, representative points, measure, or standards change
    */
   Observable
     .combineLatest(
@@ -90,25 +91,27 @@ export function withEffects(store: Store<Actions>) {
     store.on('standard').startWith(store.get('standard'))
     )
     .subscribe(async ([providers, representativePoints, measure, standard]) => {
-      let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
-      store.set('adequacies')(
-        chain(representativePoints.map(_ => _.id))
-          .zipObject(adequacies)
-          .mapValues(_ => ({
-            isAdequate: isAdequate(
-              _.distance_to_closest_provider,
-              _.time_to_closest_provider,
-              measure,
-              standard
-            ),
-            id: _.id,
-            distanceToClosestProvider: _.distance_to_closest_provider,
-            timeToClosestProvider: _.time_to_closest_provider,
-            closestProviderByDistance: _.closest_provider_by_distance,
-            closestProviderByTime: _.closest_provider_by_time
-          }))
-          .value()
-      )
+      if (providers.length && representativePoints.length) {
+        let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
+        store.set('adequacies')(
+          chain(representativePoints.map(_ => _.id))
+            .zipObject(adequacies)
+            .mapValues(_ => ({
+              isAdequate: isAdequate(
+                _.distance_to_closest_provider,
+                _.time_to_closest_provider,
+                measure,
+                standard
+              ),
+              id: _.id,
+              distanceToClosestProvider: _.distance_to_closest_provider,
+              timeToClosestProvider: _.time_to_closest_provider,
+              closestProviderByDistance: _.closest_provider_by_distance,
+              closestProviderByTime: _.closest_provider_by_time
+            }))
+            .value()
+        )
+      }
     })
 
   /**

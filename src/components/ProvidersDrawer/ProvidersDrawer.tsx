@@ -4,6 +4,7 @@ import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
+import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -17,11 +18,14 @@ export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) 
         ? `Uploaded ${store.get('uploadedProvidersFilename')}`
         : 'Upload valid list of providers'
     }</p>
+    <ClearInputsButton onClearInputs={onClearInputs(store)} />
   </Drawer>
 )
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
+    console.log('File was onFileSelected!')
+    console.log(store)
     let [errors, providers] = await parse(file)
 
     // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
@@ -31,6 +35,13 @@ function onFileSelected(store: Store) {
 
     store.set('uploadedProviders')(providers)
     store.set('uploadedProvidersFilename')(file.name)
+  }
+}
+
+function onClearInputs(store: Store) {
+  return () => {
+    store.set('uploadedProviders')([])
+    store.set('uploadedProvidersFilename')('')
   }
 }
 
