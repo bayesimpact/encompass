@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
-import { formatNumber } from '../../utils/formatters'
+import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
@@ -46,11 +46,12 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         // @see https://github.com/emn178/Chart.PieceLabel.js
         pieceLabel: {
           fontColor: '#333',
-          position: 'outside'
+          position: 'outside',
+          precision: 2
         },
         tooltips: {
           callbacks: {
-            label: label(numAdequatePopulation, numInadequatePopulation)
+            label: label(numAdequatePopulation, numInadequatePopulation, percentAdequatePopulation, percentInadequatePopulation)
           }
         }
       } as any}
@@ -61,8 +62,8 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         <th>Inadequate Access</th>
       </tr>
       <tr>
-        <td>{formatNumber(numAdequatePopulation)} ({percentAdequatePopulation}%)</td>
-        <td>{formatNumber(numInadequatePopulation)} ({percentInadequatePopulation}%)</td>
+        <td>{formatNumber(numAdequatePopulation)} ({formatPercentage(percentAdequatePopulation)})</td>
+        <td>{formatNumber(numInadequatePopulation)} ({formatPercentage(percentInadequatePopulation)})</td>
       </tr>
       <tr>
         <th>Adequate Points</th>
@@ -76,14 +77,14 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   </div>
 })
 
-function label(withAccess: number, withoutAccess: number) {
+function label(withAccess: number, withoutAccess: number, withAccessPercentage: number, withoutAccessPercentage: number) {
   return (tooltipItem?: ChartTooltipItem, data?: ChartData) => {
     if (!tooltipItem || !data || !data.datasets) {
       return ''
     }
     switch (tooltipItem.index) {
-      case 0: return ` With access: ${formatNumber(withAccess)} (${data.datasets[0].data![0]}%)`
-      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${data.datasets[0].data![1]}%)`
+      case 0: return ` With access: ${formatNumber(withAccess)} (${formatPercentage(withAccessPercentage)})`
+      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${formatPercentage(withoutAccessPercentage)})`
     }
   }
 }

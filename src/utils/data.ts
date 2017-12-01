@@ -1,4 +1,4 @@
-import { chain, keyBy, round } from 'lodash'
+import { chain, keyBy } from 'lodash'
 import { Adequacy, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
 import { totalPopulation } from './analytics'
@@ -36,7 +36,7 @@ export function summaryStatistics(
   let numAdequatePopulation = totalPopulation(adequateRps)
   let numInadequatePopulation = population - numAdequatePopulation
 
-  let percentAdequatePopulation = round(100 * numAdequatePopulation / population)
+  let percentAdequatePopulation = 100 * numAdequatePopulation / population
   let percentInadequatePopulation = 100 - percentAdequatePopulation
 
   let numRps = rps.size().value()
