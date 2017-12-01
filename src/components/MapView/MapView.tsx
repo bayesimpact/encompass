@@ -2,10 +2,11 @@ import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import { Store, withStore } from '../../services/store'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
-import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
+
 const { MAPBOX_TOKEN } = process.env
 
 if (!MAPBOX_TOKEN) {
@@ -75,6 +76,7 @@ export let MapView = withStore(
   let providerClicked = store.get('providerClicked')
 
   // Don't auto-adjust on next render (manual pan/zoom, etc. rerender the map).
+  // TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
   if (shouldAutoAdjustMap) {
     store.set('shouldAutoAdjustMap')(false)
   }
