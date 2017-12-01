@@ -15,10 +15,6 @@
   width: 100%;
 }
 
-h2 {
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .popup-container .mapboxgl-popup-content {
   background-color: rgba(0, 0, 0, 0.7);
 }

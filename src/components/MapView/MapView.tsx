@@ -77,7 +77,6 @@ function providerPopup(point: any) {
         offset={[0, -20]}
         anchor='bottom'
         coordinates={point.lngLat} >
-        <h2> Provider </h2>
         <table className='popup-table'>
           <tbody>
             <TableRow name='Address' value={pointProps.address} />
@@ -100,7 +99,6 @@ function representativePointPopup(point: any) {
         offset={[0, -20]}
         anchor='bottom'
         coordinates={point.lngLat} >
-        <h2> Representative Point </h2>
         <table className='popup-table'>
           <tbody>
             <TableRow name='County' value={pointProps.county} />
