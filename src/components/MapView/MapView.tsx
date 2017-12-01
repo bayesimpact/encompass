@@ -2,8 +2,9 @@ import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
-import { withStore } from '../../services/store'
+import { Store, withStore } from '../../services/store'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
+import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
 
 const { MAPBOX_TOKEN } = process.env
@@ -52,20 +53,30 @@ const FIT_BOUNDS_OPTIONS = {
   padding: 20
 }
 
+function removePopup(store: Store) {
+  store.set('providerClicked')(null)
+  store.set('representativePointClicked')(null)
+}
+
 export let MapView = withStore(
   'adequacies',
   'mapCenter',
   'mapZoom',
   'providers',
-  'representativePoints'
+  'representativePoints',
+  'providerClicked',
+  'representativePointClicked'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
   let bounds = boundingBox(representativePoints)
   let shouldAutoAdjustMap = store.get('shouldAutoAdjustMap')
+  let representativePointClicked = store.get('representativePointClicked')
+  let providerClicked = store.get('providerClicked')
 
   // Don't auto-adjust on next render (manual pan/zoom, etc. rerender the map).
+  // TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
   if (shouldAutoAdjustMap) {
     store.set('shouldAutoAdjustMap')(false)
   }
@@ -84,15 +95,21 @@ export let MapView = withStore(
       onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
       onZoomEnd={(map: MapboxGL.Map) => store.set('mapZoom')(map.getZoom())}
       zoom={[store.get('mapZoom')]}
+      onClick={() => removePopup(store)}
     >
       {representativePoints.length && <GeoJSONLayer
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
+        circleOnClick={(point: any) => store.set('representativePointClicked')(point)}
       />}
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
+        circleOnClick={(point: any) => store.set('providerClicked')(point)}
       />}
+      {representativePointClicked && RepresentativePointPopup(representativePointClicked)}
+      {providerClicked && ProviderPopup(providerClicked)}
+
       <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
       <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />
     </Map>

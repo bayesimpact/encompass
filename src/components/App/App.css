@@ -24,7 +24,7 @@ html, body, #App, .App {
 }
 
 h2 {
-  font-size: 14px;
+  font-size: var(--medium-font);
   font-weight: 600;
   line-height: 36px;
   text-transform: uppercase;

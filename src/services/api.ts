@@ -64,6 +64,7 @@ export let postProviders = (providers: WriteProvidersRequest[]) =>
 
 type ReadRepresentativePointsResponse = {
   county: string
+  census_tract?: string
   id: number
   lat: number
   lng: number

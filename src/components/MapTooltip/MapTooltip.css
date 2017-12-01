@@ -1,20 +1,6 @@
 @import "mapbox-gl/dist/mapbox-gl.css";
 @import "../../index.css";
 
-.MapView {
-  background: var(--verylight);
-  position: fixed;
-    bottom: 0;
-    left: var(--iconbar-width);
-    right: 0;
-    top: var(--header-height);
-}
-
-.MapView .mapboxgl-map {
-  height: 100%;
-  width: 100%;
-}
-
 .popup-container .mapboxgl-popup-content {
   background-color: rgba(0, 0, 0, 0.7);
 }
