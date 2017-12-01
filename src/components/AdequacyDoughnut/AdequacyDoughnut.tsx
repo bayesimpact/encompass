@@ -50,7 +50,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         },
         tooltips: {
           callbacks: {
-            label: label(numAdequatePopulation, numInadequatePopulation)
+            label: label(numAdequatePopulation, numInadequatePopulation, percentAdequatePopulation, percentInadequatePopulation)
           }
         }
       } as any}
@@ -76,14 +76,14 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   </div>
 })
 
-function label(withAccess: number, withoutAccess: number) {
+function label(withAccess: number, withoutAccess: number, withAccessPercentage: number, withoutAccessPercentage: number) {
   return (tooltipItem?: ChartTooltipItem, data?: ChartData) => {
     if (!tooltipItem || !data || !data.datasets) {
       return ''
     }
     switch (tooltipItem.index) {
-      case 0: return ` With access: ${formatNumber(withAccess)} (${data.datasets[0].data![0]}%)`
-      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${data.datasets[0].data![1]}%)`
+      case 0: return ` With access: ${formatNumber(withAccess)} (${formatPercentage(withAccessPercentage)})`
+      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${formatPercentage(withoutAccessPercentage)})`
     }
   }
 }
