@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
-import { formatPercentage, formatNumber } from '../../utils/formatters'
+import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = StoreProps & {
