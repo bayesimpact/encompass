@@ -99,11 +99,13 @@ export type Actions = {
 
   /**
    * Selected povider for popup.
+   * TODO - Do not use any.
    */
   providerClicked: any | null
 
   /**
    * Selected representativePoint for popup.
+   * TODO - Do not use any.
    */
   representativePointClicked: any | null
 }

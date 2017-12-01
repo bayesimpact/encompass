@@ -14,6 +14,39 @@ const TableRow = ({ name, value }: TableRowProps) => (
   </tr>
 )
 
+/**
+ * TODO - Remove anys, apply DRY and TS.
+ * Additional details (guide) given below.
+ */
+
+/**
+ * type Props = {
+ *   content: React.ComponentClass
+ *   coordinates: [number, number]
+ * }
+ *
+ * let MapTooltip: React.StatelessComponent<Props> = ({ content, coordinates }) =>
+ *    <div className='popup-container'>
+ *     <Popup coordinates={latLng} ...>
+ *        { content }
+ *      </Popup>
+ *     </div>
+ */
+
+/**
+ * Avoid any fort point - what is the type here?
+ * type RepresentativePointPopupProps = {..}
+ * let RepresentativePointPopup: React.StatelessComponent<RepresentativePointPopupProps> = ({ point }) =>
+ *  <MapTooltip
+ *      coordinates={point.lngLat}
+ *      content={
+ *        <table className='popup-table'>
+ *          ...
+ *        </table>
+ *      }
+ *    />
+*/
+
 export function ProviderPopup(point: any) {
   /**
    * TODO: expose info for all providers with the same address,
@@ -60,27 +93,3 @@ export function RepresentativePointPopup(point: any) {
     </div>
   )
 }
-
-// type Props = {
-//   content: React.ComponentClass
-//   coordinates: [number, number]
-// }
-
-// let MapTooltip: React.StatelessComponent<Props> = ({ content, coordinates }) =>
-//   <div className='popup-container'>
-//     <Popup coordinates={latLng} ...>
-//        { content }
-//     </Popup>
-//   </div>
-
-//   type RepresentativePointPopupProps = {..}
-
-//   let RepresentativePointPopup: React.StatelessComponent<RepresentativePointPopupProps> = ({ point }) =>
-//     <MapTooltip
-//       coordinates={point.lngLat}
-//       content={
-//         <table className='popup-table'>
-//           ...
-//         </table>
-//       }
-//     />
