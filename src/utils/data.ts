@@ -36,8 +36,8 @@ export function summaryStatistics(
   let numAdequatePopulation = totalPopulation(adequateRps)
   let numInadequatePopulation = population - numAdequatePopulation
 
-  let percentAdequatePopulation = round(100 * numAdequatePopulation / population)
-  let percentInadequatePopulation = 100 - percentAdequatePopulation
+  let percentAdequatePopulation = 100.0 * numAdequatePopulation / population
+  let percentInadequatePopulation = 100.0 - percentAdequatePopulation
 
   let numRps = rps.size().value()
   let numAdequateRps = adequateRps.size().value()

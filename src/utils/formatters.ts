@@ -18,6 +18,16 @@ export function formatNumber(n: number) {
   }
 }
 
+/**
+ * Formats percentage number for display in the UI.
+ */
+export function formatPercentage(n: number) {
+  if (Number.isNaN(n)) {
+    return '-'
+  }
+  return n.toFixed(2).toLocaleString()
+}
+
 export function formatServiceArea(serializedServiceArea: string) {
   let { county, zip } = parseSerializedServiceArea(serializedServiceArea)
   return `${capitalizeWords(county)} / ${zip}`

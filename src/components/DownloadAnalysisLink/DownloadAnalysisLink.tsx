@@ -6,6 +6,7 @@ import { averageDistance, maxDistance, minDistance } from '../../utils/analytics
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatistics } from '../../utils/data'
 import { download } from '../../utils/download'
+import { formatPercentage, formatNumber } from '../../utils/formatters'
 import './DownloadAnalysisLink.css'
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
@@ -48,14 +49,18 @@ function onClick(store: Store) {
         percentAdequatePopulation,
         percentInadequatePopulation
       } = summaryStatistics([_], store)
+      let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
+      if (specialty == null) {
+        specialty = "Undefined"
+      }
       return [
         representativePoint.county,
         representativePoint.zip,
-        store.get('providers')[0].specialty, // TODO: Is this safe to assume?
-        numAdequatePopulation,
-        numInadequatePopulation,
-        percentAdequatePopulation,
-        percentInadequatePopulation,
+        specialty,
+        formatNumber(numAdequatePopulation),
+        formatNumber(numInadequatePopulation),
+        formatPercentage(percentAdequatePopulation),
+        formatPercentage(percentInadequatePopulation),
         minDistance(adequacies),
         averageDistance(adequacies),
         maxDistance(adequacies),
