@@ -98,15 +98,15 @@ export let MapView = withStore(
       {representativePoints.length && <GeoJSONLayer
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
-        circleOnClick={(point) => store.set('representativePointClicked')(point)}
+        circleOnClick={(point: any) => store.set('representativePointClicked')(point)}
       />}
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
-        circleOnClick={(point) => store.set('providerClicked')(point)}
+        circleOnClick={(point: any) => store.set('providerClicked')(point)}
       />}
-      {representativePointClicked && <RepresentativePointPopup point={representativePointClicked} />}
-      {providerClicked && <ProviderPopup point={providerClicked} />}
+      {representativePointClicked && RepresentativePointPopup(representativePointClicked)}
+      {providerClicked && ProviderPopup(providerClicked)}
 
       <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
       <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />

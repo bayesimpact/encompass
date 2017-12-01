@@ -15,7 +15,6 @@ const TableRow = ({ name, value }: TableRowProps) => (
 )
 
 export function ProviderPopup(point: any) {
-  console.log(point)
   /**
    * TODO: expose info for all providers with the same address,
    * not only the first one.
