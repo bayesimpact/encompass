@@ -3,8 +3,8 @@ import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
-import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
+import { CSVUploader } from '../CSVUploader/CSVUploader'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing

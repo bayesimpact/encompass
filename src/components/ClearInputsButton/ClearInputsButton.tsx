@@ -12,7 +12,5 @@ export let ClearInputsButton: React.StatelessComponent<Props> = ({ onClearInputs
       containerElement='label'
       primary={true}
       label='clear inputs'
-      onClick={onClearInputs}
-    >
-    </FlatButton>
+      onClick={onClearInputs} />
   </div>

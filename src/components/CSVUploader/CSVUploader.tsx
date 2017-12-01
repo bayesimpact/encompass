@@ -14,11 +14,12 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ onUpload }) =>
       label='upload CSV'
     >
       <input
-        onChange={
-          e => {
-            e.target.files && onUpload(e.target.files[0])
-            e.currentTarget.value = ''
+        onChange={e => {
+          if (e.target.files) {
+            onUpload(e.target.files[0])
           }
+          e.currentTarget.value = ''
+        }
         }
         type='file'
         accept='.csv'

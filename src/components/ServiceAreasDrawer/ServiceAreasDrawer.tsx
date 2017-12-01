@@ -6,11 +6,11 @@ import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
 import { capitalizeWords } from '../../utils/string'
+import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
 import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
-import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
