@@ -43,8 +43,8 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
 
 
 def adequacy_request(app, flask_request):
-    """Handle /api/providers requests."""
-    app.logger.info('Fetching representative_points.')
+    """Handle /api/adequacy/ requests."""
+    app.logger.info('Calculating adequacies.')
     try:
         request = flask_request.get_json(force=True)
     except json.JSONDecodeError:
@@ -58,7 +58,10 @@ def adequacy_request(app, flask_request):
     provider_ids = request['provider_ids']
     service_area_ids = request['service_area_ids']
 
-    return adequacy.calculate_adequacies(
-        service_area_ids=service_area_ids,
-        provider_ids=provider_ids
-    )
+    if provider_ids and service_area_ids:
+        return adequacy.calculate_adequacies(
+            service_area_ids=service_area_ids,
+            provider_ids=provider_ids
+        )
+    else:
+        return []
