@@ -1,6 +1,5 @@
 import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
-import './ClearInputsButton.css'
 
 type Props = {
   onClearInputs(): void
