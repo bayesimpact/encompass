@@ -111,7 +111,7 @@ function readRow(csvRow: string[], columnIndices: number[]) {
   })
 }
 
-export function generateCSV(headers: string[], data: (string | number)[][]) {
+export function generateCSV(headers: string[], data: (string | number | null)[][]) {
   return unparse({ fields: headers, data })
 }
 

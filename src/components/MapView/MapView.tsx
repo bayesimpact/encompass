@@ -3,6 +3,7 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
 import { withStore } from '../../services/store'
+import { representativePointsFromServiceAreas } from '../../utils/data'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
 
@@ -57,12 +58,17 @@ export let MapView = withStore(
   'mapCenter',
   'mapZoom',
   'providers',
-  'representativePoints'
+  'representativePoints',
+  'selectedServiceArea'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
-  let bounds = boundingBox(representativePoints)
+  let selectedServiceArea = store.get('selectedServiceArea')
+  let bounds = boundingBox(selectedServiceArea
+    ? representativePointsFromServiceAreas([selectedServiceArea], store).value()
+    : representativePoints
+  )
   let shouldAutoAdjustMap = store.get('shouldAutoAdjustMap')
 
   // Don't auto-adjust on next render (manual pan/zoom, etc. rerender the map).
@@ -72,7 +78,7 @@ export let MapView = withStore(
 
   return <div className='MapView'>
     <Map
-      fitBounds={bounds && shouldAutoAdjustMap
+      fitBounds={bounds && (selectedServiceArea || shouldAutoAdjustMap)
         ? new LngLatBounds(
           new LngLat(bounds.sw.lng, bounds.sw.lat),
           new LngLat(bounds.ne.lng, bounds.ne.lat)
@@ -90,6 +96,7 @@ export let MapView = withStore(
         circlePaint={representativePointCircleStyle}
       />}
       {providers.length && <GeoJSONLayer
+        circleOnClick={p => null}
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
       />}
