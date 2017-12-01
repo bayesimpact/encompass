@@ -21,7 +21,7 @@ export type Provider = {
   lat: number
   lng: number
   npi: number
-  specialty: string
+  specialty: string | null
 }
 
 export type Standard = 'time_distance' | 'time' | 'distance'
