@@ -1,11 +1,11 @@
 import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
-import ReactMapboxGl, { GeoJSONLayer, Popup, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
 import { Store, withStore } from '../../services/store'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import './MapView.css'
-
+import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 const { MAPBOX_TOKEN } = process.env
 
 if (!MAPBOX_TOKEN) {
@@ -52,67 +52,6 @@ const FIT_BOUNDS_OPTIONS = {
   padding: 20
 }
 
-type TableRowProps = {
-  name: string
-  value: number
-}
-
-const TableRow = ({ name, value }: TableRowProps) => (
-  <tr>
-    <td>{name}</td>
-    <td style={{ paddingLeft: 15 }}>{value}</td>
-  </tr>
-)
-
-function providerPopup(point: any) {
-  console.log(point)
-  /**
-   * TODO: expose info for all providers with the same address,
-   * not only the first one.
-   */
-  let pointProps = point.features[0].properties
-  return (
-    <div className='popup-container'>
-      <Popup
-        offset={[0, -20]}
-        anchor='bottom'
-        coordinates={point.lngLat} >
-        <table className='popup-table'>
-          <tbody>
-            <TableRow name='Address' value={pointProps.address} />
-            <TableRow name='Specialty' value={pointProps.specialty} />
-            <TableRow name='Lat' value={point.lngLat['lat'].toFixed(4)} />
-            <TableRow name='Long' value={point.lngLat['lng'].toFixed(4)} />
-          </tbody>
-        </table>
-      </Popup>
-    </div>
-  )
-}
-
-function representativePointPopup(point: any) {
-  let pointProps = point.features[0].properties
-  console.log(point)
-  return (
-    <div className='popup-container'>
-      <Popup
-        offset={[0, -20]}
-        anchor='bottom'
-        coordinates={point.lngLat} >
-        <table className='popup-table'>
-          <tbody>
-            <TableRow name='County' value={pointProps.county} />
-            <TableRow name='ZIP' value={pointProps.zip} />
-            <TableRow name='Population' value={pointProps.population} />
-            <TableRow name='Lat' value={point.lngLat['lat'].toFixed(4)} />
-            <TableRow name='Long' value={point.lngLat['lng'].toFixed(4)} />
-          </tbody>
-        </table>
-      </Popup>
-    </div>
-  )
-}
-
 function removePopup(store: Store) {
   store.set('providerClicked')(null)
   store.set('representativePointClicked')(null)
@@ -157,23 +96,17 @@ export let MapView = withStore(
       onClick={() => removePopup(store)}
     >
       {representativePoints.length && <GeoJSONLayer
-        id='representativePoints'
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
-        circleOnClick={(point: any) => store.set('representativePointClicked')(point)}
-        circleOnMouseEnter={() => store.set('mapCursor')('pointer')}
-        circleOnMouseLeave={() => store.set('mapCursor')('')}
+        circleOnClick={(point) => store.set('representativePointClicked')(point)}
       />}
       {providers.length && <GeoJSONLayer
-        id='providers'
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
-        circleOnClick={(point: any) => store.set('providerClicked')(point)}
-        circleOnMouseEnter={() => store.set('mapCursor')('pointer')}
-        circleOnMouseLeave={() => store.set('mapCursor')('')}
+        circleOnClick={(point) => store.set('providerClicked')(point)}
       />}
-      {representativePointClicked && representativePointPopup(representativePointClicked)}
-      {providerClicked && providerPopup(providerClicked)}
+      {representativePointClicked && <RepresentativePointPopup point={representativePointClicked} />}
+      {providerClicked && <ProviderPopup point={providerClicked} />}
 
       <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
       <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />
