@@ -10,6 +10,7 @@ import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
+import './ServiceAreasDrawer.css'
 import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
 
 /**
@@ -30,7 +31,6 @@ export let ServiceAreasDrawer = withStore(
     }</p>
 
     <hr />
-    <ClearInputsButton onClearInputs={onClearInputs(store)} />
     <StateSelector />
     <CountySelector
       onChange={store.set('counties')}
@@ -41,6 +41,8 @@ export let ServiceAreasDrawer = withStore(
       onChange={store.set('serviceAreas')}
       selectedServiceAreas={store.get('serviceAreas')}
     />
+    <ClearInputsButton onClearInputs={onClearInputs(store)} />
+
   </Drawer >
   )
 
