@@ -1,6 +1,8 @@
 import { chain, memoize } from 'lodash'
 import { serializeServiceArea } from '../utils/serializers'
 
+export const STATES: string[] = ['california', 'texas']
+
 export const COUNTIES_TO_ZIPS: {
   [county: string]: string[]
 } = {

@@ -19,6 +19,7 @@ import './ServiceAreasDrawer.css'
 export let ServiceAreasDrawer = withStore(
   'counties',
   'serviceAreas',
+  'state',
   'uploadedServiceAreasFilename'
 )(({ store }) =>
   <Drawer className='LeftDrawer' open={true}>
@@ -31,7 +32,10 @@ export let ServiceAreasDrawer = withStore(
     }</p>
 
     <hr />
-    <StateSelector />
+    <StateSelector
+      onChange={store.set('state')}
+      selectedState={store.get('state')}
+    />
     <CountySelector
       onChange={store.set('counties')}
       selectedCounties={store.get('counties')}
