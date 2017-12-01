@@ -1,5 +1,6 @@
 """Caclulate adequacy metrics."""
 import collections
+import multiprocessing
 
 from backend.lib.database.postgres import connect
 from backend.lib.database.tables import address, service_area
@@ -13,7 +14,8 @@ from sqlalchemy.orm import sessionmaker
 # TODO - Use config or environment variable.
 MEASURER = distance.get_measure('haversine')
 EXIT_DISTANCE = 10.0    # Measured in miles.
-RELEVANCY_RADIUS_IN_METERS = 24140.2    # 15 miles in meters.
+RELEVANCY_RADIUS_IN_METERS = 24140.2    # 15 miles in meters. Do not go lower than this.
+NUM_ADEQUACY_PROCESSORS = 8
 
 
 def _find_closest_provider(point, providers, exit_distance_in_miles=None):
@@ -96,25 +98,22 @@ def calculate_adequacies(
 
     all_addresses = _fetch_addresses_from_ids(provider_ids, engine)
 
-    missing_areas = [
-        _id for _id in service_area_ids if _id not in addresses_to_check_by_service_area
-    ]
-    # If no nearby providers were found, use the full list of addresses.
-    for missing_area in missing_areas:
-        addresses_to_check_by_service_area[missing_area] = all_addresses
-
     points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids, format_response=False)
 
     # TODO - Split analyis by specialty.
-    adequacies_response = [
-        _find_closest_provider(
-            point=point,
-            providers=addresses_to_check_by_service_area[point['service_area_id']],
-            exit_distance_in_miles=EXIT_DISTANCE
-        )
-        for point in points
-    ]
+    multiprocessing_args = ((
+        point,
+        addresses_to_check_by_service_area.get(point['service_area_id'], all_addresses),
+        EXIT_DISTANCE
+    ) for point in points
+    )
+
+    pool = multiprocessing.Pool(NUM_ADEQUACY_PROCESSORS)
+    adequacies_response = pool.starmap(_find_closest_provider, multiprocessing_args)
+    pool.close()
+    pool.join()
+
     print('Returning adequacy results.')
     return adequacies_response
 
