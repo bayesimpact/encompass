@@ -27,6 +27,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
+        disabled
         onChange={(_e, _i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
@@ -40,6 +41,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
+        disabled
         onChange={(_e, _i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >

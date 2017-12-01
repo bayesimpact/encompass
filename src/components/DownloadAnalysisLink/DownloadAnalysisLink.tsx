@@ -2,7 +2,7 @@ import { FlatButton } from 'material-ui'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
-import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime } from '../../utils/analytics'
+import { averageDistance, maxDistance, minDistance } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatistics } from '../../utils/data'
 import { download } from '../../utils/download'
@@ -59,9 +59,9 @@ function onClick(store: Store) {
         minDistance(adequacies),
         averageDistance(adequacies),
         maxDistance(adequacies),
-        minTime(adequacies),
-        averageTime(adequacies),
-        maxTime(adequacies)
+        '-',
+        '-',
+        '-'
       ]
     })
     let csv = generateCSV(headers, data)

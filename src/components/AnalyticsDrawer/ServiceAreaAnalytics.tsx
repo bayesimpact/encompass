@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
-import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime } from '../../utils/analytics'
+import { averageDistance, maxDistance, minDistance } from '../../utils/analytics'
 import { adequaciesFromServiceArea } from '../../utils/data'
 import { formatNumber } from '../../utils/formatters'
 import { AdequacyDoughnut } from '../AdequacyDoughnut/AdequacyDoughnut'
@@ -32,9 +32,9 @@ export let ServiceAreaAnalytics = withStore(
       </tr>
       <tr>
         <th>Time (min)</th>
-        <td>{formatNumber(averageTime(adequacies))}</td>
-        <td>{formatNumber(minTime(adequacies))}</td>
-        <td>{formatNumber(maxTime(adequacies))}</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
       </tr>
     </StatsBox>
   </div>
