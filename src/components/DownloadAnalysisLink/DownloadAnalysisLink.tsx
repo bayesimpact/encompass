@@ -48,10 +48,14 @@ function onClick(store: Store) {
         percentAdequatePopulation,
         percentInadequatePopulation
       } = summaryStatistics([_], store)
+      let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
+      if (specialty == null) {
+        specialty = '-'
+      }
       return [
         representativePoint.county,
         representativePoint.zip,
-        store.get('providers')[0].specialty, // TODO: Is this safe to assume?
+        specialty,
         numAdequatePopulation,
         numInadequatePopulation,
         percentAdequatePopulation,
