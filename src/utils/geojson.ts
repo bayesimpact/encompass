@@ -43,7 +43,7 @@ export function representativePointToFeature(adequacies: Adequacies) {
       isAdequate: colorAdequacy(adequacies, point.id),
       population: point.population,
       service_area_id: point.serviceAreaId,
-      zip: point.zip,
+      zip: point.zip
     },
     geometry: {
       type: 'Point',
