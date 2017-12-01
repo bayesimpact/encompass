@@ -27,12 +27,11 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Adequacy standard</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        disabled
         onChange={(_e, _i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
-        <MenuItem value='time_distance' primaryText='Time and Distance' />
-        <MenuItem value='time' primaryText='Time' />
+        <MenuItem value='time_distance' primaryText='Time and Distance' disabled={true}/>
+        <MenuItem value='time' primaryText='Time' disabled={true} />
         <MenuItem value='distance' primaryText='Distance' />
       </DropDownMenu>
     </div>
@@ -41,7 +40,6 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
       <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        disabled
         onChange={(_e, _i, value) => store.set('measure')(value)}
         value={store.get('measure')}
       >
