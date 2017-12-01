@@ -14,7 +14,7 @@
     "start:prod": "webpack-dev-server --config webpack.config.prod.js --host 0.0.0.0",
     "tdd": "concurrently -k 'jest --watch' 'npm run start' 'npm run watch'",
     "test": "jest",
-    "watch": "webpack -w"
+    "watch": "concurrently -k 'webpack -w' 'webpack-dev-server'"
   },
   "dependencies": {
     "babydux": "^2.0.1",

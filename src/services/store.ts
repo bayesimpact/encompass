@@ -116,7 +116,7 @@ let store = withEffects(createStore<Actions>({
   selectedServiceArea: null,
   serviceAreas: [],
   shouldAutoAdjustMap: true,
-  standard: 'time_distance',
+  standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
