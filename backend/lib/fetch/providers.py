@@ -55,7 +55,6 @@ def fetch_providers(providers, geocoder_name='geocodio', engine=connect.create_d
     if not providers:
         return []
 
-    engine = connect.create_db_engine()
     session = sessionmaker(bind=engine)()
 
     provider_responses = []

@@ -1,6 +1,7 @@
 """Test providers requests for Time-Distance API."""
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.requests import representative_points
+from backend.lib.database.postgres import connect
 
 import flask
 
@@ -9,6 +10,8 @@ from flask_testing import LiveServerTestCase
 import mock
 
 import pytest
+
+engine = connect.create_db_engine()
 
 
 class TestRepresentativePointsRequest(LiveServerTestCase):
@@ -28,8 +31,11 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
             return request_service_areas
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
+
         try:
-            results = representative_points.representative_points_request(self.app, mock_request)
+            results = representative_points.representative_points_request(
+                self.app, mock_request, engine
+            )
             assert len(results) == 13
             assert all(
                 result['service_area_id'] in request_service_areas['service_area_ids']
@@ -46,5 +52,6 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
             return request_service_areas
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
+
         with pytest.raises(InvalidFormat):
-            representative_points.representative_points_request(self.app, mock_request)
+            representative_points.representative_points_request(self.app, mock_request, engine)

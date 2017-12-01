@@ -1,6 +1,7 @@
 """Test providers requests for Time-Distance API."""
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.requests import adequacy
+from backend.lib.database.postgres import connect
 
 import flask
 
@@ -9,6 +10,8 @@ from flask_testing import LiveServerTestCase
 import mock
 
 import pytest
+
+engine = connect.create_db_engine()
 
 
 class TestProvidersRequest(LiveServerTestCase):
@@ -33,7 +36,7 @@ class TestProvidersRequest(LiveServerTestCase):
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
         try:
-            adequacy.adequacy_request(self.app, mock_request)
+            adequacy.adequacy_request(self.app, mock_request, engine)
         except TypeError:
             pytest.fail('Could not fetch providers.')
 
@@ -49,4 +52,4 @@ class TestProvidersRequest(LiveServerTestCase):
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
         with pytest.raises(InvalidFormat):
-            adequacy.adequacy_request(self.app, mock_request)
+            adequacy.adequacy_request(self.app, mock_request, engine)

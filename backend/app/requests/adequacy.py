@@ -42,7 +42,7 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
     ]
 
 
-def adequacy_request(app, flask_request):
+def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
     app.logger.info('Calculating adequacies.')
     try:
@@ -60,8 +60,8 @@ def adequacy_request(app, flask_request):
 
     if provider_ids and service_area_ids:
         return adequacy.calculate_adequacies(
+            engine=engine,
             service_area_ids=service_area_ids,
             provider_ids=provider_ids
         )
-    else:
-        return []
+    return []

@@ -64,8 +64,8 @@ def _fetch_addresses_from_ids(address_ids, engine):
 def calculate_adequacies(
     service_area_ids,
     provider_ids,
-    radius_in_meters=RELEVANCY_RADIUS_IN_METERS,
-    engine=connect.create_db_engine()
+    engine,
+    radius_in_meters=RELEVANCY_RADIUS_IN_METERS
 ):
     """
     Calculate adequacies.
@@ -87,7 +87,7 @@ def calculate_adequacies(
         service_area_ids=service_area_ids,
         provider_ids=provider_ids,
         radius_in_meters=radius_in_meters,
-        engine=connect.create_db_engine()
+        engine=engine
     )
     for row in query_results:
         addresses_to_check_by_service_area[row['service_area_id']].append({

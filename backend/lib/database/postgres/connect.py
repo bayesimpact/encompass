@@ -13,4 +13,4 @@ def create_db_engine(db_url=os.getenv('POSTGRES_URL'), echo=False):
     Example url "host=postgres port=5432 user=postgres password=*** dbname=postgres".
     """
     logger.info('Creating Postgres engine.')
-    return create_engine(db_url, echo=echo)
+    return create_engine(db_url, pool_size=20, max_overflow=0, echo=echo)

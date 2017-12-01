@@ -36,7 +36,7 @@ from backend.lib.fetch import providers
 from backend.app.exceptions.format import InvalidFormat
 
 
-def providers_request(app, flask_request):
+def providers_request(app, flask_request, engine):
     """Handle /api/providers requests."""
     app.logger.info('Fetching providers.')
     try:
@@ -44,4 +44,4 @@ def providers_request(app, flask_request):
         provider_addresses = request_json['providers']
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
-    return providers.fetch_providers(provider_addresses)
+    return providers.fetch_providers(provider_addresses, engine=engine,)

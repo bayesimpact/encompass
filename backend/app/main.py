@@ -1,5 +1,6 @@
 """Routing for backend API."""
 from backend.app.requests import adequacy, providers, representative_points, service_areas
+from backend.lib.database.postgres import connect
 from backend.lib.timer import timed
 
 import flask
@@ -7,6 +8,7 @@ import flask
 from flask_cors import CORS
 
 app = flask.Flask(__name__)
+engine = connect.create_db_engine()
 
 CORS(app, resources={r'/api/*': {'origins': '*'}})
 
@@ -16,7 +18,7 @@ CORS(app, resources={r'/api/*': {'origins': '*'}})
 def fetch_service_areas():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return service areas.')
-    response = service_areas.service_area_request(app, flask.request)
+    response = service_areas.service_area_request(app, flask.request, engine)
     return flask.jsonify(response)
 
 
@@ -25,7 +27,7 @@ def fetch_service_areas():
 def fetch_providers():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Fetch provider ids.')
-    response = providers.providers_request(app, flask.request)
+    response = providers.providers_request(app, flask.request, engine)
     return flask.jsonify(response)
 
 
@@ -34,7 +36,7 @@ def fetch_providers():
 def fetch_representative_points():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Fetch representative_points for the specifed service areas.')
-    response = representative_points.representative_points_request(app, flask.request)
+    response = representative_points.representative_points_request(app, flask.request, engine)
     return flask.jsonify(response)
 
 
@@ -43,7 +45,7 @@ def fetch_representative_points():
 def calculate_adequacies():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Calculate time distance standards.')
-    response = adequacy.adequacy_request(app, flask.request)
+    response = adequacy.adequacy_request(app, flask.request, engine)
     return flask.jsonify(response)
 
 
