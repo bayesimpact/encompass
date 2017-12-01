@@ -66,10 +66,10 @@ const TableRow = ({ name, value }: TableRowProps) => (
 
 function providerPopup(point: any) {
   console.log(point)
-  /*
-    TODO: expose info for all providers with the same address,
-    not only the first one.
-  */
+  /**
+   * TODO: expose info for all providers with the same address,
+   * not only the first one.
+   */
   let pointProps = point.features[0].properties
   return (
     <div className='popup-container'>

@@ -15,6 +15,9 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
   })
 }
 
+/**
+ * Expose name info.
+ */
 function providerToFeature(
   point: Provider
 ): GeoJSON.Feature<GeoJSON.GeometryObject> {
