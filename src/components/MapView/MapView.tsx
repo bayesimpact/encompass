@@ -3,6 +3,7 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
 import { Store, withStore } from '../../services/store'
+import { representativePointsFromServiceAreas } from '../../utils/data'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
@@ -62,15 +63,20 @@ export let MapView = withStore(
   'adequacies',
   'mapCenter',
   'mapZoom',
-  'providers',
-  'representativePoints',
   'providerClicked',
-  'representativePointClicked'
+  'providers',
+  'representativePointClicked',
+  'representativePoints',
+  'selectedServiceArea'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
-  let bounds = boundingBox(representativePoints)
+  let selectedServiceArea = store.get('selectedServiceArea')
+  let bounds = boundingBox(selectedServiceArea
+    ? representativePointsFromServiceAreas([selectedServiceArea], store).value()
+    : representativePoints
+  )
   let shouldAutoAdjustMap = store.get('shouldAutoAdjustMap')
   let representativePointClicked = store.get('representativePointClicked')
   let providerClicked = store.get('providerClicked')
@@ -83,7 +89,7 @@ export let MapView = withStore(
 
   return <div className='MapView'>
     <Map
-      fitBounds={bounds && shouldAutoAdjustMap
+      fitBounds={bounds && (selectedServiceArea || shouldAutoAdjustMap)
         ? new LngLatBounds(
           new LngLat(bounds.sw.lng, bounds.sw.lat),
           new LngLat(bounds.ne.lng, bounds.ne.lat)
