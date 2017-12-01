@@ -9,6 +9,13 @@ type Actions = {
   adequacies: Adequacies
 
   /**
+   * State selected by the user in the Service Area Drawer.
+   *
+   * `STATES` (in zipCodes.ts) enumerates all available States.
+   */
+  state: string
+
+  /**
    * Counties selected by the user in the Service Area Drawer.
    *
    * `COUNTIES` (in zipCodes.ts) enumerates all available Counties.
@@ -111,6 +118,7 @@ type Actions = {
  */
 let store = withEffects(createStore<Actions>({
   adequacies: {},
+  state: 'texas',
   counties: [],
   distribution: 0.5,
   error: null,
