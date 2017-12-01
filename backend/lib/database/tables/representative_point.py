@@ -53,6 +53,7 @@ def row_to_dict(rp_row, format_response=True):
         return rp_dict
     return {
         'id': rp_dict['id'],
+        'census_tract': rp_dict['census_tract'],
         'county': rp_dict['county'],
         'lat': rp_dict['latitude'],
         'lng': rp_dict['longitude'],

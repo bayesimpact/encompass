@@ -11,6 +11,7 @@ def test_representative_point_to_row():
     """
     rp_row = {
         'id': 123,
+        'census_tract': None,
         'county': 'county',
         'latitude': 40,
         'longitude': -79,
@@ -21,6 +22,7 @@ def test_representative_point_to_row():
 
     expected_output = {
         'id': 123,
+        'census_tract': None,
         'county': 'county',
         'lat': 40,
         'lng': -79,
