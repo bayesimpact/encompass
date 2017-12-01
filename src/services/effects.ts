@@ -45,9 +45,12 @@ export function withEffects(store: Store<Actions>) {
    * When service areas change, auto-center and auto-zoom to a bounding
    * box containing all service areas.
    */
-  store.on('serviceAreas').subscribe(() =>
+  Observable.combineLatest(
+    store.on('serviceAreas').startWith(store.get('serviceAreas')),
+    store.on('selectedServiceArea').startWith(store.get('selectedServiceArea'))
+  ).subscribe(() =>
     store.set('shouldAutoAdjustMap')(true)
-  )
+    )
 
   /**
    * Geocode providers when uploadedProviders changes
