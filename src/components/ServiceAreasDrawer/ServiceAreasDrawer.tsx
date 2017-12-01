@@ -57,6 +57,7 @@ function onFileSelected(store: Store) {
 
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
+    store.set('uploadedServiceAreasFilename')(file.name)
   }
 }
 
