@@ -102,8 +102,8 @@ function representativePointPopup(point: any) {
       <h2> Representative Point </h2>
       <table>
         <tbody>
-          <TableRow name='Adequacy' value={pointProps.isAdequate} />
-          <TableRow name='Service Area Id' value={pointProps.service_area_id} />
+          <TableRow name='County' value={pointProps.county} />
+          <TableRow name='ZIP' value={pointProps.zip} />
           <TableRow name='Population' value={pointProps.population} />
           <TableRow name='Lat' value={point.lngLat['lat']} />
           <TableRow name='Long' value={point.lngLat['lng']} />
