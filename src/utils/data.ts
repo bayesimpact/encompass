@@ -1,4 +1,4 @@
-import { chain, keyBy, round } from 'lodash'
+import { chain, keyBy } from 'lodash'
 import { Adequacy, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
 import { totalPopulation } from './analytics'
