@@ -38,8 +38,9 @@ function onFileSelected(store: Store) {
 
 function onClearInputs(store: Store) {
   return () => {
-    store.set('uploadedProviders')([])
+    store.set('providers')([])
     store.set('uploadedProvidersFilename')('')
+    store.set('adequacies')({})
   }
 }
 
