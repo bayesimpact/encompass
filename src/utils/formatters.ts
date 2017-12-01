@@ -25,7 +25,7 @@ export function formatPercentage(n: number) {
   if (Number.isNaN(n)) {
     return '-'
   }
-  return n.toFixed(2).toLocaleString()
+  return n.toFixed(2).toLocaleString() + '%'
 }
 
 export function formatServiceArea(serializedServiceArea: string) {

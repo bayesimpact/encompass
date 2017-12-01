@@ -61,8 +61,8 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         <th>Inadequate Access</th>
       </tr>
       <tr>
-        <td>{formatNumber(numAdequatePopulation)} ({formatPercentage(percentAdequatePopulation)}%)</td>
-        <td>{formatNumber(numInadequatePopulation)} ({formatPercentage(percentInadequatePopulation)}%)</td>
+        <td>{formatNumber(numAdequatePopulation)} ({formatPercentage(percentAdequatePopulation)})</td>
+        <td>{formatNumber(numInadequatePopulation)} ({formatPercentage(percentInadequatePopulation)})</td>
       </tr>
       <tr>
         <th>Adequate Points</th>
