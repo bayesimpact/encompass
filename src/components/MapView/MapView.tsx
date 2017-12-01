@@ -72,21 +72,22 @@ function providerPopup(point: any) {
   */
   let pointProps = point.features[0].properties
   return (
-    <Popup
-      offset={[0, -20]}
-      anchor='bottom'
-      coordinates={point.lngLat}
-      className='Popup' >
-      <h2> Provider </h2>
-      <table>
-        <tbody>
-          <TableRow name='Address' value={pointProps.address} />
-          <TableRow name='Specialty' value={pointProps.specialty} />
-          <TableRow name='Lat' value={point.lngLat['lat']} />
-          <TableRow name='Long' value={point.lngLat['lng']} />
-        </tbody>
-      </table>
-    </Popup>
+    <div className='popup-container'>
+      <Popup
+        offset={[0, -20]}
+        anchor='bottom'
+        coordinates={point.lngLat} >
+        <h2> Provider </h2>
+        <table className='popup-table'>
+          <tbody>
+            <TableRow name='Address' value={pointProps.address} />
+            <TableRow name='Specialty' value={pointProps.specialty} />
+            <TableRow name='Lat' value={point.lngLat['lat']} />
+            <TableRow name='Long' value={point.lngLat['lng']} />
+          </tbody>
+        </table>
+      </Popup>
+    </div>
   )
 }
 
@@ -94,22 +95,23 @@ function representativePointPopup(point: any) {
   let pointProps = point.features[0].properties
   console.log(point)
   return (
-    <Popup
-      offset={[0, -20]}
-      anchor='bottom'
-      coordinates={point.lngLat}
-      className='Popup' >
-      <h2> Representative Point </h2>
-      <table>
-        <tbody>
-          <TableRow name='County' value={pointProps.county} />
-          <TableRow name='ZIP' value={pointProps.zip} />
-          <TableRow name='Population' value={pointProps.population} />
-          <TableRow name='Lat' value={point.lngLat['lat']} />
-          <TableRow name='Long' value={point.lngLat['lng']} />
-        </tbody>
-      </table>
-    </Popup>
+    <div className='popup-container'>
+      <Popup
+        offset={[0, -20]}
+        anchor='bottom'
+        coordinates={point.lngLat} >
+        <h2> Representative Point </h2>
+        <table className='popup-table'>
+          <tbody>
+            <TableRow name='County' value={pointProps.county} />
+            <TableRow name='ZIP' value={pointProps.zip} />
+            <TableRow name='Population' value={pointProps.population} />
+            <TableRow name='Lat' value={point.lngLat['lat']} />
+            <TableRow name='Long' value={point.lngLat['lng']} />
+          </tbody>
+        </table>
+      </Popup>
+    </div>
   )
 }
 

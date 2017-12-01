@@ -15,11 +15,15 @@
   width: 100%;
 }
 
-.Popup .h2 {
-  color: '#ddd';
+h2 {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.Popup .table {
+.popup-container .mapboxgl-popup-content {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-table {
   font-size: 14;
-  color: '#ddd';
+  color: rgba(255, 255, 255, 0.8);
 }
