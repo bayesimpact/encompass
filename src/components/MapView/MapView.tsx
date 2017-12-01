@@ -2,9 +2,9 @@ import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
-import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import { Store, withStore } from '../../services/store'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
+import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
 
 const { MAPBOX_TOKEN } = process.env

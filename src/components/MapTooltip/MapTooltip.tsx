@@ -1,6 +1,6 @@
-import { formatCoordinate } from '../../utils/formatters'
-import { Popup } from 'react-mapbox-gl'
 import * as React from 'react'
+import { Popup } from 'react-mapbox-gl'
+import { formatCoordinate } from '../../utils/formatters'
 
 type TableRowProps = {
   name: string
