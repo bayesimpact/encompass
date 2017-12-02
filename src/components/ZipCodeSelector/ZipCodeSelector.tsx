@@ -39,7 +39,7 @@ export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
         <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
         <div className='ZipList'>
           {COUNTIES_TO_ZIPS[county].map(zip => {
-            let key = serializeServiceArea('ca', county, zip)
+            let key = serializeServiceArea('tx', county, zip)
             return <ListItem
               className='ListItem'
               key={key}
