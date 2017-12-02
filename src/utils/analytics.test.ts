@@ -1,16 +1,17 @@
 import { chain } from 'lodash'
+import { AdequacyMode } from '../constants/datatypes'
 import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime, totalPopulation } from './analytics'
 
 let adequacies1 = chain([
-  { isAdequate: false, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { isAdequate: false, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { isAdequate: false, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { isAdequate: false, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: 63, closestProviderByTime: 63 }
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: 63, closestProviderByTime: 63 },
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: 63, closestProviderByTime: 63 },
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: 63, closestProviderByTime: 63 },
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: 63, closestProviderByTime: 63 }
 ])
 
 let adequacies2 = chain([
-  { isAdequate: false, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { isAdequate: false, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 }
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 },
+  { adequacy: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 }
 ])
 
 let representativePoints1 = chain([

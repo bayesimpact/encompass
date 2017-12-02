@@ -42,8 +42,8 @@ export function representativePointToFeature(adequacies: Adequacies) {
     id: point.id,
     type: 'Feature',
     properties: {
+      adequacy: colorAdequacy(adequacies, point.id),
       county: point.county,
-      isAdequate: colorAdequacy(adequacies, point.id),
       population: point.population,
       service_area_id: point.serviceAreaId,
       zip: point.zip
@@ -57,18 +57,15 @@ export function representativePointToFeature(adequacies: Adequacies) {
 
 /**
  * Mapbox `stops` feature requires that all stops be of the same type.
- * For example, `true` and `false` are both booleans, but `undefined`
- * is not. We convert booleans and `undefined` to strings so their
- * types are the same when we pass them to Mapbox.
+ * For example, `AdequacyMode.ADEQUATE` is a string, but `undefined`
+ * is not. We convert `undefined` to a string so colors all have the
+ * same type when we pass them to Mapbox.
  */
-function colorAdequacy(adequacies: Adequacies, pointId: number) {
+function colorAdequacy(adequacies: Adequacies, pointId: number): string {
   if (!(pointId in adequacies)) {
     return 'undefined'
   }
-  switch (adequacies[pointId].isAdequate) {
-    case true: return 'true'
-    case false: return 'false'
-  }
+  return adequacies[pointId].adequacy
 }
 
 /**
