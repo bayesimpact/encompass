@@ -3,7 +3,7 @@ import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '..
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
-export type Actions = {
+type Actions = {
 
   adequacies: Adequacies
 

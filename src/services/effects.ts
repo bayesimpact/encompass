@@ -1,12 +1,11 @@
-import { Store } from 'babydux'
 import { chain } from 'lodash'
 import { Observable } from 'rx'
 import { Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
 import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
-import { Actions } from './store'
+import { Store } from './store'
 
-export function withEffects(store: Store<Actions>) {
+export function withEffects(store: Store) {
 
   /**
    * Update representative points when distribution or serviceAreas change

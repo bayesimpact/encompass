@@ -1,7 +1,6 @@
-import { Store } from 'babydux'
-import { Actions } from './store'
+import { Store } from './store'
 
-export function withDemo(store: Store<Actions>) {
+export function withDemo(store: Store) {
 
   store.set('serviceAreas')(['ca_san_francisco_94014', 'ca_san_francisco_94102'])
   store.set('counties')(['San Francisco'])
