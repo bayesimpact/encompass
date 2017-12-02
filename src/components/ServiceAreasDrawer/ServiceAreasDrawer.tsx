@@ -1,7 +1,7 @@
 import { chain, flatten } from 'lodash'
 import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
+import { COUNTIES_TO_ZIPS, countiesFromZip, STATE_TO_STATE_ID, zipsFromCounty } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
@@ -59,7 +59,7 @@ function onFileSelected(store: Store) {
       store.set('error')(e.toString())
     )
     store.set('counties')(getCounties(serviceAreas))
-    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
+    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea(STATE_TO_STATE_ID[store.get('state')], county, zip)))
     store.set('uploadedServiceAreasFilename')(file.name)
   }
 }
