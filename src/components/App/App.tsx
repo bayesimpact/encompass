@@ -8,9 +8,10 @@ import { FilterBar } from '../FilterBar/FilterBar'
 import { Header } from '../Header/Header'
 import { LeftPane } from '../LeftPane/LeftPane'
 import { MapView } from '../MapView/MapView'
+import { withRoutes } from '../Router/Router'
 import './App.css'
 
-export let App = withStore('error', 'success')(({ store }) =>
+export let App = withRoutes(withStore('error', 'success')(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>
       <Header />
@@ -27,4 +28,4 @@ export let App = withStore('error', 'success')(({ store }) =>
       />
     </div>
   </MuiThemeProvider>
-)
+))

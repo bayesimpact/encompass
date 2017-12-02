@@ -1,4 +1,3 @@
-import Drawer from 'material-ui/Drawer'
 import ProvidersIcon from 'mui-icons/cmdi/account-multiple'
 import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
@@ -48,12 +47,12 @@ let Analytics = withStore(
  * or necessary data is being fetched.
  */
 export let AnalyticsDrawer = withStore('selectedServiceArea')(({ store }) =>
-  <Drawer className='LeftDrawer' open={true}>
+  <div>
     <h2>Analytics</h2>
     <ServiceAreaSelector
       onChange={store.set('selectedServiceArea')}
       value={store.get('selectedServiceArea')}
     />
     <Analytics />
-  </Drawer>
+  </div>
 )

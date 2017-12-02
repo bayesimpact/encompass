@@ -1,5 +1,4 @@
 import { chain, flatten } from 'lodash'
-import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
@@ -21,7 +20,7 @@ export let ServiceAreasDrawer = withStore(
   'serviceAreas',
   'uploadedServiceAreasFilename'
 )(({ store }) =>
-  <Drawer className='LeftDrawer' open={true}>
+  <div>
     <h2>Service Areas</h2>
     <CSVUploader onUpload={onFileSelected(store)} />
     <p className='Ellipsis Muted SmallFont'>{
@@ -43,7 +42,7 @@ export let ServiceAreasDrawer = withStore(
     />
     <ClearInputsButton onClearInputs={onClearInputs(store)} />
 
-  </Drawer >
+  </div >
   )
 
 function onFileSelected(store: Store) {
