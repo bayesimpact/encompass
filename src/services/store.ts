@@ -122,7 +122,7 @@ export type Actions = {
  */
 let store = withEffects(createStore<Actions>({
   adequacies: {},
-  state: 'california',
+  state: 'texas',
   counties: [],
   distribution: 0.5,
   error: null,
