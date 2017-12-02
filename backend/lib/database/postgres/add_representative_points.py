@@ -8,6 +8,8 @@ from backend.lib.database.tables import representative_point, service_area
 
 import geojson
 
+STATE_TO_STATE_ID = {'california': 'ca', 'texas': 'tx'}
+
 
 def _load_geojson_features(json_path='data/representative_points.geojson'):
     """Load representative points data as a GeoJSON feature collection."""
@@ -17,9 +19,9 @@ def _load_geojson_features(json_path='data/representative_points.geojson'):
     return json_features
 
 
-def insert_service_areas(json_features=_load_geojson_features()):
+def insert_service_areas(state, json_features=_load_geojson_features()):
     """Insert service areas into the database from a GeoJSON file."""
-    data = _get_all_service_areas(json_features)
+    data = _get_all_service_areas(state, json_features)
 
     methods.core_insert(
         engine=connect.create_db_engine(),
@@ -31,9 +33,9 @@ def insert_service_areas(json_features=_load_geojson_features()):
     return data
 
 
-def insert_representative_population_points(json_features=_load_geojson_features()):
+def insert_representative_population_points(state, json_features=_load_geojson_features()):
     """Insert representative points into the database from a GeoJSON file."""
-    data = [_transform_single_point(point) for point in json_features]
+    data = [_transform_single_point(point, state) for point in json_features]
 
     methods.core_insert(
         engine=connect.create_db_engine(),
@@ -45,7 +47,7 @@ def insert_representative_population_points(json_features=_load_geojson_features
     return data
 
 
-def _transform_single_point(point):
+def _transform_single_point(point, state):
     """Convert a single feature to the format expected by the database."""
     return {
         'latitude': point['geometry']['coordinates'][1],
@@ -57,10 +59,11 @@ def _transform_single_point(point):
         'population': _convert_population_list_to_population_dict(
             point['properties']['population']
         ),
+        'state': state.lower(),
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip'],
         'service_area_id': '{state}_{county}_{zip}'.format(
-            state='ca',
+            state=STATE_TO_STATE_ID[state.lower()],
             county=point['properties']['county'].lower().replace(' ', '_'),
             zip=point['properties']['zip']
         )
@@ -79,7 +82,7 @@ def _convert_population_list_to_population_dict(population_list, cutoffs=[0.5, 2
     }
 
 
-def _get_all_service_areas(features):
+def _get_all_service_areas(state, features):
     """
     Extract service area information from a list of JSON features.
 
@@ -114,11 +117,12 @@ def _get_all_service_areas(features):
         ]
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
-                state='ca',
+                state=STATE_TO_STATE_ID[state.lower()],
                 county=county.lower().replace(' ', '_'),
                 zip=zip_code
             ),
             'county': county,
+            'state': state.lower(),
             'zip_code': zip_code,
             'location': postgis.to_polygon(bbox)
         })

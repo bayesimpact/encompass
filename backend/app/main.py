@@ -18,7 +18,7 @@ CORS(app, resources={r'/api/*': {'origins': '*'}})
 def fetch_service_areas():
     """Fetch and return all available service areas from db."""
     app.logger.debug('Return service areas.')
-    response = service_areas.service_area_request(app, flask.request, engine)
+    response = service_areas.service_areas_request(app, flask.request, engine)
     return flask.jsonify(response)
 
 

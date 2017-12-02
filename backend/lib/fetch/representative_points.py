@@ -36,5 +36,6 @@ def fetch_all_service_areas(engine=connect.create_db_engine()):
     return session.query(
         service_area.ServiceArea.service_area_id,
         service_area.ServiceArea.county,
-        service_area.ServiceArea.zip_code
+        service_area.ServiceArea.zip_code,
+        service_area.ServiceArea.state
     ).all()
