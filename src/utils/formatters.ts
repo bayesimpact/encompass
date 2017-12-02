@@ -3,13 +3,6 @@ import { serializeServiceArea } from './serializers'
 import { capitalizeWords } from './string'
 
 /**
- * Formats text and capitalize first letters.
- */
-export function capitalizeFirstLetter(text: string) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-/**
  * Formats coordinates for display in the UI.
  */
 export function formatCoordinate(n: number) {
