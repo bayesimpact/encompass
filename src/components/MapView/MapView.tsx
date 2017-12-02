@@ -2,6 +2,7 @@ import * as MapboxGL from 'mapbox-gl'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import { AdequacyMode } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { representativePointsFromServiceAreas } from '../../utils/data'
 import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
@@ -20,11 +21,12 @@ let Map = ReactMapboxGl({
 
 const representativePointCircleStyle: MapboxGL.CirclePaint = {
   'circle-color': {
-    property: 'isAdequate',
+    property: 'adequacy',
     type: 'categorical',
     stops: [
-      ['true', '#3F51B5'],
-      ['false', '#DE5B5C'],
+      [AdequacyMode.ADEQUATE, '#3F51B5'],
+      [AdequacyMode.INADEQUATE, '#DE5B5C'],
+      [AdequacyMode.OUT_OF_SCOPE, 'transparent'],
       ['undefined', '#8eacbb']
     ]
   },
@@ -89,7 +91,7 @@ export let MapView = withStore(
 
   return <div className='MapView'>
     <Map
-      fitBounds={bounds && (selectedServiceArea || shouldAutoAdjustMap)
+      fitBounds={bounds && shouldAutoAdjustMap
         ? new LngLatBounds(
           new LngLat(bounds.sw.lng, bounds.sw.lat),
           new LngLat(bounds.ne.lng, bounds.ne.lat)

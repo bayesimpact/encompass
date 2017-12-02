@@ -2,8 +2,14 @@ export type Adequacies = {
   [representativePointId: string]: Adequacy
 }
 
+export enum AdequacyMode {
+  ADEQUATE = 'ADEQUATE',
+  INADEQUATE = 'INADEQUATE',
+  OUT_OF_SCOPE = 'OUT_OF_SCOPE'
+}
+
 export type Adequacy = {
-  isAdequate: boolean
+  adequacy: AdequacyMode
   /** Representative point Id */
   id: number
   distanceToClosestProvider: number
