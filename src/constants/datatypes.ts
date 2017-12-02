@@ -12,7 +12,7 @@ export type Adequacy = {
   closestProviderByTime: number
 }
 
-export type Measure = 15 | 20 | 30
+export type Measure = 15 | 20 | 30 | 60
 
 export type Provider = {
   address: string
