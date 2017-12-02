@@ -58,7 +58,6 @@ function onFileSelected(store: Store) {
     errors.slice(0, 1).forEach(e =>
       store.set('error')(e.toString())
     )
-
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
     store.set('uploadedServiceAreasFilename')(file.name)
