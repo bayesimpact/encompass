@@ -2,7 +2,7 @@
 @import "../../index.css";
 
 .MapView {
-  background: var(--verylight);
+  background: var(--map-background);
   position: fixed;
     bottom: 0;
     left: var(--iconbar-width);

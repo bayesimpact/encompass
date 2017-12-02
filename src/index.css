@@ -17,9 +17,12 @@
   --light: rgba(0, 0, 0, 0.38);
   --muted: rgba(0, 0, 0, 0.54);
 
+  --map-background: #cad2d3;
+
   /* dimensions */
   --header-height: 64px;
   --iconbar-width: 64px;
+  --leftpane-width: 320px;
 
   /* fonts */
   --mediumlarge-font: 15px;
