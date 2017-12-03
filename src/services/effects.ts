@@ -1,7 +1,10 @@
 import { chain } from 'lodash'
+import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
+import { representativePointsFromServiceAreas } from '../utils/data'
+import { boundingBox } from '../utils/geojson'
 import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Store } from './store'
 
@@ -41,12 +44,37 @@ export function withEffects(store: Store) {
     })
 
   /**
-   * When service areas change, auto-center and auto-zoom to a bounding
-   * box containing all service areas.
+   * When representative points change, auto-center and auto-zoom to a bounding
+   * box containing all representative points.
+   *
+   * When the user selects a service area in the Analysis drawer, auto-center
+   * and auto-zoom to a bounding box containing that service area.
+   *
+   * TODO: Replace this imperative bounds-setting with a declarative approach:
+   *    1. Replace `store.mapCenter` and `store.mapZoom` with `store.mapBounds`
+   *    2. Delete `store.map`
    */
-  store.on('serviceAreas').subscribe(() =>
-    store.set('shouldAutoAdjustMap')(true)
-  )
+  Observable.combineLatest(
+    store.on('representativePoints').startWith(store.get('representativePoints')),
+    store.on('selectedServiceArea').startWith(store.get('selectedServiceArea'))
+  ).debounce(0).subscribe(([representativePoints, selectedServiceArea]) => {
+
+    // TODO: Use an Option for clarity
+    let map = store.get('map')
+    if (!map) {
+      return
+    }
+    let bounds = selectedServiceArea
+      ? boundingBox(representativePointsFromServiceAreas([selectedServiceArea], store).value())
+      : boundingBox(representativePoints)
+    if (!bounds) {
+      return
+    }
+    map.fitBounds(new LngLatBounds(
+      new LngLat(bounds.sw.lng, bounds.sw.lat),
+      new LngLat(bounds.ne.lng, bounds.ne.lat)
+    ))
+  })
 
   /**
    * Geocode providers when uploadedProviders changes

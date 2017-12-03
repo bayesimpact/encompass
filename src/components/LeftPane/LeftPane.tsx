@@ -1,7 +1,7 @@
 import { map } from 'lodash'
 import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withStore } from '../../services/store'
 import { AnalyticsDrawer } from '../AnalyticsDrawer/AnalyticsDrawer'
 import { IconBar } from '../IconBar/IconBar'
 import { ProvidersDrawer } from '../ProvidersDrawer/ProvidersDrawer'
@@ -14,11 +14,11 @@ let drawers = {
   '/service-areas': ServiceAreasDrawer
 }
 
-export let LeftPane = withRouter(({ location: { pathname } }) =>
-  <div className={'LeftPane' + (pathname === '/' ? '' : ' -isOpen')}>
+export let LeftPane = withStore('route')(({ store }) =>
+  <div className={'LeftPane' + (store.get('route') === '/' ? '' : ' -isOpen')}>
     <IconBar />
     {map(drawers, (Component, route) =>
-      <Drawer className='LeftPaneContent' key={route} open={route === pathname} width={320}>
+      <Drawer className='LeftPaneContent' key={route} open={route === store.get('route')} width={320}>
         <Component />
       </Drawer>
     )}

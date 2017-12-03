@@ -1,5 +1,6 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
-import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
+import { Map } from 'mapbox-gl'
+import { Adequacies, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
@@ -31,6 +32,8 @@ type Actions = {
     lng: number
   }
 
+  map: Map | null
+
   mapCursor: string
 
   mapZoom: number
@@ -52,6 +55,8 @@ type Actions = {
    */
   representativePoints: RepresentativePoint[]
 
+  route: Route
+
   /**
    * Service areas that the user selected on the map.
    *
@@ -72,13 +77,6 @@ type Actions = {
    * `SERVICE_AREAS` (in zipCodes.ts) enumerates all available Service Areas.
    */
   serviceAreas: string[]
-
-  /**
-   * We auto-center and auto-zoom the map after the user uploads service areas,
-   * but we don't want to do it otherwise. We use this state to keep track of
-   * whether or not the map should auto-adjust after it renders.
-   */
-  shouldAutoAdjustMap: boolean
 
   standard: Standard
 
@@ -119,6 +117,7 @@ let store = withEffects(createStore<Actions>({
   distribution: 0.5,
   error: null,
   success: null,
+  map: null,
   mapCenter: {
     lat: 37.765134,
     lng: -122.444687
@@ -128,9 +127,9 @@ let store = withEffects(createStore<Actions>({
   measure: 15,
   providers: [],
   representativePoints: [],
+  route: '/service-areas',
   selectedServiceArea: null,
   serviceAreas: [],
-  shouldAutoAdjustMap: true,
   standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,

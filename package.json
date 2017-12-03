@@ -24,8 +24,7 @@
     "papaparse": "^4.3.6",
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.6.4",
-    "react-mapbox-gl": "^2.7.0",
-    "react-router-dom": "^4.2.2"
+    "react-mapbox-gl": "^2.7.0"
   },
   "devDependencies": {
     "@types/chart.js": "^2.7.0",
@@ -37,10 +36,9 @@
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
-    "@types/react-router-dom": "^4.2.1",
     "awesome-typescript-loader": "^3.4.0",
-    "concurrently": "^3.5.0",
     "chart.js": "^2.7.1",
+    "concurrently": "^3.5.0",
     "css-loader": "^0.28.7",
     "dotenv-webpack": "^1.5.4",
     "extract-text-webpack-plugin": "^3.0.2",

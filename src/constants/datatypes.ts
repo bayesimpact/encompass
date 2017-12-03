@@ -24,6 +24,13 @@ export type Provider = {
   specialty: string | null
 }
 
+/**
+ * For now, these are possible states for the left drawer.
+ *
+ * In the future, they will map to URL routes.
+ */
+export type Route = '/' | '/analytics' | '/providers' | '/service-areas'
+
 export type Standard = 'time_distance' | 'time' | 'distance'
 
 export type RepresentativePoint = {

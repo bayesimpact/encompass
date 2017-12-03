@@ -1,10 +1,10 @@
 import ProvidersIcon from 'mui-icons/cmdi/account-multiple'
 import MarkerIcon from 'mui-icons/cmdi/map-marker'
 import * as React from 'react'
-import { Link } from 'react-router-dom'
 import { withStore } from '../../services/store'
 import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { InfoBox } from '../InfoBox/InfoBox'
+import { Link } from '../Link/Link'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
@@ -18,13 +18,13 @@ let Analytics = withStore(
 
   if (store.get('serviceAreas').length === 0) {
     return <InfoBox large>
-      Please choose a service area in the <Link to='/service-areas'><MarkerIcon /> Service Areas drawer</Link>
+      Please choose a service area in the <Link className='' to='/service-areas'><MarkerIcon /> Service Areas drawer</Link>
     </InfoBox>
   }
 
   if (store.get('providers').length === 0) {
     return <InfoBox large>
-      Please upload providers in the <Link to='/providers'><ProvidersIcon /> Providers drawer</Link>
+      Please upload providers in the <Link className='' to='/providers'><ProvidersIcon /> Providers drawer</Link>
     </InfoBox>
   }
 

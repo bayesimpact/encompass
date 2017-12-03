@@ -1,9 +1,8 @@
 import * as MapboxGL from 'mapbox-gl'
-import { LngLat, LngLatBounds } from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
 import { Store, withStore } from '../../services/store'
-import { boundingBox, providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
+import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
 
@@ -54,41 +53,27 @@ function removePopup(store: Store) {
   store.set('representativePointClicked')(null)
 }
 
+// TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
 export let MapView = withStore(
   'adequacies',
   'mapCenter',
   'mapZoom',
   'providers',
-  'representativePoints',
   'providerClicked',
   'representativePointClicked'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
-  let bounds = boundingBox(representativePoints)
-  let shouldAutoAdjustMap = store.get('shouldAutoAdjustMap')
   let representativePointClicked = store.get('representativePointClicked')
   let providerClicked = store.get('providerClicked')
 
-  // Don't auto-adjust on next render (manual pan/zoom, etc. rerender the map).
-  // TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
-  if (shouldAutoAdjustMap) {
-    store.set('shouldAutoAdjustMap')(false)
-  }
-
   return <div className='MapView'>
     <Map
-      fitBounds={bounds && shouldAutoAdjustMap
-        ? new LngLatBounds(
-          new LngLat(bounds.sw.lng, bounds.sw.lat),
-          new LngLat(bounds.ne.lng, bounds.ne.lat)
-        )
-        : null}
       fitBoundsOptions={{
         padding: {
           bottom: 20,
-          left: 404,
+          left: 404, // 320 + 64 + 20 <- TODO: Codegen from CSS
           right: 20,
           top: 20
         }
@@ -96,6 +81,7 @@ export let MapView = withStore(
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
       onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
+      onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onZoomEnd={(map: MapboxGL.Map) => store.set('mapZoom')(map.getZoom())}
       zoom={[store.get('mapZoom')]}
       onClick={() => removePopup(store)}
