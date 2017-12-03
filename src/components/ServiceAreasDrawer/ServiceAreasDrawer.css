@@ -1,7 +1,7 @@
 @import "../../index.css";
 
 /* Don't cover up Download CSV link */
-.LeftDrawer .ZipCodeSelector {
+.LeftPane .ZipCodeSelector {
   overflow-y: auto;
   position: absolute;
     bottom: 124px;

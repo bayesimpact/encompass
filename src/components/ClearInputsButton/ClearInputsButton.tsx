@@ -6,11 +6,10 @@ type Props = {
 }
 
 export let ClearInputsButton: React.StatelessComponent<Props> = ({ onClearInputs }) =>
-  <div className='ClearInputsButton'>
-    <FlatButton
-      containerElement='label'
-      primary={true}
-      label='clear inputs'
-      onClick={onClearInputs} />
-  </div>
+  <FlatButton
+    className='ClearInputsButton Button -Primary'
+    containerElement='label'
+    primary={true}
+    label='clear inputs'
+    onClick={onClearInputs} />
 ClearInputsButton.displayName = 'ClearInputsButton'
