@@ -49,10 +49,6 @@ const providerCircleStyle: MapboxGL.CirclePaint = {
   'circle-radius': 5
 }
 
-const FIT_BOUNDS_OPTIONS = {
-  padding: 20
-}
-
 function removePopup(store: Store) {
   store.set('providerClicked')(null)
   store.set('representativePointClicked')(null)
@@ -89,7 +85,14 @@ export let MapView = withStore(
           new LngLat(bounds.ne.lng, bounds.ne.lat)
         )
         : null}
-      fitBoundsOptions={FIT_BOUNDS_OPTIONS}
+      fitBoundsOptions={{
+        padding: {
+          bottom: 20,
+          left: 404,
+          right: 20,
+          top: 20
+        }
+      }}
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
       onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
