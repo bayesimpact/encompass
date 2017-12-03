@@ -24,3 +24,4 @@ export let CountySelector: React.StatelessComponent<Props> = ({ onChange, select
         primaryText={_} />
     )}
   </SelectField>
+CountySelector.displayName = 'CountySelector'

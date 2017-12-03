@@ -9,3 +9,4 @@ export let InfoBox: React.StatelessComponent<Props> = ({ children, large }) =>
   <div className={'InfoBox' + (large ? ' -Large' : '')}>
     {children}
   </div>
+InfoBox.displayName = 'InfoBox'

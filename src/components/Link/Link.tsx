@@ -13,3 +13,4 @@ export let Link = withStore()<Props & StoreProps>(({ children, className, store,
     onClick={e => e.preventDefault() || store.set('route')(to)}
   >{children}</a>
 )
+Link.displayName = 'Link'

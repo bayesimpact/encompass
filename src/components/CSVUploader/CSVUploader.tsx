@@ -26,3 +26,4 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ onUpload }) =>
       />
     </RaisedButton>
   </div>
+CSVUploader.displayName = 'CSVUploader'

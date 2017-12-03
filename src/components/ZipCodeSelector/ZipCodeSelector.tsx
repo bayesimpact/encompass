@@ -14,47 +14,60 @@ type Props = {
   selectedServiceAreas: string[]
 }
 
-export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
+export class ZipCodeSelector extends React.Component<Props> {
 
-  let allServiceAreas = serviceAreasFromCounties(props.counties)
+  onCheckSelectAll = (_e: React.MouseEvent<HTMLInputElement>, isChecked: boolean) => {
+    let allServiceAreas = serviceAreasFromCounties(this.props.counties)
+    this.props.onChange(isChecked ? allServiceAreas : [])
+  }
 
-  return <div className='ZipCodeSelector'>
+  onCheckZip = (e: React.MouseEvent<HTMLInputElement>, isChecked: boolean) =>
+    handleChange(this.props)(isChecked, e.currentTarget.value)
 
-    <div className='LargeFont ZipCodeSelectorHeadline'>
-      Zip Codes
+  render() {
+
+    let allServiceAreas = serviceAreasFromCounties(this.props.counties)
+
+    return <div className='ZipCodeSelector'>
+
+      <div className='LargeFont ZipCodeSelectorHeadline'>
+        Zip Codes
       <div className='MediumFont Muted PullRight'>
-        {props.selectedServiceAreas.length} selected
+          {this.props.selectedServiceAreas.length} selected
       </div>
-    </div>
+      </div>
 
-    {props.counties.length
-      ? <Checkbox
-        checked={areAllSelected(allServiceAreas, props.selectedServiceAreas)}
-        label='Select All'
-        onCheck={(_, isInputChecked) => props.onChange(isInputChecked ? allServiceAreas : [])}
-      />
-      : null}
-    {props.counties.sort().map(county =>
-      <List key={county}>
-        <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
-        <div className='ZipList'>
-          {COUNTIES_TO_ZIPS[county].map(zip => {
-            let key = serializeServiceArea('ca', county, zip)
-            return <ListItem
-              className='ListItem'
-              key={key}
-              primaryText={zip}
-              leftCheckbox={
-                <Checkbox
-                  checked={props.selectedServiceAreas.includes(key)}
-                  onCheck={(_, isChecked) => handleChange(props)(isChecked, key)}
-                />
-              } />
-          })}
-        </div>
-      </List>
-    )}
-  </div>
+      {this.props.counties.length
+        ? <Checkbox
+          checked={areAllSelected(allServiceAreas, this.props.selectedServiceAreas)}
+          label='Select All'
+          onCheck={this.onCheckSelectAll}
+        />
+        : null}
+      {this.props.counties.sort().map(county =>
+        <List key={county}>
+          <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
+          <div className='ZipList'>
+            {COUNTIES_TO_ZIPS[county].map(zip => {
+              let key = serializeServiceArea('ca', county, zip)
+              return <ListItem
+                className='ListItem'
+                key={key}
+                primaryText={zip}
+                leftCheckbox={
+                  <Checkbox
+                    checked={this.props.selectedServiceAreas.includes(key)}
+                    onCheck={this.onCheckZip}
+                    value={key}
+                  />
+                }
+              />
+            })}
+          </div>
+        </List>
+      )}
+    </div>
+  }
 }
 
 /**

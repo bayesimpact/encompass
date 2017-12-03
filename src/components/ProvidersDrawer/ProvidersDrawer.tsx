@@ -20,6 +20,7 @@ export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) 
     <ClearInputsButton onClearInputs={onClearInputs(store)} />
   </div>
 )
+ProvidersDrawer.displayName = 'ProvidersDrawer'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {

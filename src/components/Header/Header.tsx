@@ -4,7 +4,7 @@ import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
 import './Header.css'
 
-export let Header = () =>
+export let Header: React.StatelessComponent = () =>
   <AppBar
     className='Header'
     title='Network Adequacy Explorer'
@@ -19,3 +19,4 @@ export let Header = () =>
     }
     showMenuIconButton={false}
   />
+Header.displayName = 'Header'

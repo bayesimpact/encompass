@@ -13,3 +13,4 @@ export let ClearInputsButton: React.StatelessComponent<Props> = ({ onClearInputs
       label='clear inputs'
       onClick={onClearInputs} />
   </div>
+ClearInputsButton.displayName = 'ClearInputsButton'

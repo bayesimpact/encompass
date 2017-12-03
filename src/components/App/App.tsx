@@ -28,3 +28,4 @@ export let App = withStore('error', 'success')(({ store }) =>
     </div>
   </MuiThemeProvider>
 )
+App.displayName = 'App'

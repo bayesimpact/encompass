@@ -55,7 +55,17 @@ function removePopup(store: Store) {
   store.set('selectedRepresentativePoint')(null)
 }
 
-// TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
+const FIT_BOUNDS_OPTIONS = {
+  padding: {
+    bottom: 20,
+    left: 404, // 320 + 64 + 20 <- TODO: Codegen from CSS
+    right: 20,
+    top: 20
+  }
+}
+const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
+const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
+
 export let MapView = withStore(
   'adequacies',
   'mapCenter',
@@ -72,14 +82,7 @@ export let MapView = withStore(
 
   return <div className='MapView'>
     <Map
-      fitBoundsOptions={{
-        padding: {
-          bottom: 20,
-          left: 404, // 320 + 64 + 20 <- TODO: Codegen from CSS
-          right: 20,
-          top: 20
-        }
-      }}
+      fitBoundsOptions={FIT_BOUNDS_OPTIONS}
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
       onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
@@ -101,8 +104,9 @@ export let MapView = withStore(
       {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
       {selectedProvider && <ProviderPopup point={selectedProvider} />}
 
-      <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
-      <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />
+      <ZoomControl position='bottomRight' style={ZOOM_CONTROL_STYLE} />
+      <ScaleControl measurement='mi' position='bottomRight' style={SCALE_CONTROL_STYLE} />
     </Map>
   </div>
 })
+MapView.displayName = 'MapView'
