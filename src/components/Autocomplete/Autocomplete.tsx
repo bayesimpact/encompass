@@ -56,7 +56,7 @@ export class Autocomplete extends React.Component<Props> {
         items={(this.props.pinnedItems || []).concat(this.props.items)}
         renderItem={ItemTemplate(this.props.pinnedItems)}
         renderMenu={MenuTemplate}
-        value={this.state.text}
+        value={this.state.text || this.props.value}
         onChange={(e: any) => this.onType(e.target.value)}
         onSelect={(_: string, item: string) => this.onSelect(item)}
         selectOnBlur={true}
@@ -72,7 +72,7 @@ export class Autocomplete extends React.Component<Props> {
   shouldItemRender = (item: string, value: string) =>
 
     // If the default value is selected, show all items
-    (this.props.value === this.props.defaultValue)
+    (!this.state.text && this.props.value === this.props.defaultValue)
 
     // Always show pinned items
     || (this.props.pinnedItems && this.props.pinnedItems.includes(item))
@@ -81,7 +81,7 @@ export class Autocomplete extends React.Component<Props> {
     || fuzz(item).includes(fuzz(value))
 
   onSelect(item: string) {
-    this.setState({ text: item })
+    this.setState({ text: undefined })
     this.props.onChange(item)
   }
 
@@ -94,6 +94,7 @@ export class Autocomplete extends React.Component<Props> {
     this.setState({ text })
     let match = this.props.items.find(_ => fuzz(_) === fuzz(text)) // TODO: Is this safe?
     if (match) {
+      this.setState({ text: undefined })
       this.props.onChange(match)
     }
   }
