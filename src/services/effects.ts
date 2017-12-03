@@ -1,11 +1,11 @@
-import { chain } from 'lodash'
+import { chain, keyBy } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
-import { Measure, Standard } from '../constants/datatypes'
+import { AdequacyMode, Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
 import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
-import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Store } from './store'
 
 export function withEffects(store: Store) {
@@ -113,32 +113,42 @@ export function withEffects(store: Store) {
     .combineLatest(
     store.on('providers'),
     store.on('representativePoints'),
+    store.on('selectedServiceArea').startWith(store.get('selectedServiceArea')),
     store.on('measure').startWith(store.get('measure')),
     store.on('standard').startWith(store.get('standard'))
     )
-    .subscribe(async ([providers, representativePoints, measure, standard]) => {
-      // TODO: Fix errors when providers and representative points are empty strings and remove this.
-      if (providers.length && representativePoints.length) {
-        let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
-        store.set('adequacies')(
-          chain(representativePoints.map(_ => _.id))
-            .zipObject(adequacies)
-            .mapValues(_ => ({
-              isAdequate: isAdequate(
-                _.distance_to_closest_provider,
-                _.time_to_closest_provider,
-                measure,
-                standard
-              ),
-              id: _.id,
-              distanceToClosestProvider: _.distance_to_closest_provider,
-              timeToClosestProvider: _.time_to_closest_provider,
-              closestProviderByDistance: _.closest_provider_by_distance,
-              closestProviderByTime: _.closest_provider_by_time
-            }))
-            .value()
-        )
+    .subscribe(async ([providers, representativePoints, selectedServiceArea, measure, standard]) => {
+      if (!providers.length || !representativePoints.length) {
+        store.set('adequacies')({})
+        return
       }
+      let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
+      let hash = keyBy(representativePoints, 'id')
+
+      // When the user selects a service area in Analytics, then unchecks it in
+      // Service Areas we fire the effect under this one, which fires this effect.
+      // Sometimes, this causes this effect to fire with an inconsistent state.
+      // TODO: Figure out how to avoid this timing issue.
+      if (representativePoints.length !== adequacies.length) {
+        return
+      }
+
+      store.set('adequacies')(
+        chain(representativePoints)
+          .map(_ => _.id)
+          .zipObject(adequacies)
+          .mapValues((_, key) => ({
+            adequacyMode: getAdequacyMode(
+              _, measure, standard, hash[key].serviceAreaId, selectedServiceArea
+            ),
+            id: _.id,
+            distanceToClosestProvider: _.distance_to_closest_provider,
+            timeToClosestProvider: _.time_to_closest_provider,
+            closestProviderByDistance: _.closest_provider_by_distance,
+            closestProviderByTime: _.closest_provider_by_time
+          }))
+          .value()
+      )
     })
 
   /**
@@ -154,6 +164,29 @@ export function withEffects(store: Store) {
   })
 
   return store
+}
+
+function getAdequacyMode(
+  adequacy: ReadAdequaciesResponse,
+  measure: Measure,
+  standard: Standard,
+  serviceAreaId: string,
+  selectedServiceArea: string | null
+): AdequacyMode {
+
+  if (selectedServiceArea && serviceAreaId !== selectedServiceArea) {
+    return AdequacyMode.OUT_OF_SCOPE
+  }
+
+  if (isAdequate(
+    adequacy.distance_to_closest_provider,
+    adequacy.time_to_closest_provider,
+    measure,
+    standard
+  )) {
+    return AdequacyMode.ADEQUATE
+  }
+  return AdequacyMode.INADEQUATE
 }
 
 function isAdequate(

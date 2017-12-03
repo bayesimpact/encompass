@@ -3,13 +3,19 @@ export type Adequacies = {
 }
 
 export type Adequacy = {
-  isAdequate: boolean
+  adequacyMode: AdequacyMode
   /** Representative point Id */
   id: number
   distanceToClosestProvider: number
   timeToClosestProvider: number
   closestProviderByDistance: number
   closestProviderByTime: number
+}
+
+export enum AdequacyMode {
+  ADEQUATE = 'ADEQUATE',
+  INADEQUATE = 'INADEQUATE',
+  OUT_OF_SCOPE = 'OUT_OF_SCOPE'
 }
 
 export type Measure = 15 | 20 | 30

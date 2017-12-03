@@ -1,6 +1,7 @@
 import * as MapboxGL from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import { AdequacyMode } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
@@ -18,11 +19,12 @@ let Map = ReactMapboxGl({
 
 const representativePointCircleStyle: MapboxGL.CirclePaint = {
   'circle-color': {
-    property: 'isAdequate',
+    property: 'adequacyMode',
     type: 'categorical',
     stops: [
-      ['true', '#3F51B5'],
-      ['false', '#DE5B5C'],
+      [AdequacyMode.ADEQUATE, '#3F51B5'],
+      [AdequacyMode.INADEQUATE, '#DE5B5C'],
+      [AdequacyMode.OUT_OF_SCOPE, 'transparent'],
       ['undefined', '#8eacbb']
     ]
   },
