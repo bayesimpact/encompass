@@ -1,5 +1,5 @@
 import { chain, keyBy } from 'lodash'
-import { Adequacy, RepresentativePoint } from '../constants/datatypes'
+import { Adequacy, AdequacyMode, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
 import { totalPopulation } from './analytics'
 
@@ -29,7 +29,7 @@ export function summaryStatistics(
   let adequacies = store.get('adequacies')
   let rps = representativePointsFromServiceAreas(serviceAreas, store)
   let adequateRps = rps.filter(_ =>
-    adequacies[_.id] && adequacies[_.id].isAdequate
+    adequacies[_.id] && adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE
   )
 
   let population = totalPopulation(rps)

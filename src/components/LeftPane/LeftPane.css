@@ -5,10 +5,11 @@
     bottom: 0;
     left: 0;
     top: 64px;
-  width: 300px;
+  width: 400px; /* iconbar-width + leftpane-width + room for box shadow */
 }
 
 .LeftPaneContent {
+  overflow: hidden;
   position: absolute;
     bottom: 0;
     left: var(--iconbar-width);
@@ -16,20 +17,15 @@
     top: 0;
 }
 
-.LeftDrawer {
-}
-
 /* silly inline styles... */
-.LeftDrawer > div {
-  left: 64px !important;
+.LeftPaneContent > div {
   padding: 20px;
-  top: 64px !important;
-  width: 320px !important;
+  position: absolute !important;
 }
 
 
-.LeftDrawer .ClearInputsButton {
+.LeftPaneContent .ClearInputsButton {
   position: absolute !important; /* override material-ui inline style */
-    bottom: 70px;
+    bottom: 13px;
     right: 20px;
 }

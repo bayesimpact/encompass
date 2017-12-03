@@ -1,95 +1,52 @@
+import { LngLat } from 'mapbox-gl'
 import * as React from 'react'
 import { Popup } from 'react-mapbox-gl'
+import { GeoJSONEventData } from '../../constants/datatypes'
 import { formatCoordinate } from '../../utils/formatters'
+import './MapTooltip.css'
+import { TableRow } from './TableRow'
 
-type TableRowProps = {
-  name: string
-  value: string
+type MapTooltipProps = {
+  coordinates: LngLat
 }
 
-const TableRow = ({ name, value }: TableRowProps) => (
-  <tr>
-    <td>{name}</td>
-    <td className='table-value'> {value}</td>
-  </tr>
-)
+let MapTooltip: React.StatelessComponent<MapTooltipProps> = ({ children, coordinates }) =>
+  <Popup
+    anchor='bottom'
+    className='MapTooltip'
+    coordinates={coordinates.toArray()}
+    offset={[0, -20]}
+  >
+    <table>
+      <tbody>
+        {children}
+      </tbody>
+    </table>
+  </Popup>
+
+type Props = {
+  point: GeoJSONEventData
+}
 
 /**
- * TODO - Remove anys, apply DRY and TS.
- * Additional details (guide) given below.
+ * TODO: expose info for all providers with the same address,
+ * not only the first one.
  */
+export let ProviderPopup: React.StatelessComponent<Props> =
+  ({ point: { features, lngLat } }) =>
+    <MapTooltip coordinates={lngLat}>
+      <TableRow name='Address' value={features[0].properties.address} />
+      <TableRow name='Specialty' value={features[0].properties.specialty} />
+      <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
+      <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+    </MapTooltip>
 
-/**
- * type Props = {
- *   content: React.ComponentClass
- *   coordinates: [number, number]
- * }
- *
- * let MapTooltip: React.StatelessComponent<Props> = ({ content, coordinates }) =>
- *    <div className='popup-container'>
- *     <Popup coordinates={latLng} ...>
- *        { content }
- *      </Popup>
- *     </div>
- */
-
-/**
- * Avoid any fort point - what is the type here?
- * type RepresentativePointPopupProps = {..}
- * let RepresentativePointPopup: React.StatelessComponent<RepresentativePointPopupProps> = ({ point }) =>
- *  <MapTooltip
- *      coordinates={point.lngLat}
- *      content={
- *        <table className='popup-table'>
- *          ...
- *        </table>
- *      }
- *    />
-*/
-
-export function ProviderPopup(point: any) {
-  /**
-   * TODO: expose info for all providers with the same address,
-   * not only the first one.
-   */
-  let pointProps = point.features[0].properties
-  return (
-    <div className='popup-container'>
-      <Popup
-        offset={[0, -20]}
-        anchor='bottom'
-        coordinates={point.lngLat} >
-        <table className='popup-table'>
-          <tbody>
-            <TableRow name='Address' value={pointProps.address} />
-            <TableRow name='Specialty' value={pointProps.specialty} />
-            <TableRow name='Lat' value={formatCoordinate(point.lngLat.lat)} />
-            <TableRow name='Long' value={formatCoordinate(point.lngLat.lng)} />
-          </tbody>
-        </table>
-      </Popup>
-    </div>
-  )
-}
-
-export function RepresentativePointPopup(point: any) {
-  let pointProps = point.features[0].properties
-  return (
-    <div className='popup-container'>
-      <Popup
-        offset={[0, -20]}
-        anchor='bottom'
-        coordinates={point.lngLat} >
-        <table className='popup-table'>
-          <tbody>
-            <TableRow name='County' value={pointProps.county} />
-            <TableRow name='ZIP' value={pointProps.zip} />
-            <TableRow name='Population' value={pointProps.population} />
-            <TableRow name='Lat' value={formatCoordinate(point.lngLat.lat)} />
-            <TableRow name='Long' value={formatCoordinate(point.lngLat.lng)} />
-          </tbody>
-        </table>
-      </Popup>
-    </div>
-  )
-}
+export let RepresentativePointPopup: React.StatelessComponent<Props> =
+  ({ point: { features, lngLat } }) =>
+    <MapTooltip coordinates={lngLat}>
+      <TableRow name='County' value={features[0].properties.county} />
+      <TableRow name='ZIP' value={features[0].properties.zip} />
+      <TableRow name='Population' value={features[0].properties.population} />
+      <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
+      <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+    </MapTooltip>

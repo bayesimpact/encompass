@@ -1,4 +1,3 @@
-import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
@@ -10,7 +9,7 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
 export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) =>
-  <Drawer className='LeftDrawer' open={true}>
+  <div>
     <h2>Providers</h2>
     <CSVUploader onUpload={onFileSelected(store)} />
     <p className='Ellipsis Muted SmallFont'>{
@@ -19,7 +18,7 @@ export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) 
         : 'Upload valid list of providers'
     }</p>
     <ClearInputsButton onClearInputs={onClearInputs(store)} />
-  </Drawer>
+  </div>
 )
 
 function onFileSelected(store: Store) {

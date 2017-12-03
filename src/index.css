@@ -17,11 +17,18 @@
   --light: rgba(0, 0, 0, 0.38);
   --muted: rgba(0, 0, 0, 0.54);
 
+  --map-background: #f6f6f4;
+
   /* dimensions */
   --header-height: 64px;
   --iconbar-width: 64px;
+  --leftpane-width: 320px;
 
   /* fonts */
   --mediumlarge-font: 15px;
-  --medium-font: 14px
+  --medium-font: 14px;
+
+  /* weights */
+  --medium-weight: 400;
+  --heavy-weight: 600;
 }

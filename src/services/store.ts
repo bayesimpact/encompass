@@ -1,9 +1,10 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
-import { Adequacies, Measure, Provider, RepresentativePoint, Standard } from '../constants/datatypes'
+import { Map } from 'mapbox-gl'
+import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
-export type Actions = {
+type Actions = {
 
   adequacies: Adequacies
 
@@ -31,6 +32,8 @@ export type Actions = {
     lng: number
   }
 
+  map: Map | null
+
   mapCursor: string
 
   mapZoom: number
@@ -51,6 +54,18 @@ export type Actions = {
    * fewer RPs we generate per service area.
    */
   representativePoints: RepresentativePoint[]
+
+  route: Route
+
+  /**
+   * Provider that the user selected on the map.
+   */
+  selectedProvider: GeoJSONEventData | null
+
+  /**
+   * Representative point that the user selected on the map.
+   */
+  selectedRepresentativePoint: GeoJSONEventData | null
 
   /**
    * Service areas that the user selected on the map.
@@ -73,13 +88,6 @@ export type Actions = {
    */
   serviceAreas: string[]
 
-  /**
-   * We auto-center and auto-zoom the map after the user uploads service areas,
-   * but we don't want to do it otherwise. We use this state to keep track of
-   * whether or not the map should auto-adjust after it renders.
-   */
-  shouldAutoAdjustMap: boolean
-
   standard: Standard
 
   /**
@@ -96,18 +104,6 @@ export type Actions = {
    * Filename of the CSV the user uploaded to compute `serviceAreas`.
    */
   uploadedServiceAreasFilename: string | null
-
-  /**
-   * Selected povider for popup.
-   * TODO - Do not use any.
-   */
-  providerClicked: any | null
-
-  /**
-   * Selected representativePoint for popup.
-   * TODO - Do not use any.
-   */
-  representativePointClicked: any | null
 }
 
 /**
@@ -119,6 +115,7 @@ let store = withEffects(createStore<Actions>({
   distribution: 0.5,
   error: null,
   success: null,
+  map: null,
   mapCenter: {
     lat: 37.765134,
     lng: -122.444687
@@ -128,15 +125,15 @@ let store = withEffects(createStore<Actions>({
   measure: 15,
   providers: [],
   representativePoints: [],
+  route: '/service-areas',
+  selectedProvider: null,
+  selectedRepresentativePoint: null,
   selectedServiceArea: null,
   serviceAreas: [],
-  shouldAutoAdjustMap: true,
   standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
-  uploadedServiceAreasFilename: null,
-  providerClicked: null,
-  representativePointClicked: null
+  uploadedServiceAreasFilename: null
 }))
 
 export let withStore = connect(store)
