@@ -4,19 +4,21 @@ import List from 'material-ui/List'
 import ListItem from 'material-ui/List/ListItem'
 import Subheader from 'material-ui/Subheader'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, serviceAreasFromCounties } from '../../constants/zipCodes'
+import { STATE_TO_COUNTIES_TO_ZIPS } from '../../constants/zipCodes'
 import { serializeServiceArea } from '../../utils/serializers'
+import { serviceAreasFromStateAndCounties } from '../../utils/serviceAreas'
 import './ZipCodeSelector.css'
 
 type Props = {
   counties: string[]
+  state: string
   onChange(serviceAreas: string[]): void
   selectedServiceAreas: string[]
 }
 
 export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
 
-  let allServiceAreas = serviceAreasFromCounties(props.counties)
+  let allServiceAreas = serviceAreasFromStateAndCounties(props.state, props.counties)
 
   return <div className='ZipCodeSelector'>
 
@@ -38,7 +40,7 @@ export let ZipCodeSelector: React.StatelessComponent<Props> = props => {
       <List key={county}>
         <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
         <div className='ZipList'>
-          {COUNTIES_TO_ZIPS[county].map(zip => {
+          {STATE_TO_COUNTIES_TO_ZIPS[props.state][county].map(zip => {
             let key = serializeServiceArea('ca', county, zip)
             return <ListItem
               className='ListItem'
