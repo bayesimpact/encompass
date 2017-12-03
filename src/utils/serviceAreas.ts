@@ -1,5 +1,5 @@
 import { chain, memoize } from 'lodash'
-import { CountyToZipProps, STATE_TO_COUNTIES_TO_ZIPS, STATE_TO_STATE_ID } from '../constants/zipCodes'
+import { STATE_TO_COUNTIES_TO_ZIPS, STATE_TO_STATE_ID } from '../constants/zipCodes'
 import { serializeServiceArea } from '../utils/serializers'
 
 /**
