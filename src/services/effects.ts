@@ -122,24 +122,25 @@ export function withEffects(store: Store) {
         store.set('adequacies')({})
         return
       }
-      let adequacies = await getAdequacies(providers.map(_ => _.id), store.get('serviceAreas'))
-      let hash = keyBy(representativePoints, 'id')
 
       // When the user selects a service area in Analytics, then unchecks it in
-      // Service Areas we fire the effect under this one, which fires this effect.
-      // Sometimes, this causes this effect to fire with an inconsistent state.
-      // TODO: Figure out how to avoid this timing issue.
-      if (representativePoints.length !== adequacies.length) {
-        return
-      }
+      // Service Areas we fire this effect before we finish recomputing service areas.
+      // To avoid an inconsistent state, we fetch the latest representative points here.
+      //
+      // TODO: Do this more elegantly to avoid the double-computation.
+      let [adequacies, points] = await Promise.all([
+        getAdequacies(providers.map(_ => _.id), store.get('serviceAreas')),
+        getRepresentativePoints(store.get('serviceAreas'))
+      ])
+      let hash = keyBy(points, 'id')
 
       store.set('adequacies')(
-        chain(representativePoints)
+        chain(points)
           .map(_ => _.id)
           .zipObject(adequacies)
           .mapValues((_, key) => ({
             adequacyMode: getAdequacyMode(
-              _, measure, standard, hash[key].serviceAreaId, selectedServiceArea
+              _, measure, standard, hash[key].service_area_id, selectedServiceArea
             ),
             id: _.id,
             distanceToClosestProvider: _.distance_to_closest_provider,
