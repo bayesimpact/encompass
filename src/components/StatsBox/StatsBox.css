@@ -24,7 +24,7 @@
 
 .StatsBox th {
   color: var(--muted);
-  font-weight: 400;
+  font-weight: var(--medium-weight);
   text-align: left;
 }
 

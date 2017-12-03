@@ -51,8 +51,8 @@ const providerCircleStyle: MapboxGL.CirclePaint = {
 }
 
 function removePopup(store: Store) {
-  store.set('providerClicked')(null)
-  store.set('representativePointClicked')(null)
+  store.set('selectedProvider')(null)
+  store.set('selectedRepresentativePoint')(null)
 }
 
 // TODO: instantiate React Components such as RepresentativePointPopup with JSX syntax.
@@ -61,14 +61,14 @@ export let MapView = withStore(
   'mapCenter',
   'mapZoom',
   'providers',
-  'providerClicked',
-  'representativePointClicked'
+  'selectedProvider',
+  'selectedRepresentativePoint'
 )(({ store }) => {
   let adequacies = store.get('adequacies')
   let providers = store.get('providers')
   let representativePoints = store.get('representativePoints')
-  let representativePointClicked = store.get('representativePointClicked')
-  let providerClicked = store.get('providerClicked')
+  let selectedRepresentativePoint = store.get('selectedRepresentativePoint')
+  let selectedProvider = store.get('selectedProvider')
 
   return <div className='MapView'>
     <Map
@@ -91,15 +91,15 @@ export let MapView = withStore(
       {representativePoints.length && <GeoJSONLayer
         data={representativePointsToGeoJSON(adequacies)(representativePoints)}
         circlePaint={representativePointCircleStyle}
-        circleOnClick={(point: any) => store.set('representativePointClicked')(point)}
+        circleOnClick={store.set('selectedRepresentativePoint')}
       />}
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
-        circleOnClick={(point: any) => store.set('providerClicked')(point)}
+        circleOnClick={store.set('selectedProvider')}
       />}
-      {representativePointClicked && RepresentativePointPopup(representativePointClicked)}
-      {providerClicked && ProviderPopup(providerClicked)}
+      {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
+      {selectedProvider && <ProviderPopup point={selectedProvider} />}
 
       <ZoomControl position='bottomRight' style={{ bottom: 30, right: 19 }} />
       <ScaleControl measurement='mi' position='bottomRight' style={{ bottom: 30, right: 58 }} />

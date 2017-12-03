@@ -26,5 +26,9 @@
 
   /* fonts */
   --mediumlarge-font: 15px;
-  --medium-font: 14px
+  --medium-font: 14px;
+
+  /* weights */
+  --medium-weight: 400;
+  --heavy-weight: 600;
 }

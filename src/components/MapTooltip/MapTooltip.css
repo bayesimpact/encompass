@@ -1,15 +1,22 @@
-@import "mapbox-gl/dist/mapbox-gl.css";
 @import "../../index.css";
 
-.popup-container .mapboxgl-popup-content {
-  background-color: rgba(0, 0, 0, 0.7);
+.MapTooltip .mapboxgl-popup-content {
+  background-color: rgba(0, 0, 0, .8);
 }
 
-.table-value {
-  padding-left: 15;
+.MapTooltip .mapboxgl-popup-tip {
+  border-top-color: rgba(0, 0, 0, .8) !important;
 }
 
-.popup-table {
+.MapTooltip table {
   font-size: var(--medium-font);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, .8);
+}
+
+.MapTooltip td {
+  padding: 0 10px;
+}
+
+.MapTooltip tr :first-child {
+  font-weight: var(--heavy-weight);
 }

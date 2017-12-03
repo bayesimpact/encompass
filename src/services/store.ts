@@ -1,6 +1,6 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
-import { Adequacies, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
+import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
@@ -58,6 +58,16 @@ type Actions = {
   route: Route
 
   /**
+   * Provider that the user selected on the map.
+   */
+  selectedProvider: GeoJSONEventData | null
+
+  /**
+   * Representative point that the user selected on the map.
+   */
+  selectedRepresentativePoint: GeoJSONEventData | null
+
+  /**
    * Service areas that the user selected on the map.
    *
    * We support just one selection for now, but will likely support
@@ -94,18 +104,6 @@ type Actions = {
    * Filename of the CSV the user uploaded to compute `serviceAreas`.
    */
   uploadedServiceAreasFilename: string | null
-
-  /**
-   * Selected povider for popup.
-   * TODO - Do not use any.
-   */
-  providerClicked: any | null
-
-  /**
-   * Selected representativePoint for popup.
-   * TODO - Do not use any.
-   */
-  representativePointClicked: any | null
 }
 
 /**
@@ -128,14 +126,14 @@ let store = withEffects(createStore<Actions>({
   providers: [],
   representativePoints: [],
   route: '/service-areas',
+  selectedProvider: null,
+  selectedRepresentativePoint: null,
   selectedServiceArea: null,
   serviceAreas: [],
   standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
-  uploadedServiceAreasFilename: null,
-  providerClicked: null,
-  representativePointClicked: null
+  uploadedServiceAreasFilename: null
 }))
 
 export let withStore = connect(store)

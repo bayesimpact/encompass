@@ -1,3 +1,5 @@
+import { EventData } from 'mapbox-gl'
+
 export type Adequacies = {
   [representativePointId: string]: Adequacy
 }
@@ -16,6 +18,13 @@ export enum AdequacyMode {
   ADEQUATE = 'ADEQUATE',
   INADEQUATE = 'INADEQUATE',
   OUT_OF_SCOPE = 'OUT_OF_SCOPE'
+}
+
+/**
+ * TODO: Contribute this typing to react-mapbox-gl
+ */
+export type GeoJSONEventData = EventData & {
+  features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
 export type Measure = 15 | 20 | 30

@@ -5,7 +5,7 @@
   border: inset 1px solid var(--verylight);
   color: var(--muted);
   display: block;
-  font-weight: 400;
+  font-weight: var(--medium-weight);
   padding: 20px;
   text-align: center;
 }
