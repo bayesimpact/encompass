@@ -2,7 +2,7 @@ import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
 import { STATES } from '../../constants/zipCodes'
-import { capitalizeFirstLetter } from '../../utils/formatters'
+import { capitalizeWords } from '../../utils/string'
 
 type Props = {
   onChange(state: string): void
@@ -18,6 +18,6 @@ export let StateSelector: React.StatelessComponent<Props> = ({ onChange, selecte
       <MenuItem
         key={_}
         value={_}
-        primaryText={capitalizeFirstLetter(_)} />
+        primaryText={capitalizeWords(_)} />
     )}
   </SelectField>
