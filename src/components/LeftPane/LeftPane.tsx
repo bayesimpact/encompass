@@ -24,3 +24,4 @@ export let LeftPane = withStore('route')(({ store }) =>
     )}
   </div>
 )
+LeftPane.displayName = 'LeftPane'

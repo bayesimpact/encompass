@@ -30,7 +30,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
         onChange={(_e, _i, value) => store.set('standard')(value)}
         value={store.get('standard')}
       >
-        <MenuItem value='time_distance' primaryText='Time and Distance' disabled={true}/>
+        <MenuItem value='time_distance' primaryText='Time and Distance' disabled={true} />
         <MenuItem value='time' primaryText='Time' disabled={true} />
         <MenuItem value='distance' primaryText='Distance' />
       </DropDownMenu>
@@ -55,6 +55,7 @@ export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store
 
   </Paper>
 )
+FilterBar.displayName = 'FilterBar'
 
 /**
  * Depending on the Standard filter the user selected, we change the units shown

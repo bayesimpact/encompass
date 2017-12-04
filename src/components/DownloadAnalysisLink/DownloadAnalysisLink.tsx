@@ -17,6 +17,7 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
     onClick={onClick(store)}
   />
 )
+DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
 function onClick(store: Store) {
   return () => {

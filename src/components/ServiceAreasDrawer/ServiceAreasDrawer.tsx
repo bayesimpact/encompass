@@ -44,6 +44,7 @@ export let ServiceAreasDrawer = withStore(
 
   </div >
   )
+ServiceAreasDrawer.displayName = 'ServiceAreasDrawer'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {

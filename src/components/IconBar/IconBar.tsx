@@ -23,3 +23,4 @@ export let IconBar = withStore('route')(({ store }) =>
     )}
   </ul>
 )
+IconBar.displayName = 'IconBar'

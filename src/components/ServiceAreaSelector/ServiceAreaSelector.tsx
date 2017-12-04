@@ -19,3 +19,4 @@ export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, s
     value={value === null ? ALL_SERVICE_AREAS : formatServiceArea(value)}
   />
 )
+ServiceAreaSelector.displayName = 'ServiceAreaSelector'

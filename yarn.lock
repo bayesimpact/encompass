@@ -712,9 +712,9 @@ babel-types@^6.18.0, babel-types@^6.24.1, babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
-babydux@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/babydux/-/babydux-2.0.1.tgz#82592c56e35af14108c0f790e85b9da0120ecb18"
+babydux@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/babydux/-/babydux-3.0.1.tgz#fc013950a45cc969d86ac97d06638bb5f8cb9f08"
   dependencies:
     typed-rx-emitter "^0.3.0"
 

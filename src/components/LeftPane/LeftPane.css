@@ -23,9 +23,9 @@
   position: absolute !important;
 }
 
-
-.LeftPaneContent .ClearInputsButton {
+.LeftPane .ClearInputsButton,
+.LeftPane .DownloadAnalysisLink {
   position: absolute !important; /* override material-ui inline style */
-    bottom: 13px;
+    bottom: 18px;
     right: 20px;
 }
