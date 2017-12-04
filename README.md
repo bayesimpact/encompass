@@ -18,16 +18,20 @@ POSTGRES_URL=???
 ## App
 
 ```
-docker-compose up
+docker-compose up backend frontend
 ```
 
-- Open a browser and navigate to `localhost:9001`.
+Or simply:
+```
+make local
+```
 
-This environment gives you the following:
-- geopandas
-- scikit-learn
-- statsmodels
-- seaborn
+If you would like to run frontend and backend separately, use this repo to run the backend by running:
+```
+make backend
+```
+Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`).
+
 
 ## Backend - API
 
@@ -40,3 +44,17 @@ docker-compose up -d backend
 	- /api/providers
 	- /api/representative_points
 	- /api/adequacies
+
+
+## Explorer
+```
+make explorer
+```
+
+- Open a browser and navigate to `localhost:9001`.
+
+This environment gives you the following:
+- geopandas
+- scikit-learn
+- statsmodels
+- seaborn

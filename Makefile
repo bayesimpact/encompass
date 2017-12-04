@@ -1,6 +1,12 @@
 local:
 	docker-compose up backend frontend
 
+backend:
+	docker-compose up backend
+
+explorer:
+	docker-compose up explorer
+
 rebuild:
 	docker-compose build --no-cache
 
