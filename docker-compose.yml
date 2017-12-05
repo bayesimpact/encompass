@@ -33,6 +33,7 @@ services:
           # Linters and Tests
           - ./backend/tests/:/app/tests:ro
           - .flake8:/app/.flake8:ro
+          - .coveragerc:/app/.coveragerc:ro
           - ./backend/lib/:/app/lib:ro
         environment:
           - POSTGRES_URL=$POSTGRES_URL
