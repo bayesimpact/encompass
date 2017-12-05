@@ -49,6 +49,8 @@ services:
           - .env:/usr/src/app/tds-frontend/.env:ro
         env_file:
           - .env
+        environment:
+          - FRONTEND_BRANCH="master"
         ports:
           - 8081:8081
           - 80:8081

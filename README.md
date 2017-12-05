@@ -3,7 +3,7 @@ Network Adequacy: Time and Distance Standards
 # Local Development
 
 Two dockers are available for development:
-- Explorer: A contaner running jupyter notebook for easy exploration and model testing.
+- Explorer: A container running jupyter notebook for easy exploration and model testing.
 - Backend: A container running a Flask API served by uWSGI and Nginx.
 
 ## Setup
@@ -30,7 +30,8 @@ If you would like to run frontend and backend separately, use this repo to run t
 ```
 make backend
 ```
-Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`).
+Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`) for frontend.
+Alternatively, you can switch to a different branch of `tds-frontend` by updating the branch in `docker-compose.yml`
 
 
 ## Backend - API

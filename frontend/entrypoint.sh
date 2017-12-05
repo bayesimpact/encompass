@@ -1,8 +1,10 @@
 #!/bin/bash
 
 echo "Pulling from master..."
-git pull origin master
+git fetch --all
+git pull --all
 
+eval "git checkout $FRONTEND_BRANCH"
 echo "Rebuilding frontend..."
 yarn && yarn run build:prod
 
