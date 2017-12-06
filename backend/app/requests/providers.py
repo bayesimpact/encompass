@@ -44,4 +44,4 @@ def providers_request(app, flask_request, engine):
         provider_addresses = request_json['providers']
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
-    return providers.fetch_providers(provider_addresses, engine=engine,)
+    return providers.fetch_providers(provider_addresses, engine=engine)

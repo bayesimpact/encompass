@@ -37,20 +37,20 @@ class GeocodioCoder():
         }
 
     def geocode(self, address):
-        """Geocode a single point with geocodio."""
-        result = self.client.geocode(address)
+        """Geocode a single point with Geocodio."""
+        result = self._safe_geocode(address)
         return GeocodioCoder._format_result(address=address, geocoding_result=result)
 
     def geocode_batch(self, addresses):
         """
-        Geocode a list of addresses with geocodio.
+        Geocode a list of addresses with Geocodio.
 
         Returns a list of dictionaries with address, latitude, and longitude.
         The results are returned in the same order as the original list.
         """
         try:
             results = self._safe_geocode(addresses)
-            return [
+            geocoded_addresses = [
                 GeocodioCoder._format_result(
                     address=address,
                     geocoding_result=results.get(address)
@@ -59,8 +59,13 @@ class GeocodioCoder():
                 if results.get(address) and results.get(address).coords
             ]
         except Exception as error:
-            print(error.__class__, error, 'geocoding - switching to single geocoding.')
-            return [self.geocode(address) for address in addresses]
+            print(error.__class__, error, 'in batch geocoding - switching to single geocoding.')
+            geocoded_addresses = [self.geocode(address) for address in addresses]
+
+        return [
+            geocoded_address for geocoded_address
+            in geocoded_addresses if geocoded_address
+        ]
 
     @retry(
         retry_on_exception=_retry_on_geocodio_errors,
@@ -90,6 +95,20 @@ class OxCoder():
             }
         except:
             return None
+
+    def geocode_batch(self, addresses):
+        """
+        Geocode a list of addresses with geocodio.
+
+        Returns a list of dictionaries with address, latitude, and longitude.
+        The results are returned in the same order as the original list.
+        """
+        geocoded_addresses = [self.geocode(address) for address in addresses]
+
+        return [
+            geocoded_address for geocoded_address
+            in geocoded_addresses if geocoded_address
+        ]
 
 
 def get_geocoder(name):
