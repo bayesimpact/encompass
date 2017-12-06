@@ -3,7 +3,8 @@ import os
 
 from geocodio import GeocodioClient
 from geocodio.exceptions import (
-    GeocodioAuthError, GeocodioDataError, GeocodioServerError)  # noqa: F401
+    GeocodioAuthError, GeocodioDataError, GeocodioError, GeocodioServerError
+)  # noqa: F401
 
 import osmnx as ox
 
@@ -15,7 +16,7 @@ STOP_MAX_ATTEMPT_NUMBER = 4
 
 
 def _retry_on_geocodio_errors(exception):
-    errors = [GeocodioAuthError, GeocodioDataError, GeocodioServerError]
+    errors = [GeocodioAuthError, GeocodioDataError, GeocodioServerError, GeocodioError]
     return any(isinstance(exception, error) for error in errors)
 
 
@@ -55,10 +56,10 @@ class GeocodioCoder():
                     geocoding_result=results.get(address)
                 )
                 for address in addresses
-                if results.get(address).coords
+                if results.get(address) and results.get(address).coords
             ]
         except Exception as error:
-            print(error, 'geocoding - switching to single geocoding.')
+            print(error.__class__, error, 'geocoding - switching to single geocoding.')
             return [self.geocode(address) for address in addresses]
 
     @retry(
@@ -66,6 +67,7 @@ class GeocodioCoder():
         wait_fixed=WAIT_FIXED_MILLISECONDS,
         stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
     def _safe_geocode(self, addresses):
+        # TODO: Handle more than 10,000 addresses at once.
         return self.client.geocode(addresses)
 
 
