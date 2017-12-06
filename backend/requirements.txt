@@ -4,6 +4,7 @@ boto3==1.4.7
 flask==0.12.2
 Flask-Cors==3.0.3
 uwsgi==2.0.15
+werkzeug==0.12.2
 # Geo methods
 cHaversine==0.3.0
 geopy==1.11.0

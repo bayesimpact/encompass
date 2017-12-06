@@ -35,7 +35,17 @@ import json
 from backend.lib.fetch import providers
 from backend.app.exceptions.format import InvalidFormat
 
+from retrying import retry
 
+# TODO - Use config.
+# TODO - Create a dedicated retry decorator to avoid duplication.
+WAIT_FIXED_MILLISECONDS = 500
+STOP_MAX_ATTEMPT_NUMBER = 2
+
+
+@retry(
+    wait_fixed=WAIT_FIXED_MILLISECONDS,
+    stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
 def providers_request(app, flask_request, engine):
     """Handle /api/providers requests."""
     app.logger.info('Fetching providers.')

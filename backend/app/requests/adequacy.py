@@ -30,6 +30,11 @@ from backend.app.mocks.responses import mock_adequacy
 from backend.lib.calculate import adequacy
 from backend.lib.fetch import representative_points
 
+from retrying import retry
+
+WAIT_FIXED_MILLISECONDS = 500
+STOP_MAX_ATTEMPT_NUMBER = 2
+
 
 def mock_adequacy_calculation(provider_ids, service_area_ids):
     """Mock adequacy calculation."""
@@ -42,6 +47,9 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
     ]
 
 
+@retry(
+    wait_fixed=WAIT_FIXED_MILLISECONDS,
+    stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
 def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
     app.logger.info('Calculating adequacies.')
