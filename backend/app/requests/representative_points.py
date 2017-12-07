@@ -28,8 +28,8 @@ RESPONSE
 """
 import json
 
-from backend.lib.fetch import representative_points
 from backend.app.exceptions.format import InvalidFormat
+from backend.lib.fetch import representative_points
 
 from retrying import retry
 

@@ -1,6 +1,4 @@
 """Fetch data from database."""
-from sqlalchemy.orm import sessionmaker
-
 from backend.config import config
 from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods, postgis

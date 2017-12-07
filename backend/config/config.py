@@ -1,5 +1,7 @@
 """Configuration management."""
+
 import os
+
 import ujson as json
 
 _CONFIG = None

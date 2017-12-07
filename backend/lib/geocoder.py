@@ -97,7 +97,7 @@ class OxCoder():
                 'latitude': result[0],
                 'longitude': result[1],
             }
-        except:
+        except Exception:
             return None
 
     def geocode_batch(self, addresses):
