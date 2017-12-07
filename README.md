@@ -1,67 +1,59 @@
-# Time Distance Standards [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds-frontend) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Time Distance Standards [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
-[build]: https://img.shields.io/circleci/project/bayesimpact/tds-frontend.svg?branch=master&style=flat-square
-[apache2]: https://img.shields.io/npm/l/bayes-mvp.svg?style=flat-square
+[build]: https://img.shields.io/circleci/project/bayesimpact/tds.svg?branch=master&style=flat-square
+[apache2]: https://img.shields.io/npm/l/@bayes/tds.svg?style=flat-square
 
-> Network adequacy tool for [Bayes Impact](https://github.com/bayesimpact)
+> Explore healthcare network adequacies
 
+## Usage
 
-# Local Development
+### 1. Install Docker
 
-Two dockers are available for development:
-- Explorer: A container running jupyter notebook for easy exploration and model testing.
-- Backend: A container running a Flask API served by uWSGI and Nginx.
+Download and install Docker Community Edition ([link](https://store.docker.com/search?offering=community&type=edition)).
 
-## Setup
-In the main folder, you should add a `.env` with the following info (replacing `???` with real values):
-```
+### 2. Setup the app
+
+In this project's root folder, add a file called `.env` with the following info (replacing `???` with real values):
+
+```sh
 MAPBOX_TOKEN=???
 AWS_ACCESS_KEY=???
 AWS_SECRET_KEY=???
 POSTGRES_URL=???
 ```
 
-## App
+### 3. Run the app
 
-```
+In your terminal, run:
+
+```sh
 docker-compose up backend frontend
 ```
 
-Or simply:
-```
-make local
-```
+## Local Development
 
-If you would like to run frontend and backend separately, use this repo to run the backend by running:
-```
-make backend
-```
-Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`) for frontend.
-Alternatively, you can switch to a different branch of `tds-frontend` by updating the branch in `docker-compose.yml`
+Two docker containers are available for development:
 
+- [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
+- [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
 
-## Backend - API
+### Backend
 
-```
-docker-compose up -d backend
+```sh
+docker-compose up backend
 ```
 
-- The API will then be accessible on port 8080. `localhost:8080`.
-- Three POST endpoints are available to you:
-	- /api/providers
-	- /api/representative_points
-	- /api/adequacies
+- The API will then be accessible at [localhost:8080](http://localhost:8080)
+- It provides the following REST routes (we document each route with its corresponding [JSON-Schema](https://spacetelescope.github.io/understanding-json-schema/) definitions):
+  - `GET /api/available-service-areas/` ([response](shared/api-spec/available-service-areas-response.json)) - Fetches and returns all available service areas
+  - `POST /api/providers/` ([request](shared/api-spec/providers-request.json), [response](shared/api-spec/providers-response.json)) - Geocodes, saves to the database, and returns (or, reads from the database if already defined) the given providers
+  - `POST /api/representative_points/` ([request](shared/api-spec/representative-points-request.json), [response](shared/api-spec/representative-points-response.json)) - Computes representative points for the given service areas
+  - `POST /api/adequacies/` ([request](shared/api-spec/adequacies-request.json), [response](shared/api-spec/adequacies-response.json)) - Computes adequacies for the given service areas against the given providers
 
+### Frontend
 
-## Explorer
+```sh
+docker-compose up frontend
 ```
-make explorer
-```
 
-- Open a browser and navigate to `localhost:9001`.
-
-This environment gives you the following:
-- geopandas
-- scikit-learn
-- statsmodels
-- seaborn
+See [frontend/README.md] for more documentation.

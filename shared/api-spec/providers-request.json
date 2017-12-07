@@ -1,0 +1,38 @@
+{
+  "title": "POSTProvidersRequest",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Request shape for POST /api/providers/",
+  "type": "object",
+  "properties": {
+    "providers": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "address": {
+            "description": "Excluding suite #.\nEg. \"1234 Main St. San Francisco, CA 94114\"",
+            "type": "string"
+          },
+          "languages": {
+            "description": "Eg. [\"Burmese\", \"Chinese\", \"Spanish\"]",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "npi": {
+            "description": "Unique 10-digit gov't ID assigned to each healthcare provider",
+            "type": "integer"
+          },
+          "specialty": {
+            "description": "Eg. \"Internal Medicine\"",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["address", "languages", "npi"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["providers"]
+}

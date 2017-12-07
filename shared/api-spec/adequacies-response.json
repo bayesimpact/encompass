@@ -1,0 +1,30 @@
+{
+  "title": "POSTAdequaciesResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response shape for POST /api/adequacies/",
+  "type": "array",
+  "items": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "distance_to_closest_provider": {
+        "description": "Distance (in miles) to the closest provider",
+        "type": "number"
+      },
+      "time_to_closest_provider": {
+        "description": "Time (in minutes) to the closest provider",
+        "type": "integer"
+      },
+      "closest_provider_by_distance": {
+        "type": "integer"
+      },
+      "closest_provider_by_time": {
+        "type": "integer"
+      }
+    },
+    "additionalProperties": false,
+    "required": ["id", "distance_to_closest_provider", "time_to_closest_provider", "closest_provider_by_distance", "closest_provider_by_time"]
+  },
+  "additionalProperties": false
+}

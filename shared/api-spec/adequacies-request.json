@@ -1,0 +1,24 @@
+{
+  "title": "POSTAdequaciesRequest",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Request shape for POST /api/adequacies/",
+  "type": "object",
+  "properties": {
+    "provider_ids": {
+      "description": "Provider IDs, available from POST /api/providers/",
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "service_area_ids": {
+      "description": "Service area IDs in the format \"state_city_zip\".\nFor example, [\"ca_san_francisco_94014\", \"ca_san_francisco_94015\"]",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["provider_ids", "service_area_ids"]
+}
