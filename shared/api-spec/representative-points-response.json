@@ -1,0 +1,49 @@
+{
+  "title": "POSTRepresentativePointsResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response shape for POST /api/representative_points/",
+  "type": "array",
+  "items": {
+    "properties": {
+      "county": {
+        "type": "string"
+      },
+      "census_tract": {
+        "type": "number"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "lat": {
+        "type": "number"
+      },
+      "lng": {
+        "type": "number"
+      },
+      "population": {
+        "properties": {
+          "0.5": {
+            "type": "integer"
+          },
+          "2.5": {
+            "type": "integer"
+          },
+          "5.0": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["0.5"]
+      },
+      "service_area_id": {
+        "type": "string"
+      },
+      "zip": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": ["census_tract", "county", "id", "lat", "lng", "population", "service_area_id", "zip"]
+  },
+  "additionalProperties": false
+}

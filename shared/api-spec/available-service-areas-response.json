@@ -1,0 +1,27 @@
+{
+  "title": "GETAvailableServiceAreasResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response shape for GET /api/available-service-areas/",
+  "type": "array",
+  "items": {
+    "type": "array",
+    "items": [{
+        "description": "Service area ID",
+        "type": "string"
+      },
+      {
+        "description": "County name",
+        "type": "string"
+      },
+      {
+        "description": "Zip code",
+        "type": "string"
+      },
+      {
+        "description": "State",
+        "type": "string"
+      }
+    ]
+  },
+  "additionalProperties": false
+}

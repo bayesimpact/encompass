@@ -1,0 +1,46 @@
+{
+  "title": "POSTProvidersResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response shape for POST /api/providers/",
+  "type": "array",
+  "definitions": {
+    "success": {
+      "properties": {
+        "status": {
+          "enum": ["success"]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lng": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["status", "id", "lat", "lng"]
+    },
+    "error": {
+      "properties": {
+        "status": {
+          "enum": ["error"]
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["status", "message"]
+    }
+  },
+  "items": {
+    "oneOf": [{
+      "$ref": "#/definitions/success"
+    }, {
+      "$ref": "#/definitions/error"
+    }]
+  },
+  "additionalProperties": false
+}

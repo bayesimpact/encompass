@@ -4,6 +4,9 @@ local:
 backend:
 	docker-compose up backend
 
+frontend:
+	docker-compose up frontend
+
 explorer:
 	docker-compose up explorer
 
