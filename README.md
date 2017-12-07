@@ -32,10 +32,11 @@ docker-compose up backend frontend
 
 ## Local Development
 
-Two docker containers are available for development:
+Three docker containers are available for development:
 
 - [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
 - [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
+- [Explorer](explorer/Dockerfile): A container running jupyter notebook for easy exploration and model testing.
 
 ### Backend
 

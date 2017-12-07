@@ -4,8 +4,11 @@ local:
 backend:
 	docker-compose up backend
 
-explorer:
+frontend:
 	docker-compose up explorer
+
+explorer:
+	docker-compose up frontend
 
 rebuild:
 	docker-compose build --no-cache

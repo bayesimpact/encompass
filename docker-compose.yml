@@ -18,8 +18,8 @@ services:
         - ./runners/:/app/runners:ro
         # Linters and Tests
         - ./backend/tests/:/app/tests:ro
-        - .flake8:/app/.flake8:ro
-        - .coveragerc:/app/.coveragerc:ro
+        - ./backend/.flake8:/app/.flake8:ro
+        - ./backend/.coveragerc:/app/.coveragerc:ro
         - ./backend/lib/:/app/lib:ro
       environment:
         - POSTGRES_URL=$POSTGRES_URL
