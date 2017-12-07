@@ -4,6 +4,9 @@ local:
 backend:
 	docker-compose up backend
 
+frontend:
+	docker-compose up frontend
+
 explorer:
 	docker-compose up explorer
 
@@ -30,6 +33,7 @@ backend-test:
 backend-coverage:
 	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=60 --cov-report term-missing
 
+# Frontend tests
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
 

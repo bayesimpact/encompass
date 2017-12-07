@@ -2,25 +2,13 @@
 
 ## Install
 
-```sh
-# install git repo
-git clone git@github.com:bayesimpact/tds-frontend.git
-cd tds-frontend
+We use docker to simplify tests. Before starting, make sure that Docker and docker-compose are available on your machine.
 
-# install dependencies
-yarn
-
-# recompile when anything changes
-yarn watch
-```
-
-Then, open *http://localhost:8081* in your browser.
-
-## Editor
+## Frontend - Editor
 
 I suggest editing this project using [VSCode](https://code.visualstudio.com/). VSCode will automatically suggest a small set of extensions that will surface type and lint errors directly in your editor. It will also auto-format files on save, reducing the need to manually fix lint errors.
 
-## Tips
+## Frontend - Tips
 
 - To debug React performance issues:
 
