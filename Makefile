@@ -30,5 +30,8 @@ backend-test:
 backend-coverage:
 	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=60 --cov-report term-missing
 
+frontend-test:
+	docker-compose run frontend bash -c "yarn test"
+
 # [Dummy dependency to force a make command to always run.]
 FORCE:
