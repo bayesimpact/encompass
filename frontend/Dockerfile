@@ -3,11 +3,13 @@ FROM node:latest
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN git clone https://github.com/bayesimpact/tds-frontend.git
-WORKDIR /usr/src/app/tds-frontend
+COPY . /usr/src/app
 
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ADD src /usr/src/app/src
 
 EXPOSE 8081
+
+RUN yarn
+RUN yarn run build:prod
+
+CMD ["yarn", "run", "start:prod"]

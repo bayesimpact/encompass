@@ -2,41 +2,44 @@ version: "2"
 services:
 
     backend:
-        build:
-          context: ./backend
-          dockerfile: Dockerfile
-        volumes:
-          # App files and config
-          - ./backend/config/uwsgi.ini:/app/uwsgi.ini:ro
-          - ./backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
-          - ./backend/app/main.py:/app/main.py:ro
-          # Library
-          - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
-          # Data
-          - ./data/:/app/data/:rw
-          # Runners
-          - ./runners/:/app/runners:ro
-          # Linters and Tests
-          - ./backend/tests/:/app/tests:ro
-          - .flake8:/app/.flake8:ro
-          - .coveragerc:/app/.coveragerc:ro
-          - ./backend/lib/:/app/lib:ro
-        environment:
-          - POSTGRES_URL=$POSTGRES_URL
-        env_file:
-          - .env
-        ports:
-          - 8080:8080
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+      volumes:
+        # App files and config
+        - ./backend/config/uwsgi.ini:/app/uwsgi.ini:ro
+        - ./backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+        - ./backend/app/main.py:/app/main.py:ro
+        # Library
+        - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
+        # Data
+        - ./data/:/app/data/:rw
+        # Runners
+        - ./runners/:/app/runners:ro
+        # Linters and Tests
+        - ./backend/tests/:/app/tests:ro
+        - .flake8:/app/.flake8:ro
+        - .coveragerc:/app/.coveragerc:ro
+        - ./backend/lib/:/app/lib:ro
+      environment:
+        - POSTGRES_URL=$POSTGRES_URL
+      env_file:
+        - .env
+      ports:
+        - 8080:8080
 
     frontend:
-        volumes:
-          - ./src:/usr/src/app/src
-        build: .
-        ports:
-          - 80:8081
-          - 8081:8081
-        env_file:
-          - .env
+      volumes:
+        - ./frontend/src:/usr/src/app/src
+        - .env:/usr/src/app/src/.env
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - 80:8081
+        - 8081:8081
+      env_file:
+        - .env
 
     explorer:
         build:
