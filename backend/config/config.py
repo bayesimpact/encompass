@@ -128,7 +128,7 @@ def _get_env_variable(env_variable, resource=None, default=None):
 
 
 CONFIG = {
-    'geocoding_enabled': True,
-    'geocoder': 'oxcoder',
-    'measurer': 'haversine'
+    GEOCODING_ENABLED_KEY: True,
+    GEOCODER_KEY: 'oxcoder',
+    MEASURER_KEY: 'haversine'
 }
