@@ -1,9 +1,0 @@
-@import "../../index.css";
-
-.TotalAnalytics .HighLevelStats {
-  margin: 10px 0 30px;
-}
-
-.TotalAnalytics canvas + .StatsBox {
-  margin-top: 30px;
-}

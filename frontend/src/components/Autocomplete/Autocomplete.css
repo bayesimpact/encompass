@@ -1,0 +1,72 @@
+.Autocomplete {
+  display: block;
+  position: relative;
+}
+
+.Autocomplete > svg {
+  opacity: .54;
+  pointer-events: none;
+  position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
+.Autocomplete input {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  display: block;
+  font-size: 14px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.Autocomplete .Menu {
+  background: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+    left: 1px;
+    right: 1px;
+    top: 39px;
+
+  /* from material-ui menu style: */
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
+  transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  font-family: Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+  border-radius: 2px;
+  padding: 16px 0;
+  z-index: 2100;
+}
+
+.Autocomplete .Item {
+  display: block;
+
+  /* from material-ui menu style: */
+  border: 10px;
+  font-family: Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: inherit;
+  position: relative;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 32px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0;
+  min-height: 32px;
+  padding: 0 24px;
+
+  white-space: nowrap;
+}
+
+.Autocomplete .Item.-isHighlighted {
+  color: rgb(255, 64, 129);
+}
+
+.Autocomplete .Item.-isPinned {
+  font-style: italic;
+}

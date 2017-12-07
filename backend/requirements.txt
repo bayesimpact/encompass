@@ -1,0 +1,30 @@
+# AWS SDK
+boto3==1.4.7
+# Flask and UWSGI
+flask==0.12.2
+Flask-Cors==3.0.3
+uwsgi==2.0.15
+werkzeug==0.12.2
+# Geo methods
+cHaversine==0.3.0
+geopy==1.11.0
+Shapely==1.6.2
+osmnx==0.6
+# Database
+retrying==1.3.3
+geoalchemy2==0.4.0
+geojson==2.3.0
+psycopg2==2.7.1
+sqlalchemy==1.1.4
+sqlalchemy-postgres-copy==0.5.0
+# Used by `make test` only:
+mock==2.0.0
+pytest==3.2.2
+pytest-cov==2.4.0
+Flask-Testing==0.6.2
+# Used by `make lint` only:
+flake8==3.3.0
+flake8-import-order==0.12
+flake8-quotes==0.11.0
+pep257==0.7.0
+pygeocodio==0.5.0

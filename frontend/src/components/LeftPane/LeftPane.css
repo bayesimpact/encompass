@@ -1,0 +1,31 @@
+@import "../../index.css";
+
+.LeftPane {
+  position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 64px;
+  width: 400px; /* iconbar-width + leftpane-width + room for box shadow */
+}
+
+.LeftPaneContent {
+  overflow: hidden;
+  position: absolute;
+    bottom: 0;
+    left: var(--iconbar-width);
+    right: 0;
+    top: 0;
+}
+
+/* silly inline styles... */
+.LeftPaneContent > div {
+  padding: 20px;
+  position: absolute !important;
+}
+
+.LeftPane .ClearInputsButton,
+.LeftPane .DownloadAnalysisLink {
+  position: absolute !important; /* override material-ui inline style */
+    bottom: 18px;
+    right: 20px;
+}

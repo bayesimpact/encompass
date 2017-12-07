@@ -1,0 +1,15 @@
+@import "../../index.css";
+
+.InfoBox {
+  background: var(--extralight);
+  border: inset 1px solid var(--verylight);
+  color: var(--muted);
+  display: block;
+  font-weight: var(--medium-weight);
+  padding: 20px;
+  text-align: center;
+}
+
+.InfoBox.-Large {
+  font-size: var(--mediumlarge-font);
+}

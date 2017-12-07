@@ -1,0 +1,28 @@
+@import "../../index.css";
+
+.LeftPane .InfoBox {
+  margin-top: 20px;
+}
+
+.LeftPane .InfoBox svg {
+  fill: var(--muted) !important;
+  position: relative;
+    bottom: -7px;
+}
+
+.LeftPane .InfoBox a {
+  color: var(--muted);
+  display: block;
+  text-decoration: none;
+}
+
+/* Don't cover up Download CSV link */
+.LeftPane .ServiceAreaAnalytics,
+.LeftPane .TotalAnalytics {
+  overflow-y: auto;
+  position: absolute;
+    bottom: 124px;
+    right: 20px;
+    left: 20px;
+    top: 95px;
+}

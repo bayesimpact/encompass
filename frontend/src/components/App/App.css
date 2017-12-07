@@ -1,0 +1,86 @@
+@import "../../index.css";
+
+/*
+  CSS Reset
+*/
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+  Global
+*/
+
+body {
+  font: 400 13px/21px -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+html, body, #App, .App {
+  height: 100%;
+  width: 100%;
+}
+
+h2 {
+  font-size: var(--medium-font);
+  font-weight: var(--heavy-weight);
+  line-height: 36px;
+  text-transform: uppercase;
+}
+
+p {
+  padding: 12px 0;
+}
+
+/*
+  Utilities
+*/
+
+.Ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Muted {
+  color: var(--muted);
+}
+
+.PullRight {
+  float: right;
+}
+
+.SmallFont {
+  font-size: 12px;
+}
+
+.MediumFont {
+  font-size: 13px;
+}
+
+.MediumLargeFont {
+  font-size: 15px;
+}
+
+.LargeFont {
+  font-size: 16px;
+}
+
+/*
+  Material-UI Augmentations
+
+  Inline styles are the worst..
+*/
+
+.Button.-Primary {
+  color: var(--primary) !important;
+}
+.Button.-Primary path {
+  fill: var(--primary) !important;
+}
+
+.DropDownMenu.-Compact button + div {
+  display: none !important;
+}
