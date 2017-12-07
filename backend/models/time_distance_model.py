@@ -2,9 +2,9 @@
 import logging
 import math
 
-import osmnx as ox
-
 import geopy.distance
+
+import osmnx as ox
 
 import pandas as pd
 

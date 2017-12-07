@@ -32,8 +32,8 @@ RESPONSE
 """
 import json
 
-from backend.lib.fetch import providers
 from backend.app.exceptions.format import InvalidFormat
+from backend.lib.fetch import providers
 
 from retrying import retry
 

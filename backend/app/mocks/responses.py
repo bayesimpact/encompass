@@ -50,10 +50,11 @@ def mock_adequacy(rp_id, provider_id):
     }
 
 
-### Helpers
+# Helpers
 def random_coord(seed):
     """Generate a mock lat/lng coordinate."""
     return lambda: seed + random.uniform(-0.03, 0.03)
+
 
 random_lat = random_coord(37.765134)
 random_lng = random_coord(-122.444687)
