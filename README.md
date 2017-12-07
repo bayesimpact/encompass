@@ -1,52 +1,67 @@
-# Time Distance Standards (frontend) [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds-frontend) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Time Distance Standards [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds-frontend) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/tds-frontend.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/npm/l/bayes-mvp.svg?style=flat-square
 
 > Network adequacy tool for [Bayes Impact](https://github.com/bayesimpact)
 
-## Install
 
-1. Install [NVM](https://github.com/creationix/nvm#installation)
-2. Install Node 8: `nvm install v8.1.3`
-3. Install [Yarn](https://yarnpkg.com/en/docs/install)
-4. Clone this repo: `git clone git@github.com:bayesimpact/tds-frontend.git`
+# Local Development
 
-## Environment
+Two dockers are available for development:
+- Explorer: A container running jupyter notebook for easy exploration and model testing.
+- Backend: A container running a Flask API served by uWSGI and Nginx.
 
-Create a file called ".env" in the root of this repo and define `MAPBOX_TOKEN` in it. For example:
-
-```sh
-# contents of .env:
-MAPBOX_TOKEN=abcdefg
+## Setup
+In the main folder, you should add a `.env` with the following info (replacing `???` with real values):
+```
+MAPBOX_TOKEN=???
+AWS_ACCESS_KEY=???
+AWS_SECRET_KEY=???
+POSTGRES_URL=???
 ```
 
-## Run (development version)
+## App
 
-```sh
-yarn
-yarn build
-yarn start
+```
+docker-compose up backend frontend
 ```
 
-Then, open *https://localhost:8081* in your browser.
-
-## Run (production version)
-
-```sh
-yarn
-yarn build:prod
-yarn start:prod
+Or simply:
+```
+make local
 ```
 
-Then, open *https://localhost:8081* in your browser.
+If you would like to run frontend and backend separately, use this repo to run the backend by running:
+```
+make backend
+```
+Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`) for frontend.
+Alternatively, you can switch to a different branch of `tds-frontend` by updating the branch in `docker-compose.yml`
 
-## Tests
 
-```sh
-yarn test
+## Backend - API
+
+```
+docker-compose up -d backend
 ```
 
-## License
+- The API will then be accessible on port 8080. `localhost:8080`.
+- Three POST endpoints are available to you:
+	- /api/providers
+	- /api/representative_points
+	- /api/adequacies
 
-Apache2
+
+## Explorer
+```
+make explorer
+```
+
+- Open a browser and navigate to `localhost:9001`.
+
+This environment gives you the following:
+- geopandas
+- scikit-learn
+- statsmodels
+- seaborn

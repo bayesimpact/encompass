@@ -1,3 +1,19 @@
 machine:
-  node:
-    version: 8.1.3
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    - pip install --upgrade docker-compose==1.14.0
+    - sudo apt-get install syslog-ng syslog-ng-core
+  services:
+    - docker
+dependencies:
+  pre:
+    - touch .env
+    - docker-compose build backend frontend
+  post:
+    - make backend-lint
+    - make models-lint
+test:
+  override:
+    - make backend-test
+    - make backend-coverage
+    - make frontend-test
