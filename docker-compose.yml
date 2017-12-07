@@ -1,6 +1,5 @@
 version: "2"
 services:
-
     backend:
       build:
         context: ./backend
@@ -27,7 +26,6 @@ services:
         - .env
       ports:
         - 8080:8080
-
     frontend:
       volumes:
         - ./frontend/src:/usr/src/app/src
@@ -40,7 +38,6 @@ services:
         - 8081:8081
       env_file:
         - .env
-
     explorer:
         build:
           context: ./explorer/

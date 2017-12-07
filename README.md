@@ -22,7 +22,7 @@ POSTGRES_URL=???
 ```
 
 ## App
-
+To start the App, run one of the following command.
 ```
 docker-compose up backend frontend
 ```
@@ -31,14 +31,7 @@ Or simply:
 ```
 make local
 ```
-
-If you would like to run frontend and backend separately, use this repo to run the backend by running:
-```
-make backend
-```
-Then switch to https://github.com/bayesimpact/tds-frontend (and run `docker-compose up`) for frontend.
-Alternatively, you can switch to a different branch of `tds-frontend` by updating the branch in `docker-compose.yml`
-
+The App will then be available at `http://localhost`
 
 ## Backend - API
 
@@ -48,12 +41,13 @@ docker-compose up -d backend
 
 - The API will then be accessible on port 8080. `localhost:8080`.
 - Three POST endpoints are available to you:
-	- /api/providers
-	- /api/representative_points
-	- /api/adequacies
+	- /api/providers/
+	- /api/representative_points/
+	- /api/adequacies/
 
 
 ## Explorer
+To explore RPG data and algorithm, you can use the Explorer docker with Jupyter Notebooks.
 ```
 make explorer
 ```
