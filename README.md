@@ -7,11 +7,16 @@
 
 ## Usage
 
+### 0. Clone this repository
+```
+$ git clone git@github.com:bayesimpact/tds.git
+```
+
 ### 1. Install Docker
 
 Download and install Docker Community Edition ([link](https://store.docker.com/search?offering=community&type=edition)).
 
-### 2. Setup the app
+### 2. Setup environment variables
 
 In this project's root folder, add a file called `.env` with the following info (replacing `???` with real values):
 
@@ -22,6 +27,10 @@ AWS_SECRET_KEY=???
 POSTGRES_URL=???
 ```
 
+* `MAPBOX_TOKEN`: API key provided by [Mapbox](mapbox.com) for mapping.
+* `AWS_ACCESS_KEY` and `AWS_SECRET_KEY`: Required for AWS CLI - see [AWS docs](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
+* `POSTGRES_URL`: URL for database to use for the application. This might be `localhost` for development.
+
 ### 3. Run the app
 
 In your terminal, run:
@@ -29,6 +38,8 @@ In your terminal, run:
 ```sh
 docker-compose up backend frontend
 ```
+
+or simply `make local`.
 
 ## Local Development
 
@@ -43,6 +54,8 @@ Three docker containers are available for development:
 ```sh
 docker-compose up backend
 ```
+
+or `make backend`.
 
 - The API will then be accessible at [localhost:8080](http://localhost:8080)
 - It provides the following REST routes (we document each route with its corresponding [JSON-Schema](https://spacetelescope.github.io/understanding-json-schema/) definitions):
@@ -59,5 +72,7 @@ docker-compose up backend
 ```sh
 docker-compose up frontend
 ```
+
+or `make frontend`.
 
 See [frontend/README.md](frontend/README.md) for more documentation.
