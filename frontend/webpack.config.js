@@ -56,7 +56,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.ejs',
-      title: 'bayes-network-adequacy-explorer-test',
+      title: 'bayes-network-adequacy-explorer',
       favicon: path.join(__dirname, 'public/favicon.ico')
     })
   ]
