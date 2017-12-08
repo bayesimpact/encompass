@@ -1,6 +1,6 @@
 # Explorer
 
-## Running it
+This container is provided for performing TDS-related analysis.
 
 ```sh
 make explorer

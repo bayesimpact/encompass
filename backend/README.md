@@ -1,5 +1,5 @@
 # Backend Description
-The backend API is built on Python Flask microservice, and is served by Nginx and uWSGI.
+The backend API is served by Flask through Nginx and uWSGI.
 
 ## Backend endpoints
 
