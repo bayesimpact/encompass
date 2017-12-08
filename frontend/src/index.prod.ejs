@@ -1,11 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="<%= htmlWebpackPlugin.options.baseHref %>">
+  <link rel="icon" href="images/favicon.png?0">
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css" rel="stylesheet" />
 </head>
+
 <body>
   <div id="App"></div>
   <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
@@ -20,4 +26,5 @@
   <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
 </body>
+
 </html>

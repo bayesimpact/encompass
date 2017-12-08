@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -64,7 +65,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.prod.ejs',
-      title: 'bayes-network-adequacy-explorer'
+      title: 'bayes-network-adequacy-explorer',
+      favicon: path.join(__dirname, 'src/images/favicon.png')
     }),
     new webpack.DefinePlugin({
       'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),

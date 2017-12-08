@@ -1,3 +1,4 @@
+const path = require('path')
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -57,7 +58,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.ejs',
-      title: 'bayes-network-adequacy-explorer'
+      title: 'bayes-network-adequacy-explorer',
+      favicon: path.join(__dirname, 'src/images/favicon.png')
     })
   ]
 }
