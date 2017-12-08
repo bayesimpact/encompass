@@ -5,10 +5,10 @@ backend:
 	docker-compose up backend
 
 frontend:
-	docker-compose up explorer
+	docker-compose up frontend
 
 explorer:
-	docker-compose up frontend
+	docker-compose up explorer
 
 rebuild:
 	docker-compose build --no-cache
