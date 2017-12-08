@@ -7,12 +7,9 @@ from backend.lib.database.postgres import connect, methods, postgis
 from backend.lib.database.tables import address
 from backend.lib.timer import timed
 
-DEFAULT_GEOCODING = True
-DEFAULT_GEOCODER = 'oxcoder'
-
 # Use values from configuration if they exist.
-GEOCODING = config.get(config.GEOCODING_ENABLED_KEY, DEFAULT_GEOCODING)
-GEOCODER = config.get(config.GEOCODER_KEY, DEFAULT_GEOCODER)
+GEOCODING = config.get(config.GEOCODING_ENABLED_KEY)
+GEOCODER = config.get(config.GEOCODER_KEY)
 
 
 def _fetch_addresses_from_db(raw_addresses, session):
