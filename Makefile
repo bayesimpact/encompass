@@ -36,5 +36,11 @@ backend-coverage:
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
 
+# Tests
+test:
+	$(MAKE) backend-lint
+	$(MAKE) backend-coverage
+	$(MAKE) frontend-test
+
 # [Dummy dependency to force a make command to always run.]
 FORCE:
