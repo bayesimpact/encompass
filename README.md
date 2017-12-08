@@ -3,7 +3,6 @@
 [build]: https://img.shields.io/circleci/project/bayesimpact/tds.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 
-
 > Explore Healthcare network adequacies and population distance to services.
 
 ## Usage
