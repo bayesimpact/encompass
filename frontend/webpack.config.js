@@ -1,3 +1,4 @@
+const path = require('path')
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -21,30 +22,30 @@ module.exports = {
   },
   module: {
     rules: [{
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader'
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', {
-            loader: 'postcss-loader',
-            options: {
-              plugins: loader => [
-                require('postcss-import')(),
-                require('postcss-cssnext')({
-                  browsers: '>2%'
-                })
-              ]
-            }
-          }]
-        })
-      },
+      test: /\.tsx?$/,
+      loader: 'awesome-typescript-loader'
+    },
+    {
+      enforce: 'pre',
+      test: /\.js$/,
+      loader: 'source-map-loader'
+    },
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        use: ['css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins: loader => [
+              require('postcss-import')(),
+              require('postcss-cssnext')({
+                browsers: '>2%'
+              })
+            ]
+          }
+        }]
+      })
+    },
     ]
   },
   plugins: [
@@ -55,7 +56,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.ejs',
-      title: 'bayes-network-adequacy-explorer'
+      title: 'bayes-network-adequacy-explorer-test',
+      favicon: path.join(__dirname, 'public/favicon.ico')
     })
   ]
 }
