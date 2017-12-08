@@ -1,5 +1,4 @@
 # Time Distance Standards [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
-
 [build]: https://img.shields.io/circleci/project/bayesimpact/tds.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/npm/l/@bayes/tds.svg?style=flat-square
 
