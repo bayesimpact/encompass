@@ -1,4 +1,5 @@
 """Methods for geocoding with Geocodio or Open Street Map."""
+import concurrent.futures
 import os
 
 from geocodio import GeocodioClient
@@ -13,6 +14,7 @@ from retrying import retry
 
 WAIT_FIXED_MILLISECONDS = 2000
 STOP_MAX_ATTEMPT_NUMBER = 4
+MAX_THREADS = 32
 
 
 def _retry_on_geocodio_errors(exception):
@@ -60,12 +62,14 @@ class GeocodioCoder():
             ]
         except Exception as error:
             print(error.__class__, error, 'in batch geocoding - switching to single geocoding.')
-            geocoded_addresses = [self.geocode(address) for address in addresses]
 
-        return [
-            geocoded_address for geocoded_address
-            in geocoded_addresses if geocoded_address
-        ]
+            with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+                geocoded_addresses = executor.map(self.geocode, addresses)
+
+            return [
+                geocoded_address for geocoded_address
+                in geocoded_addresses if geocoded_address
+            ]
 
     @retry(
         retry_on_exception=_retry_on_geocodio_errors,
@@ -103,7 +107,8 @@ class OxCoder():
         Returns a list of dictionaries with address, latitude, and longitude.
         The results are returned in the same order as the original list.
         """
-        geocoded_addresses = [self.geocode(address) for address in addresses]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+            geocoded_addresses = executor.map(self.geocode, addresses)
 
         return [
             geocoded_address for geocoded_address
