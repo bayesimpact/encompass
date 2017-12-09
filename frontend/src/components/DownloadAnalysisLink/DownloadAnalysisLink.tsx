@@ -42,7 +42,7 @@ function onClick(store: Store) {
       : store.get('serviceAreas')
     let data = serviceAreas.map(_ => {
       let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
-      let adequacies = adequaciesFromServiceArea(_, store)
+      let adequacies = adequaciesFromServiceArea([_], store)
       let {
         numAdequatePopulation,
         numInadequatePopulation,

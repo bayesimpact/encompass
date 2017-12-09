@@ -9,14 +9,27 @@ import './ServiceAreaAnalytics.css'
 
 export let ServiceAreaAnalytics = withStore(
   'adequacies',
-  'selectedServiceArea'
+  'selectedServiceArea',
+  'serviceAreas'
 )(({ store }) => {
 
-  let selectedServiceArea = store.get('selectedServiceArea')!
-  let adequacies = adequaciesFromServiceArea(selectedServiceArea, store)
+  let selectedServiceAreas = store.get('serviceAreas')
+  if (store.get('selectedServiceArea')) {
+    selectedServiceAreas = [store.get('selectedServiceArea')!]
+  }
+
+  let adequacies = adequaciesFromServiceArea(selectedServiceAreas, store)
 
   return <div className='ServiceAreaAnalytics'>
-    <AdequacyDoughnut serviceAreas={[store.get('selectedServiceArea')!]} />
+    <p className='Ellipsis Muted SmallFont'>
+      Service Areas - {store.get('uploadedServiceAreasFilename')
+        ? store.get('uploadedServiceAreasFilename')
+        : `${formatNumber(selectedServiceAreas.length)} selected`
+      }
+      <br />
+      Providers - {store.get('uploadedProvidersFilename')}
+    </p>
+    <AdequacyDoughnut serviceAreas={selectedServiceAreas} />
     <StatsBox withBorders withHorizontalLines>
       <tr>
         <th />

@@ -6,6 +6,7 @@ import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { StatsBox } from '../StatsBox/StatsBox'
+import './AdequacyDoughnut.css'
 
 type Props = StoreProps & {
   serviceAreas: string[]
@@ -56,6 +57,18 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         }
       } as any}
     />
+    <StatsBox className='HighLevelStats' withBorders>
+      <tr>
+        <th>Service Areas</th>
+        <th>Population</th>
+        <th>Providers</th>
+      </tr>
+      <tr>
+        <td>{serviceAreas.length.toLocaleString()}</td>
+        <td>{(numAdequatePopulation + numInadequatePopulation).toLocaleString()}</td>
+        <td>{store.get('providers').length.toLocaleString()}</td>
+      </tr>
+    </StatsBox>
     <StatsBox withBorders>
       <tr>
         <th>Adequate Access</th>

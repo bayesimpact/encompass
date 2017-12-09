@@ -4,11 +4,11 @@ import { Store } from '../services/store'
 import { totalPopulation } from './analytics'
 
 export function adequaciesFromServiceArea(
-  serviceArea: string,
+  serviceAreas: string[],
   store: Store
 ): Lazy<Adequacy[]> {
   return chain(store.get('representativePoints'))
-    .filter(_ => _.serviceAreaId === serviceArea)
+    .filter(_ => serviceAreas.includes(_.serviceAreaId))
     .map(_ => store.get('adequacies')[_.id])
     .filter(Boolean)
 }

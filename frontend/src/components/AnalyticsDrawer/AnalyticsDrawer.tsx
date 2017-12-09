@@ -8,7 +8,6 @@ import { Link } from '../Link/Link'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
-import { TotalAnalytics } from './TotalAnalytics'
 
 let Analytics = withStore(
   'providers',
@@ -28,15 +27,8 @@ let Analytics = withStore(
     </InfoBox>
   }
 
-  if (store.get('selectedServiceArea')) {
-    return <div>
-      <ServiceAreaAnalytics />
-      <DownloadAnalysisLink />
-    </div>
-  }
-
   return <div>
-    <TotalAnalytics />
+    <ServiceAreaAnalytics />
     <DownloadAnalysisLink />
   </div>
 
