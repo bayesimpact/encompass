@@ -36,7 +36,6 @@ export class ZipCodeSelector extends React.Component<Props> {
           {this.props.selectedServiceAreas.length} selected
       </div>
       </div>
-
       {this.props.counties.length
         ? <Checkbox
           checked={areAllSelected(allServiceAreas, this.props.selectedServiceAreas)}
@@ -49,7 +48,7 @@ export class ZipCodeSelector extends React.Component<Props> {
           <Subheader style={{ marginBottom: '-16px' }}>{county}</Subheader>
           <div className='ZipList'>
             {COUNTIES_TO_ZIPS[county].map(zip => {
-              let key = serializeServiceArea('ca', county, zip)
+              let key = serializeServiceArea('tx', county, zip)
               return <ListItem
                 className='ListItem'
                 key={key}

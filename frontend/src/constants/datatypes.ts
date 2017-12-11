@@ -27,7 +27,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Measure = 15 | 20 | 30
+export type Measure = 15 | 20 | 30 | 60
 
 export type Provider = {
   address: string

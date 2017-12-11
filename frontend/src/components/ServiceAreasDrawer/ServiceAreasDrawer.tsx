@@ -9,7 +9,7 @@ import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
-import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
+// import { ZipCodeSelector } from '../ZipCodeSelector/ZipCodeSelector'
 import './ServiceAreasDrawer.css'
 
 /**
@@ -18,6 +18,7 @@ import './ServiceAreasDrawer.css'
 export let ServiceAreasDrawer = withStore(
   'counties',
   'serviceAreas',
+  'state',
   'uploadedServiceAreasFilename'
 )(({ store }) =>
   <div>
@@ -30,16 +31,19 @@ export let ServiceAreasDrawer = withStore(
     }</p>
 
     <hr />
-    <StateSelector />
+    <StateSelector
+      onChange={store.set('state')}
+      selectedState={store.get('state')}
+    />
     <CountySelector
       onChange={store.set('counties')}
       selectedCounties={store.get('counties')}
     />
-    <ZipCodeSelector
+    {/* <ZipCodeSelector
       counties={store.get('counties')}
       onChange={store.set('serviceAreas')}
       selectedServiceAreas={store.get('serviceAreas')}
-    />
+    /> */}
     <ClearInputsButton onClearInputs={onClearInputs(store)} />
 
   </div >
@@ -56,7 +60,7 @@ function onFileSelected(store: Store) {
     )
 
     store.set('counties')(getCounties(serviceAreas))
-    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
+    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('tx', county, zip)))
     store.set('uploadedServiceAreasFilename')(file.name)
   }
 }
