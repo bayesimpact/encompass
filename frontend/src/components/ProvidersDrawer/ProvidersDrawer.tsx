@@ -11,13 +11,15 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) =>
   <div>
     <h2>Providers</h2>
-    <CSVUploader onUpload={onFileSelected(store)} />
+    <div className='Flex -Row'>
+      <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
+      {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
+    </div>
     <p className='Ellipsis Muted SmallFont'>{
       store.get('uploadedProvidersFilename')
         ? `Uploaded ${store.get('uploadedProvidersFilename')}`
         : 'Upload valid list of providers'
     }</p>
-    <ClearInputsButton onClearInputs={onClearInputs(store)} />
   </div>
 )
 ProvidersDrawer.displayName = 'ProvidersDrawer'
