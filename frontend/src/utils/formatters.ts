@@ -48,8 +48,8 @@ export function formatServiceArea(serializedServiceArea: string) {
  *
  * TODO: Is there a way to avoid needing this function?
  */
-export function unformatServiceArea(formattedServiceArea: string): string {
-  let { county, state, zip } = parseFormattedServiceArea(formattedServiceArea)
+export function unformatServiceArea(state: string, formattedServiceArea: string): string {
+  let { county, zip } = parseFormattedServiceArea(formattedServiceArea)
   return serializeServiceArea(state, county, zip)
 }
 
@@ -57,7 +57,6 @@ function parseFormattedServiceArea(formattedServiceArea: string) {
   let [c, z] = formattedServiceArea.split(' / ')
   return {
     county: snakeCase(c),
-    state: 'ca' as 'ca',
     zip: z
   }
 }

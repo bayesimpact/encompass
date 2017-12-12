@@ -35,6 +35,10 @@ San Diego,Vista,92084,100
 Alameda,Berkeley,   ,1001
 `], 'pointAsInvalidInputFile4.csv')
 
+let pointAsInvalidInputFile5 = new File([`ZipCode
+92055
+`], 'pointAsInvalidInputFile5.csv')
+
 let pointAsZipAndCounty = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
 San Diego,Vista,92084,100
 san francisco,san Francisco,94117,1001
@@ -48,15 +52,12 @@ let pointAsZipOnly = new File([`ZipCode
 94114
 92154
 91935
-92055
 `], 'pointAsZipOnly.csv')
 
 // TODO: More complete mock
 let mockStore: Store = {
   get() {
-    return {
-      state: 'ca'
-    }
+    return 'ca'
   }
 } as any
 
@@ -84,10 +85,14 @@ test('parseServiceAreasCSV (invalid input: missing zip)', async () =>
   expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile4))[0][0].toString()).toMatchSnapshot()
 )
 
+test('parseServiceAreasCSV (invalid input: invalid zip)', async () =>
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile5))[0][0].toString()).toMatchSnapshot()
+)
+
 test('parseServiceAreasCSV (zip and county)', async () =>
   expect(await parseServiceAreasCSV(mockStore)(pointAsZipAndCounty)).toMatchSnapshot()
 )
 
-test('parseServiceAreasCSV (zip only)', async () =>
+test.only('parseServiceAreasCSV (zip only)', async () =>
   expect(await parseServiceAreasCSV(mockStore)(pointAsZipOnly)).toMatchSnapshot()
 )

@@ -65,7 +65,7 @@ function onFileSelected(store: Store) {
     )
 
     store.set('counties')(getCounties(serviceAreas))
-    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea('ca', county, zip)))
+    store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea(store.get('selectedState'), county, zip)))
     store.set('uploadedServiceAreasFilename')(file.name)
   }
 }
@@ -92,6 +92,11 @@ const COLUMNS = [
 
 let parse = parseRows<[string, string][], { state: string }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
 
+  // validate that zip exists
+  if (zip && !(zip in COUNTIES_BY_ZIP)) {
+    return new ParseError(rowIndex, 1, COLUMNS[1], `We don't support the zip code "${zip}" yet. Reach out to us at health@bayesimpact.org`)
+  }
+
   // We infer missing zips and counties, so one zip might map to
   // more than one county, and one county maps to many zips.
   let pairs = getCountyAndZip(state, county, zip)
@@ -107,11 +112,11 @@ let parse = parseRows<[string, string][], { state: string }>(COLUMNS, (([county,
   // TODO: consider pre-hashing zips for O(1) lookup
   let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].includes(zip))
   if (badZip) {
-    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain zip code "${badZip[1]}"`)
+    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain ZIP code "${badZip[1]}"`)
   }
 
   return pairs
-    .uniqBy(([c, z]) => serializeServiceArea('ca', c, z))
+    .uniqBy(([c, z]) => serializeServiceArea(state, c, z))
     .value()
 }), validateHeaders)
 
@@ -128,8 +133,7 @@ function getCountyAndZip(state: string, county: string | null, zip: string | nul
     case ParseMode.INFER_COUNTY:
       // If county isn't defined but zip is, default to all counties
       // that contain the given zip.
-      return chain(COUNTIES_BY_ZIP[zip!])
-        .map(county => [county, zip] as [string, string])
+      return chain([[COUNTIES_BY_ZIP[zip!], zip] as [string, string]])
 
     case ParseMode.INFER_ZIP:
       // If county is defined but zip isn't, default to all zips for
