@@ -1,6 +1,6 @@
 import { chain, flatten } from 'lodash'
 import * as React from 'react'
-import { COUNTIES_TO_ZIPS, countiesFromZip, zipsFromCounty } from '../../constants/zipCodes'
+import { COUNTIES_BY_ZIP, ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
@@ -36,6 +36,7 @@ export let ServiceAreasDrawer = withStore(
     <CountySelector
       onChange={store.set('counties')}
       selectedCounties={store.get('counties')}
+      state={store.get('selectedState')}
     />
     <ClearInputsButton onClearInputs={onClearInputs(store)} />
 
@@ -45,7 +46,7 @@ ServiceAreasDrawer.displayName = 'ServiceAreasDrawer'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
-    let [errors, serviceAreas] = await parseServiceAreasCSV(file)
+    let [errors, serviceAreas] = await parseServiceAreasCSV(store)(file)
 
     // Show just 1 error at a time, because that's what our Snackbar-based UI supports.
     errors.slice(0, 1).forEach(e =>
@@ -78,22 +79,22 @@ const COLUMNS = [
   { aliases: ['ZipCode', 'zip'] }
 ]
 
-let parse = parseRows(COLUMNS, (([county, zip], rowIndex) => {
+let parse = parseRows<[string, string][], { state: string }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
 
   // We infer missing zips and counties, so one zip might map to
   // more than one county, and one county maps to many zips.
-  let pairs = getCountyAndZip(county, zip)
+  let pairs = getCountyAndZip(state, county, zip)
     .map(([county, zip]) => [capitalizeWords(county), zip] as [string, string])
 
   // validate that counties exist
-  let badCounty = pairs.value().find(([county]) => !(county in COUNTIES_TO_ZIPS))
+  let badCounty = pairs.value().find(([county]) => !(county in ZIPS_BY_COUNTY_BY_STATE[state]))
   if (badCounty) {
     return new ParseError(rowIndex, 0, COLUMNS[0], `We don't support county "${badCounty[0]}" yet. Reach out to us at health@bayesimpact.org.`)
   }
 
   // validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
-  let badZip = pairs.value().find(([county, zip]) => !COUNTIES_TO_ZIPS[county].includes(zip))
+  let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].includes(zip))
   if (badZip) {
     return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain zip code "${badZip[1]}"`)
   }
@@ -110,19 +111,19 @@ function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   return []
 }
 
-function getCountyAndZip(county: string | null, zip: string | null): Lazy<[string, string][]> {
+function getCountyAndZip(state: string, county: string | null, zip: string | null): Lazy<[string, string][]> {
   switch (getParseMode(county, zip)) {
 
     case ParseMode.INFER_COUNTY:
       // If county isn't defined but zip is, default to all counties
       // that contain the given zip.
-      return chain(countiesFromZip(zip!))
+      return chain(COUNTIES_BY_ZIP[zip!])
         .map(county => [county, zip] as [string, string])
 
     case ParseMode.INFER_ZIP:
       // If county is defined but zip isn't, default to all zips for
       // the given county.
-      return chain(zipsFromCounty(capitalizeWords(county!)))
+      return chain(ZIPS_BY_COUNTY_BY_STATE[state][capitalizeWords(county!)])
         .map(zip => [county, zip] as [string, string])
 
     case ParseMode.WELL_FORMED:
@@ -156,7 +157,9 @@ function getParseMode(county: string | null, zip: string | null): ParseMode {
 
  * @private Exposed for unit testing.
  */
-export async function parseServiceAreasCSV(file: File): Promise<[ParseError[], [string, string][]]> {
-  let [l, r] = await parse(file)
-  return [l, flatten(r)]
+export function parseServiceAreasCSV(store: Store) {
+  return async (file: File): Promise<[ParseError[], [string, string][]]> => {
+    let [l, r] = await parse(file, { state: store.get('selectedState') })
+    return [l, flatten(r)]
+  }
 }
