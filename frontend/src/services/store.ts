@@ -1,6 +1,7 @@
-import { connect, createStore, Store as BabyduxStore, withLogger } from 'babydux'
+import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
 import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
+import { State } from '../constants/states'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
@@ -79,7 +80,7 @@ type Actions = {
    * `shortName` of the currently selected state.
    * Users set this in the Service Area drawer.
    */
-  selectedState: string
+  selectedState: State
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -115,7 +116,7 @@ type Actions = {
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */
-let store = withLogger(withEffects(createStore<Actions>({
+let store = withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
   distribution: 0.5,
@@ -141,7 +142,7 @@ let store = withLogger(withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
-})))
+}))
 
 export let withStore = connect(store)
 

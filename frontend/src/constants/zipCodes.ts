@@ -1,11 +1,10 @@
 import { chain, keys, mapValues } from 'lodash'
 import { serializeServiceArea } from '../utils/serializers'
+import { State } from './states'
 
-export const ZIPS_BY_COUNTY_BY_STATE: {
-  [state: string]: {
-    [county: string]: string[]
-  }
-} = {
+export const ZIPS_BY_COUNTY_BY_STATE: Record<State, {
+  [county: string]: string[]
+}> = {
     ca: {
       Alameda: ['94501', '94502', '94505', '94513', '94514', '94530', '94536', '94537', '94538', '94539', '94540', '94541', '94542', '94543', '94544', '94545', '94546', '94550', '94551', '94552', '94555', '94557', '94560', '94563', '94566', '94568', '94577', '94578', '94579', '94580', '94583', '94586', '94587', '94588', '94601', '94602', '94603', '94604', '94605', '94606', '94607', '94608', '94609', '94610', '94611', '94612', '94614', '94618', '94619', '94620', '94621', '94623', '94624', '94661', '94662', '94701', '94702', '94703', '94704', '94705', '94706', '94707', '94708', '94709', '94710', '94712', '94804', '95035', '95377', '95391'],
       Alpine: ['95223', '96120'],
@@ -65,10 +64,13 @@ export const ZIPS_BY_COUNTY_BY_STATE: {
       Ventura: ['90265', '91302', '91304', '91307', '91311', '91319', '91320', '91358', '91359', '91360', '91361', '91362', '91377', '93001', '93002', '93003', '93004', '93005', '93006', '93007', '93010', '93011', '93012', '93013', '93015', '93016', '93020', '93021', '93022', '93023', '93024', '93030', '93031', '93032', '93033', '93034', '93035', '93036', '93040', '93041', '93044', '93060', '93061', '93062', '93063', '93065', '93066', '93094', '93225', '93252'],
       Yolo: ['95457', '95605', '95606', '95607', '95612', '95615', '95616', '95617', '95618', '95620', '95627', '95637', '95645', '95653', '95679', '95691', '95694', '95695', '95697', '95698', '95776', '95798', '95912', '95937'],
       Yuba: ['95648', '95674', '95681', '95692', '95901', '95903', '95914', '95918', '95919', '95922', '95925', '95930', '95935', '95941', '95949', '95960', '95961', '95962', '95966', '95972', '95977']
+    },
+    tx: {
+      // TODO
     }
   }
 
-export const COUNTIES_BY_STATE = mapValues(ZIPS_BY_COUNTY_BY_STATE, keys)
+export const COUNTIES_BY_STATE: Record<State, string[]> = mapValues(ZIPS_BY_COUNTY_BY_STATE, keys)
 
 export const COUNTIES_BY_ZIP = chain(ZIPS_BY_COUNTY_BY_STATE)
   .map(_ => chain(_).map((zs, c) => zs.map(z => [z, c])).flatten().value())
@@ -80,9 +82,10 @@ export const COUNTIES_BY_ZIP = chain(ZIPS_BY_COUNTY_BY_STATE)
  * TODO: Assign integer IDs to each county-zip tuple instead
  * of using these ad-hoc string keys
  */
-export const SERVICE_AREAS_BY_COUNTY_BY_STATE = mapValues(
-  ZIPS_BY_COUNTY_BY_STATE,
-  (cs, s) => mapValues(
-    cs,
-    (zs, c) => zs.map(z => serializeServiceArea(s, c, z)))
-)
+export const SERVICE_AREAS_BY_COUNTY_BY_STATE: Record<State, { [county: string]: string[] }> =
+  mapValues(
+    ZIPS_BY_COUNTY_BY_STATE,
+    (cs, s: State) => mapValues(
+      cs,
+      (zs, c) => zs.map(z => serializeServiceArea(s, c, z)))
+  )

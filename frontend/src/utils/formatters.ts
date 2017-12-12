@@ -1,4 +1,5 @@
 import { snakeCase } from 'lodash'
+import { State } from '../constants/states'
 import { serializeServiceArea } from './serializers'
 import { capitalizeWords } from './string'
 
@@ -48,7 +49,7 @@ export function formatServiceArea(serializedServiceArea: string) {
  *
  * TODO: Is there a way to avoid needing this function?
  */
-export function unformatServiceArea(state: string, formattedServiceArea: string): string {
+export function unformatServiceArea(state: State, formattedServiceArea: string): string {
   let { county, zip } = parseFormattedServiceArea(formattedServiceArea)
   return serializeServiceArea(state, county, zip)
 }

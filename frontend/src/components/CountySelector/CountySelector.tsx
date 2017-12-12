@@ -3,11 +3,12 @@ import Checkbox from 'material-ui/Checkbox'
 import List from 'material-ui/List'
 import ListItem from 'material-ui/List/ListItem'
 import * as React from 'react'
+import { State } from '../../constants/states'
 import { COUNTIES_BY_STATE } from '../../constants/zipCodes'
 
 type Props = {
   onChange(value: string[]): void
-  state: string
+  state: State
   value: string[]
 }
 

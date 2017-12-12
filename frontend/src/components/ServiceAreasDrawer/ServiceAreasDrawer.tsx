@@ -1,5 +1,6 @@
 import { chain, flatten } from 'lodash'
 import * as React from 'react'
+import { State } from '../../constants/states'
 import { COUNTIES_BY_ZIP, ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
@@ -90,7 +91,7 @@ const COLUMNS = [
   { aliases: ['ZipCode', 'zip'] }
 ]
 
-let parse = parseRows<[string, string][], { state: string }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
+let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
 
   // validate that zip exists
   if (zip && !(zip in COUNTIES_BY_ZIP)) {
@@ -127,7 +128,7 @@ function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   return []
 }
 
-function getCountyAndZip(state: string, county: string | null, zip: string | null): Lazy<[string, string][]> {
+function getCountyAndZip(state: State, county: string | null, zip: string | null): Lazy<[string, string][]> {
   switch (getParseMode(county, zip)) {
 
     case ParseMode.INFER_COUNTY:
