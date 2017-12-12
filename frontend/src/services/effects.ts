@@ -7,6 +7,7 @@ import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
 import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Store } from './store'
+import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes';
 
 export function withEffects(store: Store) {
 
@@ -163,6 +164,23 @@ export function withEffects(store: Store) {
       store.set('selectedServiceArea')(null)
     }
   })
+
+  /**
+   * When the user checks/unchecks counties in the `<CountySelector />`, we
+   * update `serviceAreas` to the service areas in the selected counties.
+   */
+  Observable.combineLatest(
+    store.on('selectedState').startWith(store.get('selectedState')),
+    store.on('counties').startWith(store.get('counties'))
+  )
+    .subscribe(([selectedState, counties]) =>
+      store.set('serviceAreas')(
+        chain(counties)
+          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[selectedState][_])
+          .flatten()
+          .value()
+      )
+    )
 
   return store
 }

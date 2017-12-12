@@ -80,10 +80,9 @@ export const COUNTIES_BY_ZIP = chain(ZIPS_BY_COUNTY_BY_STATE)
  * TODO: Assign integer IDs to each county-zip tuple instead
  * of using these ad-hoc string keys
  */
-export const SERVICE_AREAS_BY_STATE = chain(COUNTIES_BY_STATE)
-  .mapValues((cs, s) =>
-    chain(cs)
-      .map(_ => ZIPS_BY_COUNTY_BY_STATE[s][_].map(z => serializeServiceArea(s, _, z)))
-      .flatten()
-      .value()
-  ).value()
+export const SERVICE_AREAS_BY_COUNTY_BY_STATE = mapValues(
+  ZIPS_BY_COUNTY_BY_STATE,
+  (cs, s) => mapValues(
+    cs,
+    (zs, c) => zs.map(z => serializeServiceArea(s, c, z)))
+)
