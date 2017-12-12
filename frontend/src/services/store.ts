@@ -1,4 +1,4 @@
-import { connect, createStore, Store as BabyduxStore } from 'babydux'
+import { connect, createStore, Store as BabyduxStore, withLogger } from 'babydux'
 import { Map } from 'mapbox-gl'
 import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
 import { WriteProvidersRequest } from './api'
@@ -115,7 +115,7 @@ type Actions = {
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */
-let store = withEffects(createStore<Actions>({
+let store = withLogger(withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
   distribution: 0.5,
@@ -141,7 +141,7 @@ let store = withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
-}))
+})))
 
 export let withStore = connect(store)
 
