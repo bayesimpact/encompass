@@ -29,7 +29,10 @@ export let ServiceAreasDrawer = withStore(
     }</p>
 
     <hr />
-    <StateSelector />
+    <StateSelector
+      onChange={store.set('selectedState')}
+      value={store.get('selectedState')}
+    />
     <CountySelector
       onChange={store.set('counties')}
       selectedCounties={store.get('counties')}

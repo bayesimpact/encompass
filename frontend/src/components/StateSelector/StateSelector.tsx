@@ -1,9 +1,21 @@
 import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
+import { STATES } from '../../constants/states'
 
-export let StateSelector: React.StatelessComponent = () =>
-  <SelectField value='california'>
-    <MenuItem value='california' primaryText='California' />
+type Props = {
+  onChange(value: string): void
+  value: string
+}
+
+export let StateSelector: React.StatelessComponent<Props> = ({ onChange, value }) =>
+  <SelectField
+    onChange={(_e, _i, value) => onChange(value)}
+    value={value}
+  >
+    {STATES.map(_ =>
+      <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
+    )}
   </SelectField>
+
 StateSelector.displayName = 'StateSelector'
