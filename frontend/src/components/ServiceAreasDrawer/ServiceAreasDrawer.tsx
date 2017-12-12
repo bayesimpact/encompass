@@ -33,9 +33,10 @@ export let ServiceAreasDrawer = withStore(
       onChange={store.set('selectedState')}
       value={store.get('selectedState')}
     />
+    <h3>County</h3>
     <CountySelector
       onChange={store.set('counties')}
-      selectedCounties={store.get('counties')}
+      value={store.get('counties')}
       state={store.get('selectedState')}
     />
     <ClearInputsButton onClearInputs={onClearInputs(store)} />

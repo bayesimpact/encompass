@@ -84,3 +84,17 @@ p {
 .DropDownMenu.-Compact button + div {
   display: none !important;
 }
+
+.ListItem.-Compact {
+  line-height: 0 !important;
+  padding-left: 50px !important;
+}
+
+.ListItem.-Emphasis {
+  font-style: italic;
+}
+
+/* list item checkbox */
+.ListItem.-Compact > div {
+  top: 3px !important;
+}

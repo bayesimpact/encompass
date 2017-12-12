@@ -1,28 +1,61 @@
-import MenuItem from 'material-ui/MenuItem'
-import SelectField from 'material-ui/SelectField'
+import { without } from 'lodash'
+import Checkbox from 'material-ui/Checkbox'
+import List from 'material-ui/List'
+import ListItem from 'material-ui/List/ListItem'
 import * as React from 'react'
-import { COUNTIES_BY_STATE } from '../../constants/zipCodes';
+import { COUNTIES_BY_STATE } from '../../constants/zipCodes'
 
 type Props = {
-  onChange(counties: string[]): void
-  selectedCounties: string[]
+  onChange(value: string[]): void
   state: string
+  value: string[]
 }
 
-export let CountySelector: React.StatelessComponent<Props> = ({ onChange, selectedCounties, state }) =>
-  <SelectField
-    multiple={true}
-    hintText='Select counties'
-    value={selectedCounties}
-    onChange={(_e, _i, values: string[]) => onChange(values)}
-  >
-    {COUNTIES_BY_STATE[state].map(_ =>
-      <MenuItem
-        key={_}
-        insetChildren={true}
-        checked={selectedCounties.includes(_)}
-        value={_}
-        primaryText={_} />
-    )}
-  </SelectField>
-CountySelector.displayName = 'CountySelector'
+export class CountySelector extends React.Component<Props> {
+  areAllCountiesSelected() {
+    return COUNTIES_BY_STATE[this.props.state].length === this.props.value.length
+  }
+  onCheckCounty = (event: React.MouseEvent<HTMLInputElement>, isChecked: boolean) => {
+    let county = event.currentTarget.value
+    this.props.onChange(isChecked
+      ? [...this.props.value, county]
+      : without(this.props.value, county)
+    )
+  }
+  onCheckSelectAll = () =>
+    this.props.onChange(this.areAllCountiesSelected()
+      ? []
+      : COUNTIES_BY_STATE[this.props.state]
+    )
+  render() {
+    return <div className='CountySelector'>
+      <List>
+        <ListItem
+          className='ListItem -Compact -Emphasis'
+          key='Select All'
+          primaryText='Select All'
+          leftCheckbox={
+            <Checkbox
+              checked={this.areAllCountiesSelected()}
+              onCheck={this.onCheckSelectAll}
+            />
+          }
+        />
+        {COUNTIES_BY_STATE[this.props.state].map(county =>
+          <ListItem
+            className='ListItem -Compact'
+            key={county}
+            primaryText={county}
+            leftCheckbox={
+              <Checkbox
+                checked={this.props.value.includes(county)}
+                onCheck={this.onCheckCounty}
+                value={county}
+              />
+            }
+          />
+        )}
+      </List>
+    </div>
+  }
+}
