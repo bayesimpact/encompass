@@ -30,6 +30,10 @@ h2 {
   text-transform: uppercase;
 }
 
+hr {
+  border-top: 1px solid var(--verylight);
+}
+
 p {
   padding: 12px 0;
 }
@@ -44,8 +48,32 @@ p {
   white-space: nowrap;
 }
 
+.Flex {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Flex.-SpaceBetween {
+  justify-content: space-between;
+}
+
+.Flex.-Row > * {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.Flex > .-Flex-0 {
+  flex: 0;
+}
+
 .Muted {
   color: var(--muted);
+}
+
+.HeavyWeight {
+  font-weight: var(--heavy-weight);
 }
 
 .PullRight {
@@ -53,19 +81,19 @@ p {
 }
 
 .SmallFont {
-  font-size: 12px;
+  font-size: var(--small-font);
 }
 
 .MediumFont {
-  font-size: 13px;
+  font-size: var(--medium-font);
 }
 
 .MediumLargeFont {
-  font-size: 15px;
+  font-size: var(--mediumlarge-font);
 }
 
 .LargeFont {
-  font-size: 16px;
+  font-size: var(--large-font);
 }
 
 /*
@@ -74,11 +102,24 @@ p {
   Inline styles are the worst..
 */
 
-.Button.-Primary {
-  color: var(--primary) !important;
+.Button {
+  color: var(--secondary) !important;
+}
+
+.Button.-Primary > label {
+  background: var(--secondary) !important;
+  color: #fff !important;
 }
 .Button.-Primary path {
   fill: var(--primary) !important;
+}
+
+.Button.-Small > div > span {
+  font-size: var(--small-font) !important;
+}
+
+.Button.-Subtle {
+  color: var(--muted) !important;
 }
 
 .DropDownMenu.-Compact button + div {

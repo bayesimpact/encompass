@@ -1,9 +1,5 @@
 @import "../../index.css";
 
-.CSVUploader {
-  padding: 12px 0 0;
-}
-
 .CSVUploader input[type="file"] {
   display: none;
 }

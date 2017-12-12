@@ -9,7 +9,6 @@ import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
-import './ServiceAreasDrawer.css'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -21,25 +20,36 @@ export let ServiceAreasDrawer = withStore(
 )(({ store }) =>
   <div>
     <h2>Service Areas</h2>
-    <CSVUploader onUpload={onFileSelected(store)} />
-    <p className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedServiceAreasFilename')
-        ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
-        : 'Upload valid zip codes and/or counties'
-    }</p>
-
-    <hr />
     <StateSelector
       onChange={store.set('selectedState')}
       value={store.get('selectedState')}
     />
-    <h3>County</h3>
+
+    <hr />
+
+    <div className='Flex -Row -SpaceBetween'>
+      <h3>Counties {store.get('counties').length > 0 && `(${store.get('counties').length})`}</h3>
+      {store.get('counties').length > 0 && <ClearInputsButton className='-Flex-0' onClearInputs={onClearInputs(store)} small />}
+    </div>
     <CountySelector
       onChange={store.set('counties')}
       value={store.get('counties')}
       state={store.get('selectedState')}
     />
-    <ClearInputsButton onClearInputs={onClearInputs(store)} />
+
+    <section className='CSVUploaderSection'>
+      <hr />
+      <p className='HeavyWeight Muted'>For analysis by ZIP code, upload a CSV</p>
+      <div className='Flex -Row'>
+        <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
+        {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
+      </div>
+      <p className='Ellipsis Muted SmallFont'>{
+        store.get('uploadedServiceAreasFilename')
+          ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
+          : 'Upload valid zip codes and/or counties'
+      }</p>
+    </section>
 
   </div >
   )

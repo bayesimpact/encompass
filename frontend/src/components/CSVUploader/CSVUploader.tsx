@@ -3,15 +3,17 @@ import * as React from 'react'
 import './CSVUploader.css'
 
 type Props = {
+  className?: string
   onUpload(file: File): void
 }
 
-export let CSVUploader: React.StatelessComponent<Props> = ({ onUpload }) =>
+export let CSVUploader: React.StatelessComponent<Props> = ({ className, onUpload }) =>
   <div className='CSVUploader'>
     <RaisedButton
+      className={'Button -Primary ' + (className || '')}
       containerElement='label'
       primary={true}
-      label='upload CSV'
+      label='Upload'
     >
       <input
         onChange={e => {
