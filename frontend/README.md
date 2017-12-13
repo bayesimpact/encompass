@@ -38,6 +38,13 @@ yarn start
 
 Then, open [localhost:8081](http://localhost:8081) in your browser.
 
+## Codegen API typings
+
+When the shape of an API endpoint changes:
+
+1. Update the endpoint's JSON-Schema in [shared/api-spec](../shared/api-spec)
+2. Reenerate TypeScript typings from the JSON-Schemas with `yarn codegen`
+
 ## Tests
 
 ```sh

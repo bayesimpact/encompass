@@ -1,8 +1,8 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
+import { PostProvidersRequest } from '../constants/api/providers-request'
 import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
 import { State } from '../constants/states'
-import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
 type Actions = {
@@ -100,7 +100,7 @@ type Actions = {
   /**
    * Parsed from the uploaded providers CSV
    */
-  uploadedProviders: WriteProvidersRequest[]
+  uploadedProviders: PostProvidersRequest['providers']
 
   /**
    * Filename of the CSV the user uploaded to compute `providers`.
