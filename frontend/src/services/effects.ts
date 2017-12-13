@@ -188,17 +188,24 @@ export function withEffects(store: Store) {
   })
 
   /**
+   * When the user changes the selected state, clear the selected counties.
+   */
+  store
+    .on('selectedState')
+    .subscribe(() =>
+      store.set('counties')([])
+    )
+
+  /**
    * When the user checks/unchecks counties in the `<CountySelector />`, we
    * update `serviceAreas` to the service areas in the selected counties.
    */
-  Observable.combineLatest(
-    store.on('selectedState').startWith(store.get('selectedState')),
-    store.on('counties').startWith(store.get('counties'))
-  )
-    .subscribe(([selectedState, counties]) =>
+  store
+    .on('counties')
+    .subscribe(counties =>
       store.set('serviceAreas')(
         chain(counties)
-          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[selectedState][_])
+          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[store.get('selectedState')][_])
           .flatten()
           .value()
       )
