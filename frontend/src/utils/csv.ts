@@ -30,12 +30,12 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
     .filter(Boolean)
     .value()
 
-export function parseRows<T>(
+export function parseRows<T, Context extends object>(
   columns: ColumnDefinition[],
-  f: (fields: (string | null)[], rowIndex: number) => ParseError | T,
+  f: (fields: (string | null)[], rowIndex: number, context: Context) => ParseError | T,
   validateHeaders: ValidateHeaders = validateHeadersDefault
 ) {
-  return async (file: File): Promise<[ParseError[], T[]]> => {
+  return async (file: File, context?: Context): Promise<[ParseError[], T[]]> => {
     let csv = await parseCSV<string[]>(file)
     let columnIndices = findColumns(columns, csv)
 
@@ -58,7 +58,7 @@ export function parseRows<T>(
         }
 
         // Try to parse.
-        return f(fields, rowIndex)
+        return f(fields, rowIndex, context || {} as any) // TODO
 
       })
       .partition(_ => _ instanceof ParseError)

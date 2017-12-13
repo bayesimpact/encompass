@@ -1,5 +1,7 @@
 FROM node:latest
 
+ENV MAPBOX_TOKEN "$MAPBOX_TOKEN"
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 

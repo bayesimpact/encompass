@@ -1,6 +1,7 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
 import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
+import { State } from '../constants/states'
 import { WriteProvidersRequest } from './api'
 import { withEffects } from './effects'
 
@@ -76,6 +77,12 @@ type Actions = {
   selectedServiceArea: string | null
 
   /**
+   * `shortName` of the currently selected state.
+   * Users set this in the Service Area drawer.
+   */
+  selectedState: State
+
+  /**
    * Strings representing county-zip tuples selected by the user in the
    * Service Area Drawer. For example, `["Yolo", "95606"]` maps to the
    * string `"Yolo / 95606"`. This representation makes it cheap to compare
@@ -129,6 +136,7 @@ let store = withEffects(createStore<Actions>({
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceArea: null,
+  selectedState: 'ca',
   serviceAreas: [],
   standard: 'distance',
   uploadedProviders: [],

@@ -29,3 +29,7 @@ I suggest editing this project using [VSCode](https://code.visualstudio.com/). V
   3. Yarn install `why-did-you-update` and add it to index.tsx to visualize why components are re-rendering
 
 - To debug data changes in the Babydux store, add the [`withLogger` decorator](https://github.com/bayesimpact/tds-frontend/blob/7c3c91b/src/services/store.ts#L102) to the store and open your devtools console
+
+- To debug tricky unit test failures:
+  1. Set a breakpoint in your code with the `debugger` pragma
+  2. Run `yarn test:debug`

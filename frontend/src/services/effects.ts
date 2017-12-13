@@ -3,8 +3,10 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { AdequacyMode, Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
+import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
+import { equals } from '../utils/list'
 import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
 import { Store } from './store'
 
@@ -20,6 +22,13 @@ export function withEffects(store: Store) {
     )
     .subscribe(async ([distribution, serviceAreas]) => {
       let points = await getRepresentativePoints(serviceAreas)
+
+      // Sanity check: If the user changed service areas between when the
+      // POST /api/representative_points request was dispatched and now,
+      // then cancel this operation.
+      if (!equals(serviceAreas, store.get('serviceAreas'))) {
+        return
+      }
 
       // JavaScript doesn't preserve zero points for numbers. Because
       // `population` keys are strings in ("0.5", "2.5", "5.0"), when
@@ -123,15 +132,25 @@ export function withEffects(store: Store) {
         return
       }
 
+      let serviceAreas = store.get('serviceAreas')
+
       // When the user selects a service area in Analytics, then unchecks it in
       // Service Areas we fire this effect before we finish recomputing service areas.
       // To avoid an inconsistent state, we fetch the latest representative points here.
       //
       // TODO: Do this more elegantly to avoid the double-computation.
       let [adequacies, points] = await Promise.all([
-        getAdequacies(providers.map(_ => _.id), store.get('serviceAreas')),
-        getRepresentativePoints(store.get('serviceAreas'))
+        getAdequacies(providers.map(_ => _.id), serviceAreas),
+        getRepresentativePoints(serviceAreas)
       ])
+
+      // Sanity check: If the user changed service areas between when the
+      // POST /api/representative_points request was dispatched and now,
+      // then cancel this operation.
+      if (!equals(serviceAreas, store.get('serviceAreas'))) {
+        return
+      }
+
       let hash = keyBy(points, 'id')
 
       store.set('adequacies')(
@@ -163,6 +182,23 @@ export function withEffects(store: Store) {
       store.set('selectedServiceArea')(null)
     }
   })
+
+  /**
+   * When the user checks/unchecks counties in the `<CountySelector />`, we
+   * update `serviceAreas` to the service areas in the selected counties.
+   */
+  Observable.combineLatest(
+    store.on('selectedState').startWith(store.get('selectedState')),
+    store.on('counties').startWith(store.get('counties'))
+  )
+    .subscribe(([selectedState, counties]) =>
+      store.set('serviceAreas')(
+        chain(counties)
+          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[selectedState][_])
+          .flatten()
+          .value()
+      )
+    )
 
   return store
 }

@@ -2,14 +2,15 @@ import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
 
 type Props = {
+  className?: string
   onClearInputs(): void
+  small?: true
 }
 
-export let ClearInputsButton: React.StatelessComponent<Props> = ({ onClearInputs }) =>
+export let ClearInputsButton: React.StatelessComponent<Props> = ({ className, onClearInputs, small }) =>
   <FlatButton
-    className='ClearInputsButton Button -Primary'
+    className={'ClearInputsButton Button' + (className ? ` ${className}` : '') + (small ? ' -Small -Subtle' : '')}
     containerElement='label'
-    primary={true}
-    label='clear inputs'
+    label='Clear'
     onClick={onClearInputs} />
 ClearInputsButton.displayName = 'ClearInputsButton'

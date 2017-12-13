@@ -14,7 +14,7 @@ export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, s
   <Autocomplete
     defaultValue={ALL_SERVICE_AREAS}
     items={store.get('serviceAreas').map(formatServiceArea)}
-    onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : unformatServiceArea(_))}
+    onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : unformatServiceArea(store.get('selectedState'), _))}
     pinnedItems={[ALL_SERVICE_AREAS]}
     value={value === null ? ALL_SERVICE_AREAS : formatServiceArea(value)}
   />

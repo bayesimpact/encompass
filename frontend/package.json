@@ -1,8 +1,8 @@
 {
-  "name": "@bayesimpact/tds-frontend",
+  "name": "@bayesimpact/tds",
   "version": "1.0.0",
   "main": "dist/bundle.js",
-  "repository": "git@github.com:bayesimpact/tds-frontend.git",
+  "repository": "git@github.com:bayesimpact/tds.git",
   "author": "Boris Cherny <boris@performancejs.com>",
   "license": "Apache-2.0",
   "scripts": {
@@ -14,6 +14,7 @@
     "start:prod": "webpack-dev-server --config webpack.config.prod.js --host 0.0.0.0",
     "tdd": "concurrently -k 'jest --watch' 'npm run start' 'npm run watch'",
     "test": "jest",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "watch": "concurrently -k 'webpack -w' 'webpack-dev-server'"
   },
   "dependencies": {

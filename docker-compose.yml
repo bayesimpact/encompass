@@ -31,7 +31,6 @@ services:
     frontend:
       volumes:
         - ./frontend/src:/usr/src/app/src
-        - .env:/usr/src/app/.env
       build:
         context: ./frontend
         dockerfile: Dockerfile

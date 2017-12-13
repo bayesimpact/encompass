@@ -8,6 +8,14 @@
   width: 400px; /* iconbar-width + leftpane-width + room for box shadow */
 }
 
+.LeftPane hr {
+  margin: 0 -20px;
+}
+
+.LeftPane h3 {
+  line-height: 68px;
+}
+
 .LeftPaneContent {
   overflow: hidden;
   position: absolute;
@@ -23,9 +31,24 @@
   position: absolute !important;
 }
 
-.LeftPane .ClearInputsButton,
 .LeftPane .DownloadAnalysisLink {
   position: absolute !important; /* override material-ui inline style */
     bottom: 18px;
+    right: 20px;
+}
+
+.LeftPane .CountySelector {
+  overflow-y: auto;
+  position: absolute;
+    bottom: 140px;
+    right: 20px;
+    left: 20px;
+    top: 170px;
+}
+
+.LeftPane .CSVUploaderSection {
+  position: absolute;
+    bottom: 0;
+    left: 20px;
     right: 20px;
 }

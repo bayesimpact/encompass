@@ -1,3 +1,4 @@
+import { Store } from '../../services/store'
 import { parseServiceAreasCSV } from './ServiceAreasDrawer'
 
 /**
@@ -34,6 +35,10 @@ San Diego,Vista,92084,100
 Alameda,Berkeley,   ,1001
 `], 'pointAsInvalidInputFile4.csv')
 
+let pointAsInvalidInputFile5 = new File([`ZipCode
+92055
+`], 'pointAsInvalidInputFile5.csv')
+
 let pointAsZipAndCounty = new File([`CountyName,City,ZipCode,PopulationPointsPerZipCode
 San Diego,Vista,92084,100
 san francisco,san Francisco,94117,1001
@@ -47,37 +52,47 @@ let pointAsZipOnly = new File([`ZipCode
 94114
 92154
 91935
-92055
 `], 'pointAsZipOnly.csv')
 
+// TODO: More complete mock
+let mockStore: Store = {
+  get() {
+    return 'ca'
+  }
+} as any
+
 test('parseServiceAreasCSV (county only)', async () =>
-  expect(await parseServiceAreasCSV(pointAsCountyOnly)).toMatchSnapshot()
+  expect(await parseServiceAreasCSV(mockStore)(pointAsCountyOnly)).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (duplicate counties)', async () =>
-  expect(await parseServiceAreasCSV(pointAsDuplicateCountyOnly)).toMatchSnapshot()
+  expect(await parseServiceAreasCSV(mockStore)(pointAsDuplicateCountyOnly)).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (invalid input: missing column header)', async () =>
-  expect((await parseServiceAreasCSV(pointAsInvalidInputFile))[0][0].toString()).toMatchSnapshot()
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile))[0][0].toString()).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (invalid input: invalid county name)', async () =>
-  expect((await parseServiceAreasCSV(pointAsInvalidInputFile2))[0][0].toString()).toMatchSnapshot()
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile2))[0][0].toString()).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (invalid input: zip not in county)', async () =>
-  expect((await parseServiceAreasCSV(pointAsInvalidInputFile3))[0][0].toString()).toMatchSnapshot()
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile3))[0][0].toString()).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (invalid input: missing zip)', async () =>
-  expect((await parseServiceAreasCSV(pointAsInvalidInputFile4))[0][0].toString()).toMatchSnapshot()
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile4))[0][0].toString()).toMatchSnapshot()
+)
+
+test('parseServiceAreasCSV (invalid input: invalid zip)', async () =>
+  expect((await parseServiceAreasCSV(mockStore)(pointAsInvalidInputFile5))[0][0].toString()).toMatchSnapshot()
 )
 
 test('parseServiceAreasCSV (zip and county)', async () =>
-  expect(await parseServiceAreasCSV(pointAsZipAndCounty)).toMatchSnapshot()
+  expect(await parseServiceAreasCSV(mockStore)(pointAsZipAndCounty)).toMatchSnapshot()
 )
 
-test('parseServiceAreasCSV (zip only)', async () =>
-  expect(await parseServiceAreasCSV(pointAsZipOnly)).toMatchSnapshot()
+test.only('parseServiceAreasCSV (zip only)', async () =>
+  expect(await parseServiceAreasCSV(mockStore)(pointAsZipOnly)).toMatchSnapshot()
 )
