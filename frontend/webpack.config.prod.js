@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -32,34 +31,33 @@ module.exports = {
   },
   module: {
     rules: [{
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader'
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', {
-            loader: 'postcss-loader',
-            options: {
-              plugins: loader => [
-                require('postcss-import')(),
-                require('postcss-cssnext')({
-                  browsers: '>2%'
-                })
-              ]
-            }
-          }]
-        })
-      },
+      test: /\.tsx?$/,
+      loader: 'awesome-typescript-loader'
+    },
+    {
+      enforce: 'pre',
+      test: /\.js$/,
+      loader: 'source-map-loader'
+    },
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        use: ['css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins: loader => [
+              require('postcss-import')(),
+              require('postcss-cssnext')({
+                browsers: '>2%'
+              })
+            ]
+          }
+        }]
+      })
+    },
     ]
   },
   plugins: [
-    new Dotenv,
     new ExtractTextPlugin({
       filename: 'bundle.css'
     }),
@@ -69,6 +67,7 @@ module.exports = {
       title: 'bayes-network-adequacy-explorer'
     }),
     new webpack.DefinePlugin({
+      'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new UglifyJsPlugin({
