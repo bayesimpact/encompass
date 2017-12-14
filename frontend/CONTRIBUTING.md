@@ -1,16 +1,11 @@
 # Contributing
+## Install and run locally
 
-## Install
-
-```sh
-# install git repo
-git clone git@github.com:bayesimpact/tds-frontend.git
-cd tds-frontend
-
-# install dependencies
+```bash
+cd frontend
+# Install dependencies
 yarn
-
-# recompile when anything changes
+# Recompile when anything changes
 yarn watch
 ```
 

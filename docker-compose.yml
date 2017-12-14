@@ -40,8 +40,6 @@ services:
         - 8081:8081
       env_file:
         - .env
-      environment:
-        - API_ROOT=http://localhost:8080
 
     explorer:
         build:
