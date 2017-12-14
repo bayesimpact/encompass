@@ -14,7 +14,7 @@ yarn
 yarn watch
 ```
 
-Then, open `http://localhost:8081` in your browser.
+Then, open [http://localhost:8081]() in your browser.
 
 ## Editor
 
