@@ -8,8 +8,8 @@
 ## Usage
 
 ### 0. Clone this repository
-```
-$ git clone git@github.com:bayesimpact/tds.git
+```bash
+git clone git@github.com:bayesimpact/tds.git
 ```
 
 ### 1. Install Docker
@@ -39,8 +39,6 @@ In your terminal, run:
 docker-compose up backend frontend
 ```
 
-or simply `make local`.
-
 ## Local Development
 
 Three docker containers are available for development:
@@ -54,8 +52,6 @@ Three docker containers are available for development:
 ```sh
 docker-compose up backend
 ```
-
-or `make backend`.
 
 - The API will then be accessible at [localhost:8080](http://localhost:8080)
 - It provides the following REST routes (we document each route with its corresponding [JSON-Schema](https://spacetelescope.github.io/understanding-json-schema/) definitions):
@@ -72,7 +68,5 @@ or `make backend`.
 ```sh
 docker-compose up frontend
 ```
-
-or `make frontend`.
 
 See [frontend/README.md](frontend/README.md) for more documentation.
