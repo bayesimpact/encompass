@@ -8,8 +8,8 @@ from backend.lib.database.tables import address
 from backend.lib.timer import timed
 
 # Use values from configuration if they exist.
-GEOCODING = config.get(config.GEOCODING_ENABLED_KEY)
-GEOCODER = config.get(config.GEOCODER_KEY)
+GEOCODING = config.get('geocoding_enabled')
+GEOCODER = config.get('geocoder')
 
 
 def _fetch_addresses_from_db(raw_addresses, session):
