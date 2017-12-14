@@ -58,13 +58,13 @@ async function codegenZIPCodes() {
     .mapKeys((_v, k) => k.toLowerCase())
     .value()
 
-  await writeFile(`src/constants/zipsByCountyByStateCode.ts`, format(
+  await writeFile(`src/constants/zipCodesByCountyByState.ts`, format(
     genZipsByCountyByState(zipsByCountyByState), {
       parser: 'typescript',
       ...PRETTIER_OPTIONS
     })
   )
-  console.info(`  Wrote ${data.length} zips to src/constants/zipsByCountyByStateCode.ts`)
+  console.info(`  Wrote ${data.length} zips to src/constants/zipCodesByCountyByState.ts`)
 }
 
 async function codegenAPITypes() {
