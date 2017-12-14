@@ -30,21 +30,14 @@ class Config(object):
         """
         return cls(CONFIG)
 
-    def get(self, key, default=None):
+    def get(self, key):
         """
-        Fetch a configuration variable, returning `default` if the key does not exist.
+        Fetch a configuration variable.
 
         :param key: Variable key.
-        :param default: Default value to return if `key` is not found.
-        :returns: The value, or `default` if the key does not exist.
+        :returns: The value.
         """
-        try:
-            value = self[key]
-        except KeyError as e:
-            if default is None:
-                raise e
-            value = default
-        return value
+        return self[key]
 
     def __getitem__(self, key):
         """
@@ -62,18 +55,17 @@ class Config(object):
         return return_object
 
 
-def get(key, default=None):
+def get(key):
     """
     Fetch a configuration variable, returning `default` if the key does not exist.
 
     :param key: Variable key, possibly nested via `.`s.
-    :param default: Default value to return.
-    :returns: The value, or `default` if the key does not exist.
+    :returns: The value.
     """
     global _CONFIG
     if _CONFIG is None:
         _CONFIG = _load_config()
-    return _CONFIG.get(key, default)
+    return _CONFIG.get(key)
 
 
 def reload_config(path=None):
