@@ -36,7 +36,7 @@ export type Provider = {
   lat: number
   lng: number
   npi: number
-  specialty: string | null
+  specialty?: string
 }
 
 /**

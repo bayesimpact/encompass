@@ -1,13 +1,16 @@
 import { chain, keyBy } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
+import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
+import { PostProvidersRequest } from '../constants/api/providers-request'
+import { PostProvidersResponse, Success } from '../constants/api/providers-response'
 import { AdequacyMode, Measure, Standard } from '../constants/datatypes'
 import { TIME_DISTANCES } from '../constants/timeDistances'
 import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
-import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders, ReadAdequaciesResponse, WriteProvidersRequest, WriteProvidersResponse, WriteProvidersSuccessResponse } from './api'
+import { getAdequacies, getRepresentativePoints, isWriteProvidersSuccessResponse, postProviders } from './api'
 import { Store } from './store'
 
 export function withEffects(store: Store) {
@@ -21,7 +24,7 @@ export function withEffects(store: Store) {
     store.on('serviceAreas').startWith(store.get('serviceAreas'))
     )
     .subscribe(async ([distribution, serviceAreas]) => {
-      let points = await getRepresentativePoints(serviceAreas)
+      let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -87,15 +90,13 @@ export function withEffects(store: Store) {
 
   /**
    * Geocode providers when uploadedProviders changes
-   *
-   * TODO: Expose errors to user
    */
   store.on('uploadedProviders').subscribe(async providers => {
-    let result = await postProviders(providers)
+    let result = await postProviders({ providers })
     store.set('providers')(
       chain(result)
-        .zip<WriteProvidersResponse | WriteProvidersRequest>(providers)
-        .partition(([res]: [WriteProvidersResponse]) => isWriteProvidersSuccessResponse(res))
+        .zip<PostProvidersResponse[0] | PostProvidersRequest['providers'][0]>(providers)
+        .partition(([res]: [PostProvidersResponse[0]]) => isWriteProvidersSuccessResponse(res))
         .tap(([successes, errors]) => {
           if (errors.length > 0) {
             store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
@@ -105,7 +106,7 @@ export function withEffects(store: Store) {
         }
         )
         .first()
-        .map(([res, req]: [WriteProvidersSuccessResponse, WriteProvidersRequest]) => ({
+        .map(([res, req]: [Success, PostProvidersRequest['providers'][0]]) => ({
           ...req,
           lat: res.lat,
           lng: res.lng,
@@ -140,8 +141,11 @@ export function withEffects(store: Store) {
       //
       // TODO: Do this more elegantly to avoid the double-computation.
       let [adequacies, points] = await Promise.all([
-        getAdequacies(providers.map(_ => _.id), serviceAreas),
-        getRepresentativePoints(serviceAreas)
+        getAdequacies({
+          provider_ids: providers.map(_ => _.id),
+          service_area_ids: serviceAreas
+        }),
+        getRepresentativePoints({ service_area_ids: serviceAreas })
       ])
 
       // Sanity check: If the user changed service areas between when the
@@ -184,17 +188,24 @@ export function withEffects(store: Store) {
   })
 
   /**
+   * When the user changes the selected state, clear the selected counties.
+   */
+  store
+    .on('selectedState')
+    .subscribe(() =>
+      store.set('counties')([])
+    )
+
+  /**
    * When the user checks/unchecks counties in the `<CountySelector />`, we
    * update `serviceAreas` to the service areas in the selected counties.
    */
-  Observable.combineLatest(
-    store.on('selectedState').startWith(store.get('selectedState')),
-    store.on('counties').startWith(store.get('counties'))
-  )
-    .subscribe(([selectedState, counties]) =>
+  store
+    .on('counties')
+    .subscribe(counties =>
       store.set('serviceAreas')(
         chain(counties)
-          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[selectedState][_])
+          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[store.get('selectedState')][_])
           .flatten()
           .value()
       )
@@ -204,7 +215,7 @@ export function withEffects(store: Store) {
 }
 
 function getAdequacyMode(
-  adequacy: ReadAdequaciesResponse,
+  adequacy: PostAdequaciesResponse[0],
   measure: Measure,
   standard: Standard,
   serviceAreaId: string,

@@ -38,6 +38,13 @@ yarn start
 
 Then, open [localhost:8081](http://localhost:8081) in your browser.
 
+## Codegen API typings and Service Areas
+
+When the shape of an API endpoint changes, or when available service areas change:
+
+1. Update the endpoint's JSON-Schema in [shared/api-spec](../shared/api-spec)
+2. Regenerate code with `yarn codegen`
+
 ## Tests
 
 ```sh

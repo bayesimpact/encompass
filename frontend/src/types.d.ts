@@ -27,6 +27,11 @@ declare module 'mui-icons/cmdi/*'
 
 declare module 'react-autocomplete'
 
+declare module 'rmfr' {
+  function rmfr(path: string): Promise<void>
+  export = rmfr
+}
+
 /**
  * Globals
  */
