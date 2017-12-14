@@ -6,7 +6,7 @@ import { Error, PostProvidersResponse, Success } from '../constants/api/provider
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 
-const API_ROOT = 'http://localhost:8080'
+const { API_ROOT } = process.env
 
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>
