@@ -4,11 +4,6 @@ import ujson as json
 
 _CONFIG = None
 
-# Configuration key constants.
-GEOCODING_ENABLED_KEY = 'geocoding_enabled'
-GEOCODER_KEY = 'geocoder'
-MEASURER_KEY = 'measurer'
-
 
 class Config(object):
     """
@@ -126,7 +121,7 @@ def _get_env_variable(env_variable, resource=None, default=None):
 
 
 CONFIG = {
-    GEOCODING_ENABLED_KEY: True,
-    GEOCODER_KEY: 'oxcoder',
-    MEASURER_KEY: 'haversine'
+    'geocoding_enabled': True,
+    'geocoder': 'oxcoder',
+    'measurer': 'haversine'
 }
