@@ -1,9 +1,11 @@
 """Tests for methods of the Config class."""
 import json
-import mock
-import pytest
 
 from backend.config import config
+
+import mock
+
+import pytest
 
 
 class TestConfig():
