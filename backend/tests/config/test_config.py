@@ -54,21 +54,21 @@ class TestConfig():
             config._load_config(path='path')
             mock_from_path.assert_called_once_with('path')
 
-    @mock.patch('claims_to_quality.lib.config._load_config')
+    @mock.patch('backend.config.config._load_config')
     def test_get_value_not_set(self, _load_config):
         """Test that global get function calls reload if config isn't set."""
         config._CONFIG = None
         config.get('key')
         _load_config.assert_called_once_with()
 
-    @mock.patch('claims_to_quality.lib.config._load_config')
+    @mock.patch('backend.config.config._load_config')
     def test_get_value_set(self, _load_config):
         """Test that if the config_ is set, _load_config is not called."""
         config._CONFIG = config.Config({'key': 'value'})
         config.get('key')
         assert not _load_config.called
 
-    @mock.patch('claims_to_quality.lib.config._load_config')
+    @mock.patch('backend.config.config._load_config')
     def test_get_sets_value(self, _load_config):
         """Test that if global config value is not set initially, it's set after get is called."""
         test_config = {'key': 'value'}
