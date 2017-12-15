@@ -1,16 +1,13 @@
 """Fetch data from database."""
+from backend.config import config
 from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods, postgis
 from backend.lib.database.tables import address
 from backend.lib.timer import timed
-from backend.models import distance
 
-from sqlalchemy.orm import sessionmaker
-
-# TODO: Use config or environment variable.
-GEOCODING = True
-DEFAULT_GEOCODER = 'oxcoder'
-MEASURER = distance.get_measure('haversine')
+# Use values from configuration if they exist.
+GEOCODING = config.get('geocoding_enabled')
+GEOCODER = config.get('geocoder')
 
 
 def _fetch_addresses_from_db(raw_addresses, session):
@@ -67,7 +64,7 @@ def _geocode_addresses(addresses, geocoder_name, engine):
 
 
 @timed
-def fetch_providers(providers, geocoder_name=DEFAULT_GEOCODER, engine=connect.create_db_engine()):
+def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_engine()):
     """
     Fetch providers location and IDs from a list of provider inputs.
 

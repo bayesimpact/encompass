@@ -5,7 +5,6 @@ import multiprocessing
 from backend.lib.database.postgres import connect
 from backend.lib.database.tables import address, service_area
 from backend.lib.fetch import representative_points
-
 from backend.lib.timer import timed
 from backend.models import distance
 
