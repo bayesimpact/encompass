@@ -1,11 +1,11 @@
 """Fetch data from database."""
-from sqlalchemy.orm import sessionmaker
-
 from backend.config import config
 from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods, postgis
 from backend.lib.database.tables import address
 from backend.lib.timer import timed
+
+from sqlalchemy.orm import sessionmaker
 
 # Use values from configuration if they exist.
 GEOCODING = config.get('geocoding_enabled')
