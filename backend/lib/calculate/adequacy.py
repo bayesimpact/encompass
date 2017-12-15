@@ -133,8 +133,9 @@ def _find_addresses_near_to_service_areas(
     service_area_id_list = '(VALUES' + ', '.join([
         "('{}')".format(_id) for _id in service_area_ids
     ]) + ')'
+    provider_ids_no_duplicates = list(set(provider_ids))
     address_id_list = '(VALUES' + ', '.join([
-        '({})'.format(_id) for _id in provider_ids
+        '({})'.format(_id) for _id in provider_ids_no_duplicates
     ]) + ')'
 
     query = """
