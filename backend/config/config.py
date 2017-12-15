@@ -99,5 +99,6 @@ def _load_config(path=None):
 CONFIG = {
     'geocoding_enabled': True,
     'geocoder': 'oxcoder',
-    'measurer': 'haversine'
+    'measurer': 'haversine',
+    'number_of_adequacy_processors': 8,
 }

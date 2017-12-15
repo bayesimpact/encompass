@@ -2,6 +2,7 @@
 import collections
 import multiprocessing
 
+from backend.config import config
 from backend.lib.database.postgres import connect
 from backend.lib.database.tables import address, service_area
 from backend.lib.fetch import representative_points
@@ -11,11 +12,9 @@ from backend.models import distance
 
 from sqlalchemy.orm import sessionmaker
 
-# TODO - Use config or environment variable.
-MEASURER = distance.get_measure('haversine')
+MEASURER = distance.get_measure(config.get('measurer'))
 EXIT_DISTANCE = 10.0    # Measured in miles.
 RELEVANCY_RADIUS_IN_METERS = 24140.2    # 15 miles in meters. Do not go lower than this.
-NUM_ADEQUACY_PROCESSORS = 8
 
 
 def _find_closest_provider(point, providers, exit_distance_in_miles=None):
@@ -109,7 +108,7 @@ def calculate_adequacies(
     ) for point in points
     )
 
-    pool = multiprocessing.Pool(NUM_ADEQUACY_PROCESSORS)
+    pool = multiprocessing.Pool(config.get('number_of_adequacy_processors'))
     adequacies_response = pool.starmap(_find_closest_provider, multiprocessing_args)
     pool.close()
     pool.join()

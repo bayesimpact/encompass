@@ -41,6 +41,15 @@ services:
       env_file:
         - .env
 
+    osrm:
+        build:
+          context: ./osrm
+          dockerfile: Dockerfile
+        volumes:
+          - ./data/:/data/:rw
+        ports:
+          - 5000:5000
+
     explorer:
         build:
           context: ./explorer/
