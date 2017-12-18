@@ -41,7 +41,7 @@ class Config(object):
 
     def __getitem__(self, key):
         """
-        Fetch a configuration variable, returning `default` if the key does not exist.
+        Fetch a configuration variable.
 
         :param key: Variable key.
         :returns: The value.
@@ -94,22 +94,6 @@ def _load_config(path=None):
         config = Config.default_config()
 
     return config
-
-
-def _get_env_variable(env_variable, resource=None, default=None):
-    """
-    Wrapper around os.environ.
-
-    This way, Python will only complain if someone actively tries to load
-    the desired environment variable.
-    """
-    if env_variable in os.environ:
-        return os.environ[env_variable]
-    if default is not None:
-        return default
-    if resource is not None:
-        print('If you wish to access {}, please set the environment variable {}'.format(
-            resource, env_variable))
 
 
 CONFIG = {
