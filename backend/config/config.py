@@ -57,7 +57,7 @@ class Config(object):
 
 def get(key):
     """
-    Fetch a configuration variable, returning `default` if the key does not exist.
+    Fetch a configuration variable.
 
     :param key: Variable key, possibly nested via `.`s.
     :returns: The value.
