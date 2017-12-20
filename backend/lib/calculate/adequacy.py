@@ -1,6 +1,7 @@
 """Caclulate adequacy metrics."""
 import collections
-import multiprocessing
+import concurrent.futures
+import itertools
 
 from backend.config import config
 from backend.lib.database.postgres import connect
@@ -77,6 +78,7 @@ def calculate_adequacies(
             the closest provider.
         - Aggregate the information for each point and return.
     """
+    # TODO - Split analyis by specialty.
     print('Calculating adequacies for {} provider addresses and {} service areas.'.format(
         len(provider_ids), len(service_area_ids)))
 
@@ -96,25 +98,25 @@ def calculate_adequacies(
         })
 
     all_addresses = _fetch_addresses_from_ids(provider_ids, engine)
-
     points = representative_points.fetch_representative_points(
-        service_area_ids=service_area_ids, format_response=False)
-
-    # TODO - Split analyis by specialty.
-    multiprocessing_args = ((
-        point,
-        addresses_to_check_by_service_area.get(point['service_area_id'], all_addresses),
-        EXIT_DISTANCE
-    ) for point in points
+        service_area_ids=service_area_ids, format_response=False
+    )
+    addresses_to_check_by_point = (
+        addresses_to_check_by_service_area.get(point['service_area_id'], all_addresses)
+        for point in points
     )
 
-    pool = multiprocessing.Pool(config.get('number_of_adequacy_processors'))
-    adequacies_response = pool.starmap(_find_closest_provider, multiprocessing_args)
-    pool.close()
-    pool.join()
+    n_processors = config.get('number_of_adequacy_processors')
+    with concurrent.futures.ProcessPoolExecutor(n_processors) as executor:
+        adequacies_response = executor.map(
+            _find_closest_provider,
+            points,
+            addresses_to_check_by_point,
+            itertools.repeat(EXIT_DISTANCE)
+        )
 
     print('Returning adequacy results.')
-    return adequacies_response
+    return list(adequacies_response)
 
 
 @timed
