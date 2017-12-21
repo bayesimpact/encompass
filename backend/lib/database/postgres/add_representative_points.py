@@ -8,8 +8,6 @@ from backend.lib.database.tables import representative_point, service_area
 
 import geojson
 
-STATE_TO_STATE_ID = {'california': 'ca', 'texas': 'tx'}
-
 
 def _load_geojson_features(json_path='data/representative_points.geojson'):
     """Load representative points data as a GeoJSON feature collection."""
@@ -19,10 +17,9 @@ def _load_geojson_features(json_path='data/representative_points.geojson'):
     return json_features
 
 
-def insert_service_areas(state, json_features=_load_geojson_features()):
+def insert_service_areas(json_features=_load_geojson_features()):
     """Insert service areas into the database from a GeoJSON file."""
-    data = _get_all_service_areas(state, json_features)
-
+    data = _get_all_service_areas(json_features)
     methods.core_insert(
         engine=connect.create_db_engine(),
         sql_class=service_area.ServiceArea,
@@ -33,10 +30,9 @@ def insert_service_areas(state, json_features=_load_geojson_features()):
     return data
 
 
-def insert_representative_population_points(state, json_features=_load_geojson_features()):
+def insert_representative_population_points(json_features=_load_geojson_features()):
     """Insert representative points into the database from a GeoJSON file."""
-    data = [_transform_single_point(point, state) for point in json_features]
-
+    data = [_transform_single_point(point) for point in json_features]
     methods.core_insert(
         engine=connect.create_db_engine(),
         sql_class=representative_point.RepresentativePoint,
@@ -47,7 +43,7 @@ def insert_representative_population_points(state, json_features=_load_geojson_f
     return data
 
 
-def _transform_single_point(point, state):
+def _transform_single_point(point):
     """Convert a single feature to the format expected by the database."""
     return {
         'latitude': point['geometry']['coordinates'][1],
@@ -56,42 +52,36 @@ def _transform_single_point(point, state):
             longitude=point['geometry']['coordinates'][0],
             latitude=point['geometry']['coordinates'][1]
         ),
-        'population': _convert_population_list_to_population_dict(
-            point['properties']['population']
-        ),
-        'state': state.lower(),
+        # FIXME: Once appropriate behavior is implemented in the frontend,
+        # move to a more honest representatiion for this column.
+        'population': {
+            '5.0': point['properties']['population']['1.0'],
+            '2.5': point['properties']['population']['1.0'],
+            '1.0': point['properties']['population']['1.0'],
+        },
         'county': point['properties']['county'],
-        'zip_code': point['properties']['zip'],
+        'zip_code': point['properties']['zip_code'],
         'service_area_id': '{state}_{county}_{zip}'.format(
-            state=STATE_TO_STATE_ID[state.lower()],
+            state=point['properties']['state'].lower(),
             county=point['properties']['county'].lower().replace(' ', '_'),
-            zip=point['properties']['zip']
+            zip=point['properties']['zip_code']
         )
     }
 
 
-def _convert_population_list_to_population_dict(population_list, cutoffs=[0.5, 2.5, 5.0]):
-    """
-    Convert a list of populations at different cutoffs to a dictionary.
-
-    Assumes that the population list is non-decreasing (starts with the largest cutoff).
-    """
-    return {
-        cutoff: population
-        for population, cutoff in zip(population_list[::-1], cutoffs)
-    }
-
-
-def _get_all_service_areas(state, features):
+def _get_all_service_areas(features):
     """
     Extract service area information from a list of JSON features.
 
-    Each feature should have `county` and `zip` attributes.
+    Each feature should have `state`, `county`, `zip_code` attributes.
     """
     service_area_to_coords = collections.defaultdict(list)
-
     for point in features:
-        key = (point['properties']['county'], point['properties']['zip'])
+        key = (
+            point['properties']['state'],
+            point['properties']['county'],
+            point['properties']['zip_code']
+        )
         service_area_to_coords[key].append(point['geometry']['coordinates'])
 
     service_area_to_bounding_box = {
@@ -105,9 +95,8 @@ def _get_all_service_areas(state, features):
     }
 
     service_areas = []
-    for county, zip_code in service_area_to_bounding_box:
-        c = service_area_to_bounding_box[(county, zip_code)]
-
+    for state, county, zip_code in service_area_to_bounding_box:
+        c = service_area_to_bounding_box[(state, county, zip_code)]
         bbox = [
             (c['min_lon'], c['min_lat']),
             (c['max_lon'], c['min_lat']),
@@ -117,14 +106,19 @@ def _get_all_service_areas(state, features):
         ]
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
-                state=STATE_TO_STATE_ID[state.lower()],
+                state=state.lower(),
                 county=county.lower().replace(' ', '_'),
                 zip=zip_code
             ),
             'county': county,
-            'state': state.lower(),
+            'state': state,
             'zip_code': zip_code,
             'location': postgis.to_polygon(bbox)
         })
 
     return service_areas
+
+
+if __name__ == '__main__':
+    insert_service_areas()
+    insert_representative_population_points()

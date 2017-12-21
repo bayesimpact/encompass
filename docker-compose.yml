@@ -30,8 +30,9 @@ services:
 
     frontend:
       volumes:
-        - ./frontend/src:/usr/src/app/src
-        - ./frontend/public:/usr/src/app/public
+        - ./frontend/src:/usr/src/app/src:rw
+        - ./frontend/public:/usr/src/app/public:rw
+        - ./shared/:/usr/src/shared:rw
       build:
         context: ./frontend
         dockerfile: Dockerfile
