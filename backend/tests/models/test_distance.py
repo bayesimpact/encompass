@@ -22,13 +22,13 @@ class TestMetrics():
 
     def test_haversine_distance_class(self):
         """Check that the haversine distance matches expectations."""
-        d = self.measurer.get_distance_in_miles(NEWPORT_RI, CLEVELAND_OH)
-        assert abs(d - 536.6975637) < 10**-5
+        d = self.measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
+        assert abs(d - 863.731 * 10**3) < 10**-2
 
     def test_haversine_distance_returns_none_when_a_point_is_missing(self):
         """Check that the haversine distance matches expectations."""
-        d1 = self.measurer.get_distance_in_miles(NEWPORT_RI, None)
-        d2 = self.measurer.get_distance_in_miles(None, CLEVELAND_OH)
+        d1 = self.measurer.get_distance_in_meters(NEWPORT_RI, None)
+        d2 = self.measurer.get_distance_in_meters(None, CLEVELAND_OH)
         assert d1 is None
         assert d2 is None
 
@@ -36,7 +36,7 @@ class TestMetrics():
         """The base interface for measurement should raise a NotImplementedError."""
         measurer = distance.MeasureDistance(api_url=None, api_key=None)
         with pytest.raises(NotImplementedError):
-            measurer.get_distance_in_miles(NEWPORT_RI, CLEVELAND_OH)
+            measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
 
     def test_haversine_distance_closest(self):
         """Check that the haversine closest distance works."""
@@ -51,14 +51,14 @@ class TestMetrics():
         closest_distance, closest_town = self.measurer.closest_with_early_exit(
             origin=NASSAU,
             point_list=[MIAMI_FL, NASSAU, NEWPORT_RI, CLEVELAND_OH],
-            exit_distance=200
+            exit_distance=320 * 10**3
         )
         assert closest_town == MIAMI_FL
 
         closest_distance, closest_town = self.measurer.closest_with_early_exit(
             origin=NASSAU,
             point_list=[MIAMI_FL, NASSAU, NEWPORT_RI, CLEVELAND_OH],
-            exit_distance=50
+            exit_distance=80 * 10**3
         )
         assert closest_town == NASSAU
 
@@ -70,10 +70,10 @@ class TestOSRMDistanceMetric():
         """Initialize a measurer for use in the test cases."""
         self.measurer = distance.OSRMDrivingDistance(api_url='http://router.project-osrm.org/')
 
-    def test_get_distance_in_miles(self):
+    def test_get_distance_in_meters(self):
         """Check that the OSRM distance matches expectations."""
-        d = self.measurer.get_distance_in_miles(NEWPORT_RI, CLEVELAND_OH)
-        assert abs(d - 639.8094) < 10.0
+        d = self.measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
+        assert abs(d - 1033026.0882499999) < 20.0 * 10**3
 
     def test_closest(self):
         """Check that the closest method works as expected."""
@@ -88,7 +88,7 @@ class TestOSRMDistanceMetric():
         closest_distance, closest_town = self.measurer.closest_with_early_exit(
             origin=NEWPORT_RI,
             point_list=[MIAMI_FL, CLEVELAND_OH, EUCLID_OH],
-            exit_distance=10**10
+            exit_distance=10**21
         )
         closest_haversine_distance, closest_haversine_town = \
             self.measurer._haversine_measurer.closest(
@@ -108,7 +108,7 @@ class TestOSRMDistanceMetric():
         self.measurer.closest_with_early_exit(
             origin=CLEVELAND_OH,
             point_list=[MIAMI_FL, NEWPORT_RI, EUCLID_OH],
-            exit_distance=0.1
+            exit_distance=0.01
         )
 
         mock_closest.assert_called_with(
@@ -126,9 +126,9 @@ class TestOSRMDistanceMetric():
         closest_distance, closest_town = self.measurer.closest_with_early_exit(
             origin=CLEVELAND_OH,
             point_list=[MIAMI_FL, NEWPORT_RI],
-            exit_distance=50.0
+            exit_distance=80.0 * 10**3
         )
 
         mock_closest.assert_not_called()
-        assert closest_distance == 99999.9
+        assert closest_distance == 10**42
         assert closest_town == MIAMI_FL

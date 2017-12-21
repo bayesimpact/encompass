@@ -14,13 +14,16 @@ from backend.models import distance
 from sqlalchemy.orm import sessionmaker
 
 MEASURER = distance.get_measure(config.get('measurer'))
-EXIT_DISTANCE = 10.0    # Measured in miles.
-RELEVANCY_RADIUS_IN_METERS = 24140.2    # 15 miles in meters. Do not go lower than this.
+ONE_MILE_IN_METERS = 1609.344
+ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
+EXIT_DISTANCE_IN_METERS = 10.0 * ONE_MILE_IN_METERS
+# Adequacy results will be inaccurate with smaller values.
+RELEVANCY_RADIUS_IN_METERS = 15.0 * ONE_MILE_IN_METERS
 
 
-def _find_closest_provider(point, providers, exit_distance_in_miles=None):
+def _find_closest_provider(point, providers, exit_distance_in_meters=None):
     """Find closest provider from to a representative point."""
-    if not exit_distance_in_miles:
+    if not exit_distance_in_meters:
         closest_distance, closest_provider = MEASURER.closest(
             origin=point,
             point_list=providers,
@@ -29,15 +32,15 @@ def _find_closest_provider(point, providers, exit_distance_in_miles=None):
         closest_distance, closest_provider = MEASURER.closest_with_early_exit(
             origin=point,
             point_list=providers,
-            exit_distance=exit_distance_in_miles
+            exit_distance=exit_distance_in_meters
         )
-    provider_time = closest_distance * 2
+    provider_time = closest_distance * ONE_METER_IN_MILES * 2
     provider = {
         'id': point['id'],
         'closest_provider_by_distance': closest_provider['id'],
         'closest_provider_by_time': closest_provider['id'],
         'time_to_closest_provider': provider_time,
-        'distance_to_closest_provider': closest_distance
+        'distance_to_closest_provider': closest_distance * ONE_METER_IN_MILES
     }
     return provider
 
@@ -110,9 +113,7 @@ def calculate_adequacies(
     with concurrent.futures.ProcessPoolExecutor(n_processors) as executor:
         adequacies_response = executor.map(
             _find_closest_provider,
-            points,
-            addresses_to_check_by_point,
-            itertools.repeat(EXIT_DISTANCE)
+            points, addresses_to_check_by_point, itertools.repeat(EXIT_DISTANCE_IN_METERS)
         )
 
     print('Returning adequacy results.')
