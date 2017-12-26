@@ -1,5 +1,6 @@
 """Caclulate adequacy metrics."""
 import collections
+
 import concurrent.futures
 import itertools
 
@@ -7,9 +8,13 @@ from backend.config import config
 from backend.lib.database.postgres import connect
 from backend.lib.database.tables import address, service_area
 from backend.lib.fetch import representative_points
-
 from backend.lib.timer import timed
+
 from backend.models import distance
+
+import descartes
+
+from shapely import wkb
 
 from sqlalchemy.orm import sessionmaker
 
@@ -64,6 +69,97 @@ def _fetch_addresses_from_ids(address_ids, engine):
 
 
 @timed
+def _find_addresses_near_service_area(
+    service_area_polygon,
+    providers
+):
+    """
+    Find providers within the given radius of the service area polygon.
+
+    This method reduces the number of distance calulations required by `calculate_adequacies`.
+    """
+    # TODO - Investigate ways to improve performance knowing that the polygons are rectangles
+    # (After switch to geometry datatype.)
+    # TODO - Investigate use of minmax latlon instead of complete polygons.
+    path = descartes.PolygonPatch(service_area_polygon).get_path()
+    return list(itertools.compress(
+        providers,
+        path.contains_points(
+            [(provider['longitude'], provider['latitude']) for provider in providers]
+        )
+    ))
+
+
+@timed
+def _fetch_service_area_polygons_db(
+    service_area_ids,
+    radius_in_meters,
+    engine=connect.create_db_engine()
+):
+    """
+    Find service areas and all providers within the given radius of the service area polygon.
+
+    This method reduces the number of distance calulations required by `calculate_adequacies`.
+    """
+    # TODO - Add ST_ENVELOPE to force square bounding box after switch to geomery.
+    service_area_id_list = '(VALUES' + ', '.join([
+        "('{}')".format(_id) for _id in service_area_ids
+    ]) + ')'
+
+    query = """
+        SELECT
+            areas.service_area_id AS service_area_id,
+            ST_Buffer(areas.location, {radius}) AS polygon
+        FROM {service_areas} areas
+        WHERE 1=1
+            AND areas.service_area_id IN {service_area_id_list}
+    """.format(
+        radius=radius_in_meters,
+        service_areas=service_area.ServiceArea.__tablename__,
+        service_area_id_list=service_area_id_list,
+    )
+
+    results = engine.execute(query)
+    if results:
+        return {
+            result.service_area_id: wkb.loads(result.polygon, hex=True)
+            for result in results
+        }
+    return {}
+
+
+def _process_service_area(service_area_id, service_area_polygons, all_addresses):
+    addresses = _find_addresses_near_service_area(
+        service_area_polygon=service_area_polygons[service_area_id],
+        providers=all_addresses
+    ) or all_addresses
+
+    return (service_area_id, addresses)
+
+
+@timed
+def _get_addresses_to_check_by_service_area(
+        service_area_ids, service_area_polygons, addresses, n_processors):
+    addresses_to_check_by_service_area = collections.defaultdict(list)
+
+    # TODO - Properly compare performance.
+    # with concurrent.futures.ProcessPoolExecutor(n_processors) as executor:
+    #     for service_area_id, addresses in executor.map(
+    #         _process_service_area,
+    #             service_area_ids, itertools.repeat(service_area_polygons),
+    #             itertools.repeat(addresses)):
+    #         addresses_to_check_by_service_area[service_area_id] = addresses
+
+    for service_area_id in service_area_ids:
+        _, addresses_to_check_by_service_area[service_area_id] = _process_service_area(
+            service_area_id=service_area_id,
+            service_area_polygons=service_area_polygons,
+            all_addresses=addresses)
+
+    return addresses_to_check_by_service_area
+
+
+@timed
 def calculate_adequacies(
     service_area_ids,
     provider_ids,
@@ -85,31 +181,34 @@ def calculate_adequacies(
     print('Calculating adequacies for {} provider addresses and {} service areas.'.format(
         len(provider_ids), len(service_area_ids)))
 
-    addresses_to_check_by_service_area = collections.defaultdict(list)
-
-    query_results = _find_addresses_near_to_service_areas(
+    service_area_polygons = _fetch_service_area_polygons_db(
         service_area_ids=service_area_ids,
-        provider_ids=provider_ids,
-        radius_in_meters=radius_in_meters,
+        radius_in_meters=RELEVANCY_RADIUS_IN_METERS,
         engine=engine
     )
-    for row in query_results:
-        addresses_to_check_by_service_area[row['service_area_id']].append({
-            'id': row['address_id'],
-            'latitude': row['address_latitude'],
-            'longitude': row['address_longitude'],
-        })
 
     all_addresses = _fetch_addresses_from_ids(provider_ids, engine)
+
+    if not all_addresses:
+        return []
+
     points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids, format_response=False
     )
+
+    n_processors = config.get('number_of_adequacy_processors')
+
+    addresses_to_check_by_service_area = _get_addresses_to_check_by_service_area(
+        service_area_ids=service_area_ids,
+        service_area_polygons=service_area_polygons,
+        addresses=all_addresses,
+        n_processors=n_processors)
+
     addresses_to_check_by_point = (
-        addresses_to_check_by_service_area.get(point['service_area_id'], all_addresses)
+        addresses_to_check_by_service_area.get(point['service_area_id'])
         for point in points
     )
 
-    n_processors = config.get('number_of_adequacy_processors')
     with concurrent.futures.ProcessPoolExecutor(n_processors) as executor:
         adequacies_response = executor.map(
             _find_closest_provider,
@@ -118,47 +217,3 @@ def calculate_adequacies(
 
     print('Returning adequacy results.')
     return list(adequacies_response)
-
-
-@timed
-def _find_addresses_near_to_service_areas(
-    service_area_ids,
-    provider_ids,
-    radius_in_meters,
-    engine=connect.create_db_engine()
-):
-    """
-    Find service areas and all providers within the given radius of the service area polygon.
-
-    This method reduces the number of distance calulations required by `calculate_adequacies`.
-    """
-    service_area_id_list = '(VALUES' + ', '.join([
-        "('{}')".format(_id) for _id in service_area_ids
-    ]) + ')'
-    provider_ids_no_duplicates = list(set(provider_ids))
-    address_id_list = '(VALUES' + ', '.join([
-        '({})'.format(_id) for _id in provider_ids_no_duplicates
-    ]) + ')'
-
-    query = """
-        SELECT
-            areas.service_area_id AS service_area_id
-            , addresses.id AS address_id
-            , addresses.latitude AS address_latitude
-            , addresses.longitude AS address_longitude
-        FROM {service_areas} areas
-        JOIN {addresses} addresses
-            ON (
-            ST_DWithin(areas.location, addresses.location, {radius}, FALSE)
-        )
-        WHERE 1=1
-            AND areas.service_area_id IN {service_area_id_list}
-            AND addresses.id IN {address_id_list}
-    """.format(
-        service_areas=service_area.ServiceArea.__tablename__,
-        addresses=address.Address.__tablename__,
-        service_area_id_list=service_area_id_list,
-        address_id_list=address_id_list,
-        radius=radius_in_meters
-    )
-    return (dict(row) for row in engine.execute(query))

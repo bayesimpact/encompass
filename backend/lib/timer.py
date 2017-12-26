@@ -16,11 +16,11 @@ def timed(f):
         elif 'logger' in args_dict.keys():
             logger = args_dict['logger']
 
-        start = time()
+        start = time() * 1000
         result = f(*args, **kwds)
-        elapsed = time() - start
+        elapsed = time() * 1000 - start
 
-        timer_message = '%s took %d seconds to complete.' % (f.__name__, elapsed)
+        timer_message = '%s took %d ms to complete.' % (f.__name__, elapsed)
         if logger:
             logger.warn(timer_message)
         else:

@@ -14,7 +14,7 @@ import pytest
 engine = connect.create_db_engine()
 
 
-class TestProvidersRequest(LiveServerTestCase):
+class TestAdequacyRequest(LiveServerTestCase):
     """Test class for providers request file."""
 
     def create_app(self):
@@ -27,7 +27,7 @@ class TestProvidersRequest(LiveServerTestCase):
         """Test provider requests in a simple case."""
         request_adequacy = {
             'provider_ids': [1, 2],
-            'service_area_ids': ['ca_alameda_0000']
+            'service_area_ids': ['ca_los_angeles_90001']
         }
 
         def _mock_get_json(force=True):
@@ -38,7 +38,7 @@ class TestProvidersRequest(LiveServerTestCase):
         try:
             adequacy.adequacy_request(self.app, mock_request, engine)
         except TypeError:
-            pytest.fail('Could not fetch providers.')
+            pytest.fail('Could not calculate adequacy.')
 
     def test_adequacy_request_missing_area(self):
         """Test provider requests in a simple case."""
