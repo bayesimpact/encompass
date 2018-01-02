@@ -22,7 +22,6 @@ function providerToFeature(
   point: Provider
 ): GeoJSON.Feature<GeoJSON.GeometryObject> {
   return {
-    id: point.id,
     type: 'Feature',
     properties: {
       address: point.address,

@@ -9,9 +9,12 @@
  */
 export interface PostAdequaciesRequest {
   /**
-   * Provider IDs, available from POST /api/providers/
+   * Providers, available from POST /api/providers/
    */
-  provider_ids: number[]
+  providers: {
+    latitude: number
+    longitude: number
+  }[]
   /**
    * Service area IDs in the format "state_city_zip".
    * For example, ["ca_san_francisco_94014", "ca_san_francisco_94015"]

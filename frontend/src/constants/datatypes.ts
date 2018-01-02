@@ -10,8 +10,8 @@ export type Adequacy = {
   id: number
   distanceToClosestProvider: number
   timeToClosestProvider: number
-  closestProviderByDistance: number
-  closestProviderByTime: number
+  closestProviderByDistance: {latitude: number, longitude: number}
+  closestProviderByTime: {latitude: number, longitude: number}
 }
 
 export enum AdequacyMode {
@@ -31,7 +31,6 @@ export type Measure = 15 | 20 | 30
 
 export type Provider = {
   address: string
-  id: number
   languages: string[]
   lat: number
   lng: number

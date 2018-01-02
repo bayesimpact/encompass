@@ -56,5 +56,5 @@ export let getRepresentativePoints = memoize(
 
 export let getAdequacies = memoize(
   (params: PostAdequaciesRequest) => POST('/api/adequacies/')<PostAdequaciesResponse>(params),
-  (params: PostAdequaciesRequest) => `${params.provider_ids.join(',')}-${params.service_area_ids.join(',')}`
+  (params: PostAdequaciesRequest) => `${params.providers.join(',')}-${params.service_area_ids.join(',')}`
 )

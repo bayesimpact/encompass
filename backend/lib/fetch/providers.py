@@ -35,7 +35,7 @@ def _fetch_addresses_from_db(raw_addresses, session):
     return results
 
 
-def _format_provider_response(geocoded_address=None, provider_id=0):
+def _format_provider_response(geocoded_address=None):
     if not geocoded_address:
         return {
             'status': 'error',
@@ -43,7 +43,6 @@ def _format_provider_response(geocoded_address=None, provider_id=0):
         }
     return {
         'status': 'success',
-        'id': provider_id,
         'lat': geocoded_address['latitude'],
         'lng': geocoded_address['longitude']
     }
@@ -92,7 +91,6 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
 
     existing_addresses = {
         result.address: {
-            'id': result.id,
             'latitude': result.latitude,
             'longitude': result.longitude
         } for result in _fetch_addresses_from_db(provider_addresses, session)
@@ -114,7 +112,6 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
         if geocoded_addresses:
             existing_addresses.update({
                 result.address: {
-                    'id': result.id,
                     'latitude': result.latitude,
                     'longitude': result.longitude
                 } for result in _fetch_addresses_from_db(addresses_to_geocode, session)
@@ -128,7 +125,7 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
         if i % 1000 == 0:
             logger.debug('Processsing {} out of {}'.format(i, len(providers)))
 
-        # TODO: Fuzzy matching.
+        # TODO - Fuzzy matching.
         # Retrieve lat, lng from DB.
         # Popping address to avoid confusion by Postgres between address and address_id.
         raw_address = raw_provider.pop('address')
@@ -136,7 +133,6 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
             geocoded_address = existing_addresses[raw_address]
             provider_responses.append(
                 _format_provider_response(
-                    provider_id=geocoded_address['id'],
                     geocoded_address=geocoded_address
                 )
             )

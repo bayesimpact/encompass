@@ -3,15 +3,15 @@ import { AdequacyMode } from '../constants/datatypes'
 import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime, totalPopulation } from './analytics'
 
 let adequacies1 = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: 63, closestProviderByTime: 63 }
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} }
 ])
 
 let adequacies2 = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: 63, closestProviderByTime: 63 }
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} }
 ])
 
 let representativePoints1 = chain([

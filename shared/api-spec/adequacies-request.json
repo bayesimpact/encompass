@@ -11,6 +11,28 @@
         "type": "integer"
       }
     },
+    "providers": {
+      "description": "Providers, containing id and location (lat, lon). Available from POST /api/providers/",
+      "type": "array",
+      "items": {
+        "properties": {
+          "latitude": {
+            "description": "Latitude",
+            "type": "float"
+          },
+          "longitude": {
+            "description": "Longitude",
+            "type": "float"
+          },
+          "id": {
+            "description": "Unique ID for each provider/address",
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["id", "latitude", "longitude"]
+      }
+    },
     "service_area_ids": {
       "description": "Service area IDs in the format \"state_city_zip\".\nFor example, [\"ca_san_francisco_94014\", \"ca_san_francisco_94015\"]",
       "type": "array",
@@ -20,5 +42,11 @@
     }
   },
   "additionalProperties": false,
-  "required": ["provider_ids", "service_area_ids"]
+  "oneOf" : [
+    {
+        "required" : ["service_area_ids", "providers"]
+    }, {
+        "required" : ["service_area_ids", "provider_ids"]
+    }
+  ]
 }

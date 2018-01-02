@@ -9,9 +9,6 @@
         "status": {
           "enum": ["success"]
         },
-        "id": {
-          "type": "integer"
-        },
         "lat": {
           "type": "number"
         },
@@ -20,7 +17,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["status", "id", "lat", "lng"]
+      "required": ["status", "lat", "lng"]
     },
     "error": {
       "properties": {

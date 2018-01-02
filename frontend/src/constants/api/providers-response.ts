@@ -11,7 +11,6 @@ export type PostProvidersResponse = (Success | Error)[]
 
 export interface Success {
   status: 'success'
-  id: number
   lat: number
   lng: number
 }

@@ -109,8 +109,7 @@ export function withEffects(store: Store) {
         .map(([res, req]: [Success, PostProvidersRequest['providers'][0]]) => ({
           ...req,
           lat: res.lat,
-          lng: res.lng,
-          id: res.id
+          lng: res.lng
         }))
         .value()
     )
@@ -142,7 +141,7 @@ export function withEffects(store: Store) {
       // TODO: Do this more elegantly to avoid the double-computation.
       let [adequacies, points] = await Promise.all([
         getAdequacies({
-          provider_ids: providers.map(_ => _.id),
+          providers: providers.map(_ => ({latitude: _.lat, longitude: _.lng})),
           service_area_ids: serviceAreas
         }),
         getRepresentativePoints({ service_area_ids: serviceAreas })

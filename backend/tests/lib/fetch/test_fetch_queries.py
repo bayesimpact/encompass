@@ -52,7 +52,6 @@ class TestFetchProviders():
         ]
         results = providers.fetch_providers(providers_input, engine=engine)
         assert results[0]['status'] == 'success'
-        assert results[0]['id'] is not None
 
     @staticmethod
     def test_fetch_providers_address_does_not_exist():

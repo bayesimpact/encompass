@@ -7,7 +7,7 @@ or representative points.
 REQUEST - POST  /api/adequacies/
 
 {
-  provider_ids: [int]
+  providers: [{id, lat, long}]
   service_area_ids: [str]
 }
 
@@ -61,18 +61,19 @@ def adequacy_request(app, flask_request, engine):
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
 
-    if 'provider_ids' not in request:
-        raise InvalidFormat(message='Invalid format. Could not find provider_ids.')
+    if 'providers' not in request:
+        raise InvalidFormat(message='Invalid format. Could not find provider information.')
     if 'service_area_ids' not in request:
         raise InvalidFormat(message='Invalid format. Could not find service_area_ids.')
 
-    provider_ids = request['provider_ids']
+    provider_addresses = request['providers']
     service_area_ids = request['service_area_ids']
 
-    if provider_ids and service_area_ids:
+    # Exit early if there is no data.
+    if provider_addresses and service_area_ids:
         return adequacy.calculate_adequacies(
             engine=engine,
             service_area_ids=service_area_ids,
-            provider_ids=provider_ids
+            locations=provider_addresses
         )
     return []

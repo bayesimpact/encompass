@@ -26,8 +26,8 @@ REQUEST - POST
 RESPONSE
 [
     {'status': 'error', 'message': 'Failed to geocode address for this provider.'},
-    {'status': 'success', 'id': 392, 'lat': 37.06660983626426, 'lng': -122.03874290199911}
-    {'status': 'success', 'id': 43, 'lat': 37.06098362, 'lng': -122.038742210}
+    {'status': 'success', lat': 37.06660983626426, 'lng': -122.03874290199911}
+    {'status': 'success', lat': 37.06098362, 'lng': -122.038742210}
 ]
 """
 import json
