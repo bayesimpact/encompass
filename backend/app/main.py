@@ -37,8 +37,8 @@ def fetch_service_areas():
 @timed
 @app.route('/api/providers/', methods=['POST'])
 def fetch_providers():
-    """Fetch and return all available service areas from db."""
-    logger.debug('Fetch provider ids.')
+    """Fetch and return providers with geocoded addresses."""
+    logger.debug('Fetch providers.')
     response = providers.providers_request(app, flask.request, engine)
     return flask.jsonify(response)
 
@@ -46,7 +46,7 @@ def fetch_providers():
 @timed
 @app.route('/api/representative_points/', methods=['POST'])
 def fetch_representative_points():
-    """Fetch and return all available service areas from db."""
+    """Fetch and return all representative points for the requested service areas."""
     logger.debug('Fetch representative_points for the specifed service areas.')
     response = representative_points.representative_points_request(app, flask.request, engine)
     return flask.jsonify(response)
@@ -55,7 +55,7 @@ def fetch_representative_points():
 @timed
 @app.route('/api/adequacies/', methods=['POST'])
 def calculate_adequacies():
-    """Fetch and return all available service areas from db."""
+    """Calculate adequacy for the input service areas and providers."""
     logger.debug('Calculate time distance standards.')
     response = adequacy.adequacy_request(app, flask.request, engine)
     return flask.jsonify(response)

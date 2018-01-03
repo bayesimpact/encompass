@@ -10,20 +10,12 @@ from geocodio.exceptions import (
 
 import osmnx as ox
 
-from retrying import retry
-
 
 WAIT_FIXED_MILLISECONDS = 2000
 STOP_MAX_ATTEMPT_NUMBER = 4
 MAX_THREADS = 32
 
-
 logger = logging.getLogger(__name__)
-
-
-def _retry_on_geocodio_errors(exception):
-    errors = [GeocodioAuthError, GeocodioDataError, GeocodioServerError, GeocodioError]
-    return any(isinstance(exception, error) for error in errors)
 
 
 class GeocodioCoder():
@@ -45,7 +37,9 @@ class GeocodioCoder():
     def geocode(self, address):
         """Geocode a single point with Geocodio."""
         result = self._safe_geocode(address)
-        return GeocodioCoder._format_result(address=address, geocoding_result=result)
+        if result:
+            return GeocodioCoder._format_result(address=address, geocoding_result=result)
+        return None
 
     def geocode_batch(self, addresses):
         """
@@ -56,6 +50,10 @@ class GeocodioCoder():
         """
         try:
             results = self._safe_geocode(addresses)
+        except GeocodioError as error:
+            logger.error(error.__class__.__name__ + ' - ' + str(error))
+            results = []
+        if results and len(addresses) > 0:
             geocoded_addresses = [
                 GeocodioCoder._format_result(
                     address=address,
@@ -64,25 +62,34 @@ class GeocodioCoder():
                 for address in addresses
                 if results.get(address) and results.get(address).coords
             ]
-
-        except Exception:
+        if not results and len(addresses) > 0:
             logger.warning('Error in batch geocoding - switching to single geocoding.')
-
             with multiprocessing.dummy.Pool(processes=MAX_THREADS) as executor:
                 geocoded_addresses = executor.map(self.geocode, addresses)
 
-            return [
-                geocoded_address for geocoded_address
-                in geocoded_addresses if geocoded_address
-            ]
+        return [
+            geocoded_address for geocoded_address
+            in geocoded_addresses if geocoded_address
+        ]
 
-    @retry(
-        retry_on_exception=_retry_on_geocodio_errors,
-        wait_fixed=WAIT_FIXED_MILLISECONDS,
-        stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
     def _safe_geocode(self, addresses):
-        # TODO: Handle more than 10,000 addresses at once.
-        return self.client.geocode(addresses)
+        if isinstance(addresses, (list, set)):
+            if len(addresses) > 1000:
+                raise GeocodioError('Too many addresses. Switch to single geocoding.')
+            try:
+                return self.client.geocode(list(addresses))
+            except GeocodioError as error:
+                    logger.info('Error {} - in geocoding batch.'.format(
+                        error.__class__.__name__)
+                    )
+        else:
+            try:
+                return self.client.geocode(addresses)
+            except (GeocodioAuthError, GeocodioDataError, GeocodioServerError) as error:
+                logger.debug('Error {} - in geocoding address {}.'.format(
+                    error.__class__.__name__, addresses)
+                )
+        return None
 
 
 class OxCoder():
@@ -102,7 +109,9 @@ class OxCoder():
                 'latitude': result[0],
                 'longitude': result[1],
             }
-        except:
+        # Note - Ox raises general exceptions Exception.
+        except Exception as error:
+            logger.error(error.__class__.__name__ + ' - ' + str(error))
             return None
 
     def geocode_batch(self, addresses):

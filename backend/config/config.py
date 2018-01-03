@@ -96,9 +96,11 @@ def _load_config(path=None):
 
     return config
 
+
 # TODO: Set global and Sentry log level independently.
 CONFIG = {
-    'geocoding_enabled': True,
+    'geocoding': True,
+    'address_database': True,
     'geocoder': 'oxcoder',
     'measurer': 'haversine',
     'number_of_adequacy_processors': 8,

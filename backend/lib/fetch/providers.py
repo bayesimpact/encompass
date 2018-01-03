@@ -10,7 +10,7 @@ from backend.lib.timer import timed
 from sqlalchemy.orm import sessionmaker
 
 # Use values from configuration if they exist.
-GEOCODING = config.get('geocoding_enabled')
+GEOCODING = config.get('geocoding')
 GEOCODER = config.get('geocoder')
 
 
@@ -48,7 +48,7 @@ def _format_provider_response(geocoded_address=None):
     }
 
 
-def _geocode_addresses(addresses, geocoder_name, engine):
+def _geocode_addresses(addresses, geocoder_name, engine, add_to_db=True):
     """Geocode addresses and add to database."""
     local_geocoder = geocoder.get_geocoder(geocoder_name)
     geocoded_addresses = local_geocoder.geocode_batch(addresses)
@@ -57,7 +57,7 @@ def _geocode_addresses(addresses, geocoder_name, engine):
             longitude=geocoded_address['longitude'],
             latitude=geocoded_address['latitude']
         )
-    if geocoded_addresses:
+    if geocoded_addresses and add_to_db:
         # Add new addresses to DB.
         # TODO: Add addresses to DB as they are geocoded to make ingestion more robust.
         methods.core_insert(
@@ -89,26 +89,30 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
         len(provider_addresses), len(providers))
     )
 
-    existing_addresses = {
-        result.address: {
-            'latitude': result.latitude,
-            'longitude': result.longitude
-        } for result in _fetch_addresses_from_db(provider_addresses, session)
-    }
-
-    logger.debug('Found {} addresses in DB out of {}.'.format(
-        len(existing_addresses), len(provider_addresses))
-    )
+    if config.get('address_database'):
+        existing_addresses = {
+            result.address: {
+                'latitude': result.latitude,
+                'longitude': result.longitude
+            } for result in _fetch_addresses_from_db(provider_addresses, session)
+        }
+        logger.debug('Found {} addresses in DB out of {}.'.format(
+            len(existing_addresses), len(provider_addresses))
+        )
+    else:
+        logger.debug('Address database deactivated.')
+        existing_addresses = {}
 
     addresses_to_geocode = provider_addresses.difference(existing_addresses)
-    logger.debug('{} addresses to geocode.'.format(len(addresses_to_geocode)))
-
     if len(addresses_to_geocode) > 0 and GEOCODING:
+        logger.debug('{} addresses to geocode.'.format(len(addresses_to_geocode)))
         logger.debug('Geocoding...')
         geocoded_addresses = _geocode_addresses(
             addresses=addresses_to_geocode,
             geocoder_name=geocoder_name,
-            engine=engine)
+            engine=engine,
+            add_to_db=config.get('address_database'))
+        logger.debug('{} addresses geocoded.'.format(len(geocoded_addresses)))
         if geocoded_addresses:
             existing_addresses.update({
                 result.address: {
@@ -116,14 +120,14 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
                     'longitude': result.longitude
                 } for result in _fetch_addresses_from_db(addresses_to_geocode, session)
             })
-    elif len(addresses_to_geocode) > 0:
-        logger.debug('No addresses could be geocoded.')
-    else:
+    elif len(addresses_to_geocode) == 0:
+        logger.debug('No addresses to geocode.')
+    elif not GEOCODING:
         logger.debug('Warning - Geocoding is not active. Processing without missing addresses.')
 
     for i, raw_provider in enumerate(providers):
-        if i % 1000 == 0:
-            logger.debug('Processsing {} out of {}'.format(i, len(providers)))
+        if i % 10000 == 0:
+            logger.debug('Processsed {} out of {}...'.format(i, len(providers)))
 
         # TODO - Fuzzy matching.
         # Retrieve lat, lng from DB.
@@ -140,6 +144,8 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
             provider_responses.append(
                 _format_provider_response(geocoded_address=None)
             )
+
+    logger.debug('Processing done for {} providers.'.format(len(providers)))
 
     session.close()
     return provider_responses
