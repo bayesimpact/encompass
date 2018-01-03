@@ -1,5 +1,7 @@
 """This module scrapes ZIP code boundaries from the USPS EDDM tool."""
 # TODO - Switch to accept STATE, ZIP range pairs.
+import logging
+
 import geojson
 
 import requests
@@ -44,6 +46,8 @@ BASE_PARAMS = {
 
 WHERE_CLAUSE_TEMPLATE = "STATE='CA' AND ZIP LIKE '{first_two_digits_of_zip_code}%'"
 
+logger = logging.getLogger(__name__)
+
 
 def fetch_zip_boundary_polygons(zip_codes):
     """
@@ -68,7 +72,7 @@ def _request_zip_boundary_polygons(zip_codes_first_two_digits, retries=10):
     i = 0
 
     while i < retries and len(zip_codes_first_two_digits) > 0:
-        print('Round {}'.format(i))
+        logger.debug('Round {}'.format(i))
         for first_two_digits in zip_codes_first_two_digits:
             params = BASE_PARAMS.copy()
             params['where'] = WHERE_CLAUSE_TEMPLATE.format(
@@ -82,17 +86,17 @@ def _request_zip_boundary_polygons(zip_codes_first_two_digits, retries=10):
                 )
                 response.raise_for_status()
                 features.extend(response.json()['features'])
-                print('Processed {}.'.format(first_two_digits))
+                logger.debug('Processed {}.'.format(first_two_digits))
             except KeyError:
                 failed.append(first_two_digits)
-        print('{} ZIP code groups remaining.'.format(len(failed)))
+        logger.debug('{} ZIP code groups remaining.'.format(len(failed)))
 
         zip_codes_first_two_digits = failed
         failed = []
         i = i + 1
 
-    print('Final list of failed Zip Codes after {} retries:'.format(i))
-    print(failed)
+    logger.debug('{} failed Zip Codes after {} retries:'.format(len(failed), i))
+    logger.debug(failed)
     return features
 
 
@@ -101,7 +105,7 @@ def main(output_file):
     california_zips_first_digits = range(90, 100)
     with open(output_file, 'w') as fp:
         geojson.dump(fetch_zip_boundary_polygons(california_zips_first_digits), fp)
-    print('Done!')
+    logger.debug('Done!')
 
 
 if __name__ == '__main__':

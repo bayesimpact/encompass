@@ -1,4 +1,6 @@
 """Fetch data from database."""
+import logging
+
 from backend.config import config
 from backend.lib import geocoder
 from backend.lib.database.postgres import connect, methods, postgis
@@ -10,6 +12,9 @@ from sqlalchemy.orm import sessionmaker
 # Use values from configuration if they exist.
 GEOCODING = config.get('geocoding_enabled')
 GEOCODER = config.get('geocoder')
+
+
+logger = logging.getLogger(__name__)
 
 
 def _fetch_addresses_from_db(raw_addresses, session):
@@ -81,7 +86,7 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
     provider_responses = []
 
     provider_addresses = {provider['address'] for provider in providers}
-    print('Searching {} addresses for {} providers.'.format(
+    logger.debug('Searching {} addresses for {} providers.'.format(
         len(provider_addresses), len(providers))
     )
 
@@ -93,15 +98,15 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
         } for result in _fetch_addresses_from_db(provider_addresses, session)
     }
 
-    print('Found {} addresses in DB out of {}.'.format(
+    logger.debug('Found {} addresses in DB out of {}.'.format(
         len(existing_addresses), len(provider_addresses))
     )
 
     addresses_to_geocode = provider_addresses.difference(existing_addresses)
-    print('{} addresses to geocode.'.format(len(addresses_to_geocode)))
+    logger.debug('{} addresses to geocode.'.format(len(addresses_to_geocode)))
 
     if len(addresses_to_geocode) > 0 and GEOCODING:
-        print('Geocoding...')
+        logger.debug('Geocoding...')
         geocoded_addresses = _geocode_addresses(
             addresses=addresses_to_geocode,
             geocoder_name=geocoder_name,
@@ -115,13 +120,13 @@ def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_
                 } for result in _fetch_addresses_from_db(addresses_to_geocode, session)
             })
     elif len(addresses_to_geocode) > 0:
-        print('No addresses could be geocoded.')
+        logger.debug('No addresses could be geocoded.')
     else:
-        print('Warning - Geocoding is not active. Processing without missing addresses.')
+        logger.debug('Warning - Geocoding is not active. Processing without missing addresses.')
 
     for i, raw_provider in enumerate(providers):
         if i % 1000 == 0:
-            print('Processsing {} out of {}'.format(i, len(providers)))
+            logger.debug('Processsing {} out of {}'.format(i, len(providers)))
 
         # TODO: Fuzzy matching.
         # Retrieve lat, lng from DB.

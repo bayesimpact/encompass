@@ -31,6 +31,7 @@ RESPONSE
 ]
 """
 import json
+import logging
 
 from backend.lib.fetch import providers
 from backend.app.exceptions.format import InvalidFormat
@@ -42,13 +43,15 @@ from retrying import retry
 WAIT_FIXED_MILLISECONDS = 500
 STOP_MAX_ATTEMPT_NUMBER = 2
 
+logger = logging.getLogger(__name__)
+
 
 @retry(
     wait_fixed=WAIT_FIXED_MILLISECONDS,
     stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
 def providers_request(app, flask_request, engine):
     """Handle /api/providers requests."""
-    app.logger.info('Fetching providers.')
+    logger.info('Fetching providers.')
     try:
         request_json = flask_request.get_json(force=True)
         provider_addresses = request_json['providers']

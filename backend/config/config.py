@@ -11,6 +11,7 @@ class Config(object):
 
     Handles multiple possible config sources (path or env var) and nested-key lookups.
     """
+
     def __init__(self, config):
         """Instantiate a Config object with config file contents."""
         self._config = config
@@ -95,10 +96,40 @@ def _load_config(path=None):
 
     return config
 
-
+# TODO: Set global and Sentry log level independently.
 CONFIG = {
     'geocoding_enabled': True,
     'geocoder': 'oxcoder',
     'measurer': 'haversine',
     'number_of_adequacy_processors': 8,
+    'logging': {
+        'version': 1,
+        'disable_existing_loggers': True,
+        'formatters': {
+            'console': {
+                'format': '[%(asctime)s][%(levelname)s] %(name)s '
+                          '%(filename)s:%(funcName)s:%(lineno)d | %(message)s',
+                'datefmt': '%H:%M:%S',
+            },
+        },
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'console'
+            },
+            'sentry': {
+                'level': 'INFO',
+                'class': 'raven.handlers.logging.SentryHandler',
+                'dsn': os.environ.get('SENTRY_DSN', None),
+            }
+        },
+        'loggers': {
+            'backend': {
+                'handlers': ['console', 'sentry'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        }
+    }
 }

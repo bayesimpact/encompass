@@ -1,4 +1,5 @@
 """Functions to install and work with PostGIS."""
+import logging
 import os
 
 from backend.lib.database.postgres import connect
@@ -26,6 +27,8 @@ TRANSFER_OWNERSHIP = """
 """
 
 ADD_TIGER_TO_PATH = 'SET search_path=public,tiger;'
+
+logger = logging.getLogger(__name__)
 
 
 def to_point(longitude, latitude):
@@ -60,8 +63,8 @@ def install():
     ]:
         try:
             postgres_db.execute(statement=statement)
-        except Exception as err:
-            print(err)
+        except Exception:
+            logger.exception('Error installing Postgis to Postgres')
 
     time_distance_db = connect.create_db_engine(os.getenv('POSTGRES_URL'))
     time_distance_db.execute(statement=ADD_TIGER_TO_PATH)

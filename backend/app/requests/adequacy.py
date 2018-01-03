@@ -23,6 +23,7 @@ RESPONSE
 ]
 """
 import json
+import logging
 import random
 
 from backend.app.exceptions.format import InvalidFormat
@@ -34,6 +35,8 @@ from retrying import retry
 
 WAIT_FIXED_MILLISECONDS = 500
 STOP_MAX_ATTEMPT_NUMBER = 2
+
+logger = logging.getLogger(__name__)
 
 
 def mock_adequacy_calculation(provider_ids, service_area_ids):
@@ -52,7 +55,7 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
     stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
 def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
-    app.logger.info('Calculating adequacies.')
+    logger.info('Calculating adequacies.')
     try:
         request = flask_request.get_json(force=True)
     except json.JSONDecodeError:

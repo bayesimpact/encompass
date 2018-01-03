@@ -1,7 +1,11 @@
 """Methods to handle point A and Bs."""
+import logging
+
 import pandas as pd
 
 from shapely import geometry
+
+logger = logging.getLogger(__name__)
 
 
 def fetch_point_as(db_client, zip_code, county_name, collection='representative_points'):
@@ -23,7 +27,7 @@ def fetch_provider_addresses(csv_path,
             fname,
             usecols=address_cols,
             dtype={k: 'str' for k in address_cols}).dropna().drop_duplicates()
-    print('There are {} unique addresses in this file.'.format(point_bs_df.shape[0]))
+    logger.debug('There are {} unique addresses in this file.'.format(point_bs_df.shape[0]))
     point_bs_df['full_address'] = point_bs_df.apply(_build_standard_address, axis=1)
     return point_bs_df
 

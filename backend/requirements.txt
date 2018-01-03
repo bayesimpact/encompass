@@ -10,6 +10,7 @@ cHaversine==0.3.0
 geopy==1.11.0
 Shapely==1.6.2
 osmnx==0.6
+pygeocodio==0.5.0
 # Database
 retrying==1.3.3
 geoalchemy2==0.4.0
@@ -17,6 +18,8 @@ geojson==2.3.0
 psycopg2==2.7.1
 sqlalchemy==1.1.4
 sqlalchemy-postgres-copy==0.5.0
+# Monitoring
+raven[flask]==6.4.0
 # Used by `make test` only:
 mock==2.0.0
 pytest==3.2.2
@@ -27,4 +30,3 @@ flake8==3.3.0
 flake8-import-order==0.12
 flake8-quotes==0.11.0
 pep257==0.7.0
-pygeocodio==0.5.0

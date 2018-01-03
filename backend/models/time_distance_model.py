@@ -29,16 +29,16 @@ class TimeDistanceModel(object):
 
     def runner(self, point_as, point_bs, isoline_radius=15, enlarge_bbox_by_miles=15):
         """Run all necessary steps of the model."""
-        print('Building the bounding box.')
+        logger.debug('Building the bounding box.')
         self.set_inclusive_bounding_box(enlarge_bbox_by_miles)
 
-        print('Fetching graph inside the bounding box. This will take some time; be patient!')
+        logger.debug('Fetching graph inside the bounding box. This will take a while. Be patient!')
         self.fetch_graph()
 
-        print('Building all isolines from point As.')
+        logger.debug('Building all isolines from point As.')
         self.build_all_isolines(point_as, isoline_radius)
 
-        print('Finding all point As that are not covered by providers.')
+        logger.debug('Finding all point As that are not covered by providers.')
         self.find_point_as_covered_by_all_providers(point_bs)
 
         self.uncovered_point_as = set(range(len(point_as))) - self.covered_point_as
@@ -55,9 +55,9 @@ class TimeDistanceModel(object):
             if self.bounding_box:
                 self.graph = ox.graph_from_polygon(self.bounding_box, network_type='drive')
             else:
-                print('No bounding box is defined.')
+                logger.debug('No bounding box is defined.')
         else:
-            print('Already fetched a graph. To override, clear_graph first')
+            logger.debug('Already fetched a graph. To override, clear_graph first.')
 
     def clear_graph(self):
         """Clear current model's graph."""

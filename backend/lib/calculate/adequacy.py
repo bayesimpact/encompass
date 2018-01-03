@@ -1,6 +1,7 @@
 """Caclulate adequacy metrics."""
 import collections
 import itertools
+import logging
 import multiprocessing
 
 from backend.config import config
@@ -19,6 +20,9 @@ ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
 EXIT_DISTANCE_IN_METERS = 10.0 * ONE_MILE_IN_METERS
 # Adequacy results will be inaccurate with smaller values.
 RELEVANCY_RADIUS_IN_METERS = 15.0 * ONE_MILE_IN_METERS
+
+
+logger = logging.getLogger(__name__)
 
 
 def _find_closest_provider(point, providers, exit_distance_in_meters=None):
@@ -161,7 +165,7 @@ def calculate_adequacies(
         - Aggregate the information for each point and return.
     """
     # TODO - Split analyis by specialty.
-    print('Calculating adequacies for {} provider addresses and {} service areas.'.format(
+    logger.debug('Calculating adequacies for {} provider addresses and {} service areas.'.format(
         len(provider_ids), len(service_area_ids)))
 
     all_addresses = _fetch_addresses_from_ids(provider_ids, engine)
@@ -196,5 +200,5 @@ def calculate_adequacies(
             )
         )
 
-    print('Returning adequacy results.')
+    logger.debug('Returning adequacy results.')
     return list(adequacies_response)

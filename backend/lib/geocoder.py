@@ -1,4 +1,5 @@
 """Methods for geocoding with Geocodio or Open Street Map."""
+import logging
 import multiprocessing.dummy
 import os
 
@@ -15,6 +16,9 @@ from retrying import retry
 WAIT_FIXED_MILLISECONDS = 2000
 STOP_MAX_ATTEMPT_NUMBER = 4
 MAX_THREADS = 32
+
+
+logger = logging.getLogger(__name__)
 
 
 def _retry_on_geocodio_errors(exception):
@@ -51,6 +55,7 @@ class GeocodioCoder():
         The results are returned in the same order as the original list.
         """
         try:
+            raise Exception('want to switch to single')
             results = self._safe_geocode(addresses)
             geocoded_addresses = [
                 GeocodioCoder._format_result(
@@ -60,8 +65,9 @@ class GeocodioCoder():
                 for address in addresses
                 if results.get(address) and results.get(address).coords
             ]
-        except Exception as error:
-            print(error.__class__, error, 'in batch geocoding - switching to single geocoding.')
+
+        except Exception:
+            logger.warning('Error in batch geocoding - switching to single geocoding.')
 
             with multiprocessing.dummy.Pool(processes=MAX_THREADS) as executor:
                 geocoded_addresses = executor.map(self.geocode, addresses)
