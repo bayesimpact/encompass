@@ -1,5 +1,6 @@
-"""Methods to update representative population points in the database."""
+"""Methods to update representative population points and service areas in the database."""
 # TODO: Add tests for these methods.
+import argparse
 import collections
 
 from backend.lib.database.postgres import connect, postgis
@@ -9,15 +10,41 @@ from backend.lib.database.tables import representative_point, service_area
 import geojson
 
 
-def _load_geojson_features(json_path='data/representative_points.geojson'):
-    """Load representative points data as a GeoJSON feature collection."""
-    with open(json_path, 'r') as f:
+def _get_arguments():
+    """Build argument parser."""
+    parser = argparse.ArgumentParser(description="""
+        This script loads representative population point data from a specified file into PostGIS.
+    """)
+    parser.add_argument(
+        '-f', '--filepath',
+        help='GeoJSON filepath containing representative population point data.',
+        required=True,
+        type=str
+    )
+    return parser.parse_args().__dict__
+
+
+def _main(kwargs):
+    """
+    Add all service areas and representative points from a specified file into PostGIS.
+
+    The file should be a GeoJSON feature collection, where each feature has geometry type Point.
+    Each feature should have the following properties:
+        - state
+        - county
+        - zip_code
+        - population (distance cutoff --> population at that cutoff mapping)
+
+    Note: To ensure referential integrity, service areas must be added first.
+    """
+    with open(kwargs['filepath'], 'r') as f:
         json_features = geojson.load(f)['features']
 
-    return json_features
+    _insert_service_areas(json_features)
+    _insert_representative_population_points(json_features)
 
 
-def insert_service_areas(json_features=_load_geojson_features()):
+def _insert_service_areas(json_features):
     """Insert service areas into the database from a GeoJSON file."""
     data = _get_all_service_areas(json_features)
     methods.core_insert(
@@ -30,7 +57,7 @@ def insert_service_areas(json_features=_load_geojson_features()):
     return data
 
 
-def insert_representative_population_points(json_features=_load_geojson_features()):
+def _insert_representative_population_points(json_features):
     """Insert representative points into the database from a GeoJSON file."""
     data = [_transform_single_point(point) for point in json_features]
     methods.core_insert(
@@ -120,5 +147,4 @@ def _get_all_service_areas(features):
 
 
 if __name__ == '__main__':
-    insert_service_areas()
-    insert_representative_population_points()
+    _main(_get_arguments())
