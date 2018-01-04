@@ -1,3 +1,4 @@
+# NOTE - Running this file requires postgres AND postigs.
 TMPDIR="/tmp/gisdata/temp/"
 UNZIPTOOL=unzip
 WGETTOOL="/usr/bin/wget"
