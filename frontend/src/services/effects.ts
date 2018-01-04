@@ -43,6 +43,7 @@ export function withEffects(store: Store) {
       // Frontend then plucks out the points it needs, duck-typing on whether or
       // not the given point's `population` object has the current distance
       // defined as a key on it.
+      // TODO: Remove this when the 1 mile default is reflected in the data too.
       store.set('representativePoints')(
         chain(points)
           .filter(_ => _distribution in _.population)

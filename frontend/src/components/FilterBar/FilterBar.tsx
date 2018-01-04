@@ -10,19 +10,6 @@ import './FilterBar.css'
 export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
   <Paper className='FilterBar' zDepth={1}>
 
-    <div className='Filter -FixedWidthSmall'>
-      <span>Distribution</span>
-      <DropDownMenu
-        className='DropDownMenu -Compact'
-        onChange={(_e, _i, value) => store.set('distribution')(value)}
-        value={store.get('distribution')}
-      >
-        <MenuItem value={0.5} primaryText='0.5 miles' />
-        <MenuItem value={2.5} primaryText='2.5 miles' />
-        <MenuItem value={5} primaryText='5 miles' />
-      </DropDownMenu>
-    </div>
-
     <div className='Filter -FixedWidthBig'>
       <span>Adequacy standard</span>
       <DropDownMenu
