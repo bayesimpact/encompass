@@ -16,7 +16,7 @@ type Actions = {
    */
   counties: string[]
 
-  distribution: 0.5 | 2.5 | 5.0
+  distribution: 1.0
 
   /**
    * Error, exposed to user via Snackbar.
@@ -52,7 +52,7 @@ type Actions = {
    *
    * For each service area, we sample the real population (from USPS & census data).
    * The larger the `distribution` parameter, the larger each RP becomes, and the
-   * fewer RPs we generate per service area.
+   * fewer RPs we generate per service area. The distribution defaults to 1 mile.
    */
   representativePoints: RepresentativePoint[]
 
@@ -119,7 +119,7 @@ type Actions = {
 let store = withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
-  distribution: 0.5,
+  distribution: 1.0,
   error: null,
   success: null,
   map: null,
