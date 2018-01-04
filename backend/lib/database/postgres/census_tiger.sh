@@ -10,18 +10,23 @@ export PGDATABASE=postgres
 PSQL=psql
 SHP2PGSQL=shp2pgsql
 
+# Get Postgres password.
+echo -n Postgres password: 
+read -s password
+export PGPASSWORD=$password
+
 mkdir /tmp/gisdata
 cd /tmp/gisdata
 wget http://www2.census.gov/geo/tiger/TIGER2016/STATE/tl_2016_us_state.zip --mirror --reject=html
 cd /tmp/gisdata/www2.census.gov/geo/tiger/TIGER2016/STATE
 rm -f ${TMPDIR}/*.*
 
-echo "Enter password for ${PGDATABASE}."
 ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
 ${PSQL} -c "CREATE SCHEMA tiger_staging;"
 for z in tl_*state.zip ; do $UNZIPTOOL -d $TMPDIR $z; done
 cd $TMPDIR;
 
+${PSQL} -c "alter table state owner to ${PGUSER}"
 ${PSQL} -c "CREATE TABLE tiger_data.state_all(CONSTRAINT pk_state_all PRIMARY KEY (statefp),CONSTRAINT uidx_state_all_stusps  UNIQUE (stusps), CONSTRAINT uidx_state_all_gid UNIQUE (gid) ) INHERITS(tiger.state); "
 ${SHP2PGSQL} -D -c -s 4269 -g the_geom   -W "latin1" tl_2016_us_state.dbf tiger_staging.state | ${PSQL}
 ${PSQL} -c "SELECT loader_load_staged_data(lower('state'), lower('state_all')); "
