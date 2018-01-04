@@ -48,7 +48,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         pieceLabel: {
           fontColor: '#333',
           position: 'outside',
-          precision: 2
+          precision: 1
         },
         tooltips: {
           callbacks: {
