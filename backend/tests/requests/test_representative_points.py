@@ -36,13 +36,14 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
             results = representative_points.representative_points_request(
                 self.app, mock_request, engine
             )
-            assert len(results) == 13
-            assert all(
-                result['service_area_id'] in request_service_areas['service_area_ids']
-                for result in results
-            )
         except Exception:
             pytest.fail('Could not fetch representative_points.')
+
+        assert len(results) == 5
+        assert all(
+            result['service_area_id'] in request_service_areas['service_area_ids']
+            for result in results
+        )
 
     def test_rp_request_missing_service_areas(self):
         """Test provider requests in a simple case."""

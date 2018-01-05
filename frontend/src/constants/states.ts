@@ -3,11 +3,13 @@
  */
 export const STATES = [
   { shortName: 'ca', longName: 'California' },
+  { shortName: 'or', longName: 'Oregon' },
+  { shortName: 'ri', longName: 'Rhode Island' },
   { shortName: 'tx', longName: 'Texas' },
-  { shortName: 'ri', longName: 'Rhode Island' }
+  { shortName: 'wa', longName: 'Washington' }
 ]
 
 /**
  * TODO: Codegen
  */
-export type State = 'ca' | 'tx' | 'ri'
+export type State = 'ca' | 'or' | 'ri' | 'tx' | 'wa'

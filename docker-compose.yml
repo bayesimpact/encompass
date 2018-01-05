@@ -15,7 +15,7 @@ services:
         # Data
         - ./data/:/app/data/:rw
         # Runners
-        - ./runners/:/app/runners:ro
+        - ./backend/runners/:/app/runners:ro
         # Linters and Tests
         - ./backend/tests/:/app/tests:ro
         - ./backend/.flake8:/app/.flake8:ro

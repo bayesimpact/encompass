@@ -24,6 +24,7 @@
         "properties": {
           "1.0": {
             "type": "integer"
+          }
         },
         "additionalProperties": false,
         "required": ["1.0"]

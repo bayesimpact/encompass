@@ -62,7 +62,7 @@ def test_find_addresses_near_service_area():
     service_area_polygon = adequacy._fetch_service_area_polygons_db(
         service_area_ids=['ca_alameda_94502'],
         engine=engine,
-        radius_in_meters=1000
+        radius_in_meters=10**4
     )['ca_alameda_94502']
     filtered_providers = adequacy._find_addresses_near_service_area(
         service_area_polygon=service_area_polygon,
