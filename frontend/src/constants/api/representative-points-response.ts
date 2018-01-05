@@ -14,7 +14,8 @@ export type PostRepresentativePointsResponse = {
   lat: number
   lng: number
   population: {
-    '0.5': number
+    '1.0': number
+    '0.5'?: number
     '2.5'?: number
     '5.0'?: number
   }
