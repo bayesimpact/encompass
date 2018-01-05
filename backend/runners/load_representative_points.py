@@ -30,10 +30,10 @@ def _main(kwargs):
 
     The file should be a GeoJSON feature collection, where each feature has geometry type Point.
     Each feature should have the following properties:
-        - state
-        - county
-        - zip_code
-        - population (distance cutoff --> population at that cutoff mapping)
+        - state: str
+        - county: str
+        - zip_code: str
+        - population: mapping (distance cutoff --> population at that cutoff)
 
     Note: To ensure referential integrity, service areas must be added first.
     """
@@ -81,11 +81,7 @@ def _transform_single_point(point):
         ),
         # FIXME: Once appropriate behavior is implemented in the frontend,
         # move to a more honest representatiion for this column.
-        'population': {
-            '5.0': point['properties']['population']['1.0'],
-            '2.5': point['properties']['population']['1.0'],
-            '1.0': point['properties']['population']['1.0'],
-        },
+        'population': point['properties']['population'],
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip_code'],
         'service_area_id': '{state}_{county}_{zip}'.format(

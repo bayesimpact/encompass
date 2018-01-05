@@ -22,18 +22,11 @@
       },
       "population": {
         "properties": {
-          "0.5": {
+          "1.0": {
             "type": "integer"
-          },
-          "2.5": {
-            "type": "integer"
-          },
-          "5.0": {
-            "type": "integer"
-          }
         },
         "additionalProperties": false,
-        "required": ["0.5"]
+        "required": ["1.0"]
       },
       "service_area_id": {
         "type": "string"
