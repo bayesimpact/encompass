@@ -18,6 +18,7 @@ geojson==2.3.0
 psycopg2==2.7.1
 sqlalchemy==1.1.4
 sqlalchemy-postgres-copy==0.5.0
+sqlalchemy_utils
 # Monitoring
 raven[flask]==6.4.0
 # Used by `make test` only:
