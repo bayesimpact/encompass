@@ -2,6 +2,8 @@
 from __future__ import absolute_import
 
 import logging
+import random
+import string
 
 from sqlalchemy import MetaData, Table
 
@@ -15,3 +17,11 @@ def get_table(engine, table_name):
         return
     metadata = MetaData(engine)
     return Table(table_name, metadata, autoload=True)
+
+
+def get_random_table_name(prefix='', length=12):
+    """Return a random valid Postgres table name."""
+    return '{}_{}'.format(
+        prefix,
+        ''.join(random.choice(string.ascii_lowercase) for _ in range(12))
+    )
