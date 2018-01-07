@@ -1,5 +1,5 @@
 """Methods for geocoding with Geocodio or Open Street Map."""
-import concurrent.futures
+import multiprocessing.dummy
 import os
 
 from geocodio import GeocodioClient
@@ -63,7 +63,7 @@ class GeocodioCoder():
         except Exception as error:
             print(error.__class__, error, 'in batch geocoding - switching to single geocoding.')
 
-            with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+            with multiprocessing.dummy.Pool(processes=MAX_THREADS) as executor:
                 geocoded_addresses = executor.map(self.geocode, addresses)
 
             return [
@@ -107,7 +107,7 @@ class OxCoder():
         Returns a list of dictionaries with address, latitude, and longitude.
         The results are returned in the same order as the original list.
         """
-        with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+        with multiprocessing.dummy.Pool(processes=MAX_THREADS) as executor:
             geocoded_addresses = executor.map(self.geocode, addresses)
 
         return [

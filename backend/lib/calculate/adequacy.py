@@ -1,8 +1,7 @@
 """Caclulate adequacy metrics."""
 import collections
-import concurrent.futures
 import itertools
-
+import multiprocessing
 
 from backend.config import config
 from backend.lib.database.postgres import connect, table_handling
@@ -187,10 +186,14 @@ def calculate_adequacies(
 
     n_processors = config.get('number_of_adequacy_processors')
 
-    with concurrent.futures.ProcessPoolExecutor(n_processors) as executor:
-        adequacies_response = executor.map(
-            _find_closest_provider,
-            points, addresses_to_check_by_point, itertools.repeat(EXIT_DISTANCE_IN_METERS)
+    with multiprocessing.Pool(processes=n_processors) as executor:
+        adequacies_response = executor.starmap(
+            func=_find_closest_provider,
+            iterable=zip(
+                points,
+                addresses_to_check_by_point,
+                itertools.repeat(EXIT_DISTANCE_IN_METERS)
+            )
         )
 
     print('Returning adequacy results.')
