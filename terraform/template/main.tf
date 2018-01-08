@@ -14,14 +14,15 @@ resource "aws_instance" "na_app" {
   key_name                        = "na-server"
   monitoring                      = false
   tenancy                         = "default"
+  security_groups                 = ["${var.app_security_group_name}"]
 
-  tags { Name = "na-teddy" }
+  tags { Name = "${var.instance_name_tag}" }
 }
 
 # this is the rds instance representing the default app db
 resource "aws_db_instance" "na_db" {
   # these two attributes are required
-  identifier                          = "philip-testing" #fixme
+  identifier                          = "${var.db_id}" #fixme
   instance_class                      = "db.t2.large"
 
   allocated_storage                   = 40
@@ -42,4 +43,43 @@ resource "aws_db_instance" "na_db" {
   storage_encrypted                   = false
   storage_type                        = "gp2"
   username                            = "tds"
+  password                            = "teddy2017"
+}
+
+# security group for app server
+resource "aws_security_group" "na_app_sg" {
+  name        = "${var.app_security_group_name}"
+  description = "Allow inbound traffic on app ports"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "na_app_sg"
+  }
 }
