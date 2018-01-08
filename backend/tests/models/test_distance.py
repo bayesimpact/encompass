@@ -68,7 +68,7 @@ class TestOSRMDistanceMetric():
 
     def setup(self):
         """Initialize a measurer for use in the test cases."""
-        self.measurer = distance.OSRMDrivingDistance(api_url='http://router.project-osrm.org/')
+        self.measurer = distance.OSRMDrivingDistance(api_url='http://router.project-osrm.org')
 
     def test_get_distance_in_meters(self):
         """Check that the OSRM distance matches expectations."""

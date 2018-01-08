@@ -46,8 +46,11 @@ services:
         build:
           context: ./osrm
           dockerfile: Dockerfile
+        image: osrm
         volumes:
           - ./data/:/data/:rw
+          - ./osrm:/osrm/:ro
+        command: sh -c "/osrm/initialize.py"
         ports:
           - 5000:5000
 

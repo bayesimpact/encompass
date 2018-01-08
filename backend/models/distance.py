@@ -7,8 +7,6 @@ from cHaversine import haversine
 
 from retrying import retry
 
-import urllib.parse
-
 
 def _retry_if_result_none(result):
     """Return True if we should retry (in this case when result is None), False otherwise."""
@@ -108,10 +106,11 @@ class OSRMDrivingDistance(MeasureDistance):
             [origin_str] + [self._represent_point_as_str(point) for point in point_list]
         )
 
-        url = urllib.parse.urljoin(
-            self.api_url,
-            '/table/v1/car/{coords}'.format(coords=coordinates)
+        url = '{base_url}/{api_string}'.format(
+            base_url=self.api_url,
+            api_string='table/v1/car/{coords}'.format(coords=coordinates)
         )
+
         params = {'sources': 0}
         response = requests.get(url, params=params)
 
