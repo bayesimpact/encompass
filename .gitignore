@@ -29,4 +29,5 @@ data/private/*
 
 # terraform local state
 **/.terraform/
+**/*.tfstate*
 
