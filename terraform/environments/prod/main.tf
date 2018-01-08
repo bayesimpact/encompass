@@ -3,6 +3,8 @@ module "stack" {
 
   # this can be for my test environment
   env_name = "prod"
+  db_id = ""
+  instance_name_tag = "na-teddy"
 }
 
 terraform {

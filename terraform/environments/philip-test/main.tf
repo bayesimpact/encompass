@@ -3,6 +3,8 @@ module "stack" {
 
   # this can be for my test environment
   env_name = "philip-test"
+  db_id = "philip-test"
+  instance_name_tag = "philip-test"
 }
 
 # backend definition can't have interpolation, so unfortunately this does need to be
