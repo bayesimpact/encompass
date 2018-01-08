@@ -17,7 +17,7 @@ terraform {
 resource "aws_instance" "na_app" {
   # these two attributes are required
   instance_type                   = "m4.large"
-  ami                             = "ami-1a033c7a"
+  ami                             = "${var.app_ami}"
 
   ebs_optimized                   = true
   associate_public_ip_address     = "true"
@@ -32,7 +32,7 @@ resource "aws_instance" "na_app" {
 # this is the rds instance representing the default app db
 resource "aws_db_instance" "na_db" {
   # these two attributes are required
-  identifier                          = "philip-testing"
+  identifier                          = "philip-testing" #fixme
   instance_class                      = "db.t2.large"
 
   allocated_storage                   = 40
