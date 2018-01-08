@@ -2,11 +2,9 @@ module "stack" {
   source        = "../../template"
 
   # this can be for my test environment
-  env_name = "philip-test"
+  env_name = "prod"
 }
 
-# backend definition can't have interpolation, so unfortunately this does need to be
-# duplicated between environment definitions.
 terraform {
   backend "s3" {
     bucket     = "network-adequacy-terraform"
