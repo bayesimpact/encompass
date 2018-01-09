@@ -6,8 +6,7 @@ from backend.lib.database.postgres import connect
 
 EXTENSIONS = ['postgis', 'fuzzystrmatch', 'postgis_tiger_geocoder', 'postgis_topology']
 ALTER_SCHEMAS = ['tiger', 'tiger_data', 'topology']
-
-CREATE_EXTENSION = 'create extension {extension};'
+CREATE_EXTENSION = 'create extension if not exists {extension};'
 ALTER_USER = 'alter schema {extension} owner to rds_superuser;'
 
 TRANSFER_OWNERSHIP_FUNCTION = """
@@ -46,6 +45,8 @@ def to_polygon(long_lat_tuples):
 
 
 def install():
+    """Use appropriate setup function for AWS environment or otherwise."""
+    # todo reach consensus on how we would like to do this
     if os.getenv('IS_AWS') == 'TRUE':
         print("setup aws postgis")
         install_aws()
@@ -83,11 +84,7 @@ def install_local():
     """Install Postgis to Postgres in local DB."""
     postgres_db = connect.create_db_engine(os.getenv('POSTGRES_URL_POSTGRES'))
     extension_create_commands = [
-        'create extension if not exists postgis;',
-        'create extension if not exists fuzzystrmatch;',
-        'create extension if not exists postgis_tiger_geocoder;',
-        'create extension if not exists postgis_topology;'
-        # fixme build w string interpolation
+        CREATE_EXTENSION.format(extension=extension) for extension in EXTENSIONS
     ]
     for statement in extension_create_commands:
         try:
