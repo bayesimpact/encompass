@@ -46,6 +46,15 @@ def to_polygon(long_lat_tuples):
 
 
 def install():
+    if os.getenv('IS_AWS') == 'TRUE':
+        print("setup aws postgis")
+        install_aws()
+    else:
+        print("setup local postgis")
+        install_local()
+
+
+def install_aws():
     """Install Postgis to Postgres on AWS."""
     # In the postgres database.
     postgres_db = connect.create_db_engine(os.getenv('POSTGRES_URL_POSTGRES'))
@@ -65,6 +74,26 @@ def install():
             postgres_db.execute(statement=statement)
         except Exception:
             logger.exception('Error installing Postgis to Postgres')
+
+    time_distance_db = connect.create_db_engine(os.getenv('POSTGRES_URL'))
+    time_distance_db.execute(statement=ADD_TIGER_TO_PATH)
+
+
+def install_local():
+    """Install Postgis to Postgres in local DB."""
+    postgres_db = connect.create_db_engine(os.getenv('POSTGRES_URL_POSTGRES'))
+    extension_create_commands = [
+        'create extension if not exists postgis;',
+        'create extension if not exists fuzzystrmatch;',
+        'create extension if not exists postgis_tiger_geocoder;',
+        'create extension if not exists postgis_topology;'
+        # fixme build w string interpolation
+    ]
+    for statement in extension_create_commands:
+        try:
+            postgres_db.execute(statement=statement)
+        except Exception as err:
+            print(err)
 
     time_distance_db = connect.create_db_engine(os.getenv('POSTGRES_URL'))
     time_distance_db.execute(statement=ADD_TIGER_TO_PATH)
