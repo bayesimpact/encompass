@@ -48,10 +48,10 @@ def install():
     """Use appropriate setup function for AWS environment or otherwise."""
     # todo reach consensus on how we would like to do this
     if os.getenv('IS_AWS') == 'TRUE':
-        print("setup aws postgis")
+        print('setup aws postgis')
         install_aws()
     else:
-        print("setup local postgis")
+        print('setup local postgis')
         install_local()
 
 

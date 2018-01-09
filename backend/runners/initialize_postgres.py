@@ -1,10 +1,10 @@
 """Initialize Postgres tables."""
-from sqlalchemy_utils import database_exists, create_database
-
 from backend.lib.database.postgres import connect
 from backend.lib.database.postgres import postgis
 from backend.lib.database.postgres.base import Base
 from backend.lib.database.tables import address, provider, representative_point, service_area  # NOQA
+
+from sqlalchemy_utils import create_database, database_exists
 
 
 def initialize_postgres():
