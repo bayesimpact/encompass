@@ -1,4 +1,4 @@
-import { capitalize, memoize } from 'lodash'
+import { capitalize, memoize, snakeCase as snake_case } from 'lodash'
 
 /**
  * Like `_.capitalize`, but capitalizes all words in the given sentence
@@ -11,6 +11,10 @@ export let capitalizeWords = memoize((string: string) =>
     .split(' ')
     .map(capitalize)
     .join(' ')
+)
+
+export let snakeCase = memoize((string: string) =>
+  snake_case(string.toLowerCase())
 )
 
 /**

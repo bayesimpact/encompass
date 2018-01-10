@@ -27,8 +27,8 @@ class TestAdequacyRequest(LiveServerTestCase):
         """Test provider requests in a simple case."""
         request_adequacy = {
             'providers': [
-                {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
-                {'id': 3, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
+                {'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
+                {'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
             ],
             'service_area_ids': ['ca_los_angeles_90001']
         }

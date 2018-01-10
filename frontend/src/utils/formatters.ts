@@ -1,7 +1,6 @@
-import { snakeCase } from 'lodash'
 import { State } from '../constants/states'
 import { serializeServiceArea } from './serializers'
-import { capitalizeWords } from './string'
+import { capitalizeWords, snakeCase } from './string'
 
 /**
  * Formats coordinates for display in the UI.

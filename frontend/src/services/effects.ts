@@ -89,7 +89,7 @@ export function withEffects(store: Store) {
   })
 
   /**
-   * Geocode providers when uploadedProviders changes
+   * Geocode providers when uploadedProviders changes.
    */
   store.on('uploadedProviders').subscribe(async providers => {
     let result = await postProviders({ providers })
