@@ -4,11 +4,14 @@ import os
 
 from backend.lib.database.postgres import connect
 
-EXTENSIONS = ['postgis', 'fuzzystrmatch', 'postgis_tiger_geocoder', 'postgis_topology']
+EXTENSIONS = [
+    'postgis', 'fuzzystrmatch', 'postgis_tiger_geocoder',
+    'postgis_topology', 'address_standardizer'
+]
 ALTER_SCHEMAS = ['tiger', 'tiger_data', 'topology']
 
 CREATE_EXTENSION = 'create extension {extension};'
-ALTER_USER = 'alter schema {extension} owner to rds_superuser;'
+ALTER_USER = 'alter schema {schema} owner to rds_superuser;'
 
 TRANSFER_OWNERSHIP_FUNCTION = """
     CREATE FUNCTION exec(text) returns text language plpgsql
@@ -49,18 +52,17 @@ def install():
     """Install Postgis to Postgres on AWS."""
     # In the postgres database.
     postgres_db = connect.create_db_engine(os.getenv('POSTGRES_URL_POSTGRES'))
-    create_command = '\n'.join(
+    create_commands = [
         CREATE_EXTENSION.format(extension=extension)
         for extension in EXTENSIONS
-    )
-    alter_command = '\n'.join(
-        ALTER_USER.format(extension=schema)
+    ]
+    alter_commands = [
+        ALTER_USER.format(schema=schema)
         for schema in ALTER_SCHEMAS
-    )
-    for statement in [
-        create_command, alter_command,
-        TRANSFER_OWNERSHIP_FUNCTION, TRANSFER_OWNERSHIP
-    ]:
+    ]
+
+    for statement in create_commands + alter_commands + [
+            TRANSFER_OWNERSHIP_FUNCTION, TRANSFER_OWNERSHIP]:
         try:
             postgres_db.execute(statement=statement)
         except Exception:
