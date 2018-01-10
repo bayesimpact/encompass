@@ -46,7 +46,7 @@ def to_polygon(long_lat_tuples):
 
 def install():
     """Use appropriate setup function for AWS environment or otherwise."""
-    # todo reach consensus on how we would like to do this
+    # TODO reach consensus on how we would like to do this.
     if os.getenv('IS_AWS') == 'TRUE':
         install_aws()
     else:

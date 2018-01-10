@@ -35,7 +35,7 @@ services:
       links:
         # Link with the DB container as `db.local`
         - db:db.local
-      # TODO we want a `depends` here, but only for using the local db container. So need an override file
+      # TODO we want a `depends` here, but only for using the local db container. So need an override file.
 
     db:
       image: mdillon/postgis
