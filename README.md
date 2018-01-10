@@ -82,7 +82,7 @@ docker-compose up db
 
 This container will allow you to run a fully functioning local system with a `POSTGRES_URL` at `db.local`.
 
-The database will be initialized but won't contain any data. There is some sample data included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
+The database will be initialized but won't contain any data. There is some sample data for Rhode Island population included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
 ```bash
 python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
 ``` 
