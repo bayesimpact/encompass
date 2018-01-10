@@ -32,6 +32,8 @@ API_ROOT=http://localhost:8080
 * `AWS_ACCESS_KEY` and `AWS_SECRET_KEY`: Required for AWS CLI - see [AWS docs](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
 * `POSTGRES_URL`: URL for database to use for the application. This might be `localhost` for development.
 
+There is an `IS_AWS` environment variable which should be set to `TRUE` when running with RDS. This is to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
+
 ### 3. Run the app
 
 In your terminal, run:
