@@ -55,7 +55,6 @@ class GeocodioCoder():
         The results are returned in the same order as the original list.
         """
         try:
-            raise Exception('want to switch to single')
             results = self._safe_geocode(addresses)
             geocoded_addresses = [
                 GeocodioCoder._format_result(
