@@ -42,11 +42,12 @@ docker-compose up backend frontend
 
 ## Local Development
 
-Three docker containers are available for development:
+Four docker containers are available for development:
 
 - [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
 - [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
 - [Explorer](explorer/Dockerfile): A container running jupyter notebook for easy exploration and model testing.
+- DB: A container running a Postgres server with the relevant extensions.
 
 ### Backend
 
@@ -71,3 +72,15 @@ docker-compose up frontend
 ```
 
 See [frontend/README.md](frontend/README.md) for more documentation.
+
+### DB
+```bash
+docker-compose up db
+```
+
+This container will allow you to run a fully functioning local system with a `POSTGRES_URL` at `db.local`.
+
+The database will be initialized but won't contain any data. There is some sample data included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
+```bash
+python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
+``` 
