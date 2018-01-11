@@ -161,9 +161,14 @@ def calculate_adequacies(
         radius_in_meters=radius_in_meters
     )
 
-    locations_to_check_by_point = (
+    locations_to_check_by_point = [
         locations_to_check_by_service_area[point['service_area_id']]
         for point in points
+    ]
+
+    logger.debug(
+        '{} pairwise distances to calculate.'.format(
+            str(sum(len(locations) for locations in locations_to_check_by_point)))
     )
 
     n_processors = config.get('number_of_adequacy_processors')
