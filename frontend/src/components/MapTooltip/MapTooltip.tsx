@@ -41,8 +41,8 @@ export let ProviderPopup: React.StatelessComponent<Props> =
       <MapTooltip coordinates={lngLat}>
       <table>
         <tbody>
-          <TableRow name='Address' value={features[0].properties.address} />
-          <TableRow name='Specialty' value={features[0].properties.specialty} />
+          <TableRow name='Address' value={features[index].properties.address} />
+          <TableRow name='Specialty' value={features[index].properties.specialty} />
           <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
           <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
         </tbody>
