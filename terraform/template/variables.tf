@@ -1,7 +1,7 @@
 variable "app_ami" {
   description = "The AMI ID to use for the application server"
   type        = "string"
-  default     = "ami-1a033c7a" #todo temp; use something sensible
+  default     = "ami-a47477c4" # TDS Base Image from 2018-1-10
 }
 
 variable "env_name" {
