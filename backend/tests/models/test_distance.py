@@ -1,4 +1,5 @@
 """Tests for methods measuring distance between two series of points."""
+from backend.lib.utils.datatypes import Point
 from backend.models import distance
 
 import mock
@@ -6,11 +7,11 @@ import mock
 import pytest
 
 
-NEWPORT_RI = {'town': 'newport_ri', 'longitude': -71.312796, 'latitude': 41.49008}
-CLEVELAND_OH = {'town': 'cleveland_oh', 'longitude': -81.695391, 'latitude': 41.499498}
-EUCLID_OH = {'town': 'euclid_oh', 'longitude': -81.526787, 'latitude': 41.593105}
-NASSAU = {'town': 'nassau', 'longitude': -77.3554, 'latitude': 25.0480}
-MIAMI_FL = {'town': 'miami_fl', 'longitude': -80.1918, 'latitude': 25.7617}
+NEWPORT_RI = Point(**{'longitude': -71.312796, 'latitude': 41.49008})
+CLEVELAND_OH = Point(**{'longitude': -81.695391, 'latitude': 41.499498})
+EUCLID_OH = Point(**{'longitude': -81.526787, 'latitude': 41.593105})
+NASSAU = Point(**{'longitude': -77.3554, 'latitude': 25.0480})
+MIAMI_FL = Point(**{'longitude': -80.1918, 'latitude': 25.7617})
 
 
 class TestMetrics():

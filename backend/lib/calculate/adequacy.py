@@ -9,6 +9,7 @@ from backend.lib.database.postgres import connect, table_handling
 from backend.lib.database.tables import address, service_area
 from backend.lib.fetch import representative_points
 from backend.lib.timer import timed
+from backend.lib.utils.datatypes import Point
 
 from backend.models import distance
 
@@ -25,14 +26,15 @@ logger = logging.getLogger(__name__)
 
 def _find_closest_location(point, locations, exit_distance_in_meters=None):
     """Find closest provider from to a representative point."""
+    point_coords = Point(latitude=point['latitude'], longitude=point['longitude'])
     if not exit_distance_in_meters:
         closest_distance, closest_provider = MEASURER.closest(
-            origin=point,
+            origin=point_coords,
             point_list=locations,
         )
     else:
         closest_distance, closest_provider = MEASURER.closest_with_early_exit(
-            origin=point,
+            origin=point_coords,
             point_list=locations,
             exit_distance=exit_distance_in_meters
         )
@@ -70,8 +72,8 @@ def _get_locations_to_check_by_service_area(
     address_values = [
         '({idx}, ST_SetSRID(ST_Point({longitude}, {latitude}), 4326)::geography)'.format(
             idx=idx,
-            longitude=provider_address['longitude'],
-            latitude=provider_address['latitude']
+            longitude=provider_address.longitude,
+            latitude=provider_address.latitude
         ) for idx, provider_address in enumerate(locations)
     ]
 
@@ -147,6 +149,12 @@ def calculate_adequacies(
     # TODO - Remove duplicate locations (cannot use set with dicts).
     logger.debug('Calculating adequacies for {} provider locations and {} service areas.'.format(
         len(locations), len(service_area_ids)))
+
+    # Remove duplicates and convert to lat-longtuples.
+    locations = list({
+        Point(**location)
+        for location in locations
+    })
 
     points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids,

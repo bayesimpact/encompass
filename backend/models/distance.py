@@ -29,7 +29,7 @@ class MeasureDistance():
         """
         Get distance between two points.
 
-        Expects points as dicts with latitude and longitude.
+        Expects points as (latitude, longitude) tuples.
         """
         raise NotImplementedError('Distance type must be specified.')
 
@@ -64,13 +64,14 @@ class HaversineDistance(MeasureDistance):
     """Class for haversine distance measurements."""
 
     def get_distance_in_meters(self, point_a, point_b):
-        """Get haversine distance between two points."""
+        """
+        Get haversine distance between two points.
+
+        Expects points as (latitude, longitude) tuples.
+        """
         # cHaversine expects points to be given as (latitude, longitude) pairs.
         if point_a and point_b:
-            return haversine(
-                (point_a['latitude'], point_a['longitude']),
-                (point_b['latitude'], point_b['longitude'])
-            )
+            return haversine(tuple(point_a), tuple(point_b))
         return
 
 
@@ -90,11 +91,15 @@ class OSRMDrivingDistance(MeasureDistance):
     @staticmethod
     def _represent_point_as_str(point):
         """Represent a point dictionary in the format (longitude,latitude)."""
-        return '{lng},{lat}'.format(lat=point['latitude'], lng=point['longitude'])
+        return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
 
     @retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
     def get_distance_in_meters(self, point_a, point_b):
-        """Use an OSRM server to compute the distance and time between two points."""
+        """
+        Use an OSRM server to compute the distance and time between two points.
+
+        Expects points as (latitude, longitude) tuples.
+        """
         min_distance, min_point = self.closest(origin=point_a, point_list=[point_b])
         return min_distance
 

@@ -3,6 +3,7 @@ from functools import partial
 
 from backend.lib.calculate import adequacy
 from backend.lib.database.postgres import connect
+from backend.lib.utils.datatypes import Point
 
 import pyproj
 
@@ -37,8 +38,8 @@ def test_calculate_adequacies():
 
 def test_get_locations_to_check_by_service_area():
     locations = [
-        {'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
-        {'latitude': 40.74753421600008, 'longitude': -80.2316317029999}
+        Point(**{'latitude': 37.74753421600008, 'longitude': -122.2316317029999}),
+        Point(**{'latitude': 40.74753421600008, 'longitude': -80.2316317029999})
     ]
     output = adequacy._get_locations_to_check_by_service_area(
         service_area_ids=['ca_alameda_94502'],
@@ -46,4 +47,4 @@ def test_get_locations_to_check_by_service_area():
         radius_in_meters=10**4,
         engine=engine,
     )['ca_alameda_94502']
-    assert output == [{'latitude': 37.74753421600008, 'longitude': -122.2316317029999}]
+    assert output == [locations[0]]
