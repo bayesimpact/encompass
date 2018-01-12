@@ -3,7 +3,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/slim-base:latest
+            - image: alpine:latest
         steps:
             - checkout
             - run:
