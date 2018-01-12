@@ -3,18 +3,18 @@ version: 2
 jobs:
     build:
         docker:
-            - image: alpine:latest
+            - image: bayesimpact/circleci:latest
         steps:
             - checkout
-            - run:
-                name: Install cURL
-                command: 'apk update && apk add sudo && apk add curl'
-            - run:
-                name: Install Docker Compose
-                command: |
-                    curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-                    chmod +x ~/docker-compose
-                    sudo mv ~/docker-compose /usr/local/bin/docker-compose
+#            - run:
+#                name: Install cURL
+#                command: 'apk update && apk add sudo && apk add curl'
+#            - run:
+#                name: Install Docker Compose
+#                command: |
+#                    curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+#                    chmod +x ~/docker-compose
+#                    sudo mv ~/docker-compose /usr/local/bin/docker-compose
             - setup_remote_docker:
                 docker_layer_caching: true
             - run:
