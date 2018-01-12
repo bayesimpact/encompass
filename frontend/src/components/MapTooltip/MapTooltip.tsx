@@ -58,7 +58,7 @@ export let ProviderPopup: React.StatelessComponent<ProviderProps> =
     console.log('features')
     let index = store.get('providerIndex')
     let maxIndex = features.length - 1
-    let indexMessage = (index + 1) + ' out of ' + (maxIndex + 1)
+    let indexMessage = (index + 1) + ' / ' + (maxIndex + 1)
     console.log(maxIndex)
     return (
       <MapTooltip coordinates={lngLat}>
@@ -70,11 +70,11 @@ export let ProviderPopup: React.StatelessComponent<ProviderProps> =
           <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
         </tbody>
     </table>
-      <div className='controls'>
-        <button className='toggle toggle--prev' onClick={() => _TogglePrevProvider(store)}>Prev</button>
-        <button className='toggle toggle--next' onClick={() => _ToggleNexProvider(store, maxIndex)}>Next</button>
-        {indexMessage}
-      </div>
+    <div className='controls'>
+      <button className='toggle toggle--prev' onClick={() => _TogglePrevProvider(store)}>Prev</button>
+      <button className='toggle toggle--next' onClick={() => _ToggleNexProvider(store, maxIndex)}>  Next</button>
+      <i> {indexMessage} </i>
+    </div>
     }
     </MapTooltip>
     )
