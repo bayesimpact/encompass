@@ -20,7 +20,7 @@ models-lint:
 
 # Initialise containerized postgres
 setup-local-db:
-    docker-compose run backend bash -c "python runners/initialize_postgres.py"
+	docker-compose run backend bash -c "python runners/initialize_postgres.py"
 
 # Backend Debug
 flask-debug:
