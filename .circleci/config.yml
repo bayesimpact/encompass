@@ -20,9 +20,10 @@ jobs:
             - run:
                 name: Build containers
                 command: 'docker-compose build backend'
-            - run:
-                name: Set up the containerized DB
-                command: 'make setup-local-db'
+            # This next step needs to be figured out. The DB initialization needs to happen at a sensible point.
+#            - run:
+#                name: Set up the containerized DB
+#                command: 'make setup-local-db'
             - run:
                 name: Run linters
                 command: |
