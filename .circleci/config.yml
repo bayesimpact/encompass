@@ -6,6 +6,12 @@ jobs:
             - image: circleci/slim-base:latest
         steps:
             - checkout
+            - run:
+                name: Install Docker Compose
+                command: |
+                    curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+                    chmod +x ~/docker-compose
+                    sudo mv ~/docker-compose /usr/local/bin/docker-compose
             - setup_remote_docker:
                 docker_layer_caching: true
             - run:
@@ -16,7 +22,9 @@ jobs:
                 command: 'docker-compose build backend frontend'
             - run:
                 name: Run linters
-                command: 'make backend-lint && make models-lint'
+                command: |
+                    make backend-lint
+                    make models-lint
     test:
         docker:
             - image: circleci/slim-base:latest
@@ -26,7 +34,10 @@ jobs:
                 docker_layer_caching: true
             - run:
                 name: Run tests
-                command: 'make backend-test && make backend-coverage && make frontend-test'
+                command: |
+                    make backend-test
+                    make backend-coverage
+                    make frontend-test
 
 workflows:
     version: 2
