@@ -8,7 +8,7 @@ jobs:
             - checkout
             - run:
                 name: Install cURL
-                command: 'apk add curl'
+                command: 'apk update && apk add curl'
             - run:
                 name: Install Docker Compose
                 command: |
