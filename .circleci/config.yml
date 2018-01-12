@@ -31,6 +31,11 @@ jobs:
         steps:
             - checkout
             - run:
+                name: Create env file
+                command: |
+                    touch .env
+                    echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
+            - run:
                 name: Run tests
                 command: |
                     make backend-test
