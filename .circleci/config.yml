@@ -6,7 +6,8 @@ jobs:
             - image: alpine:latest
         steps:
             - checkout
-            - run: Install cURL
+            - run:
+                name: Install cURL
                 command: 'apk add curl'
             - run:
                 name: Install Docker Compose
