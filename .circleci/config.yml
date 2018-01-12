@@ -15,8 +15,8 @@ jobs:
             - run:
                 name: Create env file
                 command: |
-                touch .env
-                echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
+                  touch .env
+                  echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
             - run:
                 name: Build containers
                 command: 'docker-compose build backend frontend'
