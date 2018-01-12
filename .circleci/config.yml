@@ -14,7 +14,9 @@ jobs:
                     sudo mv ~/docker-compose /usr/local/bin/docker-compose
             - run:
                 name: Create env file
-                command: 'touch .env'
+                command: |
+                touch .env
+                echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
             - run:
                 name: Build containers
                 command: 'docker-compose build backend frontend'
@@ -22,7 +24,7 @@ jobs:
                 name: Run linters
                 command: |
                     make backend-lint
-                    make models-lint
+
     test:
         machine:
             docker_layer_caching: true
