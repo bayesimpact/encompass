@@ -1,8 +1,8 @@
 version: "2"
 
-#volumes:
-#  postgres-data:
-#    driver: local
+volumes:
+  postgres-data:
+    driver: local
 
 services:
 
@@ -32,22 +32,22 @@ services:
         - .env
       ports:
         - 8080:8080
-#      links:
-#        # Link with the DB container as `db.local`
-#        - db:db.local
-#      # TODO we want a `depends` here, but only for using the local db container. So need an override file.
+      links:
+        # Link with the DB container as `db.local`
+        - db:db.local
+      # TODO we want a `depends` here, but only for using the local db container. So need an override file.
 
-#    db:
-#      image: mdillon/postgis
-#      ports:
-#        # Expose port for convenient local access
-#        - 5432:5432
-#      volumes:
-#        - ./backend/init.sql:/tmp/init.sql
-#        - postgres-data:/var/lib/postgresql/data
-#      environment:
-#        POSTGRES_PASSWORD: example
-#        POSTGRES_DB: network_adequacy
+    db:
+      image: mdillon/postgis
+      ports:
+        # Expose port for convenient local access
+        - 5432:5432
+      volumes:
+        - ./backend/init.sql:/tmp/init.sql
+        - postgres-data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: example
+        POSTGRES_DB: network_adequacy
 
     frontend:
       volumes:
