@@ -24,17 +24,6 @@ jobs:
 #                name: Run linters
 #                command: |
 #                    make backend-lint
-
-    test:
-        machine:
-            docker_layer_caching: true
-        steps:
-            - checkout
-            - run:
-                name: Create env file
-                command: |
-                    touch .env
-                    echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
             - run:
                 name: Run tests
                 command: |
@@ -44,9 +33,6 @@ jobs:
 
 workflows:
     version: 2
-    build_and_test:
+    build:
         jobs:
             - build
-            - test:
-                requires:
-                    - build
