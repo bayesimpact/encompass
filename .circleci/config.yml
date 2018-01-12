@@ -1,0 +1,38 @@
+version: 2
+
+jobs:
+    build:
+        docker:
+            - image: circleci/slim-base:latest
+        steps:
+            - checkout
+            - setup_remote_docker:
+                docker_layer_caching: true
+            - run:
+                name: Create env file
+                command: 'touch .env'
+            - run:
+                name: Build containers
+                command: 'docker-compose build backend frontend'
+            - run:
+                name: Run linters
+                command: 'make backend-lint && make models-lint'
+    test:
+        docker:
+            - image: circleci/slim-base:latest
+        steps:
+            - checkout
+            - setup_remote_docker:
+                docker_layer_caching: true
+            - run:
+                name: Run tests
+                command: 'make backend-test && make backend-coverage && make frontend-test'
+
+workflows:
+    version: 2
+    build_and_test:
+        jobs:
+            - build
+            - test:
+                requires:
+                    - build
