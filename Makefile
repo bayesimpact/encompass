@@ -18,6 +18,10 @@ models-lint:
 	# docker-compose run --no-deps explorer bash -c "flake8 ./models"
 	# docker-compose run --no-deps explorer bash -c "pep257 ./models"
 
+# Initialise containerized postgres
+setup-local-db:
+    docker-compose run backend bash -c "python runners/initialize_postgres.py"
+
 # Backend Debug
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
