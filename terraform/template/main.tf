@@ -44,10 +44,11 @@ resource "aws_db_instance" "na_db" {
   name                                = "network_adequacy"
   port                                = 5432
   publicly_accessible                 = true
+  snapshot_identifier                 = "initial-for-tds-qa"
   storage_encrypted                   = false
   storage_type                        = "gp2"
   username                            = "tds"
-  password                            = "teddy2017" #fixme
+  password                            = "${var.db_password}"
 }
 
 # security group for app server
