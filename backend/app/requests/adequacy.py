@@ -28,6 +28,7 @@ import random
 
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.mocks.responses import mock_adequacy
+from backend.config import config
 from backend.lib.calculate import adequacy
 from backend.lib.fetch import representative_points
 
@@ -68,12 +69,15 @@ def adequacy_request(app, flask_request, engine):
 
     provider_addresses = request['providers']
     service_area_ids = request['service_area_ids']
+    # TODO: Add this parameter to the request body sent from the frontend.
+    measure_name = request.get('measure_name') or config.get('measurer')
 
     # Exit early if there is no data.
     if provider_addresses and service_area_ids:
         return adequacy.calculate_adequacies(
             engine=engine,
             service_area_ids=service_area_ids,
+            measure_name=measure_name,
             locations=provider_addresses
         )
     return []
