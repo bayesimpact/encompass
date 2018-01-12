@@ -6,17 +6,12 @@ jobs:
             docker_layer_caching: true
         steps:
             - checkout
-#            - run:
-#                name: Install cURL
-#                command: 'apk update && apk add sudo && apk add curl'
             - run:
                 name: Install Docker Compose
                 command: |
                     curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
                     chmod +x ~/docker-compose
                     sudo mv ~/docker-compose /usr/local/bin/docker-compose
-#            - setup_remote_docker:
-#                docker_layer_caching: true
             - run:
                 name: Create env file
                 command: 'touch .env'
@@ -29,12 +24,10 @@ jobs:
                     make backend-lint
                     make models-lint
     test:
-        docker:
-            - image: circleci/slim-base:latest
+        machine:
+            docker_layer_caching: true
         steps:
             - checkout
-            - setup_remote_docker:
-                docker_layer_caching: true
             - run:
                 name: Run tests
                 command: |
