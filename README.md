@@ -2,6 +2,7 @@
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/tds.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/tds.svg?columns=all)](http://waffle.io/bayesimpact/tds)
 
 > Explore Healthcare network adequacies and population distance to services.
 
