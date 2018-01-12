@@ -24,3 +24,8 @@ variable "app_security_group_name" {
   type        = "string"
   default     = "na_app_sg"
 }
+
+variable "db_password" {
+  description = "The password to use for TDS DB access"
+  type        = "string"
+}

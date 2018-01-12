@@ -1,3 +1,8 @@
+variable "db_password" {
+  description = "The password to use for TDS DB access"
+  type        = "string"
+}
+
 module "stack" {
   source        = "../../template"
 
@@ -5,6 +10,7 @@ module "stack" {
   env_name = "tds-qa"
   db_id = "tds-qa"
   instance_name_tag = "tds-qa"
+  db_password = "${var.db_password}"
 }
 
 # backend definition can't have interpolation, so unfortunately this does need to be
