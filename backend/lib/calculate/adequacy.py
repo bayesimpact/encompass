@@ -2,7 +2,6 @@
 import collections
 import itertools
 import logging
-import multiprocessing
 
 from backend.config import config
 from backend.lib.database.postgres import connect, table_handling
@@ -13,7 +12,6 @@ from backend.lib.utils.datatypes import Point
 
 from backend.models import distance
 
-MEASURER = distance.get_measure(config.get('measurer'))
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
 EXIT_DISTANCE_IN_METERS = 10.0 * ONE_MILE_IN_METERS
@@ -24,16 +22,16 @@ RELEVANCY_RADIUS_IN_METERS = 15.0 * ONE_MILE_IN_METERS
 logger = logging.getLogger(__name__)
 
 
-def _find_closest_location(point, locations, exit_distance_in_meters=None):
+def _find_closest_location(point, locations, measurer, exit_distance_in_meters=None):
     """Find closest provider from to a representative point."""
     point_coords = Point(latitude=point['latitude'], longitude=point['longitude'])
     if not exit_distance_in_meters:
-        closest_distance, closest_provider = MEASURER.closest(
+        closest_distance, closest_provider = measurer.closest(
             origin=point_coords,
             point_list=locations,
         )
     else:
-        closest_distance, closest_provider = MEASURER.closest_with_early_exit(
+        closest_distance, closest_provider = measurer.closest_with_early_exit(
             origin=point_coords,
             point_list=locations,
             exit_distance=exit_distance_in_meters
@@ -133,6 +131,7 @@ def calculate_adequacies(
     service_area_ids,
     locations,
     engine,
+    measure_name=config.get('measurer'),
     radius_in_meters=RELEVANCY_RADIUS_IN_METERS
 ):
     """
@@ -181,14 +180,18 @@ def calculate_adequacies(
             str(sum(len(locations) for locations in locations_to_check_by_point)))
     )
 
-    n_processors = config.get('number_of_adequacy_processors')
+    measurer = distance.get_measure(measure_name)
+    measurer_config = config.get('measurer_config')[measure_name]
+    executor_type = measurer_config['adequacy_executor_type']
+    n_processors = measurer_config['n_adequacy_processors']
 
-    with multiprocessing.Pool(processes=n_processors) as executor:
+    with executor_type(processes=n_processors) as executor:
         adequacies_response = executor.starmap(
             func=_find_closest_location,
             iterable=zip(
                 points,
                 locations_to_check_by_point,
+                itertools.repeat(measurer),
                 itertools.repeat(EXIT_DISTANCE_IN_METERS)
             )
         )

@@ -76,17 +76,15 @@ export function boundingBox(points: RepresentativePoint[]) {
     return null
   }
 
-  let { xmin, ymin, xmax, ymax } = extent({
-    type: 'FeatureCollection',
-    features: points.map(_ => ({
-      id: _.id,
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [_.lng, _.lat]
-      }
-    }))
-  })
+  let { xmin, ymin, xmax, ymax } = extent(points.map(_ => ({
+    id: _.id,
+    properties: {},
+    type: 'Feature' as 'Feature',
+    geometry: {
+      type: 'Point' as 'Point',
+      coordinates: [_.lng, _.lat]
+    }
+  })))
 
   return {
     sw: { lat: ymin, lng: xmin },

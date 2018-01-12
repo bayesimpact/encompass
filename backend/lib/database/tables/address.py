@@ -15,6 +15,7 @@ class Address(Base):
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     address = Column(String, nullable=False, index=True, unique=True)
+    geocoder_name = Column(String)
     latitude = Column(Float)
     longitude = Column(Float)
     location = Column(
