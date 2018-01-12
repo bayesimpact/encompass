@@ -57,6 +57,7 @@ def _geocode_addresses(addresses, geocoder_name, engine, add_to_db=True):
             longitude=geocoded_address['longitude'],
             latitude=geocoded_address['latitude']
         )
+        geocoded_address['geocoder_name'] = GEOCODER
     if geocoded_addresses and add_to_db:
         # Add new addresses to DB.
         # TODO: Add addresses to DB as they are geocoded to make ingestion more robust.
