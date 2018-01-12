@@ -21,6 +21,9 @@ jobs:
                 name: Build containers
                 command: 'docker-compose build backend'
             - run:
+                name: Set up the containerized DB
+                command: 'make setup-local-db'
+            - run:
                 name: Run linters
                 command: |
                     make backend-lint
