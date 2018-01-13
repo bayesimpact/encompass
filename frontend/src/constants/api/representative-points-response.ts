@@ -4,18 +4,23 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Bucket = {
+  name: string
+  values: [number, number, number]
+}[]
 /**
  * Response shape for POST /api/representative_points/
  */
 export type PostRepresentativePointsResponse = {
   county: string
-  census_tract: number
+  demographics?: {
+    buckets: Bucket
+    category: string
+  }[]
   id: number
   lat: number
   lng: number
-  population: {
-    '1.0': number
-  }
+  population: number
   service_area_id: string
   zip: string
 }[]

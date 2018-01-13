@@ -1,0 +1,17 @@
+{
+  "title": "POSTGeocodeRequest",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Request shape for POST /api/geocode/",
+  "type": "object",
+  "properties": {
+    "addresses": {
+      "type": "array",
+      "items": {
+        "description": "Excluding suite #.\nEg. \"1234 Main St. San Francisco, CA 94114\"",
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["addresses"]
+}

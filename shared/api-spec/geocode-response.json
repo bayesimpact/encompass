@@ -1,7 +1,7 @@
 {
-  "title": "POSTProvidersResponse",
+  "title": "POSTGeocodeResponse",
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "Response shape for POST /api/providers/",
+  "description": "Response shape for POST /api/geocode/",
   "type": "array",
   "definitions": {
     "success": {
