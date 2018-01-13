@@ -7,10 +7,10 @@ import './Header.css'
 export let Header: React.StatelessComponent = () =>
   <AppBar
     className='Header'
-    title='Network Adequacy Explorer'
+    title='Encompass'
     iconElementRight={
       <IconButton
-        href='https://github.com/bayesimpact/tds-frontend'
+        href='https://github.com/bayesimpact/tds'
         target='_blank'
         tooltip='Go to this project on Github'
         tooltipPosition='bottom-left'

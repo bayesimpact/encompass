@@ -2,56 +2,22 @@ import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import * as React from 'react'
-import { Measure, Standard } from '../../constants/datatypes'
-import { TIME_DISTANCES } from '../../constants/timeDistances'
 import { withStore } from '../../services/store'
 import './FilterBar.css'
 
-export let FilterBar = withStore('distribution', 'measure', 'standard')(({ store }) =>
+export let FilterBar = withStore('method')(({ store }) =>
   <Paper className='FilterBar' zDepth={1}>
-
     <div className='Filter -FixedWidthBig'>
-      <span>Adequacy standard</span>
+      <span>Method</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        onChange={(_e, _i, value) => store.set('standard')(value)}
-        value={store.get('standard')}
+        onChange={(_e, _i, value) => store.set('method')(value)}
+        value={store.get('method')}
       >
-        <MenuItem value='time_distance' primaryText='Time and Distance' disabled={true} />
-        <MenuItem value='time' primaryText='Time' disabled={true} />
-        <MenuItem value='distance' primaryText='Distance' />
+        <MenuItem value='driving_time' primaryText='Driving Time' />
+        <MenuItem value='haversine_distance' primaryText='Haversine Distance' />
       </DropDownMenu>
     </div>
-
-    <div className='Filter -FixedWidthBig'>
-      <span>Measure</span>
-      <DropDownMenu
-        className='DropDownMenu -Compact'
-        onChange={(_e, _i, value) => store.set('measure')(value)}
-        value={store.get('measure')}
-      >
-        {Array.from(TIME_DISTANCES).map(([miles, mins]) =>
-          <MenuItem
-            key={miles}
-            value={miles}
-            primaryText={getMeasureText(miles, mins, store.get('standard'))}
-          />
-        )}
-      </DropDownMenu>
-    </div>
-
   </Paper>
 )
 FilterBar.displayName = 'FilterBar'
-
-/**
- * Depending on the Standard filter the user selected, we change the units shown
- * in the Measure filter.
- */
-function getMeasureText(miles: Measure, mins: number, standard: Standard) {
-  switch (standard) {
-    case 'distance': return `${miles} miles`
-    case 'time': return `${mins} min`
-    case 'time_distance': return `${miles} miles / ${mins} min`
-  }
-}

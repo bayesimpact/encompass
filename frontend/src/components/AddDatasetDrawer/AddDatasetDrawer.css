@@ -1,0 +1,15 @@
+.AddDatasetDrawer .MediumWeightMuted {
+    display: block;
+  }
+
+  /* TODO - Make this work. */
+.AddDatasetDrawer .AnalyzerButton .Button  {
+  align-items: center;
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-left: 5px;
+    padding-left: 10px;
+  }

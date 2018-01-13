@@ -21,10 +21,10 @@
 
   /* dimensions */
   --header-height: 64px;
-  --iconbar-width: 64px;
   --leftpane-width: 320px;
 
   /* fonts */
+  --giant-font: 22px;
   --large-font: 16px;
   --mediumlarge-font: 15px;
   --medium-font: 14px;

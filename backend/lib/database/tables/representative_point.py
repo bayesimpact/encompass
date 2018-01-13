@@ -40,7 +40,7 @@ def row_to_dict(rp_row, format_response=True):
       lat: 74.38732,
       lng: -122.323331
       county: "Alameda",
-      population: {0.5: 18, 2.5: 30, 5: 2000},
+      population: 2000,
       zip: "94105",
       census_block_group: 105,
       census_block: 3,
@@ -57,7 +57,7 @@ def row_to_dict(rp_row, format_response=True):
         'county': rp_dict['county'],
         'lat': rp_dict['latitude'],
         'lng': rp_dict['longitude'],
-        'population': rp_dict['population'],
+        'population': rp_dict['population']['1.0'],
         'service_area_id': rp_dict['service_area_id'],
         'zip': rp_dict['zip_code']
     }

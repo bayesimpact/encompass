@@ -17,6 +17,6 @@ export type PostAdequaciesResponse = {
    * Time (in minutes) to the closest provider
    */
   time_to_closest_provider: number
-  closest_provider_by_distance: {latitude: number, longitude: number}
-  closest_provider_by_time: {latitude: number, longitude: number}
+  closest_providers_by_distance: number[]
+  closest_providers_by_time: number[]
 }[]

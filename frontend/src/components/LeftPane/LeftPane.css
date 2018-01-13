@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     top: 64px;
-  width: 400px; /* iconbar-width + leftpane-width + room for box shadow */
+  width: calc(40% + 30px); /* leftpane-width + room for box shadow */
 }
 
 .LeftPane hr {
@@ -20,7 +20,7 @@
   overflow: hidden;
   position: absolute;
     bottom: 0;
-    left: var(--iconbar-width);
+    left: 0;
     right: 0;
     top: 0;
 }

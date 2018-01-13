@@ -35,9 +35,9 @@ def fetch_service_areas():
 
 
 @timed
-@app.route('/api/providers/', methods=['POST'])
-def fetch_providers():
-    """Fetch and return providers with geocoded addresses."""
+@app.route('/api/geocode/', methods=['POST'])
+def geocode_providers():
+    """Geocode provider addresses."""
     logger.debug('Fetch providers.')
     response = providers.providers_request(app, flask.request, engine)
     return flask.jsonify(response)

@@ -10,14 +10,24 @@ export type Adequacy = {
   id: number
   distanceToClosestProvider: number
   timeToClosestProvider: number
-  closestProviderByDistance: {latitude: number, longitude: number}
-  closestProviderByTime: {latitude: number, longitude: number}
+  closestProviderByDistance: GeocodedProvider
+  closestProviderByTime: GeocodedProvider
 }
 
 export enum AdequacyMode {
-  ADEQUATE = 'ADEQUATE',
+  ADEQUATE_15 = 'ADEQUATE_15',
+  ADEQUATE_30 = 'ADEQUATE_30',
+  ADEQUATE_60 = 'ADEQUATE_60',
   INADEQUATE = 'INADEQUATE',
   OUT_OF_SCOPE = 'OUT_OF_SCOPE'
+}
+
+export type Dataset = {
+  dataSources: string[]
+  description: string
+  name: string
+  providers: GeocodedProvider[],
+  serviceAreaIds: string[]
 }
 
 /**
@@ -27,15 +37,18 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Measure = 15 | 20 | 30
+export type Method = 'driving_time' | 'haversine_distance'
 
 export type Provider = {
   address: string
   languages: string[]
-  lat: number
-  lng: number
   npi: number
   specialty?: string
+}
+
+export type GeocodedProvider = Provider & {
+  lat: number
+  lng: number
 }
 
 /**
@@ -43,9 +56,7 @@ export type Provider = {
  *
  * In the future, they will map to URL routes.
  */
-export type Route = '/' | '/analytics' | '/providers' | '/service-areas'
-
-export type Standard = 'time_distance' | 'time' | 'distance'
+export type Route = '/' | '/analytics' | '/datasets' | '/add-data'
 
 export type RepresentativePoint = {
   county: string

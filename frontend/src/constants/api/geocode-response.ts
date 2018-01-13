@@ -5,9 +5,9 @@
  */
 
 /**
- * Response shape for POST /api/providers/
+ * Response shape for POST /api/geocode/
  */
-export type PostProvidersResponse = (Success | Error)[]
+export type PostGeocodeResponse = (Success | Error)[]
 
 export interface Success {
   status: 'success'

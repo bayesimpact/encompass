@@ -41,39 +41,26 @@ class TestFetchProviders():
     """Test fetch providers."""
 
     @staticmethod
-    def test_fetch_providers_existing_address():
-        """Test fetch_providers when the address exists."""
+    def test_geocode_providers_existing_address():
+        """Test geocode_providers when the address exists."""
         # Note - This address should exist in the database.
-        providers_input = [
-            {
-                'address': '1000 E DOMINGUEZ ST, CARSON, CA 90746',
-                'npi': '1032023833'
-            }
-        ]
-        results = providers.fetch_providers(providers_input, engine=engine)
+        providers_input = ['1000 E DOMINGUEZ ST, CARSON, CA 90746']
+        results = providers.geocode_providers(providers_input, engine=engine)
         assert results[0]['status'] == 'success'
 
     @staticmethod
-    def test_fetch_providers_address_does_not_exist():
+    def test_geocode_providers_address_does_not_exist():
         """Test fetch_representative_points."""
-        providers_input = [{'address': 'I DO NOT EXIST'}]
-        results = providers.fetch_providers(providers_input, engine=engine)
+        providers_input = ['I DO NOT EXIST']
+        results = providers.geocode_providers(providers_input, engine=engine)
         assert len(results) == 1
         assert results[0]['status'] == 'error'
 
     @staticmethod
-    def test_fetch_providers_address_multiple_input():
+    def test_geocode_providers_address_multiple_input():
         """Test fetch_representative_points."""
-        providers_input = [
-            {
-                'address': '1000 E DOMINGUEZ ST, CARSON, CA 90746',
-                'npi': '1032023833'
-            },
-            {
-                'address': 'I DO NOT EXIST'
-            }
-        ]
-        results = providers.fetch_providers(providers_input, engine=engine)
+        providers_input = ['1000 E DOMINGUEZ ST, CARSON, CA 90746', 'I DO NOT EXIST']
+        results = providers.geocode_providers(providers_input, engine=engine)
         assert len(results) == 2
         assert results[0]['status'] == 'success'
         assert results[1]['status'] == 'error'

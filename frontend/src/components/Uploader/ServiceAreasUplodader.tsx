@@ -6,56 +6,36 @@ import { ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodesByCountyByState
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
-import { capitalizeWords } from '../../utils/string'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
-import { CountySelector } from '../CountySelector/CountySelector'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { StateSelector } from '../StateSelector/StateSelector'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreasDrawer = withStore(
+export let ServiceAreasUploader = withStore(
   'counties',
   'serviceAreas',
   'uploadedServiceAreasFilename'
 )(({ store }) =>
   <div>
-    <h2>Service Areas</h2>
     <StateSelector
       onChange={store.set('selectedState')}
       value={store.get('selectedState')}
     />
-
-    <hr />
-
-    <div className='Flex -Row -SpaceBetween'>
-      <h3>Counties {store.get('counties').length > 0 && `(${store.get('counties').length})`}</h3>
-      {store.get('counties').length > 0 && <ClearInputsButton className='-Flex-0' onClearInputs={onClearInputs(store)} small />}
-    </div>
-    <CountySelector
-      onChange={store.set('counties')}
-      value={store.get('counties')}
-      state={store.get('selectedState')}
-    />
-
-    <section className='CSVUploaderSection'>
-      <hr />
-      <p className='HeavyWeight Muted'>For analysis by ZIP code, upload a CSV</p>
-      <div className='Flex -Row'>
-        <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
-        {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
-      </div>
-      <p className='Ellipsis Muted SmallFont'>{
+    <div className='Flex -Row'>
+      <CSVUploader label='Service Areas' onUpload={onFileSelected(store)} />
+      <div className='Ellipsis Muted SmallFont'>{
         store.get('uploadedServiceAreasFilename')
           ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
-          : 'Upload valid zip codes and/or counties'
-      }</p>
-    </section>
-
+          : ''
+      }</div>
+      {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
+    </div>
   </div >
   )
-ServiceAreasDrawer.displayName = 'ServiceAreasDrawer'
+
+ServiceAreasUploader.displayName = 'ServiceAreasUploader'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
@@ -94,7 +74,7 @@ const COLUMNS = [
 
 let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
 
-  // validate that zip exists
+  // Validate that zip exists
   if (zip && !(zip in COUNTIES_BY_ZIP)) {
     return new ParseError(rowIndex, 1, COLUMNS[1], `We don't support the zip code "${zip}" yet. Reach out to us at health@bayesimpact.org`)
   }
@@ -102,15 +82,16 @@ let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, 
   // We infer missing zips and counties, so one zip might map to
   // more than one county, and one county maps to many zips.
   let pairs = getCountyAndZip(state, county, zip)
-    .map(([county, zip]) => [capitalizeWords(county), zip] as [string, string])
+    .map(([county, zip]) => [county, zip] as [string, string])
 
-  // validate that counties exist
-  let badCounty = pairs.value().find(([county]) => !(county in ZIPS_BY_COUNTY_BY_STATE[state]))
+  // Validate that counties exist
+  let badCounty = pairs.value().find(([county]) => Object.keys(ZIPS_BY_COUNTY_BY_STATE[state]).indexOf(county!) <= -1)
+
   if (badCounty) {
     return new ParseError(rowIndex, 0, COLUMNS[0], `We don't support county "${badCounty[0]}" yet. Reach out to us at health@bayesimpact.org.`)
   }
 
-  // validate that zip code is in county
+  // Validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
   let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].includes(zip))
   if (badZip) {
@@ -140,7 +121,7 @@ function getCountyAndZip(state: State, county: string | null, zip: string | null
     case ParseMode.INFER_ZIP:
       // If county is defined but zip isn't, default to all zips for
       // the given county.
-      return chain(ZIPS_BY_COUNTY_BY_STATE[state][capitalizeWords(county!)])
+      return chain(ZIPS_BY_COUNTY_BY_STATE[state][county!])
         .map(zip => [county, zip] as [string, string])
 
     case ParseMode.WELL_FORMED:
@@ -171,7 +152,6 @@ function getParseMode(county: string | null, zip: string | null): ParseMode {
 }
 
 /**
-
  * @private Exposed for unit testing.
  */
 export function parseServiceAreasCSV(store: Store) {

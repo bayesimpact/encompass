@@ -9,9 +9,14 @@
  */
 export interface PostAdequaciesRequest {
   /**
-   * Providers, available from POST /api/providers/
+   * Method used to calculate times and distances
    */
+  method: 'driving' | 'haversine'
   providers: {
+    /**
+     * An arbitrary ID that is locally unique within this request
+     */
+    id: number
     latitude: number
     longitude: number
   }[]

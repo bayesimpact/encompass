@@ -1,7 +1,7 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
-import { PostProvidersRequest } from '../constants/api/providers-request'
-import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
+import { Adequacies, Dataset, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
 
@@ -15,8 +15,6 @@ type Actions = {
    * `COUNTIES` (in zipCodes.ts) enumerates all available Counties.
    */
   counties: string[]
-
-  distribution: 1.0
 
   /**
    * Error, exposed to user via Snackbar.
@@ -39,24 +37,22 @@ type Actions = {
 
   mapZoom: number
 
-  measure: Measure
+  method: Method
 
   /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
    */
-  providers: Provider[]
+  providers: GeocodedProvider[]
 
   /**
-   * Representative points ("RP"), fetched and cached given a `distribution`
-   * and `serviceArea`.
-   *
-   * For each service area, we sample the real population (from USPS & census data).
-   * The larger the `distribution` parameter, the larger each RP becomes, and the
-   * fewer RPs we generate per service area. The distribution defaults to 1 mile.
+   * Representative points ("RP"), fetched and cached given a `serviceArea`. For
+   * each service area, we sample the real population (from USPS & census data).
    */
   representativePoints: RepresentativePoint[]
 
   route: Route
+
+  selectedDataset: Dataset | null
 
   /**
    * Provider that the user selected on the map.
@@ -95,12 +91,10 @@ type Actions = {
    */
   serviceAreas: string[]
 
-  standard: Standard
-
   /**
    * Parsed from the uploaded providers CSV
    */
-  uploadedProviders: PostProvidersRequest['providers']
+  uploadedProviders: Provider[]
 
   /**
    * Filename of the CSV the user uploaded to compute `providers`.
@@ -119,26 +113,22 @@ type Actions = {
 let store = withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
-  distribution: 1.0,
   error: null,
   success: null,
   map: null,
-  mapCenter: {
-    lat: 37.765134,
-    lng: -122.444687
-  },
+  mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
-  mapZoom: 12,
-  measure: 15,
+  mapZoom: DEFAULT_MAP_ZOOM,
+  method: 'haversine_distance',
   providers: [],
   representativePoints: [],
-  route: '/service-areas',
+  route: '/datasets',
+  selectedDataset: null,
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceArea: null,
   selectedState: 'ca',
   serviceAreas: [],
-  standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null
@@ -151,3 +141,6 @@ export type Store = BabyduxStore<Actions>
 export type StoreProps = {
   store: Store
 }
+
+// for debugging
+(window as any).store = store

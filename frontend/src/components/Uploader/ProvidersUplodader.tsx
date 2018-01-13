@@ -1,3 +1,4 @@
+
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
@@ -8,21 +9,20 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ProvidersDrawer = withStore('uploadedProvidersFilename')(({ store }) =>
+export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store }) =>
   <div>
-    <h2>Providers</h2>
     <div className='Flex -Row'>
-      <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
+      <CSVUploader label='Providers' onUpload={onFileSelected(store)} />
+      <div className='Ellipsis Muted SmallFont'>{
+        store.get('uploadedProvidersFilename')
+          ? `Uploaded ${store.get('uploadedProvidersFilename')}`
+          : ''
+      }</div>
       {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
-    <p className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedProvidersFilename')
-        ? `Uploaded ${store.get('uploadedProvidersFilename')}`
-        : 'Upload valid list of providers'
-    }</p>
   </div>
 )
-ProvidersDrawer.displayName = 'ProvidersDrawer'
+ProvidersUplodader.displayName = 'ProvidersUploader'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
@@ -32,7 +32,6 @@ function onFileSelected(store: Store) {
     errors.slice(0, 1).forEach(e =>
       store.set('error')(e.toString())
     )
-
     store.set('uploadedProviders')(providers)
     store.set('uploadedProvidersFilename')(file.name)
   }

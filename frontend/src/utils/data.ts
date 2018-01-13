@@ -1,5 +1,5 @@
 import { chain, keyBy } from 'lodash'
-import { Adequacy, AdequacyMode, RepresentativePoint } from '../constants/datatypes'
+import { Adequacies, Adequacy, AdequacyMode, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
 import { totalPopulation } from './analytics'
 
@@ -29,8 +29,19 @@ export function summaryStatistics(
   let adequacies = store.get('adequacies')
   let rps = representativePointsFromServiceAreas(serviceAreas, store)
   let adequateRps = rps.filter(_ =>
-    adequacies[_.id] && adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE
+    adequacies[_.id] && (
+      adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_15
+      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_30
+      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_60
+    )
   )
+
+  let populationByAdequacy = [
+    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_15),
+    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_30),
+    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_60),
+    countByAdequacy(adequacies, rps, AdequacyMode.INADEQUATE)
+  ]
 
   let population = totalPopulation(rps)
   let numAdequatePopulation = totalPopulation(adequateRps)
@@ -49,7 +60,8 @@ export function summaryStatistics(
     percentAdequatePopulation,
     percentInadequatePopulation,
     numAdequateRps,
-    numInadequateRps
+    numInadequateRps,
+    populationByAdequacy
   }
 }
 
@@ -58,4 +70,11 @@ export function summaryStatistics(
  */
 export function normalizeZip(zipCode: string) {
   return zipCode.split('-')[0]
+}
+
+function countByAdequacy(adequacies: Adequacies, rps: Lazy<RepresentativePoint[]> , adequacyMode: AdequacyMode){
+  return totalPopulation(
+      rps.filter(_ => adequacies[_.id] && (adequacies[_.id].adequacyMode === adequacyMode)
+    )
+  )
 }

@@ -2,9 +2,12 @@ import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
+import { ADEQUACY_COLORS } from '../../constants/colors'
+import { AdequacyMode } from '../../constants/datatypes'
 import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
+import  { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './AdequacyDoughnut.css'
 
@@ -19,24 +22,33 @@ type Props = StoreProps & {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
+export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ serviceAreas, store }) => {
 
   let {
     numAdequatePopulation,
     numInadequatePopulation,
     percentAdequatePopulation,
     percentInadequatePopulation,
-    numAdequateRps,
-    numInadequateRps
+    populationByAdequacy
   } = summaryStatistics(serviceAreas, store)
 
   return <div className='AdequacyDoughnut'>
     <Doughnut
       data={{
-        labels: ['Adequate', 'Inadequate'],
+        labels: [
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_15),
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_30),
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_60),
+          getLegend(store.get('method'), AdequacyMode.INADEQUATE)
+        ],
         datasets: [{
-          data: [percentAdequatePopulation, percentInadequatePopulation],
-          backgroundColor: ['#3F51B5', 'rgba(214, 40, 41, 0.87)']
+          data: populationByAdequacy,
+          backgroundColor: [
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60],
+            ADEQUACY_COLORS[AdequacyMode.INADEQUATE]
+          ]
         }]
       }}
       options={{
@@ -52,7 +64,7 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         },
         tooltips: {
           callbacks: {
-            label: label(numAdequatePopulation, numInadequatePopulation, percentAdequatePopulation, percentInadequatePopulation)
+            label: label(populationByAdequacy)
           }
         }
       } as any}
@@ -78,26 +90,19 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         <td>{formatNumber(numAdequatePopulation)} ({formatPercentage(percentAdequatePopulation)})</td>
         <td>{formatNumber(numInadequatePopulation)} ({formatPercentage(percentInadequatePopulation)})</td>
       </tr>
-      <tr>
-        <th>Adequate Points</th>
-        <th>Inadequate Points</th>
-      </tr>
-      <tr>
-        <td>{formatNumber(numAdequateRps)}</td>
-        <td>{formatNumber(numInadequateRps)}</td>
-      </tr>
     </StatsBox>
   </div>
 })
 
-function label(withAccess: number, withoutAccess: number, withAccessPercentage: number, withoutAccessPercentage: number) {
+function label(populationByAdequacy: number[]) {
   return (tooltipItem?: ChartTooltipItem, data?: ChartData) => {
     if (!tooltipItem || !data || !data.datasets) {
       return ''
     }
-    switch (tooltipItem.index) {
-      case 0: return ` With access: ${formatNumber(withAccess)} (${formatPercentage(withAccessPercentage)})`
-      case 1: return ` Without access: ${formatNumber(withoutAccess)} (${formatPercentage(withoutAccessPercentage)})`
-    }
+    let totalPopulation = populationByAdequacy.reduce(function(a, b) { return a + b }, 0)
+    let index = tooltipItem.index || 0
+    let population = populationByAdequacy[index]
+    let percentage = 100 * populationByAdequacy[index] / totalPopulation
+    return ` ${formatNumber(population)} (${formatPercentage(percentage)})`
   }
 }

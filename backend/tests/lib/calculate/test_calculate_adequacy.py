@@ -24,8 +24,8 @@ def area_in_square_meters(polygon):
 
 def test_calculate_adequacies():
     locations = [
-        {'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
-        {'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
+        {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
+        {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
     ]
     adequacies = adequacy.calculate_adequacies(
         service_area_ids=['ca_alameda_94502'],

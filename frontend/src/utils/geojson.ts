@@ -1,5 +1,5 @@
 import * as extent from 'esri-extent'
-import { Adequacies, Provider, RepresentativePoint } from '../constants/datatypes'
+import { Adequacies, GeocodedProvider, RepresentativePoint } from '../constants/datatypes'
 
 /** TODO: Memoize */
 export let providersToGeoJSON = toGeoJSON(providerToFeature)
@@ -19,7 +19,7 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
  * Expose name info.
  */
 function providerToFeature(
-  point: Provider
+  point: GeocodedProvider
 ): GeoJSON.Feature<GeoJSON.GeometryObject> {
   return {
     type: 'Feature',

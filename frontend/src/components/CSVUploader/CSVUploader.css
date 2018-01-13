@@ -2,4 +2,14 @@
 
 .CSVUploader input[type="file"] {
   display: none;
+  margin: auto;
+}
+
+.CSVUploader {
+  margin: auto;
+}
+
+.CSVUploader .Button {
+  color: var(--primary-dark);
+  margin: auto;
 }

@@ -2,23 +2,21 @@ import { map } from 'lodash'
 import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { withStore } from '../../services/store'
+import { AddDatasetDrawer } from '../AddDatasetDrawer/AddDatasetDrawer'
 import { AnalyticsDrawer } from '../AnalyticsDrawer/AnalyticsDrawer'
-import { IconBar } from '../IconBar/IconBar'
-import { ProvidersDrawer } from '../ProvidersDrawer/ProvidersDrawer'
-import { ServiceAreasDrawer } from '../ServiceAreasDrawer/ServiceAreasDrawer'
+import { DatasetsDrawer } from '../DatasetsDrawer/DatasetsDrawer'
 import './LeftPane.css'
 
 let drawers = {
   '/analytics': AnalyticsDrawer,
-  '/providers': ProvidersDrawer,
-  '/service-areas': ServiceAreasDrawer
+  '/datasets': DatasetsDrawer,
+  '/add-data': AddDatasetDrawer
 }
 
 export let LeftPane = withStore('route')(({ store }) =>
   <div className={'LeftPane' + (store.get('route') === '/' ? '' : ' -isOpen')}>
-    <IconBar />
     {map(drawers, (Component, route) =>
-      <Drawer className='LeftPaneContent' key={route} open={route === store.get('route')} width={320}>
+      <Drawer className='LeftPaneContent' key={route} open={route === store.get('route')} width='40%'>
         <Component />
       </Drawer>
     )}

@@ -27,8 +27,8 @@ class TestAdequacyRequest(LiveServerTestCase):
         """Test provider requests in a simple case."""
         request_adequacy = {
             'providers': [
-                {'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
-                {'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
+                {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
+                {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
             ],
             'service_area_ids': ['ca_los_angeles_90001']
         }
@@ -46,7 +46,10 @@ class TestAdequacyRequest(LiveServerTestCase):
     def test_adequacy_request_missing_area(self):
         """Test provider requests in a simple case."""
         request_adequacy = {
-            'provider_ids': [1, 2]
+            'providers': [
+                {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
+                {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
+            ]
         }
 
         def _mock_get_json(force=True):
