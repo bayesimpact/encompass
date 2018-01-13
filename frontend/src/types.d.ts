@@ -21,8 +21,6 @@ declare module 'esri-extent' {
   export = esriExtent
 }
 
-declare module 'mui-icons'
-
 declare module 'mui-icons/cmdi/*'
 
 declare module 'react-autocomplete'

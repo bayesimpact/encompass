@@ -20,7 +20,7 @@
   overflow: hidden;
   position: absolute;
     bottom: 0;
-    left: var(--iconbar-width);
+    left: 0;
     right: 0;
     top: 0;
 }
