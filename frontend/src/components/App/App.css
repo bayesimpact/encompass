@@ -68,12 +68,16 @@ p {
   flex: 0;
 }
 
-.Muted {
+.Muted, .Muted > * {
   color: var(--muted);
 }
 
 .HeavyWeight {
   font-weight: var(--heavy-weight);
+}
+
+.Center {
+  text-align: center;
 }
 
 .PullRight {
