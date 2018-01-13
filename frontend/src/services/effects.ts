@@ -191,6 +191,26 @@ export function withEffects(store: Store) {
       )
     )
 
+  /**
+   * Clear state when the user selects a dataset in the Datasets Drawer.
+   */
+  store
+    .on('selectedDataset')
+    .subscribe(selectedDataset => {
+      store.set('adequacies')({})
+      store.set('representativePoints')([])
+      store.set('selectedServiceArea')(null)
+      if (selectedDataset) {
+        store.set('providers')(selectedDataset.providers)
+        store.set('route')('/analytics')
+        store.set('serviceAreas')(selectedDataset.serviceAreaIds)
+      } else {
+        store.set('providers')([])
+        store.set('route')('/datasets')
+        store.set('serviceAreas')([])
+      }
+    })
+
   return store
 }
 

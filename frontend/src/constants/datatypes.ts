@@ -22,6 +22,13 @@ export enum AdequacyMode {
   OUT_OF_SCOPE
 }
 
+export type Dataset = {
+  name: string
+  description: string
+  providers: GeocodedProvider[],
+  serviceAreaIds: string[]
+}
+
 /**
  * TODO: Contribute this typing to react-mapbox-gl
  */
@@ -50,7 +57,7 @@ export type GeocodedProvider = Provider & {
  *
  * In the future, they will map to URL routes.
  */
-export type Route = '/' | '/analytics'
+export type Route = '/' | '/analytics' | '/datasets'
 
 export type RepresentativePoint = {
   county: string

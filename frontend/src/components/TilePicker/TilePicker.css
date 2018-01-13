@@ -1,0 +1,43 @@
+@import "../../index.css";
+
+.TilePicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.TilePicker > .Tile {
+  flex: 0 49%;
+  list-style: none;
+}
+
+.Tile {
+  box-shadow: 0 5px 3px rgba(0, 0, 0, .2);
+  cursor: pointer;
+  filter: grayscale(.8) brightness(1.5);
+  margin-bottom: 15px;
+  transform: scale(.96, .96);
+  transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.Tile:hover,
+.Tile.-Active {
+  filter: grayscale(0) brightness(1);
+  transform: scale(1, 1);
+}
+.Tile:active {
+  filter: grayscale(0) brightness(.9);
+}
+
+.Tile h2 {
+  background: #666;
+  color: #fff;
+  font-size: var(--giant-font);
+  font-weight: var(--medium-weight);
+  padding: 80px 10px 10px;
+  text-transform: none;
+}
+
+.Tile p {
+  font-size: var(--medium-font);
+  padding: 10px;
+}

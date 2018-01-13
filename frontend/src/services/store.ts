@@ -1,6 +1,6 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
-import { Adequacies, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { Adequacies, Dataset, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
 
@@ -50,6 +50,8 @@ type Actions = {
   representativePoints: RepresentativePoint[]
 
   route: Route
+
+  selectedDataset: Dataset | null
 
   /**
    * Provider that the user selected on the map.
@@ -122,7 +124,8 @@ let store = withEffects(createStore<Actions>({
   method: 'driving_distance',
   providers: [],
   representativePoints: [],
-  route: '/',
+  route: '/datasets',
+  selectedDataset: null,
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceArea: null,
@@ -140,3 +143,6 @@ export type Store = BabyduxStore<Actions>
 export type StoreProps = {
   store: Store
 }
+
+// for debugging
+(window as any).store = store
