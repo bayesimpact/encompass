@@ -1,8 +1,8 @@
 import { memoize } from 'lodash'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
-import { PostProvidersRequest } from '../constants/api/providers-request'
-import { Error, PostProvidersResponse, Success } from '../constants/api/providers-response'
+import { PostGeocodeRequest } from '../constants/api/geocode-request'
+import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 
@@ -28,17 +28,17 @@ let request = (method: 'GET' | 'POST') =>
 let POST = request('POST')
 
 //
-// POST /api/providers
+// POST /api/geocode
 //
 
-export function isWriteProvidersSuccessResponse(
+export function isPostGeocodeSuccessResponse(
   response: Success | Error
 ): response is Success {
   return response.status === 'success'
 }
 
-export let postProviders = (params: PostProvidersRequest) =>
-  POST('/api/providers/')<PostProvidersResponse>(params)
+export let postGeocode = (params: PostGeocodeRequest) =>
+  POST('/api/geocode/')<PostGeocodeResponse>(params)
 
 //
 // POST /api/representative_points

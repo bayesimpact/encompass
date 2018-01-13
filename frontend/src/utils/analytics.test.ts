@@ -1,17 +1,26 @@
 import { chain } from 'lodash'
-import { AdequacyMode } from '../constants/datatypes'
+import { Adequacy, AdequacyMode, GeocodedProvider } from '../constants/datatypes'
 import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime, totalPopulation } from './analytics'
 
-let adequacies1 = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} }
+let provider: GeocodedProvider = {
+  address: '1234 Main St. San Francisco CA 94111',
+  languages: ['english', 'japanese'],
+  lat: 123.456,
+  lng: -123.456,
+  npi: 123456789,
+  specialty: 'internal medicine'
+}
+
+let adequacies1: Lazy<Adequacy[]> = chain([
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: provider, closestProviderByTime: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: provider, closestProviderByTime: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: provider, closestProviderByTime: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: provider, closestProviderByTime: provider }
 ])
 
-let adequacies2 = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: {latitude: 20, longitude: 30}, closestProviderByTime: {latitude: 20, longitude: 30} }
+let adequacies2: Lazy<Adequacy[]> = chain([
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: provider, closestProviderByTime: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: provider, closestProviderByTime: provider }
 ])
 
 let representativePoints1 = chain([
