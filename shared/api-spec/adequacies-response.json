@@ -16,15 +16,21 @@
         "description": "Time (in minutes) to the closest provider",
         "type": "integer"
       },
-      "closest_provider_by_distance": {
-        "type": "integer"
+      "closest_providers_by_distance": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
       },
-      "closest_provider_by_time": {
-        "type": "integer"
+      "closest_providers_by_time": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
       }
     },
     "additionalProperties": false,
-    "required": ["id", "distance_to_closest_provider", "time_to_closest_provider", "closest_provider_by_distance", "closest_provider_by_time"]
+    "required": ["id", "distance_to_closest_provider", "time_to_closest_provider", "closest_providers_by_distance", "closest_providers_by_time"]
   },
   "additionalProperties": false
 }

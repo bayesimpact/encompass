@@ -9,11 +9,16 @@
  */
 export interface PostAdequaciesRequest {
   /**
-   * Providers, available from POST /api/providers/
+   * Method used to calculate times and distances
    */
+  method: 'driving' | 'haversine'
   providers: {
-    latitude: number
-    longitude: number
+    /**
+     * An arbitrary ID that is locally unique within this request
+     */
+    id: number
+    lat: number
+    lng: number
   }[]
   /**
    * Service area IDs in the format "state_city_zip".

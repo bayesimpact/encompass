@@ -78,8 +78,8 @@ async function codegenAPITypes() {
     compileJSONSchema('adequacies-request'),
     compileJSONSchema('adequacies-response'),
     compileJSONSchema('available-service-areas-response'),
-    compileJSONSchema('providers-request'),
-    compileJSONSchema('providers-response'),
+    compileJSONSchema('geocode-request'),
+    compileJSONSchema('geocode-response'),
     compileJSONSchema('representative-points-request'),
     compileJSONSchema('representative-points-response')
   ])

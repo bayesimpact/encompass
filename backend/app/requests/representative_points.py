@@ -18,7 +18,7 @@ RESPONSE
       lat: 74.38732,
       lng: -122.323331
       county: "Alameda",
-      population: {0.5: 18, 2.5: 30, 5: 2000},
+      population: 2000,
       zip: 94105,
       census_block_group: 105,
       census_block: 3,

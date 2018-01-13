@@ -2,14 +2,53 @@
   "title": "POSTRepresentativePointsResponse",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "Response shape for POST /api/representative_points/",
+  "definitions": {
+    "bucket": {
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "values": {
+            "items": [{
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["name", "values"]
+      },
+      "type": "array"
+    }
+  },
   "type": "array",
   "items": {
     "properties": {
       "county": {
         "type": "string"
       },
-      "census_tract": {
-        "type": "number"
+      "demographics": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "buckets": {
+              "$ref": "#/definitions/bucket"
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": ["buckets", "category"]
+        }
       },
       "id": {
         "type": "integer"
@@ -21,13 +60,7 @@
         "type": "number"
       },
       "population": {
-        "properties": {
-          "1.0": {
-            "type": "integer"
-          }
-        },
-        "additionalProperties": false,
-        "required": ["1.0"]
+        "type": "integer"
       },
       "service_area_id": {
         "type": "string"

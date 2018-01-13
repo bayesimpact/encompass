@@ -4,33 +4,27 @@
   "description": "Request shape for POST /api/adequacies/",
   "type": "object",
   "properties": {
-    "provider_ids": {
-      "description": "Provider IDs, available from POST /api/providers/",
-      "type": "array",
-      "items": {
-        "type": "integer"
-      }
+    "method": {
+      "description": "Method used to calculate times and distances",
+      "enum": ["driving", "haversine"]
     },
     "providers": {
-      "description": "Providers, containing id and location (lat, lon). Available from POST /api/providers/",
       "type": "array",
       "items": {
         "properties": {
-          "latitude": {
-            "description": "Latitude",
-            "type": "float"
-          },
-          "longitude": {
-            "description": "Longitude",
-            "type": "float"
-          },
           "id": {
-            "description": "Unique ID for each provider/address",
+            "description": "An arbitrary ID that is locally unique within this request",
             "type": "integer"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
           }
         },
         "additionalProperties": false,
-        "required": ["id", "latitude", "longitude"]
+        "required": ["id", "lat", "lng"]
       }
     },
     "service_area_ids": {
@@ -42,11 +36,5 @@
     }
   },
   "additionalProperties": false,
-  "oneOf" : [
-    {
-        "required" : ["service_area_ids", "providers"]
-    }, {
-        "required" : ["service_area_ids", "provider_ids"]
-    }
-  ]
+  "required": ["method", "providers", "service_area_ids"]
 }
