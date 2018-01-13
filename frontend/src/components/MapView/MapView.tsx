@@ -22,7 +22,9 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     property: 'adequacyMode',
     type: 'categorical',
     stops: [
-      [AdequacyMode.ADEQUATE, '#3F51B5'],
+      [AdequacyMode.ADEQUATE_15, 'rgba(63, 81, 181, 1)'],
+      [AdequacyMode.ADEQUATE_30, 'rgba(63, 81, 181, .6)'],
+      [AdequacyMode.ADEQUATE_60, 'rgba(63, 81, 181, .3)'],
       [AdequacyMode.INADEQUATE, '#DE5B5C'],
       [AdequacyMode.OUT_OF_SCOPE, 'transparent'],
       ['undefined', '#8eacbb']

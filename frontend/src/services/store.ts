@@ -1,7 +1,6 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
-import { PostProvidersRequest } from '../constants/api/providers-request'
-import { Adequacies, GeoJSONEventData, Measure, Provider, RepresentativePoint, Route, Standard } from '../constants/datatypes'
+import { Adequacies, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
 
@@ -15,8 +14,6 @@ type Actions = {
    * `COUNTIES` (in zipCodes.ts) enumerates all available Counties.
    */
   counties: string[]
-
-  distribution: 1.0
 
   /**
    * Error, exposed to user via Snackbar.
@@ -39,20 +36,16 @@ type Actions = {
 
   mapZoom: number
 
-  measure: Measure
+  method: Method
 
   /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
    */
-  providers: Provider[]
+  providers: GeocodedProvider[]
 
   /**
-   * Representative points ("RP"), fetched and cached given a `distribution`
-   * and `serviceArea`.
-   *
-   * For each service area, we sample the real population (from USPS & census data).
-   * The larger the `distribution` parameter, the larger each RP becomes, and the
-   * fewer RPs we generate per service area. The distribution defaults to 1 mile.
+   * Representative points ("RP"), fetched and cached given a `serviceArea`. For
+   * each service area, we sample the real population (from USPS & census data).
    */
   representativePoints: RepresentativePoint[]
 
@@ -95,12 +88,10 @@ type Actions = {
    */
   serviceAreas: string[]
 
-  standard: Standard
-
   /**
    * Parsed from the uploaded providers CSV
    */
-  uploadedProviders: PostProvidersRequest['providers']
+  uploadedProviders: Provider[]
 
   /**
    * Filename of the CSV the user uploaded to compute `providers`.
@@ -119,7 +110,6 @@ type Actions = {
 let store = withEffects(createStore<Actions>({
   adequacies: {},
   counties: [],
-  distribution: 1.0,
   error: null,
   success: null,
   map: null,
@@ -129,16 +119,15 @@ let store = withEffects(createStore<Actions>({
   },
   mapCursor: '',
   mapZoom: 12,
-  measure: 15,
+  method: 'driving_distance',
   providers: [],
   representativePoints: [],
-  route: '/service-areas',
+  route: '/',
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceArea: null,
   selectedState: 'ca',
   serviceAreas: [],
-  standard: 'distance',
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null

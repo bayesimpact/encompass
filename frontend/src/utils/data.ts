@@ -29,7 +29,11 @@ export function summaryStatistics(
   let adequacies = store.get('adequacies')
   let rps = representativePointsFromServiceAreas(serviceAreas, store)
   let adequateRps = rps.filter(_ =>
-    adequacies[_.id] && adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE
+    adequacies[_.id] && (
+      adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_15
+      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_30
+      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_60
+    )
   )
 
   let population = totalPopulation(rps)
