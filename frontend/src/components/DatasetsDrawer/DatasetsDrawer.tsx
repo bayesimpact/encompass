@@ -30,7 +30,7 @@ let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
-    <h2>Choose a dataset to explore</h2>
+    <h2 className='Secondary'>Choose a dataset to explore</h2>
     <DatasetTilePicker
       onChange={tile => store.set('selectedDataset')(tile.data)}
       tiles={tiles}

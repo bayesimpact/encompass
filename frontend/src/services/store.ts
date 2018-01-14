@@ -1,6 +1,7 @@
 import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
 import { Adequacies, Dataset, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
 
@@ -115,12 +116,9 @@ let store = withEffects(createStore<Actions>({
   error: null,
   success: null,
   map: null,
-  mapCenter: {
-    lat: 37.765134,
-    lng: -122.444687
-  },
+  mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
-  mapZoom: 12,
+  mapZoom: DEFAULT_MAP_ZOOM,
   method: 'driving_distance',
   providers: [],
   representativePoints: [],

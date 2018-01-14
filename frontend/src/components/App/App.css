@@ -24,9 +24,9 @@ html, body, #App, .App {
 }
 
 h2 {
-  font-size: var(--medium-font);
+  font-size: var(--large-font);
   font-weight: var(--heavy-weight);
-  line-height: 36px;
+  line-height: 48px;
   text-transform: uppercase;
 }
 
@@ -72,6 +72,14 @@ p {
   color: var(--muted);
 }
 
+.Secondary, .Secondary > * {
+  color: var(--secondary);
+}
+
+.MediumWeight {
+  font-weight: var(--medium-weight);
+}
+
 .HeavyWeight {
   font-weight: var(--heavy-weight);
 }
@@ -98,6 +106,10 @@ p {
 
 .LargeFont {
   font-size: var(--large-font);
+}
+
+.Uppercase {
+  text-transform: uppercase;
 }
 
 /*
