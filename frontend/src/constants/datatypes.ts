@@ -15,11 +15,11 @@ export type Adequacy = {
 }
 
 export enum AdequacyMode {
-  ADEQUATE_15,
-  ADEQUATE_30,
-  ADEQUATE_60,
-  INADEQUATE,
-  OUT_OF_SCOPE
+  ADEQUATE_15 = 'ADEQUATE_15',
+  ADEQUATE_30 = 'ADEQUATE_30',
+  ADEQUATE_60 = 'ADEQUATE_60',
+  INADEQUATE = 'INADEQUATE',
+  OUT_OF_SCOPE = 'OUT_OF_SCOPE'
 }
 
 export type Dataset = {

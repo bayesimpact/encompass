@@ -10,6 +10,12 @@
     top: var(--header-height);
 }
 
+.MapView .MapLegend {
+  position: absolute;
+    right: 20px;
+    top: 112px;
+}
+
 .MapView .mapboxgl-map {
   height: 100%;
   width: 100%;

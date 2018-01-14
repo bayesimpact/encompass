@@ -1,9 +1,11 @@
 import * as MapboxGL from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
+import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
+import { MapLegend } from '../MapLegend/MapLegend'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
 
@@ -22,11 +24,11 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     property: 'adequacyMode',
     type: 'categorical',
     stops: [
-      [AdequacyMode.ADEQUATE_15, 'rgba(63, 81, 181, 1)'],
-      [AdequacyMode.ADEQUATE_30, 'rgba(63, 81, 181, .6)'],
-      [AdequacyMode.ADEQUATE_60, 'rgba(63, 81, 181, .3)'],
-      [AdequacyMode.INADEQUATE, '#DE5B5C'],
-      [AdequacyMode.OUT_OF_SCOPE, 'transparent'],
+      [AdequacyMode.ADEQUATE_15, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]],
+      [AdequacyMode.ADEQUATE_30, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30]],
+      [AdequacyMode.ADEQUATE_60, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60]],
+      [AdequacyMode.INADEQUATE, ADEQUACY_COLORS[AdequacyMode.INADEQUATE]],
+      [AdequacyMode.OUT_OF_SCOPE, ADEQUACY_COLORS[AdequacyMode.OUT_OF_SCOPE]],
       ['undefined', '#8eacbb']
     ]
   },
@@ -109,6 +111,7 @@ export let MapView = withStore(
       <ZoomControl position='bottomRight' style={ZOOM_CONTROL_STYLE} />
       <ScaleControl measurement='mi' position='bottomRight' style={SCALE_CONTROL_STYLE} />
     </Map>
+    <MapLegend />
   </div>
 })
 MapView.displayName = 'MapView'
