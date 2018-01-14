@@ -35,7 +35,7 @@ def fetch_service_areas():
 
 
 @timed
-@app.route('/api/providers/', methods=['POST'])
+@app.route('/api/geocode/', methods=['POST'])
 def fetch_providers():
     """Fetch and return providers with geocoded addresses."""
     logger.debug('Fetch providers.')

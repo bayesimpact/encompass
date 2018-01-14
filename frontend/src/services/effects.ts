@@ -123,7 +123,7 @@ export function withEffects(store: Store) {
       let [adequacies, points] = await Promise.all([
         getAdequacies({
           method: method === 'haversine_distance' ? 'haversine' : 'driving',
-          providers: providers.map((_, n) => ({ lat: _.lat, lng: _.lng, id: n })),
+          providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas
         }),
         getRepresentativePoints({ service_area_ids: serviceAreas })

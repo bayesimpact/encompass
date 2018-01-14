@@ -16,10 +16,10 @@
             "description": "An arbitrary ID that is locally unique within this request",
             "type": "integer"
           },
-          "lat": {
+          "latitude": {
             "type": "number"
           },
-          "lng": {
+          "longitude": {
             "type": "number"
           }
         },
