@@ -14,7 +14,7 @@
 .Tile {
   box-shadow: 0 5px 3px rgba(0, 0, 0, .2);
   cursor: pointer;
-  filter: grayscale(.8) brightness(1.5);
+  filter: grayscale(.7) brightness(1.5);
   margin-bottom: 15px;
   transform: scale(.96, .96);
   transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -40,4 +40,15 @@
 .Tile p {
   font-size: var(--medium-font);
   padding: 10px;
+}
+
+.Tile svg {
+  height: 40px !important;
+  position: relative;
+    bottom: -12px;
+  width: 40px !important;
+}
+
+.Tile path {
+  fill: #fff;
 }

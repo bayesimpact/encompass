@@ -1,8 +1,9 @@
 import { memoize } from 'lodash'
+import Add from 'material-ui/svg-icons/content/add-circle'
 import * as React from 'react'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
-import { withStore } from '../../services/store'
+import { Store, withStore } from '../../services/store'
 import { Tile, TilePicker } from '../TilePicker/TilePicker'
 import './DatasetsDrawer.css'
 
@@ -16,6 +17,19 @@ const COLORS = [
   '#8e4770'
 ]
 
+const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
+  color: '#237900',
+  description: 'Upload a list of addresses for providers, facilities, or social services',
+  data: {
+    dataSources: [],
+    description: '',
+    name: '',
+    providers: [],
+    serviceAreaIds: []
+  },
+  name: <span><Add /> Analyze Your Own Data</span>
+}
+
 let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
   datasets.map((_, n) => ({
     color: COLORS[n],
@@ -25,17 +39,30 @@ let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
   }))
 )
 
-let tiles = toTiles(DATASETS)
+let tiles = [
+  ...(process.env.SHOULD_SHOW_CSV_UPLOADER ? [UPLOAD_NEW_DATASET_TILE] : []),
+  ...toTiles(DATASETS)
+]
 let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
-    <h2>Choose a dataset to explore</h2>
+    <h2 className='Secondary'>Choose a dataset to explore</h2>
     <DatasetTilePicker
-      onChange={tile => store.set('selectedDataset')(tile.data)}
+      onChange={onChange(store)}
       tiles={tiles}
       value={tiles.find(_ => _.data === store.get('selectedDataset')) || null}
     />
     <p className='Center LargeFont Muted'>Don't see the dataset you want? <a href='mailto:data@bayesimpact.org?subject=Request a dataset'>Email us</a>.</p>
   </div>
 )
+
+function onChange(store: Store) {
+  return (tile: Tile<Dataset>) => {
+    if (tile === UPLOAD_NEW_DATASET_TILE) {
+      // TODO: Show Analyze Your Own Dataset Modal modal
+      return
+    }
+    store.set('selectedDataset')(tile.data)
+  }
+}

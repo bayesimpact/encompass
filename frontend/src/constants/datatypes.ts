@@ -23,8 +23,9 @@ export enum AdequacyMode {
 }
 
 export type Dataset = {
-  name: string
+  dataSources: string[]
   description: string
+  name: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }

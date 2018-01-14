@@ -5,7 +5,7 @@ export type Tile<T> = {
   color: string
   description: string
   data: T
-  name: string
+  name: string | JSX.Element
 }
 
 type Props<T> = {
@@ -21,7 +21,7 @@ export function TilePicker<T>() {
         {this.props.tiles.map(tile =>
           <li
             className={'Tile' + (tile === this.props.value ? ' -Active' : '')}
-            key={tile.name}
+            key={typeof tile.name === 'string' ? tile.name : tile.name.toString()}
             onClick={() => this.props.onChange(tile)}
           >
             <h2 style={{ backgroundColor: tile.color }}>{tile.name}</h2>
