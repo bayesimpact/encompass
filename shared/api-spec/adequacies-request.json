@@ -24,7 +24,7 @@
           }
         },
         "additionalProperties": false,
-        "required": ["id", "lat", "lng"]
+        "required": ["id", "latitude", "longitude"]
       }
     },
     "service_area_ids": {
