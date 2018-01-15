@@ -16,15 +16,15 @@
             "description": "An arbitrary ID that is locally unique within this request",
             "type": "integer"
           },
-          "lat": {
+          "latitude": {
             "type": "number"
           },
-          "lng": {
+          "longitude": {
             "type": "number"
           }
         },
         "additionalProperties": false,
-        "required": ["id", "lat", "lng"]
+        "required": ["id", "latitude", "longitude"]
       }
     },
     "service_area_ids": {

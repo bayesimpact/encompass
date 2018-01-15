@@ -17,8 +17,8 @@ export interface PostAdequaciesRequest {
      * An arbitrary ID that is locally unique within this request
      */
     id: number
-    lat: number
-    lng: number
+    latitude: number
+    longitude: number
   }[]
   /**
    * Service area IDs in the format "state_city_zip".

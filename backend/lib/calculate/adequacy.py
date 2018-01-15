@@ -41,8 +41,8 @@ def _find_closest_location(point, locations, exit_distance_in_meters=None):
     provider_time = closest_distance * ONE_METER_IN_MILES * 2
     provider = {
         'id': point['id'],
-        'closest_provider_by_distance': closest_provider,
-        'closest_provider_by_time': closest_provider,
+        'closest_providers_by_distance': [1],
+        'closest_providers_by_time': [1],
         'time_to_closest_provider': provider_time,
         'distance_to_closest_provider': closest_distance * ONE_METER_IN_MILES
     }
@@ -150,11 +150,12 @@ def calculate_adequacies(
     logger.debug('Calculating adequacies for {} provider locations and {} service areas.'.format(
         len(locations), len(service_area_ids)))
 
-    # Remove duplicates and convert to lat-longtuples.
-    locations = list({
-        Point(**location)
-        for location in locations
-    })
+    location_mapping = collections.defaultdict(list)
+    for location in locations:
+        point_id = location.pop('id')
+        location_mapping[Point(**location)].append(point_id)
+
+    locations = list(location_mapping.keys())
 
     points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids,
@@ -192,4 +193,5 @@ def calculate_adequacies(
         )
 
     logger.debug('Returning adequacy results.')
+    print(list(adequacies_response))
     return list(adequacies_response)
