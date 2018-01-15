@@ -193,5 +193,4 @@ def calculate_adequacies(
         )
 
     logger.debug('Returning adequacy results.')
-    print(list(adequacies_response))
     return list(adequacies_response)
