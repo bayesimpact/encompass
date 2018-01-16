@@ -61,6 +61,7 @@ function onChange(store: Store) {
   return (tile: Tile<Dataset>) => {
     if (tile === UPLOAD_NEW_DATASET_TILE) {
       // TODO: Show Analyze Your Own Dataset Modal modal
+      store.set('route')('/add-data')
       return
     }
     store.set('selectedDataset')(tile.data)

@@ -58,7 +58,7 @@ export type GeocodedProvider = Provider & {
  *
  * In the future, they will map to URL routes.
  */
-export type Route = '/' | '/analytics' | '/datasets'
+export type Route = '/' | '/analytics' | '/datasets' | '/add-data'
 
 export type RepresentativePoint = {
   county: string

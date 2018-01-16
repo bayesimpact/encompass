@@ -2,13 +2,15 @@ import { map } from 'lodash'
 import Drawer from 'material-ui/Drawer'
 import * as React from 'react'
 import { withStore } from '../../services/store'
+import { AddDatasetDrawer } from '../AddDatasetDrawer/AddDatasetDrawer'
 import { AnalyticsDrawer } from '../AnalyticsDrawer/AnalyticsDrawer'
 import { DatasetsDrawer } from '../DatasetsDrawer/DatasetsDrawer'
 import './LeftPane.css'
 
 let drawers = {
   '/analytics': AnalyticsDrawer,
-  '/datasets': DatasetsDrawer
+  '/datasets': DatasetsDrawer,
+  '/add-data': AddDatasetDrawer
 }
 
 export let LeftPane = withStore('route')(({ store }) =>
