@@ -70,7 +70,7 @@ def _geocode_addresses(addresses, geocoder_name, engine, add_to_db=True):
 
 
 @timed
-def fetch_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_engine()):
+def geocode_providers(providers, geocoder_name=GEOCODER, engine=connect.create_db_engine()):
     """
     Fetch providers location and IDs from a list of provider inputs.
 
