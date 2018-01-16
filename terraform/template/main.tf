@@ -4,6 +4,7 @@ provider "aws" {
 
 locals {
   security_group_name = "${var.app_security_group_name}-${var.env_name}"
+  load_balancer_name = "${var.load_balancer_name}-${var.env_name}"
 }
 
 # This is the ec2 instance representing the default app server.
@@ -94,5 +95,23 @@ resource "aws_security_group" "na_app_sg" {
 
   tags {
     Name = "na_app_sg"
+  }
+}
+
+# Application load balancer for appserver[s]
+resource "aws_lb" "na_app_elb" {
+  name                       = "${local.load_balancer_name}"
+  internal                   = false
+  ip_address_type            = "ipv4"
+  load_balancer_type         = "application"
+  enable_deletion_protection = true
+  idle_timeout               = 60
+  security_groups = ["${aws_security_group.na_app_sg.id}"]
+
+  subnets = ["${aws_instance.na_app.subnet_id}"]
+
+  tags {
+    Environment = "${var.env_name}"
+    Name = "${local.load_balancer_name}"
   }
 }

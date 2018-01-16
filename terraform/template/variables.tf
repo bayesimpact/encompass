@@ -25,7 +25,13 @@ variable "app_security_group_name" {
   default     = "na_app_sg"
 }
 
-# TODO: find a nicer way to manage this.
+variable "load_balancer_name" {
+  # module.stack.aws_lb.na_app_elb: only alphanumeric characters and hyphens allowed in "name"
+  description = "The ELB name to use for app servers"
+  type        = "string"
+  default     = "na-app-alb"
+}
+
 variable "db_password" {
   description = "The password to use for TDS DB access"
   type        = "string"
