@@ -2,25 +2,13 @@
 Handle requests to the provider endpoint.
 
 The /api/geocode enpoint accepts a list of addresses and return a list of
-provider_id and the associated lat, lng.
+associated lat, lng.
 
 REQUEST - POST
 [
-  { address: '1855 Mission Street, San Francisco, CA',
-    languages: string[],
-    npi: number
-    specialty: string
-  },
-  { address: '1855 Mission Road, San Francisco, CA',
-    languages: string[],
-    npi: number
-    specialty: string
-  },
-  { address: '100855 South Van Ness, San Francisco, CA',
-    languages: string[],
-    npi: number
-    specialty: string
-  }
+  '1855 Mission Street, San Francisco, CA',
+  '1855 Mission Road, San Francisco, CA',
+  '100855 South Van Ness, San Francisco, CA'
 ]
 
 RESPONSE
@@ -54,7 +42,7 @@ def providers_request(app, flask_request, engine):
     logger.info('Geocoding providers.')
     try:
         request_json = flask_request.get_json(force=True)
-        provider_addresses = request_json['providers']
+        provider_addresses = request_json['addresses']
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
     return providers.geocode_providers(provider_addresses, engine=engine)

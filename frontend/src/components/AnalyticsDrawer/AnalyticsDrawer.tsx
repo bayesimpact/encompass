@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
 import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
-import { Link } from '../Link/Link'
+import { BackLink } from '../Link/Link'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 
@@ -34,11 +34,3 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedServiceArea')
     <DownloadAnalysisLink />
   </div>
 })
-
-let BackLink = withStore()(({ store }) =>
-  <Link
-    className='Muted Uppercase'
-    onClick={() => store.set('selectedDataset')(null)}
-    to='/datasets'
-  >⟵ Back to datasets</Link>
-)

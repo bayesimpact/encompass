@@ -44,19 +44,14 @@ class TestFetchProviders():
     def test_geocode_providers_existing_address():
         """Test geocode_providers when the address exists."""
         # Note - This address should exist in the database.
-        providers_input = [
-            {
-                'address': '1000 E DOMINGUEZ ST, CARSON, CA 90746',
-                'npi': '1032023833'
-            }
-        ]
+        providers_input = ['1000 E DOMINGUEZ ST, CARSON, CA 90746']
         results = providers.geocode_providers(providers_input, engine=engine)
         assert results[0]['status'] == 'success'
 
     @staticmethod
     def test_geocode_providers_address_does_not_exist():
         """Test fetch_representative_points."""
-        providers_input = [{'address': 'I DO NOT EXIST'}]
+        providers_input = ['I DO NOT EXIST']
         results = providers.geocode_providers(providers_input, engine=engine)
         assert len(results) == 1
         assert results[0]['status'] == 'error'
@@ -64,15 +59,7 @@ class TestFetchProviders():
     @staticmethod
     def test_geocode_providers_address_multiple_input():
         """Test fetch_representative_points."""
-        providers_input = [
-            {
-                'address': '1000 E DOMINGUEZ ST, CARSON, CA 90746',
-                'npi': '1032023833'
-            },
-            {
-                'address': 'I DO NOT EXIST'
-            }
-        ]
+        providers_input = ['1000 E DOMINGUEZ ST, CARSON, CA 90746', 'I DO NOT EXIST']
         results = providers.geocode_providers(providers_input, engine=engine)
         assert len(results) == 2
         assert results[0]['status'] == 'success'

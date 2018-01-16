@@ -84,7 +84,7 @@ def geocode_providers(providers, geocoder_name=GEOCODER, engine=connect.create_d
 
     provider_responses = []
 
-    provider_addresses = {provider['address'] for provider in providers}
+    provider_addresses = {address for address in providers}
     logger.debug('Searching {} addresses for {} providers.'.format(
         len(provider_addresses), len(providers))
     )
@@ -125,14 +125,12 @@ def geocode_providers(providers, geocoder_name=GEOCODER, engine=connect.create_d
     elif not GEOCODING:
         logger.debug('Warning - Geocoding is not active. Processing without missing addresses.')
 
-    for i, raw_provider in enumerate(providers):
+    for i, raw_address in enumerate(providers):
         if i % 10000 == 0:
             logger.debug('Processsed {} out of {}...'.format(i, len(providers)))
 
         # TODO - Fuzzy matching.
         # Retrieve lat, lng from DB.
-        # Popping address to avoid confusion by Postgres between address and address_id.
-        raw_address = raw_provider.pop('address')
         if raw_address in existing_addresses:
             geocoded_address = existing_addresses[raw_address]
             provider_responses.append(

@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
+import { BackLink } from '../Link/Link'
+import { ProvidersUplodader } from '../Uploader/ProvidersUplodader'
+import { ServiceAreasUploader } from '../Uploader/ServiceAreasUplodader'
 
 export let AddDatasetDrawer = withStore('selectedDataset')(({}) =>
   <div className='AddDatasetDrawer'>
+    <BackLink/>
     <h2 className='Secondary'>Upload your data to explore</h2>
-    {/* <DatasetTilePicker
-      onChange={onChange(store)}
-      tiles={tiles}
-      value={tiles.find(_ => _.data === store.get('selectedDataset')) || null}
-    /> */}
+    <ServiceAreasUploader/>
+    <ProvidersUplodader/>
   </div>
 )

@@ -17,7 +17,7 @@ const COLORS = [
   '#8e4770'
 ]
 
-const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
+export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   color: '#237900',
   description: 'Upload a list of addresses for providers, facilities, or social services',
   data: {
