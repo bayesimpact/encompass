@@ -6,14 +6,13 @@ variable "db_password" {
 module "stack" {
   source        = "../../template"
 
-  # this can be for my test environment
   env_name = "tds-qa"
   db_id = "tds-qa"
   instance_name_tag = "tds-qa"
   db_password = "${var.db_password}"
 }
 
-# backend definition can't have interpolation, so unfortunately this does need to be
+# Backend definition can't have interpolation, so unfortunately this does need to be
 # duplicated between environment definitions.
 terraform {
   backend "s3" {
@@ -21,7 +20,7 @@ terraform {
     key        = "tds-qa/terraform.tfstate"
     region     = "us-west-1"
 
-    # ddb table to hold tfstate locks
+    # ddb table to hold tfstate locks.
     dynamodb_table = "tflock"
   }
 }

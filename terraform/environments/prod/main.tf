@@ -1,10 +1,15 @@
+variable "db_password" {
+  description = "The password to use for TDS DB access"
+  type        = "string"
+}
+
 module "stack" {
   source        = "../../template"
 
-  # this can be for my test environment
   env_name = "prod"
   db_id = "philip-testing"
   instance_name_tag = "na-teddy"
+  db_password = "${var.db_password}"
 }
 
 terraform {
@@ -13,7 +18,7 @@ terraform {
     key        = "na-testing/terraform.tfstate"
     region     = "us-west-1"
 
-    # ddb table to hold tfstate locks
+    # ddb table to hold tfstate locks.
     dynamodb_table = "tflock"
   }
 }

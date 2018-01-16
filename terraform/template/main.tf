@@ -6,9 +6,9 @@ locals {
   security_group_name = "${var.app_security_group_name}-${var.env_name}"
 }
 
-# this is the ec2 instance representing the default app server
+# This is the ec2 instance representing the default app server.
 resource "aws_instance" "na_app" {
-  # these two attributes are required
+  # These two attributes are required.
   instance_type                   = "m4.large"
   ami                             = "${var.app_ami}"
 
@@ -23,10 +23,10 @@ resource "aws_instance" "na_app" {
   tags { Name = "${var.instance_name_tag}" }
 }
 
-# this is the rds instance representing the default app db
+# This is the RDS instance representing the default app DB.
 resource "aws_db_instance" "na_db" {
-  # these two attributes are required
-  identifier                          = "${var.db_id}" #fixme
+  # These two attributes are required.
+  identifier                          = "${var.db_id}"
   instance_class                      = "db.t2.large"
 
   allocated_storage                   = 40
@@ -51,7 +51,7 @@ resource "aws_db_instance" "na_db" {
   password                            = "${var.db_password}"
 }
 
-# security group for app server
+# Security group for app server.
 resource "aws_security_group" "na_app_sg" {
   name        = "${local.security_group_name}"
   description = "Allow inbound traffic on app ports"
@@ -84,7 +84,7 @@ resource "aws_security_group" "na_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # permit everything outbound. needs to be done explicitly
+  # Permit everything outbound. Needs to be done explicitly.
   egress {
     from_port       = 0
     to_port         = 0
