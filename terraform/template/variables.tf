@@ -25,6 +25,7 @@ variable "app_security_group_name" {
   default     = "na_app_sg"
 }
 
+# TODO: find a nicer way to manage this.
 variable "db_password" {
   description = "The password to use for TDS DB access"
   type        = "string"
