@@ -1,7 +1,7 @@
 """
 Handle requests to the provider endpoint.
 
-The /api/geocoder enpoint accepts a list of addresses and return a list of
+The /api/geocode enpoint accepts a list of addresses and return a list of
 provider_id and the associated lat, lng.
 
 REQUEST - POST
@@ -50,11 +50,11 @@ logger = logging.getLogger(__name__)
     wait_fixed=WAIT_FIXED_MILLISECONDS,
     stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
 def providers_request(app, flask_request, engine):
-    """Handle /api/geocoder requests."""
-    logger.info('Fetching providers.')
+    """Handle /api/geocode requests."""
+    logger.info('Geocoding providers.')
     try:
         request_json = flask_request.get_json(force=True)
         provider_addresses = request_json['providers']
     except json.JSONDecodeError:
         raise InvalidFormat(message='Invalid JSON format.')
-    return providers.fetch_providers(provider_addresses, engine=engine)
+    return providers.geocode_providers(provider_addresses, engine=engine)

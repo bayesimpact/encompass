@@ -1,5 +1,5 @@
 import { memoize } from 'lodash'
-import Add from 'material-ui/svg-icons/content/add-circle'
+// import Add from 'material-ui/svg-icons/content/add-circle'
 import * as React from 'react'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
@@ -27,7 +27,7 @@ const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
     providers: [],
     serviceAreaIds: []
   },
-  name: <span><Add /> Analyze Your Own Data</span>
+  name: <span>Analyze Your Own Data</span>
 }
 
 let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>

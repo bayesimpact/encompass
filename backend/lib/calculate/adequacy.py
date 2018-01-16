@@ -41,6 +41,7 @@ def _find_closest_location(point, locations, exit_distance_in_meters=None):
     provider_time = closest_distance * ONE_METER_IN_MILES * 2
     provider = {
         'id': point['id'],
+        # FIXME - Return real lists of closest providers.
         'closest_providers_by_distance': [1],
         'closest_providers_by_time': [1],
         'time_to_closest_provider': provider_time,
