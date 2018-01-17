@@ -17,11 +17,7 @@ export let ServiceAreaAnalytics = withStore(
 
   return <div className='ServiceAreaAnalytics'>
     <p className='Ellipsis Muted SmallFont'>
-      Service Areas - {store.get('uploadedServiceAreasFilename')
-        ? store.get('uploadedServiceAreasFilename')
-        : `${formatNumber(selectedServiceAreas.length)} selected`
-      }
-      <br />
+      Service Areas - {formatNumber(selectedServiceAreas.length)} selected
     </p>
     <AdequacyDoughnut serviceAreas={selectedServiceAreas} />
   </div>

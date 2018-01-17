@@ -40,8 +40,8 @@ let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
 )
 
 let tiles = [
-  ...(process.env.SHOULD_SHOW_CSV_UPLOADER ? [UPLOAD_NEW_DATASET_TILE] : []),
-  ...toTiles(DATASETS)
+  ...toTiles(DATASETS),
+  ...(process.env.SHOULD_SHOW_CSV_UPLOADER ? [UPLOAD_NEW_DATASET_TILE] : [])
 ]
 let DatasetTilePicker = TilePicker<Dataset>()
 
