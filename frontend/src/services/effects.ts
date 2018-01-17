@@ -230,11 +230,9 @@ export function withEffects(store: Store) {
         store.set('route')('/analytics')
       }
       if (selectedDataset) {
-        console.log('selectedDataset')
-        console.log(selectedDataset)
+        store.set('serviceAreas')(selectedDataset.serviceAreaIds)
         store.set('providers')(selectedDataset.providers)
         store.set('route')('/analytics')
-        store.set('serviceAreas')(selectedDataset.serviceAreaIds)
       } else {
         store.set('providers')([])
         store.set('route')('/datasets')
