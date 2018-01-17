@@ -13,20 +13,23 @@ explorer:
 rebuild:
 	docker-compose build --no-cache
 
-models-lint:
-	echo "Missing models-lint"
-	# docker-compose run --no-deps explorer bash -c "flake8 ./models"
-	# docker-compose run --no-deps explorer bash -c "pep257 ./models"
-
-# Initialise containerized postgres
+# Initialize containerized Postgres DB.
 setup-local-db:
 	docker-compose run backend bash -c "python runners/initialize_postgres.py"
 
-# Backend Debug
+# Fetch data from S3 and load to Postgres.
+# State should be specified as a lowercase, two-letter abbreviation, e.g. 'ca'.
+# Example usage: make load_representative_points state='ca'
+S3_BUCKET='https://s3-us-west-1.amazonaws.com/network-adequacy/data-011317/etl/output/'
+load_representative_points:
+	curl  --create-dirs -o 'data/representative_points.geojson' ${S3_BUCKET}$(state)'_representative_points.geojson'
+	python runners/load_representative_points -f 'data/representative_points.geojson'
+	rm data/representative_points.geojson
+
+# Run the app in debug mode.
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
 
-# Backend tests
 backend-lint:
 	docker-compose run --no-deps backend bash -c "flake8 ."
 	docker-compose run --no-deps backend bash -c "pep257 --match-dir '[^\.*data]' ."
@@ -40,7 +43,7 @@ backend-coverage:
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
 
-# Tests
+# Run tests for all components.
 test:
 	$(MAKE) backend-lint
 	$(MAKE) backend-coverage
