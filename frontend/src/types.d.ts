@@ -4,6 +4,7 @@
 
 declare module 'chart.piecelabel.js'
 
+<<<<<<< HEAD
 declare module 'esri-extent' {
   namespace esriExtent {
     type Extent = {
@@ -21,6 +22,8 @@ declare module 'esri-extent' {
   export = esriExtent
 }
 
+=======
+>>>>>>> 7527cbd... Rebase to master
 declare module 'mui-icons/cmdi/*'
 
 declare module 'react-autocomplete'
