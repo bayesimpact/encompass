@@ -22,3 +22,11 @@ export let Link = withStore()<Props & StoreProps>(({ children, className, onClic
   >{children}</a>
 )
 Link.displayName = 'Link'
+
+export let BackLink = withStore()(({ store }) =>
+  <Link
+    className='Muted Uppercase'
+    onClick={() => store.set('selectedDataset')(null)}
+    to='/datasets'
+  >⟵ Back to datasets</Link>
+)

@@ -17,7 +17,7 @@ const COLORS = [
   '#8e4770'
 ]
 
-const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
+export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   color: '#237900',
   description: 'Upload a list of addresses for providers, facilities, or social services',
   data: {
@@ -61,6 +61,7 @@ function onChange(store: Store) {
   return (tile: Tile<Dataset>) => {
     if (tile === UPLOAD_NEW_DATASET_TILE) {
       // TODO: Show Analyze Your Own Dataset Modal modal
+      store.set('route')('/add-data')
       return
     }
     store.set('selectedDataset')(tile.data)

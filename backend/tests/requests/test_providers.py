@@ -24,7 +24,7 @@ class TestProvidersRequest(LiveServerTestCase):
     def test_provider_request(self):
         """Test provider requests in a simple case."""
         request_providers = {
-            'providers': [{'address': '1855 Mission Street, San Francisco, CA 94110'}]
+            'addresses': ['1855 Mission Street, San Francisco, CA 94110']
         }
 
         def _mock_get_json(force=True):
@@ -37,7 +37,7 @@ class TestProvidersRequest(LiveServerTestCase):
     def test_provider_request_db_error(self):
         """Test provider requests in a simple case with badly formatted addresses."""
         request_providers = {
-            'providers': [{'address': 'provider_address_1'}, {'address': 'provider_address_1'}]
+            'addresses': ['provider_address_1', 'provider_address_1']
         }
 
         def _mock_get_json(force=True):
