@@ -11,16 +11,14 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
  */
 export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store }) =>
   <div>
-    <h2>Providers</h2>
-    <p className='HeavyWeight Muted'>Upload a CSV with provider addresses.</p>
     <div className='Flex -Row'>
-      <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
+      <CSVUploader className='-Flex-0' label='Providers' onUpload={onFileSelected(store)} />
       {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
     <p className='Ellipsis Muted SmallFont'>{
       store.get('uploadedProvidersFilename')
         ? `Uploaded ${store.get('uploadedProvidersFilename')}`
-        : 'Upload valid list of providers'
+        : ' '
     }</p>
   </div>
 )

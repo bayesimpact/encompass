@@ -3,7 +3,7 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, Dataset, Method, Provider } from '../constants/datatypes'
+import { AdequacyMode, Method, Provider } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { representativePointsFromServiceAreas } from '../utils/data'
@@ -157,31 +157,6 @@ export function withEffects(store: Store) {
     })
 
   /**
-   * When user uploads there own dataset, switch to analytics mode.
-   */
-  Observable
-    .combineLatest(
-    store.on('providers'),
-    store.on('serviceAreas')
-    )
-    .subscribe(async ([providers, serviceAreas]) => {
-      if (providers.length && serviceAreas.length && store.get('route') === '/add-data'){
-        let dataSet: Dataset = {
-          dataSources: [
-            store.get('uploadedServiceAreasFilename') || 'No Service Areas',
-            store.get('uploadedProvidersFilename') || 'No Providers'],
-          description: 'Your own data',
-          name: 'Your Data',
-          providers: store.get('providers'),
-          serviceAreaIds: store.get('serviceAreas')
-        }
-        console.log(dataSet)
-        store.set('selectedDataset')(dataSet)
-        return
-      }
-    })
-
-  /**
    * If the user selects a service area, then deselects that service area's
    * zip code or county in the Service Area drawer, we should de-select the
    * service area too.
@@ -226,7 +201,7 @@ export function withEffects(store: Store) {
       store.set('adequacies')({})
       store.set('representativePoints')([])
       store.set('selectedServiceArea')(null)
-      if (selectedDataset && store.get('route') === '/add-data'){
+      if (selectedDataset && store.get('route') === '/add-data') {
         store.set('route')('/analytics')
       }
       if (selectedDataset) {

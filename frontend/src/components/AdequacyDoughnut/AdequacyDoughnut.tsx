@@ -38,11 +38,11 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
         datasets: [{
           data: populationByAdequacy,
           backgroundColor: [
-              ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15],
-              ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30],
-              ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60],
-              ADEQUACY_COLORS[AdequacyMode.INADEQUATE]
-            ]
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60],
+            ADEQUACY_COLORS[AdequacyMode.INADEQUATE]
+          ]
         }]
       }}
       options={{
