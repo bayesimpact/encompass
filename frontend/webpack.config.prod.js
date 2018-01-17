@@ -11,7 +11,8 @@ module.exports = {
     compress: true,
     // hot: true,
     https: false,
-    port: 8081
+    port: 8081,
+    disableHostCheck: true
   },
   entry: './src/index.tsx',
   externals: {
