@@ -26,3 +26,8 @@ node_modules
 
 # Private Data
 data/private/*
+
+# terraform local state
+**/.terraform/
+**/*.tfstate*
+
