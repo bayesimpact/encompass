@@ -7,6 +7,12 @@ locals {
   load_balancer_name = "${var.load_balancer_name}-${var.env_name}"
 }
 
+# Bayes Impact Default VPC.
+resource "aws_vpc" "main" {
+  cidr_block       = "172.31.0.0/16"
+  instance_tenancy = "default"
+}
+
 # This is the ec2 instance representing the default app server.
 resource "aws_instance" "na_app" {
   # These two attributes are required.
@@ -106,7 +112,7 @@ resource "aws_lb" "na_app_elb" {
   load_balancer_type         = "application"
   enable_deletion_protection = true
   idle_timeout               = 60
-  security_groups = ["${aws_security_group.na_app_sg.id}"]
+  security_groups            = ["${aws_security_group.na_app_sg.id}"]
 
   subnets = ["${aws_instance.na_app.subnet_id}"]
 
@@ -114,4 +120,46 @@ resource "aws_lb" "na_app_elb" {
     Environment = "${var.env_name}"
     Name = "${local.load_balancer_name}"
   }
+}
+
+resource "aws_lb_target_group" "na_lb_tg_80" {
+  name        = "na-app-tg-80-${var.env_name}"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_80" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_80.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 80
+}
+
+resource "aws_lb_target_group" "na_lb_tg_8080" {
+  name        = "na-app-tg-8080-${var.env_name}"
+  port        = 8080
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_8080" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_8080.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 8080
+}
+
+resource "aws_lb_target_group" "na_lb_tg_8081" {
+  name        = "na-app-tg-8081-${var.env_name}"
+  port        = 8081
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_8081" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_8081.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 8081
 }
