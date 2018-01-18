@@ -243,7 +243,7 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'driving_distance' || method === 'haversine_distance') {
+  if (method === 'haversine_distance') {
     if (adequacy.distance_to_closest_provider <= 15) {
       return AdequacyMode.ADEQUATE_15
     }

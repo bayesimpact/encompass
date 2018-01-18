@@ -27,7 +27,6 @@ export let MapLegend = withStore('method')(({ store }) =>
 
 function getCopy(method: Method, standard: AdequacyMode) {
   switch (method) {
-    case 'driving_distance':
     case 'haversine_distance':
       switch (standard) {
         case AdequacyMode.ADEQUATE_15: return '15 miles'
