@@ -26,13 +26,13 @@ export let ServiceAreasUploader = withStore(
     />
     <div className='Flex -Row'>
       <CSVUploader label='Service Areas' onUpload={onFileSelected(store)} />
+      <div className='Ellipsis Muted SmallFont'>{
+        store.get('uploadedServiceAreasFilename')
+          ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
+          : ''
+      }</div>
       {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
-    <p className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedServiceAreasFilename')
-        ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
-        : ' '
-    }</p>
   </div >
   )
 

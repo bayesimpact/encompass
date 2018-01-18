@@ -13,13 +13,13 @@ export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store 
   <div>
     <div className='Flex -Row'>
       <CSVUploader label='Providers' onUpload={onFileSelected(store)} />
+      <div className='Ellipsis Muted SmallFont'>{
+        store.get('uploadedProvidersFilename')
+          ? `Uploaded ${store.get('uploadedProvidersFilename')}`
+          : ''
+      }</div>
       {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
-    <p className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedProvidersFilename')
-        ? `Uploaded ${store.get('uploadedProvidersFilename')}`
-        : ' '
-    }</p>
   </div>
 )
 ProvidersUplodader.displayName = 'ProvidersUploader'
