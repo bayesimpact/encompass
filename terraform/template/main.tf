@@ -44,7 +44,7 @@ resource "aws_db_instance" "na_db" {
   name                                = "network_adequacy"
   port                                = 5432
   publicly_accessible                 = true
-  snapshot_identifier                 = "initial-for-tds-qa"
+  snapshot_identifier                 = "encompass-prod-17-1"
   storage_encrypted                   = false
   storage_type                        = "gp2"
   username                            = "tds"
