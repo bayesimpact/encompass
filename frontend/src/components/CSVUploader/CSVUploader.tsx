@@ -1,4 +1,4 @@
-import FlatButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
 import './CSVUploader.css'
 

@@ -26,9 +26,9 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
 )
 
 let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div className='AnalyzeButton'>
+  <div className='AnalyzerButton'>
     <RaisedButton
-      className={'Button -Primary ' + ('AnalyzerButton' || '')}
+      className={'Button -Primary AnalyzerButton'}
       containerElement='label'
       primary={true}
       label='Analyze'
