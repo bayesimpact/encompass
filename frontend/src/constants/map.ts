@@ -3,4 +3,4 @@ export const DEFAULT_MAP_CENTER = {
   lng: -122.444687
 }
 
-export const DEFAULT_MAP_ZOOM = 12
+export const DEFAULT_MAP_ZOOM = 10
