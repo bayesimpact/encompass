@@ -1,10 +1,10 @@
 import { AdequacyMode } from './datatypes'
 
 export const ADEQUACY_COLORS: Record<AdequacyMode, string> = {
-  ADEQUATE_15: '#478E51',
-  ADEQUATE_30: '#89AD8E',
-  ADEQUATE_60: '#A38395',
-  INADEQUATE: '#8E4770',
+  ADEQUATE_15: '#3949ab',
+  ADEQUATE_30: '#7986cb',
+  ADEQUATE_60: '#ff8a65',
+  INADEQUATE: '#f4511e',
   OUT_OF_SCOPE: 'transparent'
 }
 
