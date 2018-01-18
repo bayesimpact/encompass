@@ -126,6 +126,12 @@ p {
   background: var(--secondary) !important;
   color: #fff !important;
 }
+
+.Button.-Secondary > label {
+  background: #fff !important;
+  color: var(--secondary) !important;
+}
+
 .Button.-Primary path {
   fill: var(--primary) !important;
 }

@@ -12,7 +12,7 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store }) =>
   <div>
     <div className='Flex -Row'>
-      <CSVUploader className='-Flex-0' label='Providers' onUpload={onFileSelected(store)} />
+      <CSVUploader label='Providers' onUpload={onFileSelected(store)} />
       {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
     <p className='Ellipsis Muted SmallFont'>{
