@@ -193,6 +193,21 @@ export function withEffects(store: Store) {
     )
 
   /**
+   * When the user adds representative points,
+   * make sure that providers appear on top.
+   */
+  store
+    .on('representativePoints')
+    .subscribe(representativePoints => {
+      let temp_providers = store.get('providers')
+      if (representativePoints.length && temp_providers.length) {
+        store.set('providers')([])
+        store.set('providers')(temp_providers)
+      }
+    }
+    )
+
+  /**
    * Clear state when the user selects a dataset in the Datasets Drawer.
    */
   store
