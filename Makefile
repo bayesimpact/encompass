@@ -23,7 +23,7 @@ setup-local-db:
 S3_BUCKET='https://s3-us-west-1.amazonaws.com/network-adequacy/data-011317/etl/output/'
 load_representative_points:
 	curl  --create-dirs -o 'data/representative_points.geojson' ${S3_BUCKET}$(state)'_representative_points.geojson'
-	python runners/load_representative_points -f 'data/representative_points.geojson'
+	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"
 	rm data/representative_points.geojson
 
 # Run the app in debug mode.

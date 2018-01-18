@@ -23,9 +23,9 @@ class RepresentativePoint(Base):
     county = Column(String, nullable=False, index=True)
     isodistancePolygon = Column(JSON)
     zip_code = Column(String, nullable=False, index=True)
-    census_block_group = Column(Integer)
-    census_block = Column(Integer)
-    census_tract = Column(Integer)
+    census_block_group = Column(String)
+    census_block = Column(String)
+    census_tract = Column(String)
 
 
 def row_to_dict(rp_row, format_response=True):

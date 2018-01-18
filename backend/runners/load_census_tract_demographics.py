@@ -17,11 +17,14 @@ def _drop_census_table_if_exists():
 
 
 def _read_census_data_in_batches(filepath='data/census/acs2015_census_tract_data.csv'):
-    return list(pd.read_csv(
-        'data/acs2015_census_tract_data.csv',
-        dtype={'CensusTract': str},
-        chunksize=500,
-    ))
+    dataframes = list(
+        pd.read_csv(
+            filepath,
+            dtype={'CensusTract': str},
+            chunksize=500,
+        )
+    )
+    return [_clean_dataframe(df) for df in dataframes]
 
 
 def _convert_string_to_snake_case(input):
@@ -29,12 +32,22 @@ def _convert_string_to_snake_case(input):
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
-def _upload_single_dataframe(df):
-    engine = connect.create_db_engine()
+def _clean_dataframe(df):
+    """Make columns snake_case and zero-pad census tract information."""
     df.columns = [
         _convert_string_to_snake_case(col)
         for col in df.columns
     ]
+    df['census_tract'] = df['census_tract'].apply(
+        lambda tract_string:
+            '0' + tract_string if len(tract_string) == 10
+            else tract_string
+    )
+    return df
+
+
+def _upload_single_dataframe(df):
+    engine = connect.create_db_engine()
     df.to_sql(
         name=CENSUS_TABLE_NAME,
         con=engine,

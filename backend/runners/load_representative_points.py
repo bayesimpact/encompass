@@ -80,7 +80,7 @@ def _transform_single_point(point):
             latitude=point['geometry']['coordinates'][1]
         ),
         # FIXME: Once appropriate behavior is implemented in the frontend,
-        # move to a more honest representatiion for this column.
+        # move to a more honest representation for this column.
         'population': point['properties']['population'],
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip_code'],
@@ -88,6 +88,17 @@ def _transform_single_point(point):
             state=point['properties']['state'].lower(),
             county=point['properties']['county'].lower().replace(' ', '_'),
             zip=point['properties']['zip_code']
+        ),
+        'census_tract': '{statefp}{countyfp}{tractce}'.format(
+            statefp=point['properties']['statefp'],
+            countyfp=point['properties']['countyfp'],
+            tractce=point['properties']['tractce'],
+        ),
+        'census_block': '{statefp}{countyfp}{tractce}{blkgrpce}'.format(
+            statefp=point['properties']['statefp'],
+            countyfp=point['properties']['countyfp'],
+            tractce=point['properties']['tractce'],
+            blkgrpce=point['properties']['blkgrpce']
         )
     }
 
