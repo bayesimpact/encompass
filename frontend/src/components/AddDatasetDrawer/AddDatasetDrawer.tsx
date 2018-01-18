@@ -12,7 +12,7 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
     <p className='MediumWeight Muted'>
-      To analyze the accessibility of your own set of providers, facilities, or social services, your
+      To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two seperate CSV files: <br />
 
       - list of service areas (County and/or ZIPCode columns). <br />
