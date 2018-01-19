@@ -26,7 +26,12 @@ Link.displayName = 'Link'
 export let BackLink = withStore()(({ store }) =>
   <Link
     className='Muted Uppercase'
-    onClick={() => store.set('selectedDataset')(null)}
+    onClick={() => {
+      store.set('uploadedServiceAreasFilename')(null)
+      store.set('uploadedProvidersFilename')(null)
+      store.set('selectedDataset')(null)
+    }
+    }
     to='/datasets'
-  >⟵ Back to datasets</Link>
+  > ⟵ Back to datasets</Link >
 )

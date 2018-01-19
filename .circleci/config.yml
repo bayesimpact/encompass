@@ -1,0 +1,64 @@
+version: 2
+
+jobs:
+    build_backend:
+        machine:
+            docker_layer_caching: true
+        steps:
+            - checkout
+            - run:
+                name: Install Docker Compose
+                command: |
+                    curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+                    chmod +x ~/docker-compose
+                    sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            - run:
+                name: Create env file
+                command: |
+                  touch .env
+                  echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
+            - run:
+                name: Build containers
+                command: 'docker-compose build backend'
+            # This next step needs to be figured out. The DB initialization needs to happen at a sensible point.
+#            - run:
+#                name: Set up the containerized DB
+#                command: 'make setup-local-db'
+            - run:
+                name: Run linters
+                command: |
+                    make backend-lint
+            - run:
+                name: Run tests
+                command: |
+                    make backend-coverage
+
+    build_frontend:
+        machine:
+            docker_layer_caching: true
+        steps:
+            - checkout
+            - run:
+                name: Install Docker Compose
+                command: |
+                    curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+                    chmod +x ~/docker-compose
+                    sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            - run:
+                name: Create env file
+                command: |
+                  touch .env
+            - run:
+                name: Build containers
+                command: 'docker-compose build frontend'
+            - run:
+                name: Run tests
+                command: |
+                    make frontend-test
+
+workflows:
+    version: 2
+    build:
+        jobs:
+            - build_backend
+            - build_frontend

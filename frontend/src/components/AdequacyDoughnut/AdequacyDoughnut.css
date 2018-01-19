@@ -1,7 +1,7 @@
 .AdequacyDoughnut .HighLevelStats {
     margin: 10px 0 20px;
   }
-  
-  .AdequacyDoughnut canvas + .StatsBox {
-    margin-top: 20px;
-  }
+
+.AdequacyDoughnut canvas + .StatsBox {
+  margin-top: 20px;
+ }

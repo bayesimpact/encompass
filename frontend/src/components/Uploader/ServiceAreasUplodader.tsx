@@ -20,21 +20,19 @@ export let ServiceAreasUploader = withStore(
   'uploadedServiceAreasFilename'
 )(({ store }) =>
   <div>
-    <h2>Service Areas</h2>
     <StateSelector
       onChange={store.set('selectedState')}
       value={store.get('selectedState')}
     />
-    <p className='HeavyWeight Muted'>Upload a CSV with service areas.</p>
     <div className='Flex -Row'>
-      <CSVUploader className='-Flex-0' onUpload={onFileSelected(store)} />
+      <CSVUploader label='Service Areas' onUpload={onFileSelected(store)} />
+      <div className='Ellipsis Muted SmallFont'>{
+        store.get('uploadedServiceAreasFilename')
+          ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
+          : ''
+      }</div>
       {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
-    <p className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedServiceAreasFilename')
-        ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
-        : 'Upload valid zip codes and/or counties'
-    }</p>
   </div >
   )
 

@@ -1,19 +1,20 @@
-import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
 import './CSVUploader.css'
 
 type Props = {
-  className?: string
+  className?: string,
+  label: string
   onUpload(file: File): void
 }
 
-export let CSVUploader: React.StatelessComponent<Props> = ({ className, onUpload }) =>
+export let CSVUploader: React.StatelessComponent<Props> = ({ label, onUpload }) =>
   <div className='CSVUploader'>
-    <RaisedButton
-      className={'Button -Primary ' + (className || '')}
+    <FlatButton
+      className='CSVUploader Button -Secondary -Flex-0'
+      label={label}
+      labelPosition='before'
       containerElement='label'
-      primary={true}
-      label='Upload'
     >
       <input
         onChange={e => {
@@ -26,6 +27,6 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ className, onUpload
         type='file'
         accept='.csv'
       />
-    </RaisedButton>
-  </div>
+    </FlatButton>
+  </div >
 CSVUploader.displayName = 'CSVUploader'
