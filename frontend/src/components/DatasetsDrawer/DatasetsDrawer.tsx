@@ -6,7 +6,6 @@ import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { Tile, TilePicker } from '../TilePicker/TilePicker'
-
 import './DatasetsDrawer.css'
 
 export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
