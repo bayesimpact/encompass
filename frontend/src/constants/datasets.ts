@@ -7,7 +7,7 @@ export let DATASETS: Dataset[] = [
         'texas_abortion_clinics_address_all.csv'
     ],
     description: 'Abortion Clinics in Texas as of March 2017',
-    name: 'Abortion Clinics in Texas - March 2017',
+    name: 'Abortion Clinics in Texas',
     providers: [
         {
     address: '7324 Southwest Fwy, Houston, TX 77074, USA, Houston, TX 77074',
