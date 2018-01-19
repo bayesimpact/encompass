@@ -53,6 +53,7 @@ const providerCircleStyle: MapboxGL.CirclePaint = {
 function removePopup(store: Store) {
   store.set('selectedProvider')(null)
   store.set('selectedRepresentativePoint')(null)
+  store.set('providerIndex')(0)
 }
 
 const FIT_BOUNDS_OPTIONS = {
@@ -70,6 +71,7 @@ export let MapView = withStore(
   'adequacies',
   'mapCenter',
   'mapZoom',
+  'providerIndex',
   'providers',
   'selectedProvider',
   'selectedRepresentativePoint'
@@ -102,7 +104,7 @@ export let MapView = withStore(
         circleOnClick={store.set('selectedProvider')}
       />}
       {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
-      {selectedProvider && <ProviderPopup point={selectedProvider} />}
+      {selectedProvider && <ProviderPopup store={store} point={selectedProvider} />}
 
       <ZoomControl position='bottomRight' style={ZOOM_CONTROL_STYLE} />
       <ScaleControl measurement='mi' position='bottomRight' style={SCALE_CONTROL_STYLE} />

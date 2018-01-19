@@ -20,3 +20,17 @@
 .MapTooltip tr :first-child {
   font-weight: var(--heavy-weight);
 }
+
+.MapTooltip button  {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-align: right;
+  text-decoration: none;
+  font-size: var(--medium-font);
+}
+
+.MapTooltip .controls  {
+  font-size: var(--medium-font);
+  color: rgba(255, 255, 255, .8);
+}

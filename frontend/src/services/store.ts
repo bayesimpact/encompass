@@ -42,6 +42,11 @@ type Actions = {
   measure: Measure
 
   /**
+   * Index keeping track of provider to display for multi-provider popups.
+   */
+  providerIndex: number
+
+  /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
    */
   providers: Provider[]
@@ -130,6 +135,7 @@ let store = withEffects(createStore<Actions>({
   mapCursor: '',
   mapZoom: 12,
   measure: 15,
+  providerIndex: 0,
   providers: [],
   representativePoints: [],
   route: '/service-areas',
