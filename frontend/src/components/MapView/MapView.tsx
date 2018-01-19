@@ -40,7 +40,7 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     // minRadius, maxRadius = 4, 12
     stops: [
       [10, 4],
-      [10000, 10]
+      [10000, 12]
     ]
   }
 }
