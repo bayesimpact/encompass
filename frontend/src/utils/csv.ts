@@ -7,6 +7,7 @@ export function parseCSV<T>(csvFile: File): Promise<T[]> {
       complete({ data }) {
         resolve(data)
       },
+      skipEmptyLines: true,
       error: reject
     })
   )
