@@ -14,7 +14,6 @@ export let FilterBar = withStore('method')(({ store }) =>
         onChange={(_e, _i, value) => store.set('method')(value)}
         value={store.get('method')}
       >
-        <MenuItem value='driving_distance' primaryText='Driving Distance' />
         <MenuItem value='driving_time' primaryText='Driving Time' />
         <MenuItem value='haversine_distance' primaryText='Haversine Distance' />
       </DropDownMenu>

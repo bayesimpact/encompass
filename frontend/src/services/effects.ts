@@ -4,7 +4,6 @@ import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Method, Provider } from '../constants/datatypes'
-import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
@@ -228,11 +227,8 @@ export function withEffects(store: Store) {
         store.set('providers')([])
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
-        store.set('mapCenter')(DEFAULT_MAP_CENTER)
-        store.set('mapZoom')(DEFAULT_MAP_ZOOM)
       }
     })
-
   return store
 }
 
@@ -247,7 +243,7 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'driving_distance' || method === 'haversine_distance') {
+  if (method === 'haversine_distance') {
     if (adequacy.distance_to_closest_provider <= 15) {
       return AdequacyMode.ADEQUATE_15
     }

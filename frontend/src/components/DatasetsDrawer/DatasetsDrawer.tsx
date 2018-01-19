@@ -1,21 +1,12 @@
 import { memoize } from 'lodash'
 // import Add from 'material-ui/svg-icons/content/add-circle'
 import * as React from 'react'
+import { DATASET_COLORS } from '../../constants/colors'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { Tile, TilePicker } from '../TilePicker/TilePicker'
 import './DatasetsDrawer.css'
-
-const COLORS = [
-  '#5f7c8a',
-  '#47488e',
-  '#478e8c',
-  '#478e51',
-  '#8e7947',
-  '#8e4747',
-  '#8e4770'
-]
 
 export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   color: '#237900',
@@ -32,7 +23,7 @@ export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
 
 let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
   datasets.map((_, n) => ({
-    color: COLORS[n],
+    color: DATASET_COLORS[n],
     data: _,
     description: _.description,
     name: _.name

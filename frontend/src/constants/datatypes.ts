@@ -37,9 +37,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_distance'
-  | 'driving_time'
-  | 'haversine_distance'
+export type Method = 'driving_time' | 'haversine_distance'
 
 export type Provider = {
   address: string
