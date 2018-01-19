@@ -195,6 +195,7 @@ export function withEffects(store: Store) {
   /**
    * When the user adds representative points,
    * make sure that providers appear on top.
+   * TODO - Invetsigate less hacky method.
    */
   store
     .on('representativePoints')
