@@ -104,13 +104,18 @@ export function withEffects(store: Store) {
     store.on('providers'),
     store.on('representativePoints'),
     store.on('selectedServiceArea').startWith(store.get('selectedServiceArea')),
+    store.on('route'),
     store.on('method').startWith(store.get('method'))
     )
-    .subscribe(async ([providers, representativePoints, selectedServiceArea, method]) => {
+    .subscribe(async ([providers, representativePoints, selectedServiceArea, route, method]) => {
       if (!providers.length || !representativePoints.length) {
         store.set('adequacies')({})
         return
       }
+
+      // Only compute adequacy when in the analytics panel.
+      if (route !== '/analytics')
+        return
 
       let serviceAreas = store.get('serviceAreas')
 
@@ -213,9 +218,6 @@ export function withEffects(store: Store) {
   store
     .on('selectedDataset')
     .subscribe(selectedDataset => {
-      store.set('adequacies')({})
-      store.set('representativePoints')([])
-      store.set('selectedServiceArea')(null)
       if (selectedDataset && store.get('route') === '/add-data') {
         store.set('route')('/analytics')
       }

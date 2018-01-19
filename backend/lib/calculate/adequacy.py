@@ -151,8 +151,9 @@ def calculate_adequacies(
         len(locations), len(service_area_ids)))
 
     location_mapping = collections.defaultdict(list)
-    for location in locations:
-        point_id = location.pop('id')
+    for i, location in enumerate(locations):
+        # TODO - Permanently fix this on the frontend side.
+        point_id = location.pop('id', i)
         location_mapping[Point(**location)].append(point_id)
 
     locations = list(location_mapping.keys())
