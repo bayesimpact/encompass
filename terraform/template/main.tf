@@ -4,6 +4,13 @@ provider "aws" {
 
 locals {
   security_group_name = "${var.app_security_group_name}-${var.env_name}"
+  load_balancer_name = "${var.load_balancer_name}-${var.env_name}"
+}
+
+# Bayes Impact Default VPC.
+resource "aws_vpc" "main" {
+  cidr_block       = "${var.default_vpc_cidr_block}"
+  instance_tenancy = "default"
 }
 
 # This is the ec2 instance representing the default app server.
@@ -94,5 +101,98 @@ resource "aws_security_group" "na_app_sg" {
 
   tags {
     Name = "na_app_sg"
+  }
+}
+
+# Application load balancer for appserver[s]
+resource "aws_lb" "na_app_elb" {
+  name                       = "${local.load_balancer_name}"
+  internal                   = false
+  ip_address_type            = "ipv4"
+  load_balancer_type         = "application"
+  enable_deletion_protection = true
+  idle_timeout               = 60
+  security_groups            = ["${aws_security_group.na_app_sg.id}"]
+
+  subnets = "${var.default_subnets}"
+
+  tags {
+    Environment = "${var.env_name}"
+    Name = "${local.load_balancer_name}"
+  }
+}
+
+resource "aws_lb_target_group" "na_lb_tg_80" {
+  name        = "na-app-tg-80-${var.env_name}"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_80" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_80.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 80
+}
+
+resource "aws_lb_listener" "na_app_elb_listener_80" {
+  load_balancer_arn = "${aws_lb.na_app_elb.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_80.arn}"
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_target_group" "na_lb_tg_8080" {
+  name        = "na-app-tg-8080-${var.env_name}"
+  port        = 8080
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_8080" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_8080.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 8080
+}
+
+resource "aws_lb_listener" "na_app_elb_listener_8080" {
+  load_balancer_arn = "${aws_lb.na_app_elb.arn}"
+  port              = "8080"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_8080.arn}"
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_target_group" "na_lb_tg_8081" {
+  name        = "na-app-tg-8081-${var.env_name}"
+  port        = 8081
+  protocol    = "HTTP"
+  vpc_id      = "${aws_vpc.main.id}"
+  target_type = "instance"
+}
+
+resource "aws_lb_target_group_attachment" "na_lb_tga_8081" {
+  target_group_arn = "${aws_lb_target_group.na_lb_tg_8081.arn}"
+  target_id        = "${aws_instance.na_app.id}"
+  port             = 8081
+}
+
+resource "aws_lb_listener" "na_app_elb_listener_8081" {
+  load_balancer_arn = "${aws_lb.na_app_elb.arn}"
+  port              = "8081"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_8081.arn}"
+    type             = "forward"
   }
 }
