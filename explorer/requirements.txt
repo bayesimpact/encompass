@@ -1,6 +1,26 @@
-osmnx==0.6
-shapely==1.6.1
-descartes==1.1.0
+descartes>=1.1.0
 pymongo==3.5.1
-geojson==2.3.0
+# Geo methods
+cHaversine==0.3.0
+geopy==1.11.0
+Shapely==1.6.2
+osmnx==0.6
 pygeocodio==0.5.0
+# Database
+retrying==1.3.3
+geoalchemy2==0.4.0
+geojson==2.3.0
+psycopg2==2.7.1
+sqlalchemy==1.1.4
+sqlalchemy-postgres-copy==0.5.0
+sqlalchemy_utils
+# Used by `make test` only:
+mock==2.0.0
+pytest==3.2.2
+pytest-cov==2.4.0
+Flask-Testing==0.6.2
+# Used by `make lint` only:
+flake8==3.3.0
+flake8-import-order==0.12
+flake8-quotes==0.11.0
+pep257==0.7.0
