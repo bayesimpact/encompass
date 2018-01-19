@@ -4224,7 +4224,7 @@ export let DATASETS: Dataset[] = [
   {
     name: 'Bar',
     dataSources: [],
-    description: 'All Texas veterinarians registered to operate on French Bulldogs from 2014-2017',
+    description: 'All Texas veterinarians registered to operate on French Bulldogs',
     providers: [],
     serviceAreaIds: ['ca_san_francisco_94114']
   }
