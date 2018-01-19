@@ -82,15 +82,13 @@ def _get_locations_to_check_by_service_area(
         SELECT * FROM (
             VALUES {address_values_list}
         ) AS t (idx, location);
-        CREATE INDEX tmp_{temp_table_name}_gix ON {temp_table_name} USING GIST (location);
+        CREATE INDEX tmp_{temp_table_name}_gix ON {temp_table_name} USING GIST (location)
+        ;
     """.format(
         temp_table_name=temp_table_name,
         address_values_list=', '.join(address_values)
     )
-
-    engine.execute(create_temp_table_query)
-
-    query = """
+    gis_query = """
         SELECT
             areas.service_area_id AS service_area_id
             , tmp.idx AS address_idx
@@ -101,14 +99,22 @@ def _get_locations_to_check_by_service_area(
         )
         WHERE 1=1
             AND areas.service_area_id IN {service_area_id_list}
+        ;
     """.format(
         temp_table_name=temp_table_name,
         service_areas=service_area.ServiceArea.__tablename__,
         addresses=address.Address.__tablename__,
         service_area_id_list=service_area_id_list,
-        radius=radius_in_meters
+        radius=radius_in_meters,
     )
 
+    query = """
+        {create_temp_table_query}
+        {gis_query}
+    """.format(
+        create_temp_table_query=create_temp_table_query,
+        gis_query=gis_query
+    )
     query_results = (dict(row) for row in engine.execute(query))
 
     for row in query_results:
@@ -119,8 +125,6 @@ def _get_locations_to_check_by_service_area(
     for service_area_id in service_area_ids:
         if service_area_id not in locations_to_check_by_service_area:
             locations_to_check_by_service_area[service_area_id] = locations
-
-    engine.execute('DROP TABLE IF EXISTS {temp_table_name}'.format(temp_table_name=temp_table_name))
 
     return locations_to_check_by_service_area
 
