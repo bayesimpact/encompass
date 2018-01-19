@@ -9,7 +9,7 @@ locals {
 
 # Bayes Impact Default VPC.
 resource "aws_vpc" "main" {
-  cidr_block       = "172.31.0.0/16"
+  cidr_block       = "${var.default_vpc_cidr_block}"
   instance_tenancy = "default"
 }
 
@@ -114,7 +114,7 @@ resource "aws_lb" "na_app_elb" {
   idle_timeout               = 60
   security_groups            = ["${aws_security_group.na_app_sg.id}"]
 
-  subnets = ["${aws_instance.na_app.subnet_id}", "subnet-825462c4", "subnet-33798e56"] # FIXME
+  subnets = "${var.default_subnets}"
 
   tags {
     Environment = "${var.env_name}"

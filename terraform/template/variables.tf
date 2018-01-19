@@ -32,6 +32,18 @@ variable "load_balancer_name" {
   default     = "na-app-alb"
 }
 
+variable "default_subnets" {
+  description = "Default subnets in us-west-1 for Bayes Impact default VPC"
+  type        = "list"
+  default     = ["subnet-825462c4", "subnet-33798e56"]
+}
+
+variable "default_vpc_cidr_block" {
+  description = "CIDR block for default us-west-1 Bayes Impact VPC"
+  type        = "string"
+  default     = "172.31.0.0/16"
+}
+
 variable "db_password" {
   description = "The password to use for TDS DB access"
   type        = "string"
