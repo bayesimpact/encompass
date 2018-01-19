@@ -9,29 +9,30 @@ export let MapLegend = withStore('method')(({ store }) =>
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15] }}
-    />Adequate ({getCopy(store.get('method'), AdequacyMode.ADEQUATE_15)})</li>
+    />{getLegend(store.get('method'), AdequacyMode.ADEQUATE_15)}</li>
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30] }}
-    />Adequate ({getCopy(store.get('method'), AdequacyMode.ADEQUATE_30)})</li>
+    />{getLegend(store.get('method'), AdequacyMode.ADEQUATE_30)}</li>
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60] }}
-    />Adequate ({getCopy(store.get('method'), AdequacyMode.ADEQUATE_60)})</li>
+    />{getLegend(store.get('method'), AdequacyMode.ADEQUATE_60)}</li>
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.INADEQUATE] }}
-    />Inadequate</li>
+    />{getLegend(store.get('method'), AdequacyMode.INADEQUATE)}</li>
   </ul>
 )
 
-function getCopy(method: Method, standard: AdequacyMode) {
+export function getLegend(method: Method, standard: AdequacyMode) {
   switch (method) {
     case 'haversine_distance':
       switch (standard) {
         case AdequacyMode.ADEQUATE_15: return '15 miles'
         case AdequacyMode.ADEQUATE_30: return '30 miles'
         case AdequacyMode.ADEQUATE_60: return '60 miles'
+        case AdequacyMode.INADEQUATE: return '> 60 miles'
       }
       break
     case 'driving_time':
@@ -39,7 +40,9 @@ function getCopy(method: Method, standard: AdequacyMode) {
         case AdequacyMode.ADEQUATE_15: return '30 min'
         case AdequacyMode.ADEQUATE_30: return '45 min'
         case AdequacyMode.ADEQUATE_60: return '60 min'
+        case AdequacyMode.INADEQUATE: return '> 60 min'
       }
       break
   }
+  return ''
 }

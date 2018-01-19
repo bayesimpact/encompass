@@ -7,6 +7,7 @@ import { AdequacyMode } from '../../constants/datatypes'
 import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
+import  { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './AdequacyDoughnut.css'
 
@@ -21,7 +22,7 @@ type Props = StoreProps & {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, store }) => {
+export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ serviceAreas, store }) => {
 
   let {
     numAdequatePopulation,
@@ -34,7 +35,12 @@ export let AdequacyDoughnut = withStore('adequacies')<Props>(({ serviceAreas, st
   return <div className='AdequacyDoughnut'>
     <Doughnut
       data={{
-        labels: ['15 miles', '30 miles', '60 miles', 'Inadequate'],
+        labels: [
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_15),
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_30),
+          getLegend(store.get('method'), AdequacyMode.ADEQUATE_60),
+          getLegend(store.get('method'), AdequacyMode.INADEQUATE)
+        ],
         datasets: [{
           data: populationByAdequacy,
           backgroundColor: [
