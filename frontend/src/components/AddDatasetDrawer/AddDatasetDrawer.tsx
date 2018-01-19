@@ -48,6 +48,7 @@ function Analyze(store: Store) {
       providers: store.get('providers'),
       serviceAreaIds: store.get('serviceAreas')
     }
+    // To Save dataSet, use - console.log(JSON.stringify(dataSet, null, 4))
     store.set('uploadedServiceAreasFilename')(null)
     store.set('uploadedProvidersFilename')(null)
     store.set('selectedDataset')(dataSet)

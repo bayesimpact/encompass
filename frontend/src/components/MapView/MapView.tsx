@@ -37,10 +37,10 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     property: 'population',
     type: 'exponential',
     // minPopulation, maxPopulation = 10, 10000
-    // minRadius, maxRadius = 4, 12
+    // minRadius, maxRadius = 4, 10
     stops: [
       [10, 4],
-      [10000, 12]
+      [20000, 10]
     ]
   }
 }
