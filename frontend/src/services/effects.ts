@@ -126,7 +126,7 @@ export function withEffects(store: Store) {
       // TODO: Do this more elegantly to avoid the double-computation.
       let [adequacies, points] = await Promise.all([
         getAdequacies({
-          method: method === 'haversine_distance' ? 'haversine' : 'driving',
+          method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas
         }),
@@ -151,10 +151,8 @@ export function withEffects(store: Store) {
               _, method, hash[key].service_area_id, selectedServiceArea
             ),
             id: _.id,
-            distanceToClosestProvider: _.distance_to_closest_provider,
-            timeToClosestProvider: _.time_to_closest_provider,
-            closestProviderByDistance: providers[_.closest_providers_by_distance[0]],
-            closestProviderByTime: providers[_.closest_providers_by_time[0]]
+            toClosestProvider: _.to_closest_provider,
+            closestProvider: providers[_.closest_providers[0]]
           }))
           .value()
       )
@@ -234,6 +232,9 @@ export function withEffects(store: Store) {
   return store
 }
 
+let ONE_MILE_IN_METERS = 1609.344
+let ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
+
 function getAdequacyMode(
   adequacy: PostAdequaciesResponse[0],
   method: Method,
@@ -245,26 +246,26 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'haversine_distance') {
-    if (adequacy.distance_to_closest_provider <= 15) {
+  if (method === 'haversine') {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 15) {
       return AdequacyMode.ADEQUATE_15
     }
-    if (adequacy.distance_to_closest_provider <= 30) {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
       return AdequacyMode.ADEQUATE_30
     }
-    if (adequacy.distance_to_closest_provider <= 60) {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 60) {
       return AdequacyMode.ADEQUATE_60
     }
   }
 
   if (method === 'driving_time') {
-    if (adequacy.time_to_closest_provider <= 30) {
+    if (adequacy.to_closest_provider <= 15) {
       return AdequacyMode.ADEQUATE_15
     }
-    if (adequacy.time_to_closest_provider <= 45) {
+    if (adequacy.to_closest_provider <= 30) {
       return AdequacyMode.ADEQUATE_30
     }
-    if (adequacy.time_to_closest_provider <= 60) {
+    if (adequacy.to_closest_provider <= 60) {
       return AdequacyMode.ADEQUATE_60
     }
   }

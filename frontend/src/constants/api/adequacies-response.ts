@@ -10,13 +10,8 @@
 export type PostAdequaciesResponse = {
   id: number
   /**
-   * Distance (in miles) to the closest provider
+   * Measure (in meters or minutes) to the closest provider
    */
-  distance_to_closest_provider: number
-  /**
-   * Time (in minutes) to the closest provider
-   */
-  time_to_closest_provider: number
-  closest_providers_by_distance: number[]
-  closest_providers_by_time: number[]
+  to_closest_provider: number
+  closest_providers: number[]
 }[]

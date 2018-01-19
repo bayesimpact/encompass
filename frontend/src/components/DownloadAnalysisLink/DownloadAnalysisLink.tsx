@@ -2,7 +2,7 @@ import { FlatButton } from 'material-ui'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
-import { averageDistance, maxDistance, minDistance } from '../../utils/analytics'
+import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatistics } from '../../utils/data'
 import { download } from '../../utils/download'
@@ -61,9 +61,9 @@ function onClick(store: Store) {
         numInadequatePopulation,
         percentAdequatePopulation,
         percentInadequatePopulation,
-        minDistance(adequacies),
-        averageDistance(adequacies),
-        maxDistance(adequacies),
+        minMeasure(adequacies),
+        averageMeasure(adequacies),
+        maxMeasure(adequacies),
         '-',
         '-',
         '-'

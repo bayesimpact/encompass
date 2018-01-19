@@ -36,14 +36,11 @@ def _find_closest_location(point, locations, measurer, exit_distance_in_meters=N
             point_list=locations,
             exit_distance=exit_distance_in_meters
         )
-    provider_time = closest_distance * ONE_METER_IN_MILES * 2
     provider = {
         'id': point['id'],
         # FIXME - Return real lists of closest providers.
-        'closest_providers_by_distance': [1],
-        'closest_providers_by_time': [1],
-        'time_to_closest_provider': provider_time,
-        'distance_to_closest_provider': closest_distance * ONE_METER_IN_MILES
+        'closest_providers': [1],
+        'to_closest_provider': closest_distance
     }
     return provider
 
@@ -135,7 +132,7 @@ def calculate_adequacies(
     service_area_ids,
     locations,
     engine,
-    measure_name=config.get('measurer'),
+    measurer_name,
     radius_in_meters=RELEVANCY_RADIUS_IN_METERS
 ):
     """
@@ -150,10 +147,6 @@ def calculate_adequacies(
         - Aggregate the information for each point and return.
     """
     # TODO - Split analyis by specialty.
-    # TODO - Remove duplicate locations (cannot use set with dicts).
-    logger.debug('Calculating adequacies for {} provider locations and {} service areas.'.format(
-        len(locations), len(service_area_ids)))
-
     location_mapping = collections.defaultdict(list)
     for i, location in enumerate(locations):
         # TODO - Permanently fix this on the frontend side.
@@ -161,6 +154,10 @@ def calculate_adequacies(
         location_mapping[Point(**location)].append(point_id)
 
     locations = list(location_mapping.keys())
+
+    logger.debug(
+        'Calculating adequacies for {} locations ({} unique) and {} service areas using {}.'.format(
+            len(locations), len(location_mapping), len(service_area_ids), measurer_name))
 
     points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids,
@@ -185,8 +182,8 @@ def calculate_adequacies(
             str(sum(len(locations) for locations in locations_to_check_by_point)))
     )
 
-    measurer = distance.get_measure(measure_name)
-    measurer_config = config.get('measurer_config')[measure_name]
+    measurer = distance.get_measurer(measurer_name)
+    measurer_config = config.get('measurer_config')[measurer_name]
     executor_type = measurer_config['adequacy_executor_type']
     n_processors = measurer_config['n_adequacy_processors']
 

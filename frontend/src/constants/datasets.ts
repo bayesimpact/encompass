@@ -10,372 +10,140 @@ export let DATASETS: Dataset[] = [
     name: 'Abortion Clinics in Texas',
     providers: [
         {
-    address: '7324 Southwest Fwy, Houston, TX 77074, USA, Houston, TX 77074',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.701792,
-    lng: -95.518138
+            address: '1902 S IH-35 Suite A, Austin, TX 78704, Austin, TX 78704',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 30.30886,
+            lng: -97.754883
         },
         {
-    address: '6103-6299 Rookin St, Houston, TX 77074, USA, Houston, TX 77074',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.713825,
-    lng: -95.498547
+            address: '201 East Ben White, Austin, TX 78704, Austin, TX 78704',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 30.221356,
+            lng: -97.76293
         },
         {
-    address: '1929 Record Crossing Rd, Dallas, TX 75235, USA, Dallas, TX 75235',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.817751,
-    lng: -96.851051
+            address: '8401 N Interstate 35 Frontage Rd, Austin, TX 78753, Austin, TX 78753',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 30.388532,
+            lng: -97.672564
         },
         {
-    address: '7075 N Fwy Service Rd, Houston, TX 77091, USA, Houston, TX 77091',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.863774,
-    lng: -95.405472
+            address: '7989 W. Virginia Dr., Dallas TX 75237, Dallas, TX 75237',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 32.649991,
+            lng: -96.877165
         },
         {
-    address: '7402 John Smith Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.506173,
-    lng: -98.586049
+            address: '8616 Greenville Ave Ste 101, Dallas, TX 75243, Dallas, TX 75243',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 32.894425,
+            lng: -96.752722
         },
         {
-    address: '7402 John Smith Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.506173,
-    lng: -98.586049
+            address: '6464 John Ryan Dr, Fort Worth, TX 76132, Fort Worth, TX 76132',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 32.6555192739873,
+            lng: -97.4201249936249
         },
         {
-    address: '8600 Wurzbach Rd, San Antonio, TX 78240, USA, San Antonio, TX 78240',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.523871,
-    lng: -98.569348
+            address: '3256 Lackland Road, Fort Worth, TX 76116, Fort Worth, TX 76116',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 32.72514565,
+            lng: -97.4352218115
         },
         {
-    address: '1902 S IH 35 Frontage Rd, Austin, TX 78704, USA, Austin, TX 78704',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.30886,
-    lng: -97.754883
+            address: '2505 N. Shepherd Dr., Houston, TX 77008, Houston, TX 77008',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.8090543333333,
+            lng: -95.4103361111111
         },
         {
-    address: '1032 S 15th St, Kingsville, TX 78363, USA, Kingsville, TX 78363',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 27.51973,
-    lng: -97.855104
+            address: '4820 San Jacinto, Houston, TX 77004, Houston, TX 77004',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.729907,
+            lng: -95.3843
         },
         {
-    address: '3932 Bourbon St, Harlingen, TX 78550, USA, Harlingen, TX 78550',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 26.168486,
-    lng: -97.68194
+            address: '4600 Gulf Freeway, Houston, TX 77023, Houston, TX 77023',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.72722,
+            lng: -95.336828
         },
         {
-    address: '1600 N Campbell St, El Paso, TX 79902, USA, El Paso, TX 79902',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 31.770469,
-    lng: -106.49356
+            address: '802 S. Main Street, McAllen, TX 78501, McAllen, TX 78501',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 26.196697,
+            lng: -98.235848
         },
         {
-    address: '1101 Rosedale St, Houston, TX 77004, USA, Houston, TX 77004',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.72969,
-    lng: -95.384352
+            address: '7402 John Smith Dr, #101, San Antonio, TX 78229, San Antonio, TX 78229',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.5062995764712,
+            lng: -98.5859833971594
         },
         {
-    address: '9206-9208 Clearock Dr, Austin, TX 78750, USA, Austin, TX 78750',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.444926,
-    lng: -97.794926
+            address: '4025 East Southcross, San Antonio, TX , San Antonio, TX 78222',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.35494,
+            lng: -98.371889
         },
         {
-    address: 'Metroplex Spur, Killeen, TX 76549, USA, Killeen, TX 76549',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 31.017077,
-    lng: -97.833092
+            address: '1511 E Missouri Avenue, El Paso, TX 79902, El Paso, TX 79902',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 31.770213,
+            lng: -106.476909
         },
         {
-    address: '4701-4769 Lehigh St, Bellaire, TX 77401, USA, Bellaire, TX 77401',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.722036,
-    lng: -95.461362
+            address: '3101 Richmond Ave, Suite 250, Houston, Texas 77098, Houston, TX 77098',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.733334,
+            lng: -95.424668
         },
         {
-    address: '4600 Gulfcrest, Houston, TX 77023, USA, Houston, TX 77023',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.725042,
-    lng: -95.334562
+            address: '1121 Ross Avenue, Suite A, Waco, TX 76706, Waco, TX 76706',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 31.546326,
+            lng: -97.131813
         },
         {
-    address: '7711 Louis Pasteur Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.508927,
-    lng: -98.570017
-        },
-        {
-    address: '7567 Greenville Ave, Dallas, TX 75231, USA, Dallas, TX 75231',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.885642,
-    lng: -96.758552
-        },
-        {
-    address: '700-798 S 12th St, Waco, TX 76706, USA, Waco, TX 76706',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 31.485899,
-    lng: -97.13895
-        },
-        {
-    address: '4600 Gulfcrest, Houston, TX 77023, USA, Houston, TX 77023',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.725042,
-    lng: -95.334562
-        },
-        {
-    address: '7202-7298 W Beverly Mae Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.503352,
-    lng: -98.582535
-        },
-        {
-    address: '7202-7298 W Beverly Mae Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.503352,
-    lng: -98.582535
-        },
-        {
-    address: '4600 Gulfcrest, Houston, TX 77023, USA, Houston, TX 77023',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.725042,
-    lng: -95.334562
-        },
-        {
-    address: '12614 U.S. 59 Frontage Rd, Stafford, TX 77477, USA, Stafford, TX 77477',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.49898,
-    lng: -95.907
-        },
-        {
-    address: '4135-4141 E 29th St, Bryan, TX 77802, USA, Bryan, TX 77802',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.643449,
-    lng: -96.332268
-        },
-        {
-    address: '7989-7991 W Virginia Dr, Dallas, TX 75237, USA, Dallas, TX 75237',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.649944,
-    lng: -96.877155
-        },
-        {
-    address: '6220 John Ryan Dr, Fort Worth, TX 76132, USA, Fort Worth, TX 76132',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.659888,
-    lng: -97.420266
-        },
-        {
-    address: '11528 Perrin Beitel Rd, San Antonio, TX 78217, USA, San Antonio, TX 78217',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.544813,
-    lng: -98.410785
-        },
-        {
-    address: '157-187 E Ben White Blvd, Austin, TX 78704, USA, Austin, TX 78704',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.222929,
-    lng: -97.763192
-        },
-        {
-    address: '7202-7298 W Beverly Mae Dr, San Antonio, TX 78229, USA, San Antonio, TX 78229',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.503352,
-    lng: -98.582535
-        },
-        {
-    address: '1300-1312 58th St, Lubbock, TX 79412, USA, Lubbock, TX 79412',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 33.540832,
-    lng: -101.849307
-        },
-        {
-    address: '601-647 Langtry St, El Paso, TX 79902, USA, El Paso, TX 79902',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 31.770255,
-    lng: -106.477284
-        },
-        {
-    address: '4313 N Central Expy, Dallas, TX 75205, USA, Dallas, TX 75205',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.817539,
-    lng: -96.788955
-        },
-        {
-    address: '2001-2099 Pecos St, San Angelo, TX 76901, USA, San Angelo, TX 76901',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 31.457329,
-    lng: -100.457204
-        },
-        {
-    address: '8622 Greenville Ave, Dallas, TX 75243, USA, Dallas, TX 75243',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.894466,
-    lng: -96.752692
-        },
-        {
-    address: '3105-3121 Richmond Ave, Houston, TX 77098, USA, Houston, TX 77098',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.733584,
-    lng: -95.425341
-        },
-        {
-    address: '6656-6660 Tarnef Dr, Houston, TX 77074, USA, Houston, TX 77074',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.707567,
-    lng: -95.500836
-        },
-        {
-    address: '2510 N Shepherd Dr, Houston, TX 77008, USA, Houston, TX 77008',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.808977,
-    lng: -95.410089
-        },
-        {
-    address: '1950 S Las Vegas Trail, White Settlement, TX 76108, USA, White Settlement, TX 76108',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.740076,
-    lng: -97.469275
-        },
-        {
-    address: '200, 8401 N Interstate 35 Frontage Rd, Austin, TX 78753, USA, Austin, TX 78753',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.378554,
-    lng: -97.676445
-        },
-        {
-    address: '440 N 18th St, Beaumont, TX 77707, USA, Beaumont, TX 77707',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 30.084564,
-    lng: -94.137414
-        },
-        {
-    address: '3250-3264 Lackland Rd, Fort Worth, TX 76116, USA, Fort Worth, TX 76116',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 32.724898,
-    lng: -97.435538
-        },
-        {
-    address: '801 S Main St, McAllen, TX 78501, USA, McAllen, TX 78501',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 26.196844,
-    lng: -98.235697
-        },
-        {
-    address: '4025 E Southcross, San Antonio, TX 78222, USA, San Antonio, TX 78222',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.374903,
-    lng: -98.416022
-        },
-        {
-    address: '4025 E Southcross, San Antonio, TX 78222, USA, San Antonio, TX 78222',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.374903,
-    lng: -98.416022
-        },
-        {
-    address: '8316-8358 Wednesbury Ln, Houston, TX 77074, USA, Houston, TX 77074',
-    languages: [],
-    npi: 0,
-    specialty: 'Abortion Clinic',
-    lat: 29.687996,
-    lng: -95.526151
+            address: '2140 Babcock Rd #201, San Antonio, TX 78229, San Antonio, TX 78229',
+            languages: [],
+            npi: 0,
+            specialty: 'Abortion Clinic',
+            lat: 29.5777569,
+            lng: -98.6318553
         }
     ],
     serviceAreaIds: [

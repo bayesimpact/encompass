@@ -104,13 +104,20 @@ CONFIG = {
     'geocoding': True,
     'address_database': True,
     'geocoder': 'oxcoder',
-    'measurer': 'haversine',
+    'measurer': {
+        'haversine': 'haversine',
+        'driving_time': 'osrm'
+    },
     'measurer_config': {
         'haversine': {
             'adequacy_executor_type': multiprocessing.Pool,  # For CPU-bound tasks.
             'n_adequacy_processors': 8,
         },
         'osrm': {
+            'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
+            'n_adequacy_processors': 255,
+        },
+        'mapbox': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
             'n_adequacy_processors': 255,
         }

@@ -5,7 +5,7 @@
   background: var(--map-background);
   position: fixed;
     bottom: 0;
-    left: 0;
+    left: var(--leftpane-width);
     right: 0;
     top: var(--header-height);
 }

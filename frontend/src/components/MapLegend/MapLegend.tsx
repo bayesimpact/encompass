@@ -6,6 +6,7 @@ import './MapLegend.css'
 
 export let MapLegend = withStore('method')(({ store }) =>
   <ul className='MapLegend'>
+    Access
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15] }}
@@ -27,19 +28,19 @@ export let MapLegend = withStore('method')(({ store }) =>
 
 export function getLegend(method: Method, standard: AdequacyMode) {
   switch (method) {
-    case 'haversine_distance':
+    case 'haversine':
       switch (standard) {
-        case AdequacyMode.ADEQUATE_15: return '15 miles'
-        case AdequacyMode.ADEQUATE_30: return '30 miles'
-        case AdequacyMode.ADEQUATE_60: return '60 miles'
+        case AdequacyMode.ADEQUATE_15: return '< 15 miles'
+        case AdequacyMode.ADEQUATE_30: return '< 30 miles'
+        case AdequacyMode.ADEQUATE_60: return '< 60 miles'
         case AdequacyMode.INADEQUATE: return '> 60 miles'
       }
       break
     case 'driving_time':
       switch (standard) {
-        case AdequacyMode.ADEQUATE_15: return '30 min'
-        case AdequacyMode.ADEQUATE_30: return '45 min'
-        case AdequacyMode.ADEQUATE_60: return '60 min'
+        case AdequacyMode.ADEQUATE_15: return '< 30 min'
+        case AdequacyMode.ADEQUATE_30: return '< 45 min'
+        case AdequacyMode.ADEQUATE_60: return '< 60 min'
         case AdequacyMode.INADEQUATE: return '> 60 min'
       }
       break

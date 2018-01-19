@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     top: 64px;
-  width: calc(40% + 30px); /* leftpane-width + room for box shadow */
+  width: calc(var(--leftpane-width) + 30px); /* leftpane-width + room for box shadow */
 }
 
 .LeftPane hr {
@@ -33,7 +33,6 @@
 
 .LeftPane .DownloadAnalysisLink {
   position: absolute !important; /* override material-ui inline style */
-    bottom: 18px;
     right: 20px;
 }
 

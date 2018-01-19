@@ -21,7 +21,7 @@
 
   /* dimensions */
   --header-height: 64px;
-  --leftpane-width: 320px;
+  --leftpane-width: calc(40%);
 
   /* fonts */
   --giant-font: 22px;

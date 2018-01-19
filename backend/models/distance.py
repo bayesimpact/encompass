@@ -7,6 +7,9 @@ from cHaversine import haversine
 
 from retrying import retry
 
+# TODO: Determine the origin of these magic numbers to convert hours to meters.
+TIME_TO_DISTANCE = 104607.0  # Magic number in m/h
+
 
 def _retry_if_result_none(result):
     """Return True if we should retry (in this case when result is None), False otherwise."""
@@ -25,9 +28,9 @@ class MeasureDistance():
         self.api_url = api_url
         self.api_key = api_key
 
-    def get_distance_in_meters(self, point_a, point_b):
+    def measure_between_two_points(self, point_a, point_b):
         """
-        Get distance between two points.
+        Get distance or time measure between two points.
 
         Expects points as (latitude, longitude) tuples.
         """
@@ -37,9 +40,9 @@ class MeasureDistance():
         """Find closest point in a list of points and returns min_distance, min_point."""
         min_point = min(
             point_list,
-            key=lambda p: self.get_distance_in_meters(origin, p)
+            key=lambda p: self.measure_between_two_points(origin, p)
         )
-        min_distance = self.get_distance_in_meters(origin, min_point)
+        min_distance = self.measure_between_two_points(origin, min_point)
         return min_distance, min_point
 
     def closest_with_early_exit(self, origin, point_list, exit_distance):
@@ -51,7 +54,7 @@ class MeasureDistance():
         min_distance = float('inf')
         min_point = None
         for point in point_list:
-            distance = self.get_distance_in_meters(origin, point)
+            distance = self.measure_between_two_points(origin, point)
             if distance < min_distance:
                 min_distance = distance
                 min_point = point
@@ -63,7 +66,7 @@ class MeasureDistance():
 class HaversineDistance(MeasureDistance):
     """Class for haversine distance measurements."""
 
-    def get_distance_in_meters(self, point_a, point_b):
+    def measure_between_two_points(self, point_a, point_b):
         """
         Get haversine distance between two points.
 
@@ -75,15 +78,16 @@ class HaversineDistance(MeasureDistance):
         return
 
 
-class OSRMDrivingDistance(MeasureDistance):
+class OSRMDriving(MeasureDistance):
     """
     Class for OSRM driving distance measurements.
 
     Uses the `table` OSRM API endpoint.
     """
 
-    def __init__(self, api_url=None, early_exit_outer_radius=50.0 * 10**3):
+    def __init__(self, mode='time', api_url=None, early_exit_outer_radius=50.0 * 10**3):
         """Initialize the distance class with the OSRM URL."""
+        self.mode = mode
         self.api_url = api_url or os.getenv('OSRM_URL')
         self._haversine_measurer = HaversineDistance()
         self.early_exit_outer_radius = early_exit_outer_radius
@@ -94,13 +98,14 @@ class OSRMDrivingDistance(MeasureDistance):
         return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
 
     @retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
-    def get_distance_in_meters(self, point_a, point_b):
+    def measure_between_two_points(self, point_a, point_b):
         """
-        Use an OSRM server to compute the distance and time between two points.
+        Use an OSRM server to compute the distance or time between two points.
 
+        If mode is time, unit is minute. Else, unit is meter.
         Expects points as (latitude, longitude) tuples.
         """
-        min_distance, min_point = self.closest(origin=point_a, point_list=[point_b])
+        min_distance, _ = self.closest(origin=point_a, point_list=[point_b])
         return min_distance
 
     @retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
@@ -119,7 +124,7 @@ class OSRMDrivingDistance(MeasureDistance):
         params = {'sources': 0}
         response = requests.get(url, params=params)
 
-        # TODO: Add retrying for common HTTP errors.
+        # TODO - Add retrying for common HTTP errors.
         response.raise_for_status()
         content = response.json()
 
@@ -132,17 +137,18 @@ class OSRMDrivingDistance(MeasureDistance):
             enumerate(distance_responses),
             key=operator.itemgetter(1)
         )
-        # TODO: Determine the origin of these magic numbers to convert seconds to miles.
-        return min_distance * 104607.0 / 3600, point_list[min_idx]
+        if self.mode == 'time':
+            return min_distance / 60.0, point_list[min_idx]
+        return min_distance * TIME_TO_DISTANCE / 3600, point_list[min_idx]
 
     def closest_with_early_exit(self, origin, point_list, exit_distance):
         """
         Find closest point in a list of points, exiting early if exit_distance is reached.
 
-        The exit_distance uses haversine distance.
+        The exit_distance uses haversine distance (in meters).
         """
         haversine_distances = [
-            self._haversine_measurer.get_distance_in_meters(origin, point)
+            self._haversine_measurer.measure_between_two_points(origin, point)
             for point in point_list
         ]
         min_haversine_idx, min_haversine_distance = min(
@@ -151,25 +157,45 @@ class OSRMDrivingDistance(MeasureDistance):
         )
 
         if min_haversine_distance <= exit_distance:
+            if self.mode == 'time':
+                return (
+                    min_haversine_distance / TIME_TO_DISTANCE * 60.0, point_list[min_haversine_idx]
+                )
             return min_haversine_distance, point_list[min_haversine_idx]
-        else:
-            relevant_points = [
-                point_list[idx]
-                for idx, distance in enumerate(haversine_distances)
-                if distance < min(self.early_exit_outer_radius, 1.5 * min_haversine_distance)
-            ]
-            if not relevant_points:
-                return 10**42, point_list[0]
-            else:
-                return self.closest(origin=origin, point_list=relevant_points)
+
+        relevant_points = [
+            point_list[idx]
+            for idx, distance in enumerate(haversine_distances)
+            if distance < min(self.early_exit_outer_radius, 1.5 * min_haversine_distance)
+        ]
+
+        if not relevant_points:
+            return 10**42, point_list[0]
+
+        return self.closest(origin=origin, point_list=relevant_points)
 
 
-def get_measure(name):
-    """Return an instantiated measure class with the given name."""
-    return MEASURE_NAME_TO_FUNCTION_MAPPING[name.lower()]()
+class MapBoxDrivingTime(MeasureDistance):
+    """Class for MapBox driving time measurements."""
+
+    def measure_between_two_points(self, point_a, point_b):
+        """
+        Get MapBox driving time between two points.
+
+        Expects points as (latitude, longitude) tuples.
+        """
+        if point_a and point_b:
+            return haversine(tuple(point_a), tuple(point_b))
+        return
 
 
-MEASURE_NAME_TO_FUNCTION_MAPPING = {
+def get_measurer(name):
+    """Return an instantiated measurer class with the given name."""
+    return MEASURER_NAME_TO_FUNCTION_MAPPING[name.lower()]()
+
+
+MEASURER_NAME_TO_FUNCTION_MAPPING = {
     'haversine': HaversineDistance,
-    'osrm': OSRMDrivingDistance
+    'osrm': OSRMDriving,
+    'mapbox': MapBoxDrivingTime
 }

@@ -1,6 +1,6 @@
 import { chain } from 'lodash'
 import { Adequacy, AdequacyMode, GeocodedProvider } from '../constants/datatypes'
-import { averageDistance, averageTime, maxDistance, maxTime, minDistance, minTime, totalPopulation } from './analytics'
+import { averageMeasure, maxMeasure, minMeasure, totalPopulation } from './analytics'
 
 let provider: GeocodedProvider = {
   address: '1234 Main St. San Francisco CA 94111',
@@ -12,15 +12,15 @@ let provider: GeocodedProvider = {
 }
 
 let adequacies1: Lazy<Adequacy[]> = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 10, timeToClosestProvider: 21, closestProviderByDistance: provider, closestProviderByTime: provider },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 20, timeToClosestProvider: 31, closestProviderByDistance: provider, closestProviderByTime: provider },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 30, timeToClosestProvider: 41, closestProviderByDistance: provider, closestProviderByTime: provider },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 40, timeToClosestProvider: 51, closestProviderByDistance: provider, closestProviderByTime: provider }
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 21, closestProvider: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 31, closestProvider: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 41, closestProvider: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 51, closestProvider: provider }
 ])
 
 let adequacies2: Lazy<Adequacy[]> = chain([
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: provider, closestProviderByTime: provider },
-  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, distanceToClosestProvider: 0, timeToClosestProvider: 0, closestProviderByDistance: provider, closestProviderByTime: provider }
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 0, closestProvider: provider },
+  { adequacyMode: AdequacyMode.INADEQUATE, id: 0, toClosestProvider: 0, closestProvider: provider }
 ])
 
 let representativePoints1 = chain([
@@ -37,34 +37,19 @@ let representativePoints2 = chain([
   { county: 'Napa', id: 8, lat: 123.458, lng: 32.109, population: 0, serviceAreaId: 'Napa-90012', zip: '90012' }
 ])
 
-test('averageDistance', () => {
-  expect(averageDistance(adequacies1)).toBe(25)
-  expect(averageDistance(adequacies2)).toBe(0)
+test('averageMeasure', () => {
+  expect(averageMeasure(adequacies1)).toBe(36)
+  expect(averageMeasure(adequacies2)).toBe(0)
 })
 
-test('maxDistance', () => {
-  expect(maxDistance(adequacies1)).toBe(40)
-  expect(maxDistance(adequacies2)).toBe(0)
+test('maxMeasure', () => {
+  expect(maxMeasure(adequacies1)).toBe(51)
+  expect(maxMeasure(adequacies2)).toBe(0)
 })
 
-test('minDistance', () => {
-  expect(minDistance(adequacies1)).toBe(10)
-  expect(minDistance(adequacies2)).toBe(0)
-})
-
-test('averageTime', () => {
-  expect(averageTime(adequacies1)).toBe(36)
-  expect(averageTime(adequacies2)).toBe(0)
-})
-
-test('maxTime', () => {
-  expect(maxTime(adequacies1)).toBe(51)
-  expect(maxTime(adequacies2)).toBe(0)
-})
-
-test('minTime', () => {
-  expect(minTime(adequacies1)).toBe(21)
-  expect(minTime(adequacies2)).toBe(0)
+test('minMeasure', () => {
+  expect(minMeasure(adequacies1)).toBe(21)
+  expect(minMeasure(adequacies2)).toBe(0)
 })
 
 test('totalPopulation', () => {

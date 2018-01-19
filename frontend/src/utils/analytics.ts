@@ -36,12 +36,8 @@ let max = fold(-Infinity)(fns.max)
 let min = fold(Infinity)(fns.min)
 let sum = fold(0)(fns.sum)
 
-export let averageDistance = mean<Adequacy>(_ => _.distanceToClosestProvider)
-export let maxDistance = max<Adequacy>(_ => _.distanceToClosestProvider)
-export let minDistance = min<Adequacy>(_ => _.distanceToClosestProvider)
-
-export let averageTime = mean<Adequacy>(_ => _.timeToClosestProvider)
-export let maxTime = max<Adequacy>(_ => _.timeToClosestProvider)
-export let minTime = min<Adequacy>(_ => _.timeToClosestProvider)
+export let averageMeasure = mean<Adequacy>(_ => _.toClosestProvider)
+export let maxMeasure = max<Adequacy>(_ => _.toClosestProvider)
+export let minMeasure = min<Adequacy>(_ => _.toClosestProvider)
 
 export let totalPopulation = sum<RepresentativePoint>(_ => _.population)

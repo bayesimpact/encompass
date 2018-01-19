@@ -66,18 +66,27 @@ def adequacy_request(app, flask_request, engine):
         raise InvalidFormat(message='Invalid format. Could not find provider information.')
     if 'service_area_ids' not in request:
         raise InvalidFormat(message='Invalid format. Could not find service_area_ids.')
+    if 'method' not in request:
+        raise InvalidFormat(message='Invalid format. Could not find method.')
 
     provider_addresses = request['providers']
     service_area_ids = request['service_area_ids']
-    # TODO: Add this parameter to the request body sent from the frontend.
-    measure_name = request.get('measure_name') or config.get('measurer')
+    measurer_methods = config.get('measurer').keys()
+
+    if request['method'] in measurer_methods:
+        measurer_name = config.get('measurer')[request['method']]
+    else:
+        logger.warning(
+            'Could not find measurer method {}. Defaulting to haversine.'.format(request['method'])
+        )
+        measurer_name = config.get('measurer')['haversine']
 
     # Exit early if there is no data.
     if provider_addresses and service_area_ids:
         return adequacy.calculate_adequacies(
             engine=engine,
             service_area_ids=service_area_ids,
-            measure_name=measure_name,
+            measurer_name=measurer_name,
             locations=provider_addresses
         )
     return []

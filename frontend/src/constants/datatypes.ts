@@ -8,10 +8,8 @@ export type Adequacy = {
   adequacyMode: AdequacyMode
   /** Representative point Id */
   id: number
-  distanceToClosestProvider: number
-  timeToClosestProvider: number
-  closestProviderByDistance: GeocodedProvider
-  closestProviderByTime: GeocodedProvider
+  toClosestProvider: number
+  closestProvider: GeocodedProvider
 }
 
 export enum AdequacyMode {
@@ -37,7 +35,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_time' | 'haversine_distance'
+export type Method = 'driving_time' | 'haversine'
 
 export type Provider = {
   address: string

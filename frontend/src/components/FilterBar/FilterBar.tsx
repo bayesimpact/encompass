@@ -15,7 +15,7 @@ export let FilterBar = withStore('method')(({ store }) =>
         value={store.get('method')}
       >
         <MenuItem value='driving_time' primaryText='Driving Time' />
-        <MenuItem value='haversine_distance' primaryText='Haversine Distance' />
+        <MenuItem value='haversine' primaryText='Haversine Distance' />
       </DropDownMenu>
     </div>
   </Paper>

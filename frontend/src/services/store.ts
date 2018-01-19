@@ -119,7 +119,7 @@ let store = withEffects(createStore<Actions>({
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
   mapZoom: DEFAULT_MAP_ZOOM,
-  method: 'haversine_distance',
+  method: 'haversine',
   providers: [],
   representativePoints: [],
   route: '/datasets',

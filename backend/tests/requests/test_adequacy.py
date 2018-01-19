@@ -26,6 +26,7 @@ class TestAdequacyRequest(LiveServerTestCase):
     def test_adequacy_request(self):
         """Test provider requests in a simple case."""
         request_adequacy = {
+            'method': 'haversine',
             'providers': [
                 {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
                 {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}

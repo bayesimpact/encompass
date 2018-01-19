@@ -8,21 +8,11 @@
       "id": {
         "type": "integer"
       },
-      "distance_to_closest_provider": {
-        "description": "Distance (in miles) to the closest provider",
-        "type": "number"
-      },
-      "time_to_closest_provider": {
-        "description": "Time (in minutes) to the closest provider",
+      "to_closest_provider": {
+        "description": "Measure (in meters or minutes) to the closest provider",
         "type": "integer"
       },
-      "closest_providers_by_distance": {
-        "type": "array",
-        "items": {
-          "type": "integer"
-        }
-      },
-      "closest_providers_by_time": {
+      "closest_providers": {
         "type": "array",
         "items": {
           "type": "integer"
@@ -30,7 +20,7 @@
       }
     },
     "additionalProperties": false,
-    "required": ["id", "distance_to_closest_provider", "time_to_closest_provider", "closest_providers_by_distance", "closest_providers_by_time"]
+    "required": ["id", "to_closest_provider", "closest_providers"]
   },
   "additionalProperties": false
 }

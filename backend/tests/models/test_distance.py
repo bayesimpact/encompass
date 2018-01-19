@@ -23,13 +23,13 @@ class TestMetrics():
 
     def test_haversine_distance_class(self):
         """Check that the haversine distance matches expectations."""
-        d = self.measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
+        d = self.measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
         assert abs(d - 863.731 * 10**3) < 10**-2
 
     def test_haversine_distance_returns_none_when_a_point_is_missing(self):
         """Check that the haversine distance matches expectations."""
-        d1 = self.measurer.get_distance_in_meters(NEWPORT_RI, None)
-        d2 = self.measurer.get_distance_in_meters(None, CLEVELAND_OH)
+        d1 = self.measurer.measure_between_two_points(NEWPORT_RI, None)
+        d2 = self.measurer.measure_between_two_points(None, CLEVELAND_OH)
         assert d1 is None
         assert d2 is None
 
@@ -37,7 +37,7 @@ class TestMetrics():
         """The base interface for measurement should raise a NotImplementedError."""
         measurer = distance.MeasureDistance(api_url=None, api_key=None)
         with pytest.raises(NotImplementedError):
-            measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
+            measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
 
     def test_haversine_distance_closest(self):
         """Check that the haversine closest distance works."""
@@ -66,14 +66,16 @@ class TestMetrics():
 
 class TestOSRMDistanceMetric():
     """Test OSRM driving distance metric."""
+    # TODO - Add tests for 'time' mode.
 
     def setup(self):
         """Initialize a measurer for use in the test cases."""
-        self.measurer = distance.OSRMDrivingDistance(api_url='http://router.project-osrm.org')
+        self.measurer = distance.OSRMDriving(
+            mode='distance', api_url='http://router.project-osrm.org')
 
-    def test_get_distance_in_meters(self):
+    def test_measure_between_two_points(self):
         """Check that the OSRM distance matches expectations."""
-        d = self.measurer.get_distance_in_meters(NEWPORT_RI, CLEVELAND_OH)
+        d = self.measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
         assert abs(d - 1033026.0882499999) < 20.0 * 10**3
 
     def test_closest(self):
@@ -99,7 +101,7 @@ class TestOSRMDistanceMetric():
         assert closest_distance == closest_haversine_distance
         assert closest_town == closest_haversine_town
 
-    @mock.patch('backend.models.distance.OSRMDrivingDistance.closest')
+    @mock.patch('backend.models.distance.OSRMDriving.closest')
     def test_closest_with_early_exit_within_outer_radius(self, mock_closest):
         """
         Check that the closest_with_early_exit method works as expected.
@@ -117,7 +119,7 @@ class TestOSRMDistanceMetric():
             point_list=[EUCLID_OH]
         )
 
-    @mock.patch('backend.models.distance.OSRMDrivingDistance.closest')
+    @mock.patch('backend.models.distance.OSRMDriving.closest')
     def test_closest_with_early_exit_no_points_within_outer_radius(self, mock_closest):
         """
         Check that the closest_with_early_exit method works as expected.
