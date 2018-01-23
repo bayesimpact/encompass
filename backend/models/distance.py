@@ -188,6 +188,38 @@ class MapBoxDrivingTime(MeasureDistance):
             return haversine(tuple(point_a), tuple(point_b))
         return
 
+    def get_matrix(self, source_points, destination_points):
+        """
+        Retrieve a time matrix from the distance API.
+
+        Results in the matrix are returned in seconds.
+        Expects points as (latitude, longitude) tuples to be consistent with other functions.
+        NOTE - MapBox API requires a list of lon,lat;lon,lat points.
+        """
+        request_url = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{points}'
+        all_points = source_points + destination_points
+        points = ';'.join([
+            '{longitude},{latitude}'.format(longitude=point[1], latitude=point[0])
+            for point in all_points
+        ])
+
+        params = {
+            'sources': ';'.join([str(i) for i, _ in enumerate(source_points)]),
+            'destinations': ';'.join(
+                [str(len(source_points) + i) for i, _ in enumerate(destination_points)]
+            ),
+            'access_token': self.api_key
+        }
+
+        response = requests.get(
+            url=request_url.format(points=points),
+            params=params
+        )
+
+        response.raise_for_status()
+        content = response.json()
+        return content['durations']
+
 
 def get_measurer(name):
     """Return an instantiated measurer class with the given name."""
