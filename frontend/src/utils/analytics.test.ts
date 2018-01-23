@@ -7,7 +7,7 @@ let provider: GeocodedProvider = {
   languages: ['english', 'japanese'],
   lat: 123.456,
   lng: -123.456,
-  npi: 123456789,
+  npi: '123456789',
   specialty: 'internal medicine'
 }
 

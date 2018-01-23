@@ -70,7 +70,7 @@ let parse = parseRows(COLUMNS, ([address, city, state, zip,
   return {
     address: fullAddress,
     languages,
-    npi: Number(npi),
+    npi: String(npi),
     specialty: specialty || undefined
   }
 })
