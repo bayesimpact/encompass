@@ -3,7 +3,7 @@ import 'chart.piecelabel.js'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
-import { AdequacyMode } from '../../constants/datatypes'
+import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StoreProps, withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
@@ -27,19 +27,20 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
   let {
     numAdequatePopulation,
     numInadequatePopulation,
-    percentAdequatePopulation,
-    percentInadequatePopulation,
     populationByAdequacy
   } = summaryStatistics(serviceAreas, store)
+
+  let totalPopulation = populationByAdequacy.reduce(function(a, b) { return a + b }, 0)
+  let method = store.get('method')
 
   return <div className='AdequacyDoughnut'>
     <Doughnut
       data={{
         labels: [
-          getLegend(store.get('method'), AdequacyMode.ADEQUATE_15),
-          getLegend(store.get('method'), AdequacyMode.ADEQUATE_30),
-          getLegend(store.get('method'), AdequacyMode.ADEQUATE_60),
-          getLegend(store.get('method'), AdequacyMode.INADEQUATE)
+          getLegend(method, AdequacyMode.ADEQUATE_15),
+          getLegend(method, AdequacyMode.ADEQUATE_30),
+          getLegend(method, AdequacyMode.ADEQUATE_60),
+          getLegend(method, AdequacyMode.INADEQUATE)
         ],
         datasets: [{
           data: populationByAdequacy,
@@ -81,19 +82,29 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
         <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>
-    <StatsBox withBorders>
+    <StatsBox className='HighLevelStats' withBorders>
       <tr>
-        <th>Adequate Access</th>
-        <th>Inadequate Access</th>
+        <th>Access</th>
+        <th>Population (%)</th>
+        <th>Population (#)</th>
       </tr>
-      <tr>
-        <td>{formatNumber(numAdequatePopulation)} ({formatPercentage(percentAdequatePopulation)})</td>
-        <td>{formatNumber(numInadequatePopulation)} ({formatPercentage(percentInadequatePopulation)})</td>
-      </tr>
+      {adequacyRow(populationByAdequacy[0], totalPopulation, method, AdequacyMode.ADEQUATE_15)}
+      {adequacyRow(populationByAdequacy[1], totalPopulation, method, AdequacyMode.ADEQUATE_30)}
+      {adequacyRow(populationByAdequacy[2], totalPopulation, method, AdequacyMode.ADEQUATE_60)}
+      {adequacyRow(populationByAdequacy[3], totalPopulation, method, AdequacyMode.INADEQUATE)}
     </StatsBox>
   </div>
 })
 
+function adequacyRow(populationByAdequacy: number, totalPopulation: number, method: Method, adequacyMode: AdequacyMode) {
+  return (
+  <tr>
+    <td>{getLegend(method, adequacyMode)}</td>
+    <td>{formatPercentage(100 * populationByAdequacy / totalPopulation)}</td>
+    <td>{formatNumber(populationByAdequacy)}</td>
+  </tr>
+  )
+}
 function label(populationByAdequacy: number[]) {
   return (tooltipItem?: ChartTooltipItem, data?: ChartData) => {
     if (!tooltipItem || !data || !data.datasets) {
