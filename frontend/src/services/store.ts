@@ -40,6 +40,11 @@ type Actions = {
   method: Method
 
   /**
+   * Index keeping track of provider to display for multi-provider popups.
+   */
+  providerIndex: number
+
+  /**
    * Geocoded providers, augmented with metadata from the uploaded providers CSV
    */
   providers: GeocodedProvider[]
@@ -120,6 +125,7 @@ let store = withEffects(createStore<Actions>({
   mapCursor: '',
   mapZoom: DEFAULT_MAP_ZOOM,
   method: 'haversine',
+  providerIndex: 0,
   providers: [],
   representativePoints: [],
   route: '/datasets',

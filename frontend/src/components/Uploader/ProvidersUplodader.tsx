@@ -58,7 +58,7 @@ const COLUMNS = [
   { aliases: ['Provider Language 1'] },
   { aliases: ['Provider Language 2'] },
   { aliases: ['Provider Language 3'] },
-  { aliases: ['Specialty', 'PCPSpecialty'] }
+  { aliases: ['Specialty', 'PCPSpecialty', 'SpecialistSpecialty'] }
 ]
 
 let parse = parseRows(COLUMNS, ([address, city, state, zip,

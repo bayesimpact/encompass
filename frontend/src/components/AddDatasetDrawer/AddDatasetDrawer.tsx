@@ -13,7 +13,7 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
     <h2 className='Secondary'>Upload your data to explore</h2>
     <p className='MediumWeight Muted'>
       To analyze the accessibility of your own set of providers, facilities, or social services, you
-      will need to upload two seperate CSV files:
+      will need to upload two separate CSV files:
       <ul>
         <li>list of service areas (County and/or ZIPCode columns).</li>
         <li>list of addresses for providers or services.</li>
@@ -26,9 +26,9 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
 )
 
 let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div className='AnalyzerButton'>
+  <div className='Flex -Center'>
     <RaisedButton
-      className={'Button -Primary AnalyzerButton'}
+      className={'Button -Primary'}
       containerElement='label'
       primary={true}
       label='Analyze'

@@ -68,6 +68,10 @@ p {
   flex: 0;
 }
 
+.Flex.-Center {
+  justify-content: center
+}
+
 .Muted, .Muted > * {
   color: var(--muted);
 }

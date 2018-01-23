@@ -1,16 +1,21 @@
 @import "../../index.css";
 
+:root {
+  --background: rgba(0, 0, 0, .8);
+  --text: rgba(255, 255, 255, .8);
+}
+
 .MapTooltip .mapboxgl-popup-content {
-  background-color: rgba(0, 0, 0, .8);
+  background-color: var(--background);
 }
 
 .MapTooltip .mapboxgl-popup-tip {
-  border-top-color: rgba(0, 0, 0, .8) !important;
+  border-top-color: var(--background) !important;
 }
 
 .MapTooltip table {
   font-size: var(--medium-font);
-  color: rgba(255, 255, 255, .8);
+  color: var(--text);
 }
 
 .MapTooltip td {
@@ -20,3 +25,12 @@
 .MapTooltip tr :first-child {
   font-weight: var(--heavy-weight);
 }
+
+.MapTooltip .controls  {
+   font-size: var(--medium-font);
+   color: var(--text);
+ }
+
+ .MapTooltip .icon-button {
+   color: var(--text) !important;
+ }
