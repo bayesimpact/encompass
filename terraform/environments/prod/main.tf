@@ -3,12 +3,16 @@ variable "db_password" {
   type        = "string"
 }
 
+locals {
+  env_name = "prod"
+}
+
 module "stack" {
   source        = "../../template"
 
-  env_name = "prod"
-  db_id = "philip-testing"
-  instance_name_tag = "na-teddy"
+  env_name = "${local.env_name}"
+  db_id = "time-distance-database" # This name predates the use of terraform.
+  instance_name_tag = "encompass-${local.env_name}"
   db_password = "${var.db_password}"
 }
 
@@ -17,8 +21,8 @@ module "stack" {
 # why we can't use the aws_region variable.
 terraform {
   backend "s3" {
-    bucket     = "network-adequacy-terraform"
-    key        = "na-testing/terraform.tfstate"
+    bucket     = "encompass-terraform"
+    key        = "prod/terraform.tfstate"
     region     = "us-west-2"
 
     # ddb table to hold tfstate locks.
