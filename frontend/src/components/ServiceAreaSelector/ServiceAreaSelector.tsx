@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { StoreProps, withStore } from '../../services/store'
+import { withStore } from '../../services/store'
 import { formatServiceArea, unformatServiceArea } from '../../utils/formatters'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
 
-type Props = StoreProps & {
+type Props = {
   onChange(serviceArea: string | null): void
   value: string | null
 }

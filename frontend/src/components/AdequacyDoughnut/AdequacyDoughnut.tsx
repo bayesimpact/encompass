@@ -4,14 +4,14 @@ import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
-import { StoreProps, withStore } from '../../services/store'
+import { withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import  { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './AdequacyDoughnut.css'
 
-type Props = StoreProps & {
+type Props = {
   serviceAreas: string[]
 }
 

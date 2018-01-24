@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route } from '../../constants/datatypes'
-import { StoreProps, withStore } from '../../services/store'
+import { withStore } from '../../services/store'
 import './Link.css'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   to: Route
 }
 
-export let Link = withStore()<Props & StoreProps>(({ children, className, onClick, store, to }) =>
+export let Link = withStore()<Props>(({ children, className, onClick, store, to }) =>
   <a
     className={'Link ' + (className || '')}
     onClick={e => {

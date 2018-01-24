@@ -1,5 +1,5 @@
-import { connect, createStore, Store as BabyduxStore } from 'babydux'
 import { Map } from 'mapbox-gl'
+import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { Adequacies, Dataset, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
@@ -143,10 +143,6 @@ let store = withEffects(createStore<Actions>({
 export let withStore = connect(store)
 
 export type Store = BabyduxStore<Actions>
-
-export type StoreProps = {
-  store: Store
-}
 
 // for debugging
 (window as any).store = store
