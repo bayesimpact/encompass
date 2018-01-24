@@ -11,6 +11,9 @@ locals {
 resource "aws_vpc" "main" {
   cidr_block       = "${var.default_vpc_cidr_block}"
   instance_tenancy = "default"
+  lifecycle {
+    prevent_destroy  = true
+  }
 }
 
 # This is the ec2 instance representing the default app server.
@@ -51,7 +54,7 @@ resource "aws_db_instance" "na_db" {
   name                                = "network_adequacy"
   port                                = 5432
   publicly_accessible                 = true
-  snapshot_identifier                 = "encompass-prod-17-1"
+  snapshot_identifier                 = "${var.db_snapshot_id}"
   storage_encrypted                   = false
   storage_type                        = "gp2"
   username                            = "tds"

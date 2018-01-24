@@ -4,6 +4,12 @@ variable "app_ami" {
   default     = "ami-9549f5ed" # TDS Base Image from 2018-1-10 in us-west-2
 }
 
+variable "db_snapshot_id" {
+  description = "The snapshot ID to use for initialising the DB server"
+  type        = "string"
+  default     = "encompass-01-24-18"
+}
+
 variable "env_name" {
   description = "The environment identifier e.g. prod"
   type        = "string"
