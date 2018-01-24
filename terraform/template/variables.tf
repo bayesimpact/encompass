@@ -1,7 +1,6 @@
 variable "app_ami" {
   description = "The AMI ID to use for the application server"
   type        = "string"
-//  default     = "ami-a47477c4" # TDS Base Image from 2018-1-10
   default     = "ami-9549f5ed" # TDS Base Image from 2018-1-10 in us-west-2
 }
 
