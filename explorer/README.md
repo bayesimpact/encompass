@@ -8,7 +8,7 @@ make explorer
 
 - Open a browser and navigate to `localhost:8888`.
 
-In addition to method from `backend`, this environment gives you the following:
+In addition to methods from `backend`, this environment gives you the following:
 - geopandas
 - scikit-learn
 - statsmodels
