@@ -5,7 +5,7 @@ import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-ri
 import * as React from 'react'
 import { Popup } from 'react-mapbox-gl'
 import { GeoJSONEventData } from '../../constants/datatypes'
-import { Store, StoreProps, withStore } from '../../services/store'
+import { Store, withStore } from '../../services/store'
 import { formatCoordinate } from '../../utils/formatters'
 import './MapTooltip.css'
 import { TableRow } from './TableRow'
@@ -53,7 +53,7 @@ function _togglePrevProvider(store: Store) {
  * TODO: expose info for all providers with the same address,
  * not only the first one.
  */
-export let ProviderPopup = withStore('providerIndex')<StoreProps & ProviderProps>(({ store, point: { features, lngLat } }) => {
+export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, point: { features, lngLat } }) => {
     let index = store.get('providerIndex')
     let maxIndex = features.length - 1
     let indexMessage = (index + 1) + ' of ' + (maxIndex + 1)

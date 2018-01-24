@@ -76,7 +76,11 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.80", "@types/lodash@^4.14.85":
+"@types/lodash@^4.14.80":
+  version "4.14.95"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.95.tgz#02c170690719bbaca8293d9c8cdcccb565728081"
+
+"@types/lodash@^4.14.85":
   version "4.14.85"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.85.tgz#a16fbf942422f6eca5622b6910492c496c35069b"
 
@@ -772,12 +776,6 @@ babel-types@^6.18.0, babel-types@^6.24.1, babel-types@^6.26.0:
     esutils "^2.0.2"
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
-
-babydux@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/babydux/-/babydux-3.0.1.tgz#fc013950a45cc969d86ac97d06638bb5f8cb9f08"
-  dependencies:
-    typed-rx-emitter "^0.3.0"
 
 babylon@^6.15.0, babylon@^6.18.0:
   version "6.18.0"
@@ -7129,6 +7127,12 @@ unassertify@^2.0.0:
 underscore@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
+
+undux@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/undux/-/undux-3.0.7.tgz#917ee41cf0f097bd93d26522cab6830fa4f6f0d2"
+  dependencies:
+    typed-rx-emitter "^0.3.0"
 
 unflowify@^1.0.0:
   version "1.0.1"
