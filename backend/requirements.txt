@@ -12,6 +12,7 @@ Shapely==1.6.2
 osmnx==0.6
 pygeocodio==0.5.0
 # Database
+ratelimit==1.1.0
 retrying==1.3.3
 geoalchemy2==0.4.0
 geojson==2.3.0

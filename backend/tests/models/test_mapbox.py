@@ -37,19 +37,20 @@ class TestMapBoxAPI():
     @mock.patch('requests.get')
     def test_matrix(self, mock_get):
         """Check that the driving time matches expectations."""
-        json_data = {'durations': [[35799.4]]}
+        json_data = {'durations': [[35799.4, 35799.4]]}
         mock_get.return_value = MockResponse(json_data=json_data, status_code=200)
         matrix_durations = self.measurer.get_matrix(
-            source_points=[(41.49008, -71.312796)], destination_points=[(41.499498, -81.695391)]
+            source_points=[(41.49008, -71.312796)],
+            destination_points=[(41.499498, -81.695391), (41.499498, -81.695391)]
         )
 
         url = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{points}'.format(
-            points='-71.312796,41.49008;-81.695391,41.499498'
+            points='-71.312796,41.49008;-81.695391,41.499498;-81.695391,41.499498'
         )
 
         params = {
             'sources': '0',
-            'destinations': '1',
+            'destinations': '1;2',
             'access_token': self.api_key
         }
 
