@@ -48,3 +48,9 @@ variable "db_password" {
   description = "The password to use for TDS DB access"
   type        = "string"
 }
+
+variable "aws_region" {
+  description = "The region to use for the AWS provider"
+  type        = "string"
+  default     = "us-west-2" # Default to Oregon
+}

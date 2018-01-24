@@ -13,7 +13,8 @@ module "stack" {
 }
 
 # Backend definition can't have interpolation, so unfortunately this does need to be
-# duplicated between environment definitions.
+# duplicated between environment definitions. It also needs hardcoded values, hence
+# why we can't use the aws_region variable.
 terraform {
   backend "s3" {
     bucket     = "encompass-terraform"
