@@ -1,7 +1,8 @@
 variable "app_ami" {
   description = "The AMI ID to use for the application server"
   type        = "string"
-  default     = "ami-a47477c4" # TDS Base Image from 2018-1-10
+//  default     = "ami-a47477c4" # TDS Base Image from 2018-1-10
+  default     = "ami-9549f5ed" # TDS Base Image from 2018-1-10 in us-west-2
 }
 
 variable "env_name" {
@@ -33,13 +34,13 @@ variable "load_balancer_name" {
 }
 
 variable "default_subnets" {
-  description = "Default subnets in us-west-1 for Bayes Impact default VPC"
+  description = "Default subnets in us-west-2 for Bayes Impact default VPC"
   type        = "list"
-  default     = ["subnet-825462c4", "subnet-33798e56"]
+  default     = ["subnet-ac9498ea", "subnet-7a9d531f"]
 }
 
 variable "default_vpc_cidr_block" {
-  description = "CIDR block for default us-west-1 Bayes Impact VPC"
+  description = "CIDR block for default us-west-2 Bayes Impact VPC"
   type        = "string"
   default     = "172.31.0.0/16"
 }

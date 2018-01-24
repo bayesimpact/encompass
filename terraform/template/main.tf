@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-1"
+  region = "us-west-2"
 }
 
 locals {
@@ -21,7 +21,7 @@ resource "aws_instance" "na_app" {
 
   ebs_optimized                   = true
   associate_public_ip_address     = "true"
-  availability_zone               = "us-west-1b"
+  availability_zone               = "us-west-2b"
   key_name                        = "na-server"
   monitoring                      = false
   tenancy                         = "default"
