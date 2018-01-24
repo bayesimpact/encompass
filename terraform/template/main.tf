@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-1"
+  region = "${var.aws_region}"
 }
 
 locals {
@@ -21,7 +21,7 @@ resource "aws_instance" "na_app" {
 
   ebs_optimized                   = true
   associate_public_ip_address     = "true"
-  availability_zone               = "us-west-1b"
+  availability_zone               = "${var.aws_region}b"
   key_name                        = "na-server"
   monitoring                      = false
   tenancy                         = "default"
@@ -56,6 +56,7 @@ resource "aws_db_instance" "na_db" {
   storage_type                        = "gp2"
   username                            = "tds"
   password                            = "${var.db_password}"
+  vpc_security_group_ids              = ["${aws_security_group.na_app_sg.id}"]
 }
 
 # Security group for app server.
