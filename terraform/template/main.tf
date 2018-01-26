@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 locals {
-  security_group_name = "${var.app_security_group_name}-${var.env_name}"
+  app_security_group_name = "${var.app_security_group_name}-${var.env_name}"
+  db_security_group_name = "${var.db_security_group_name}-${var.env_name}"
   load_balancer_name = "${var.load_balancer_name}-${var.env_name}"
 }
 
@@ -28,7 +29,7 @@ resource "aws_instance" "na_app" {
   key_name                        = "na-server"
   monitoring                      = false
   tenancy                         = "default"
-  security_groups                 = ["${local.security_group_name}"]
+  security_groups                 = ["${local.app_security_group_name}"]
 
   tags { Name = "${var.instance_name_tag}" }
 }
@@ -59,12 +60,13 @@ resource "aws_db_instance" "na_db" {
   storage_type                        = "gp2"
   username                            = "tds"
   password                            = "${var.db_password}"
-  vpc_security_group_ids              = ["${aws_security_group.na_app_sg.id}"]
+  vpc_security_group_ids              = ["${aws_security_group.na_db_sg.id}"]
+
 }
 
 # Security group for app server.
 resource "aws_security_group" "na_app_sg" {
-  name        = "${local.security_group_name}"
+  name        = "${local.app_security_group_name}"
   description = "Allow inbound traffic on app ports"
 
   ingress {
@@ -93,6 +95,27 @@ resource "aws_security_group" "na_app_sg" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Permit everything outbound. Needs to be done explicitly.
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+}
+
+# Security group for DB server.
+resource "aws_security_group" "na_db_sg" {
+  name        = "${local.db_security_group_name}"
+  description = "Allow inbound traffic on 5432 from appserver SG only"
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.na_app_sg}"]
   }
 
   # Permit everything outbound. Needs to be done explicitly.
