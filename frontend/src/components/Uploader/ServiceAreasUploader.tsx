@@ -1,13 +1,14 @@
 import { chain, flatten } from 'lodash'
 import * as React from 'react'
 import { State } from '../../constants/states'
-import { COUNTIES_BY_ZIP } from '../../constants/zipCodes'
+import { COUNTIES_BY_ZIP, SERVICE_AREAS_BY_STATE } from '../../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodesByCountyByState'
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
+import { SelectAllServiceAreas } from '../SelectAllServiceAreas/SelectAllServiceAreas'
 import { StateSelector } from '../StateSelector/StateSelector'
 
 /**
@@ -15,27 +16,35 @@ import { StateSelector } from '../StateSelector/StateSelector'
  */
 export let ServiceAreasUploader = withStore(
   'counties',
+  'selectedState',
   'serviceAreas',
   'uploadedServiceAreasFilename'
 )(({ store }) =>
   <div>
     <StateSelector
-      onChange={store.set('selectedState')}
+      onChange={state => onStateChange(state, store)}
       value={store.get('selectedState')}
     />
-    <div className='Flex -Row'>
-      <CSVUploader label='Service Areas' onUpload={onFileSelected(store)} />
-      <div className='Ellipsis Muted SmallFont'>{
-        store.get('uploadedServiceAreasFilename')
-          ? `Uploaded ${store.get('uploadedServiceAreasFilename')}`
-          : ''
-      }</div>
+    <div className='Flex -PullLeft'>
+      <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
+      <text className='Ellipsis Muted SmallFont'> or </text>
+      <SelectAllServiceAreas onClickSelect={selectAll(store)} />
+      <text className='Ellipsis Muted SmallFont'>
+        {store.get('uploadedServiceAreasFilename')}
+      </text>
       {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
   </div >
   )
 
 ServiceAreasUploader.displayName = 'ServiceAreasUploader'
+
+function selectAll(store: Store) {
+  return () => {
+    store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
+    store.set('uploadedServiceAreasFilename')(store.get('selectedState').toUpperCase())
+  }
+}
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
@@ -45,11 +54,15 @@ function onFileSelected(store: Store) {
     errors.slice(0, 1).forEach(e =>
       store.set('error')(e.toString())
     )
-
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea(store.get('selectedState'), county, zip)))
     store.set('uploadedServiceAreasFilename')(file.name)
   }
+}
+
+function onStateChange(state: State, store: Store) {
+  store.set('selectedState')(state)
+  store.set('uploadedServiceAreasFilename')('')
 }
 
 function onClearInputs(store: Store) {

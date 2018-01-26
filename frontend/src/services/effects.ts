@@ -4,7 +4,6 @@ import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, GeocodedProvider, Method, Provider } from '../constants/datatypes'
-import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
@@ -187,21 +186,6 @@ export function withEffects(store: Store) {
     )
 
   /**
-   * When the user checks/unchecks counties in the `<CountySelector />`, we
-   * update `serviceAreas` to the service areas in the selected counties.
-   */
-  store
-    .on('counties')
-    .subscribe(counties =>
-      store.set('serviceAreas')(
-        chain(counties)
-          .map(_ => SERVICE_AREAS_BY_COUNTY_BY_STATE[store.get('selectedState')][_])
-          .flatten()
-          .value()
-      )
-    )
-
-  /**
    * When the user adds representative points,
    * make sure that providers appear on top.
    * TODO - Invetsigate less hacky method.
@@ -209,6 +193,8 @@ export function withEffects(store: Store) {
   store
     .on('representativePoints')
     .subscribe(representativePoints => {
+      // Force representative points to show up on the map.
+      store.set('adequacies')({})
       let temp_providers = store.get('providers')
       if (representativePoints.length && temp_providers.length) {
         store.set('providers')([])

@@ -1,0 +1,10 @@
+@import "../../index.css";
+
+.SelectAllServiceAreas input[type="file"] {
+  display: none;
+  margin: auto;
+}
+
+.SelectAllServiceAreas {
+  margin: auto;
+}

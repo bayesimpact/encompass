@@ -15,8 +15,8 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
       To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two separate CSV files:
       <ul>
-        <li>list of service areas (County and/or ZIP columns).</li>
-        <li>list of addresses for providers or services.</li>
+        <li>List of service areas (County and/or ZIP columns).</li>
+        <li>List of addresses for providers or services.</li>
       </ul>
     </p>
     <ServiceAreasUploader />
