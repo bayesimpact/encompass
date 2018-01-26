@@ -77,8 +77,8 @@ services:
 
     explorer:
         build:
-          context: ./explorer/
-          dockerfile: Dockerfile
+          context: .
+          dockerfile: ./explorer/Dockerfile
         volumes:
           - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
           - ./explorer/notebooks:/home/jovyan/work/notebooks/:rw
