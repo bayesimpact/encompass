@@ -26,6 +26,12 @@ load_representative_points:
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"
 	rm data/representative_points.geojson
 
+# Export representative points data and build a MapBox tileset.
+# Note: You may need to run `brew install tippecanoe`.
+create_tileset_from_representative_points:
+	docker-compose run --no-deps backend bash -c "python runners/export_representative_points.py -o data/representative_points_from_db.geojson"
+	tippecanoe -o data/repr_pop_points.mbtiles -Z 3 -z 22 -r 2.5 -B 8.0 -f data/representative_points_from_db.geojson
+
 # Run the app in debug mode.
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
