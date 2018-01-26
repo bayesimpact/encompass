@@ -7,7 +7,7 @@ variable "app_ami" {
 variable "db_snapshot_id" {
   description = "The snapshot ID to use for initialising the DB server"
   type        = "string"
-  default     = "encompass-01-24-18"
+  default     = "encompass-prod-01-25-18"
 }
 
 variable "env_name" {
@@ -29,6 +29,12 @@ variable "app_security_group_name" {
   description = "The security group name to use for app servers"
   type        = "string"
   default     = "na_app_sg"
+}
+
+variable "db_security_group_name" {
+  description = "The security group name to use for DB servers"
+  type        = "string"
+  default     = "na_db_sg"
 }
 
 variable "load_balancer_name" {
