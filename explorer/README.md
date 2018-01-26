@@ -6,9 +6,9 @@ This container is provided for performing TDS-related analysis.
 make explorer
 ```
 
-- Open a browser and navigate to `localhost:9001`.
+- Open a browser and navigate to `localhost:8888`.
 
-This environment gives you the following:
+In addition to methods from `backend`, this environment gives you the following:
 - geopandas
 - scikit-learn
 - statsmodels

@@ -94,7 +94,7 @@ def _transform_single_point(point):
             countyfp=point['properties']['countyfp'],
             tractce=point['properties']['tractce'],
         ),
-        'census_block': '{statefp}{countyfp}{tractce}{blkgrpce}'.format(
+        'census_block_group': '{statefp}{countyfp}{tractce}{blkgrpce}'.format(
             statefp=point['properties']['statefp'],
             countyfp=point['properties']['countyfp'],
             tractce=point['properties']['tractce'],
