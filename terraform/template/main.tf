@@ -60,6 +60,8 @@ resource "aws_db_instance" "na_db" {
   storage_type                        = "gp2"
   username                            = "tds"
   password                            = "${var.db_password}"
+  vpc_security_group_ids              = ["${aws_security_group.na_db_sg.id}"]
+
 }
 
 # Security group for app server.
