@@ -10,6 +10,10 @@ services:
       links:
         # Link with the DB container as `db.local`
         - db:db.local
+      volumes:
+        - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
+#      entrypoint:
+#        - ./runners/entrypoint-local.sh
 
     db:
       image: mdillon/postgis
