@@ -4208,7 +4208,7 @@ export let DATASETS: Dataset[] = [
     ]
 },
   {
-    dataSources: ['Mock 1', 'Mock 2'],
+    dataSources: ['Mock Service Areas', 'Mock Providers'],
     name: 'Fresno Mock Data',
     description: 'A mock dataset in Fresno, CA',
     providers: [
@@ -4513,19 +4513,5 @@ export let DATASETS: Dataset[] = [
         {address: '6191 N FRESNO ST, FRESNO, CA 93710', languages: ['Spanish'], npi: '1689772261', specialty: 'Family Practice', lat: 36.826379, lng: -119.781942},
         {address: '6191 N FRESNO ST, FRESNO, CA 93710', languages: ['Spanish'], npi: '1689772261', specialty: 'Family Practice', lat: 36.826379, lng: -119.781942}],
     serviceAreaIds: ['ca_fresno_93204', 'ca_fresno_93210', 'ca_fresno_93230', 'ca_fresno_93234', 'ca_fresno_93242', 'ca_fresno_93266', 'ca_fresno_93451', 'ca_fresno_93602', 'ca_fresno_93603', 'ca_fresno_93605', 'ca_fresno_93606', 'ca_fresno_93607', 'ca_fresno_93608', 'ca_fresno_93609', 'ca_fresno_93611', 'ca_fresno_93612', 'ca_fresno_93613', 'ca_fresno_93616', 'ca_fresno_93618', 'ca_fresno_93619', 'ca_fresno_93620', 'ca_fresno_93621', 'ca_fresno_93622', 'ca_fresno_93624', 'ca_fresno_93625', 'ca_fresno_93626', 'ca_fresno_93627', 'ca_fresno_93628', 'ca_fresno_93630', 'ca_fresno_93631', 'ca_fresno_93634', 'ca_fresno_93640', 'ca_fresno_93641', 'ca_fresno_93644', 'ca_fresno_93646', 'ca_fresno_93647', 'ca_fresno_93648', 'ca_fresno_93649', 'ca_fresno_93650', 'ca_fresno_93651', 'ca_fresno_93652', 'ca_fresno_93654', 'ca_fresno_93656', 'ca_fresno_93657', 'ca_fresno_93660', 'ca_fresno_93662', 'ca_fresno_93664', 'ca_fresno_93667', 'ca_fresno_93668', 'ca_fresno_93675', 'ca_fresno_93701', 'ca_fresno_93702', 'ca_fresno_93703', 'ca_fresno_93704', 'ca_fresno_93705', 'ca_fresno_93706', 'ca_fresno_93707', 'ca_fresno_93708', 'ca_fresno_93709', 'ca_fresno_93710', 'ca_fresno_93711', 'ca_fresno_93712', 'ca_fresno_93714', 'ca_fresno_93715', 'ca_fresno_93716', 'ca_fresno_93717', 'ca_fresno_93718', 'ca_fresno_93720', 'ca_fresno_93721', 'ca_fresno_93722', 'ca_fresno_93723', 'ca_fresno_93725', 'ca_fresno_93726', 'ca_fresno_93727', 'ca_fresno_93728', 'ca_fresno_93729', 'ca_fresno_93730', 'ca_fresno_93737', 'ca_fresno_93744', 'ca_fresno_93745', 'ca_fresno_93747', 'ca_fresno_93755', 'ca_fresno_93771', 'ca_fresno_93772', 'ca_fresno_93773', 'ca_fresno_93774', 'ca_fresno_93775', 'ca_fresno_93776', 'ca_fresno_93777', 'ca_fresno_93778', 'ca_fresno_93779', 'ca_fresno_93790', 'ca_fresno_93791', 'ca_fresno_93792', 'ca_fresno_93793', 'ca_fresno_93794', 'ca_fresno_95043']
-  },
-  {
-    name: 'Foo',
-    dataSources: [],
-    description: 'All mental health specialists registered in California in 2016',
-    providers: [],
-    serviceAreaIds: ['ca_san_francisco_94114']
-  },
-  {
-    name: 'Bar',
-    dataSources: [],
-    description: 'All Texas veterinarians registered to operate on French Bulldogs',
-    providers: [],
-    serviceAreaIds: ['ca_san_francisco_94114']
   }
 ]
