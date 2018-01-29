@@ -1,13 +1,18 @@
 #!/usr/bin/python3
-"""This file contains the commands to spin up an OSRM routing server."""
+"""
+This file contains the commands to spin up an OSRM routing server.
+
+The variables below are set for a single state. For all of North America, use
+OSM_PBF_URL = 'http://download.geofabrik.de/north-america-latest.osm.pbf'
+"""
 import os
 import subprocess
 import sys
 
+OSM_PBF_URL = 'http://download.geofabrik.de/north-america/us/california-latest.osm.pbf'
 
-RAW_FILENAME = 'california-latest.osm.pbf'
-RAW_FILEPATH = '/data/osrm/{}'.format(RAW_FILENAME)
-OUTPUT_FILEPATH = RAW_FILEPATH.replace('osm.pbf', 'osrm')
+VERBOSITY = 'DEBUG'
+N_THREADS = 16
 
 
 def _is_file_missing(filepath):
@@ -15,16 +20,17 @@ def _is_file_missing(filepath):
     return not os.path.isfile(filepath)
 
 
-def fetch_osrm_data(raw_filename):
+def fetch_osrm_data(osm_pbf_url):
     """Download the compressed road network files."""
+    raw_filename = osm_pbf_url.split('/')[-1]
     raw_filepath = '/data/osrm/{}'.format(raw_filename)
     steps = [
         {
             'name': 'Fetch compressed road network file.',
             'command':
-                'wget http://download.geofabrik.de/north-america/us/{filename} '
+                'wget {osm_url} '
                 ' -O {filepath}'.format(
-                    filename=raw_filename,
+                    osm_url=osm_pbf_url,
                     filepath=raw_filepath
                 )
         }
@@ -43,15 +49,29 @@ def process_osrm_data(raw_filepath, output_filepath):
     steps = [
         {
             'name': 'Extract.',
-            'command': 'osrm-extract -p /opt/car.lua {}'.format(raw_filepath)
+            'command': '''
+                osrm-extract --verbosity {} --threads {} --profile /opt/car.lua {}
+            '''.format(
+                VERBOSITY,
+                N_THREADS,
+                raw_filepath
+            )
         },
         {
             'name': 'Partition.',
-            'command': 'osrm-partition {}'.format(output_filepath)
+            'command': 'osrm-partition --verbosity {} --threads {} {}'.format(
+                VERBOSITY,
+                N_THREADS,
+                output_filepath
+            )
         },
         {
             'name': 'Customize.',
-            'command': 'osrm-customize {}'.format(output_filepath)
+            'command': 'osrm-customize --verbosity {} --threads {} {}'.format(
+                VERBOSITY,
+                N_THREADS,
+                output_filepath
+            )
         },
     ]
     exit_code = 0
@@ -65,23 +85,32 @@ def process_osrm_data(raw_filepath, output_filepath):
 
 def start_osrm_server(output_filepath):
     """Start an OSRM server using the routing network contained in output_filepath."""
-    routing_command = 'osrm-routed --algorithm mld {}'.format(output_filepath)
+    routing_command = '''
+            osrm-routed --verbosity {} --threads {} --algorithm mld {}
+        '''.format(
+        VERBOSITY,
+        N_THREADS,
+        output_filepath
+    )
     exit_code = subprocess.call(args=[routing_command], shell=True)
     if exit_code != 0:
         sys.exit(exit_code)
 
 
-def main(raw_filepath=RAW_FILEPATH, output_filepath=OUTPUT_FILEPATH):
+def main(osm_pbf_url=OSM_PBF_URL):
     """
-    Start an OSRM server using the routing network contained in output_filepath.
+    Start an OSRM server using the provided routing network.
 
-    This function will download and process the necessary data if the file does not yet exist.
+    This function will download and process the necessary data if the OSM file does not yet exist.
     """
-    raw_filename = raw_filepath.split('/')[-1]
+    raw_filename = OSM_PBF_URL.split('/')[-1]
+    raw_filepath = '/data/osrm/{}'.format(raw_filename)
+    output_filepath = raw_filepath.replace('osm.pbf', 'osrm')
+
     subprocess.call(args=['mkdir -p /data/osrm/'], shell=True)
     if _is_file_missing(output_filepath):
         if _is_file_missing(raw_filepath):
-            fetch_osrm_data(raw_filename)
+            fetch_osrm_data(osm_pbf_url)
         process_osrm_data(raw_filepath, output_filepath)
 
     start_osrm_server(output_filepath)
