@@ -1,7 +1,825 @@
 import { Dataset } from './datatypes'
+import { CaliforniaFKMServiceAreas } from './states'
 import { SERVICE_AREAS_BY_STATE } from './zipCodes'
 
 export let DATASETS: Dataset[] = [
+    {
+        dataSources: [
+            '20161005 FKM Medi-Cal Service Area.csv',
+            '20161005 FKM Medi-Cal Behavioral.csv'
+        ],
+        description: '2016 FKM Medi-Cal - Behavioral',
+        name: 'FKM Medi-Cal Behavioral',
+        providers: [
+            {
+                address: '16928 11TH ST., HURON, CA 93234',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.205668,
+                lng: -120.102846
+            },
+            {
+                address: '650 ZEDIKER AVE, PARLIER, CA 93648',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.604949,
+                lng: -119.521534
+            },
+            {
+                address: '121 BARBOZA ST, MENDOTA, CA 93640',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.766248,
+                lng: -120.38342
+            },
+            {
+                address: '2502 E JENSEN AVE, SANGER, CA 93657',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.707253,
+                lng: -119.572144
+            },
+            {
+                address: '1209 WHITLEY AVE, CORCORAN, CA 93212',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.097881,
+                lng: -119.562836
+            },
+            {
+                address: '1560 E MANNING AVE, REEDLEY, CA 93654',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.604269,
+                lng: -119.432643
+            },
+            {
+                address: '1270 N LEMOORE AVE, LEMOORE, CA 93245',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.315744,
+                lng: -119.780394
+            },
+            {
+                address: '517 S MADERA AVE, KERMAN, CA 93630',
+                languages: [],
+                npi: '1841424728',
+                specialty: 'Psychiatry',
+                lat: 36.742472,
+                lng: -120.059901
+            },
+            {
+                address: '1322 E SHAW AVE., FRESNO, CA 93710',
+                languages: [],
+                npi: '1134192842',
+                specialty: 'Psychiatry',
+                lat: 36.810213,
+                lng: -119.764333
+            },
+            {
+                address: '1060 W SIERRA AVE, FRESNO, CA 93711',
+                languages: [],
+                npi: '1821100173',
+                specialty: 'Psychiatry',
+                lat: 36.830405,
+                lng: -119.809956
+            },
+            {
+                address: '7055 N CHESTNUT AVE, FRESNO, CA 93720',
+                languages: [],
+                npi: '1528121852',
+                specialty: 'Psychiatry',
+                lat: 36.838598,
+                lng: -119.736275
+            },
+            {
+                address: '1306 W HERNDON AVE, FRESNO, CA 93711',
+                languages: [],
+                npi: '1427160720',
+                specialty: 'Psychiatry',
+                lat: 36.83772,
+                lng: -119.813592
+            },
+            {
+                address: '258 N BLACKSTONE AVE, FRESNO, CA 93701',
+                languages: [],
+                npi: '1427160720',
+                specialty: 'Psychiatry',
+                lat: 36.746326,
+                lng: -119.790275
+            },
+            {
+                address: '1350 S ORANGE AVE, FRESNO, CA 93702',
+                languages: [],
+                npi: '1427190487',
+                specialty: 'Psychiatry',
+                lat: 36.728965,
+                lng: -119.763902
+            },
+            {
+                address: '2740 S ELM AVE, FRESNO, CA 93706',
+                languages: [],
+                npi: '1427190487',
+                specialty: 'Psychiatry',
+                lat: 36.705676,
+                lng: -119.790594
+            },
+            {
+                address: '650 ZEDIKER AVE, PARLIER, CA 93648',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.604949,
+                lng: -119.521534
+            },
+            {
+                address: '1560 E MANNING AVE, REEDLEY, CA 93654',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.604269,
+                lng: -119.432643
+            },
+            {
+                address: '1270 N LEMOORE AVE, LEMOORE, CA 93245',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.315744,
+                lng: -119.780394
+            },
+            {
+                address: '16928 11TH ST., HURON, CA 93234',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.205668,
+                lng: -120.102846
+            },
+            {
+                address: '517 S MADERA AVE, KERMAN, CA 93630',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.742472,
+                lng: -120.059901
+            },
+            {
+                address: '2502 E JENSEN AVE, SANGER, CA 93657',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.707253,
+                lng: -119.572144
+            },
+            {
+                address: '121 BARBOZA ST, MENDOTA, CA 93640',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.766248,
+                lng: -120.38342
+            },
+            {
+                address: '1209 WHITLEY AVE, CORCORAN, CA 93212',
+                languages: [],
+                npi: '1316950058',
+                specialty: 'Psychiatry',
+                lat: 36.097881,
+                lng: -119.562836
+            },
+            {
+                address: '1130 E SHAW AVENUE, FRESNO, CA 93710',
+                languages: [],
+                npi: '1710982608',
+                specialty: 'Psychiatry',
+                lat: 36.809219,
+                lng: -119.769099
+            },
+            {
+                address: '1322 E SHAW AVE., FRESNO, CA 93710',
+                languages: [],
+                npi: '1063698884',
+                specialty: 'Psychiatry',
+                lat: 36.810213,
+                lng: -119.764333
+            },
+            {
+                address: '3443 W SHAW AVE, FRESNO, CA 93711',
+                languages: [],
+                npi: '1144374091',
+                specialty: 'Psychiatry',
+                lat: 36.805329,
+                lng: -119.854395
+            },
+            {
+                address: '724 MEDICAL CENTER DR E, CLOVIS, CA 93611',
+                languages: [],
+                npi: '1265422695',
+                specialty: 'Psychiatry',
+                lat: 36.841207,
+                lng: -119.66008
+            },
+            {
+                address: '724 MEDICAL CTR.DR E, CLOVIS, CA 93611',
+                languages: [],
+                npi: '1265422695',
+                specialty: 'Psychiatry',
+                lat: 36.825296,
+                lng: -119.68019
+            }
+        ],
+        serviceAreaIds: CaliforniaFKMServiceAreas
+  },
+  {
+    dataSources: [
+        '20161005 FKM Medi-Cal Service Area.csv',
+        '20161005 FKM Medi-Cal Endocrinologists.csv'
+    ],
+    description: '2016 FKM Medi-Cal - Endocrinologists',
+    name: 'FKM Medi-Cal Endocrinologists',
+    providers: [
+        {
+            address: '41169 Goodwin Way., Madera, CA 93636',
+            languages: [],
+            npi: '1326203837',
+            specialty: 'Endocrinology',
+            lat: 36.886356,
+            lng: -119.799156
+        },
+        {
+            address: '41169 Goodwin Way., Madera, CA 93636',
+            languages: [],
+            npi: '1326203837',
+            specialty: 'Endocrinology',
+            lat: 36.886356,
+            lng: -119.799156
+        },
+        {
+            address: '1210 E. Almond Ave., Madera, CA 93637',
+            languages: [],
+            npi: '1073750667',
+            specialty: 'Endocrinology',
+            lat: 36.944309,
+            lng: -120.045594
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1255452025',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1255452025',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1104002708',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1104002708',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1730484403',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1730484403',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: '550 E. Herndon Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1871503649',
+            specialty: 'Endocrinology',
+            lat: 36.838137,
+            lng: -119.778356
+        },
+        {
+            address: '5715 N. West Ave., Fresno, CA 93711',
+            languages: [],
+            npi: '1194711275',
+            specialty: 'Endocrinology',
+            lat: 36.821389,
+            lng: -119.827373
+        },
+        {
+            address: '2934 N. Fresno St., Fresno, CA 93703',
+            languages: [],
+            npi: '1194711275',
+            specialty: 'Endocrinology',
+            lat: 36.777738,
+            lng: -119.780781
+        },
+        {
+            address: '2934 N. Fresno St., Fresno, CA 93703',
+            languages: [],
+            npi: '1194711275',
+            specialty: 'Endocrinology',
+            lat: 36.777738,
+            lng: -119.780781
+        },
+        {
+            address: '5715 N. West Ave., Fresno, CA 93711',
+            languages: [],
+            npi: '1194711275',
+            specialty: 'Endocrinology',
+            lat: 36.821389,
+            lng: -119.827373
+        },
+        {
+            address: '110 N. Valeria St., Fresno, CA 93701',
+            languages: [],
+            npi: '1194711275',
+            specialty: 'Endocrinology',
+            lat: 36.744214,
+            lng: -119.784547
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1861575383',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1457341497',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134197858',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134197858',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134197858',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134197858',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134197858',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: '7085 N Chestnut Ave, Fresno, CA 93720',
+            languages: [],
+            npi: '1124085287',
+            specialty: 'Endocrinology',
+            lat: 36.839637,
+            lng: -119.737415
+        },
+        {
+            address: '1805 E. Fir Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1124085287',
+            specialty: 'Endocrinology',
+            lat: 36.838725,
+            lng: -119.749795
+        },
+        {
+            address: '7085 N Chestnut Ave, Fresno, CA 93720',
+            languages: [],
+            npi: '1124085287',
+            specialty: 'Endocrinology',
+            lat: 36.839637,
+            lng: -119.737415
+        },
+        {
+            address: '7085 N Chestnut Ave, Fresno, CA 93720',
+            languages: [],
+            npi: '1124085287',
+            specialty: 'Endocrinology',
+            lat: 36.839637,
+            lng: -119.737415
+        },
+        {
+            address: '1025 N. Douty St., Hanford, CA 93230',
+            languages: [],
+            npi: '1720270820',
+            specialty: 'Endocrinology',
+            lat: 36.335744,
+            lng: -119.645717
+        },
+        {
+            address: '1524 W. Lacey Blvd., Hanford, CA 93230',
+            languages: [],
+            npi: '1720270820',
+            specialty: 'Endocrinology',
+            lat: 36.328404,
+            lng: -119.669052
+        },
+        {
+            address: '1025 N. Douty St., Hanford, CA 93230',
+            languages: [],
+            npi: '1720270820',
+            specialty: 'Endocrinology',
+            lat: 36.335744,
+            lng: -119.645717
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1770720799',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1770720799',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134160666',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134160666',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134160666',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1134160666',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: '7055 N. Chestnut Avenue, Fresno, CA 93720',
+            languages: [],
+            npi: '1255471975',
+            specialty: 'Endocrinology',
+            lat: 36.838598,
+            lng: -119.736275
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1255471975',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1255471975',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: '7055 N. Chestnut Avenue, Fresno, CA 93720',
+            languages: [],
+            npi: '1255471975',
+            specialty: 'Endocrinology',
+            lat: 36.838598,
+            lng: -119.736275
+        },
+        {
+            address: '2625 E. Divisadero St., Fresno, CA 93721',
+            languages: [],
+            npi: '1770590861',
+            specialty: 'Endocrinology',
+            lat: 36.743696,
+            lng: -119.780093
+        },
+        {
+            address: '290 N. Wayte Ln., Fresno, CA 93701',
+            languages: [],
+            npi: '1770590861',
+            specialty: 'Endocrinology',
+            lat: 36.746524,
+            lng: -119.783163
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1417995531',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1417995531',
+            specialty: 'Endocrinology',
+            lat: 36.884012,
+            lng: -119.800694
+        }
+    ],
+    serviceAreaIds: CaliforniaFKMServiceAreas
+  },
+  {
+    dataSources: [
+        '20161005 FKM Medi-Cal Service Area.csv',
+        '20161005 FKM Medi-Cal Oncologists.csv'
+    ],
+    description: '2016 FKM Medi-Cal - Oncologists',
+    name: 'FKM Medi-Cal Oncologists',
+    providers: [
+        {
+            address: '1791 E. Fir Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1326087917',
+            specialty: 'Oncology',
+            lat: 36.8394402,
+            lng: -119.7352575
+        },
+        {
+            address: '7130 N. Millbrook Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1013032713',
+            specialty: 'Oncology',
+            lat: 36.838459,
+            lng: -119.762605
+        },
+        {
+            address: '7130 N. Millbrook Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1144343005',
+            specialty: 'Oncology',
+            lat: 36.838459,
+            lng: -119.762605
+        },
+        {
+            address: '2335 E. Kashian Ln., Fresno, CA 93701',
+            languages: [],
+            npi: '1508024647',
+            specialty: 'Oncology',
+            lat: 36.743713,
+            lng: -119.783137
+        },
+        {
+            address: '2828 Fresno St., Fresno, CA 93721',
+            languages: [],
+            npi: '1508024647',
+            specialty: 'Oncology',
+            lat: 36.741617,
+            lng: -119.78357
+        },
+        {
+            address: '7257 N. Fresno St., Fresno, CA 93720',
+            languages: [],
+            npi: '1447494398',
+            specialty: 'Radiation Oncology',
+            lat: 36.842047,
+            lng: -119.784151
+        },
+        {
+            address: '2625 E. Divisadero St., Fresno, CA 93721',
+            languages: [],
+            npi: '1588814404',
+            specialty: 'Oncology',
+            lat: 36.743696,
+            lng: -119.780093
+        },
+        {
+            address: '2335 E. Kashian Ln., Fresno, CA 93701',
+            languages: [],
+            npi: '1588814404',
+            specialty: 'Oncology',
+            lat: 36.743713,
+            lng: -119.783137
+        },
+        {
+            address: '2335 E. Kashian Ln., Fresno, CA 93701',
+            languages: [],
+            npi: '1659508281',
+            specialty: 'Oncology',
+            lat: 36.743713,
+            lng: -119.783137
+        },
+        {
+            address: '360 E. Almond Ave., Madera, CA 93637',
+            languages: [],
+            npi: '1346278546',
+            specialty: 'Oncology',
+            lat: 36.944484,
+            lng: -120.052967
+        },
+        {
+            address: '6121 N. Thesta St., Fresno, CA 93710',
+            languages: [],
+            npi: '1396820189',
+            specialty: 'Oncology',
+            lat: 36.824959,
+            lng: -119.783699
+        },
+        {
+            address: '1443 W. Seventh St., Hanford, CA 93230',
+            languages: [],
+            npi: '1437127545',
+            specialty: 'Radiation Oncology',
+            lat: 36.324976,
+            lng: -119.667075
+        },
+        {
+            address: '1443 W. Seventh St., Hanford, CA 93230',
+            languages: [],
+            npi: '1437127545',
+            specialty: 'Radiation Oncology',
+            lat: 36.324976,
+            lng: -119.667075
+        },
+        {
+            address: '7887 N. Cedar Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1316901663',
+            specialty: 'Radiation Oncology',
+            lat: 36.850577,
+            lng: -119.75749
+        },
+        {
+            address: '7887 N. Cedar Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1316901663',
+            specialty: 'Radiation Oncology',
+            lat: 36.850577,
+            lng: -119.75749
+        },
+        {
+            address: '6323 N. Fresno St., Fresno, CA 93710',
+            languages: [],
+            npi: '1609879170',
+            specialty: 'Oncology',
+            lat: 36.828697,
+            lng: -119.78284
+        },
+        {
+            address: '360 E. Almond Ave., Madera, CA 93637',
+            languages: [],
+            npi: '1720166309',
+            specialty: 'Radiation Oncology',
+            lat: 36.944484,
+            lng: -120.052967
+        },
+        {
+            address: '7257 N. Fresno St., Fresno, CA 93720',
+            languages: [],
+            npi: '1427377431',
+            specialty: 'Radiation Oncology',
+            lat: 36.842047,
+            lng: -119.784151
+        },
+        {
+            address: '7257 N. Fresno St., Fresno, CA 93720',
+            languages: [],
+            npi: '1427377431',
+            specialty: 'Radiation Oncology',
+            lat: 36.842047,
+            lng: -119.784151
+        },
+        {
+            address: '7130 N. Millbrook Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1417927054',
+            specialty: 'Oncology',
+            lat: 36.838459,
+            lng: -119.762605
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1467429787',
+            specialty: 'Pediatric Hematology/Oncology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1467429787',
+            specialty: 'Pediatric Hematology/Oncology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: "9300 Valley Children's Pl., Madera, CA 93636",
+            languages: [],
+            npi: '1467429787',
+            specialty: 'Pediatric Hematology/Oncology',
+            lat: 36.884012,
+            lng: -119.800694
+        },
+        {
+            address: '7130 N. Millbrook Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1992867147',
+            specialty: 'Oncology',
+            lat: 36.838459,
+            lng: -119.762605
+        },
+        {
+            address: '7257 N. Fresno St., Fresno, CA 93720',
+            languages: [],
+            npi: '1093718785',
+            specialty: 'Radiation Oncology',
+            lat: 36.842047,
+            lng: -119.784151
+        },
+        {
+            address: '7257 N. Fresno St., Fresno, CA 93720',
+            languages: [],
+            npi: '1093718785',
+            specialty: 'Radiation Oncology',
+            lat: 36.842047,
+            lng: -119.784151
+        },
+        {
+            address: '1791 E. Fir Ave., Fresno, CA 93720',
+            languages: [],
+            npi: '1669455390',
+            specialty: 'Radiation Oncology',
+            lat: 36.8394402,
+            lng: -119.7352575
+        }
+    ],
+    serviceAreaIds: CaliforniaFKMServiceAreas
+  },
   {
     dataSources: [
         'Texas',
