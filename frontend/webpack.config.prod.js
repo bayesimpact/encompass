@@ -73,7 +73,8 @@ module.exports = {
       'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
       'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       'process.env.SHOULD_SHOW_CSV_UPLOADER': JSON.stringify(process.env.SHOULD_SHOW_CSV_UPLOADER),
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.TITLE_SUFFIX': JSON.stringify(process.env.TITLE_SUFFIX)
     }),
     new UglifyJsPlugin({
       parallel: true,

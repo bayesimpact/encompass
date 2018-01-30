@@ -4,10 +4,12 @@ import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
 import './Header.css'
 
+let title = 'Encompass' + (process.env.TITLE_SUFFIX ? ' - ' + process.env.TITLE_SUFFIX : '')
+
 export let Header: React.StatelessComponent = () =>
   <AppBar
     className='Header'
-    title='Encompass'
+    title={title}
     iconElementRight={
       <IconButton
         href='https://github.com/bayesimpact/tds'
