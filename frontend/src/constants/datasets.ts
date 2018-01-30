@@ -1,5 +1,5 @@
 import { Dataset } from './datatypes'
-import { MississippiServiceAreas, TexasServiceAreas } from './states'
+import { SERVICE_AREAS_BY_STATE } from './zipCodes'
 
 export let DATASETS: Dataset[] = [
   {
@@ -379,7 +379,7 @@ export let DATASETS: Dataset[] = [
     lng: -95.526151
         }
     ],
-    serviceAreaIds: TexasServiceAreas
+    serviceAreaIds: SERVICE_AREAS_BY_STATE.tx
 },
   {
     dataSources: ['Mock Service Areas', 'Mock Providers'],
@@ -3377,7 +3377,7 @@ export let DATASETS: Dataset[] = [
             lng: -88.718351
         }
     ],
-    serviceAreaIds: MississippiServiceAreas
+    serviceAreaIds: SERVICE_AREAS_BY_STATE.ms
   },
   {
     dataSources: [
@@ -3692,6 +3692,6 @@ export let DATASETS: Dataset[] = [
             lng: -90.175626
         }
     ],
-    serviceAreaIds: MississippiServiceAreas
+    serviceAreaIds: SERVICE_AREAS_BY_STATE.ms
   }
 ]

@@ -1,4 +1,4 @@
-import { chain, flow, keys, mapValues, sortBy } from 'lodash'
+import { chain, flatten, flow, keys, mapValues, sortBy, values } from 'lodash'
 import { serializeServiceArea } from '../utils/serializers'
 import { State } from './states'
 import { ZIPS_BY_COUNTY_BY_STATE } from './zipCodesByCountyByState'
@@ -24,3 +24,7 @@ export const SERVICE_AREAS_BY_COUNTY_BY_STATE: Record<State, { [county: string]:
       cs,
       (zs, c) => zs.map(z => serializeServiceArea(s, c, z)))
   )
+
+export const SERVICE_AREAS_BY_STATE: Record<State, string[]> = chain(SERVICE_AREAS_BY_COUNTY_BY_STATE)
+  .mapValues(flow(values, flatten))
+  .value()
