@@ -5,7 +5,6 @@ import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Method, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
-import { representativePointsFromServiceAreas } from '../utils/data'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
@@ -48,19 +47,13 @@ export function withEffects(store: Store) {
    *    1. Replace `store.mapCenter` and `store.mapZoom` with `store.mapBounds`
    *    2. Delete `store.map`
    */
-  Observable.combineLatest(
-    store.on('representativePoints').startWith(store.get('representativePoints')),
-    store.on('selectedServiceArea').startWith(store.get('selectedServiceArea'))
-  ).debounce(0).subscribe(([representativePoints, selectedServiceArea]) => {
-
+  store.on('representativePoints').subscribe(async representativePoints => {
     // TODO: Use an Option for clarity
     let map = store.get('map')
     if (!map) {
       return
     }
-    let bounds = selectedServiceArea
-      ? boundingBox(representativePointsFromServiceAreas([selectedServiceArea], store).value())
-      : boundingBox(representativePoints)
+    let bounds = boundingBox(representativePoints)
     if (!bounds) {
       return
     }
@@ -130,7 +123,7 @@ export function withEffects(store: Store) {
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas
         }),
-        getRepresentativePoints({ service_area_ids: serviceAreas })
+        representativePoints
       ])
 
       // Sanity check: If the user changed service areas between when the
@@ -148,7 +141,7 @@ export function withEffects(store: Store) {
           .zipObject(adequacies)
           .mapValues((_, key) => ({
             adequacyMode: getAdequacyMode(
-              _, method, hash[key].service_area_id, selectedServiceArea
+              _, method, hash[key].serviceAreaId, selectedServiceArea
             ),
             id: _.id,
             toClosestProvider: _.to_closest_provider,

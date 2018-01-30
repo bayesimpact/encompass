@@ -62,21 +62,12 @@ function removePopup(store: Store) {
   store.set('providerIndex')(0)
 }
 
-const FIT_BOUNDS_OPTIONS = {
-  padding: {
-    bottom: 20,
-    left: 404, // 320 + 64 + 20 <- TODO: Codegen from CSS
-    right: 20,
-    top: 20
-  }
-}
 const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
 const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
 
 export let MapView = withStore(
   'adequacies',
   'mapCenter',
-  'mapZoom',
   'providerIndex',
   'providers',
   'selectedProvider',
@@ -90,13 +81,9 @@ export let MapView = withStore(
 
   return <div className='MapView'>
     <Map
-      fitBoundsOptions={FIT_BOUNDS_OPTIONS}
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
-      onDragEnd={(map: MapboxGL.Map) => store.set('mapCenter')(map.getCenter())}
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
-      onZoomEnd={(map: MapboxGL.Map) => store.set('mapZoom')(map.getZoom())}
-      zoom={[store.get('mapZoom')]}
       onClick={() => removePopup(store)}
     >
       {representativePoints.length && <GeoJSONLayer
