@@ -26,6 +26,8 @@ services:
         - ./backend/.flake8:/app/.flake8:ro
         - ./backend/.coveragerc:/app/.coveragerc:ro
         - ./backend/lib/:/app/lib:ro
+      environment:
+        - POSTGRES_URL=$POSTGRES_URL
       env_file:
         - .env
       ports:
