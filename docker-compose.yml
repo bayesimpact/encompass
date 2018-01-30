@@ -69,7 +69,7 @@ services:
           dockerfile: Dockerfile
         image: osrm
         volumes:
-          - ./data/:/data/:rw
+          - ./data/:/opt/data/:rw
           - ./osrm:/osrm/:ro
         command: sh -c "/osrm/initialize.py"
         ports:

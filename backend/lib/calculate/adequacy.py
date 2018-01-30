@@ -187,6 +187,7 @@ def calculate_adequacies(
     executor_type = measurer_config['adequacy_executor_type']
     n_processors = measurer_config['n_adequacy_processors']
 
+    logger.debug('Starting {} executors for adequacy calculations...'.format(n_processors))
     with executor_type(processes=n_processors) as executor:
         adequacies_response = executor.starmap(
             func=_find_closest_location,

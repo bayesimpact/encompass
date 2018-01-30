@@ -94,6 +94,7 @@ class OSRMDriving(MeasureDistance):
 
     def __init__(self, mode='time', api_url=None, early_exit_outer_radius=50.0 * 10**3):
         """Initialize the distance class with the OSRM URL."""
+        logger.debug('Initializing OSRM measurer.')
         self.mode = mode
         self.api_url = api_url or os.getenv('OSRM_URL')
         self._haversine_measurer = HaversineDistance()

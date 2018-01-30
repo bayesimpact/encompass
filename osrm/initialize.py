@@ -4,6 +4,19 @@ This file contains the commands to spin up an OSRM routing server.
 
 The variables below are set for a single state. For all of North America, use
 OSM_PBF_URL = 'http://download.geofabrik.de/north-america-latest.osm.pbf'
+
+To process the complete North America fiile, you will need:
+  - Around 150GB of RAM (real or swap)
+  - Around 200GB of Hard Drive
+
+To process it, we suggest temporarily setting up the instance to be an m4.10xlarge, and
+attach a 500GB root hard drive.
+Alternatively, you could keep a smaller instance, and use an additional 500GB SSD and
+use it as swap. To do so, find the name of the new drive (eg. mkswap /dev/sdb) and simply run:
+  - mkswap /dev/sdb
+  - swapon /dev/sdb
+Verify that it is active by running:
+  - swapon -s
 """
 import os
 import subprocess
@@ -12,7 +25,7 @@ import sys
 OSM_PBF_URL = 'http://download.geofabrik.de/north-america/us/california-latest.osm.pbf'
 
 VERBOSITY = 'DEBUG'
-N_THREADS = 16
+N_THREADS = 4
 
 
 def _is_file_missing(filepath):
@@ -23,7 +36,7 @@ def _is_file_missing(filepath):
 def fetch_osrm_data(osm_pbf_url):
     """Download the compressed road network files."""
     raw_filename = osm_pbf_url.split('/')[-1]
-    raw_filepath = '/data/osrm/{}'.format(raw_filename)
+    raw_filepath = './data/osrm/{}'.format(raw_filename)
     steps = [
         {
             'name': 'Fetch compressed road network file.',
@@ -104,16 +117,17 @@ def main(osm_pbf_url=OSM_PBF_URL):
     This function will download and process the necessary data if the OSM file does not yet exist.
     """
     raw_filename = OSM_PBF_URL.split('/')[-1]
-    raw_filepath = '/data/osrm/{}'.format(raw_filename)
+    raw_filepath = './data/osrm/{}'.format(raw_filename)
     output_filepath = raw_filepath.replace('osm.pbf', 'osrm')
 
-    subprocess.call(args=['mkdir -p /data/osrm/'], shell=True)
+    subprocess.call(args=['mkdir -p ./data/osrm/'], shell=True)
     if _is_file_missing(output_filepath):
         if _is_file_missing(raw_filepath):
             fetch_osrm_data(osm_pbf_url)
         process_osrm_data(raw_filepath, output_filepath)
 
     start_osrm_server(output_filepath)
+
 
 if __name__ == '__main__':
     main()
