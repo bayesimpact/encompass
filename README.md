@@ -27,6 +27,7 @@ AWS_ACCESS_KEY=???
 AWS_SECRET_KEY=???
 POSTGRES_URL=???
 API_ROOT=http://localhost:8080
+TITLE_SUFFIX=LOCAL
 ```
 
 * `MAPBOX_TOKEN`: API key provided by [Mapbox](mapbox.com) for mapping.
