@@ -8,8 +8,8 @@ export let DATASETS: Dataset[] = [
             '20161005 FKM Medi-Cal Service Area.csv',
             '20161005 FKM Medi-Cal Behavioral.csv'
         ],
-        description: '2016 FKM Medi-Cal - Behavioral',
-        name: 'FKM Medi-Cal Behavioral',
+        description: 'Psychiatrists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
+        name: 'FKM Medi-Cal - Psychiatrists',
         providers: [
             {
                 address: '16928 11TH ST., HURON, CA 93234',
@@ -243,8 +243,8 @@ export let DATASETS: Dataset[] = [
         '20161005 FKM Medi-Cal Service Area.csv',
         '20161005 FKM Medi-Cal Endocrinologists.csv'
     ],
-    description: '2016 FKM Medi-Cal - Endocrinologists',
-    name: 'FKM Medi-Cal Endocrinologists',
+    description: 'Endocrinologists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
+    name: 'FKM Medi-Cal - Endocrinologists',
     providers: [
         {
             address: '41169 Goodwin Way., Madera, CA 93636',
@@ -598,8 +598,8 @@ export let DATASETS: Dataset[] = [
         '20161005 FKM Medi-Cal Service Area.csv',
         '20161005 FKM Medi-Cal Oncologists.csv'
     ],
-    description: '2016 FKM Medi-Cal - Oncologists',
-    name: 'FKM Medi-Cal Oncologists',
+    description: 'Oncologists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
+    name: 'FKM Medi-Cal - Oncologists',
     providers: [
         {
             address: '1791 E. Fir Ave., Fresno, CA 93720',
@@ -1511,8 +1511,8 @@ export let DATASETS: Dataset[] = [
         'Mississippi',
         '2018 Ambetter of Magnolia Oncologists'
     ],
-    description: '2018 Ambetter of Magnolia - Oncologists',
-    name: 'Mississipi Oncologists Ambetter',
+    description: 'Oncologists in Magnolia Health Plan (2018), an individual marketplace plan offered in Mississippi.',
+    name: 'Magnolia Health Plan - Oncologists',
     providers: [
         {
             address: '1203 Jefferson Street, Laurel, MS 39440',
@@ -4202,8 +4202,8 @@ export let DATASETS: Dataset[] = [
         'all_ms_counties.csv',
         '2018 Ambetter of Magnolia_Endocrinologists.csv'
     ],
-    description: '2018 Ambetter of Magnolia - Endocrinologists',
-    name: 'Mississipi Endocrinologists Ambetter',
+    description: 'Endocrinologists in Magnolia Health Plan (2018), an individual marketplace plan offered in Mississippi.',
+    name: 'Magnolia Health Plan - Endocrinologists',
     providers: [
         {
             address: '511 West Laurel Avenue, Hattiesburg, MS 39401',
