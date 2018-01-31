@@ -73,7 +73,7 @@ def _insert_representative_population_points(json_features):
         )
         return data
     except Exception as e:
-        print("Error inserting representative points: {}".format(e))
+        print("Error inserting representative points")
 
 
 def _transform_single_point(point):

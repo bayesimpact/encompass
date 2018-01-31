@@ -12,8 +12,6 @@ services:
         - db:db.local
       volumes:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
-#      entrypoint:
-#        - ./runners/entrypoint-local.sh
 
     db:
       image: mdillon/postgis
