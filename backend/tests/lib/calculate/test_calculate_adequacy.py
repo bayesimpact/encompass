@@ -4,6 +4,7 @@ from functools import partial
 from backend.lib.calculate import adequacy
 from backend.lib.database.postgres import connect
 from backend.lib.utils.datatypes import Point
+from backend.models import distance
 
 import pyproj
 
@@ -20,6 +21,29 @@ def area_in_square_meters(polygon):
         pyproj.Proj(init='epsg:3857')
     )
     return ops.transform(projection, polygon).area
+
+
+def test_find_closest_location():
+    point = {
+        'id': 0,
+        'latitude': 37.74753421600008,
+        'longitude': -122.2316317029999,
+    }
+    locations = [
+        Point(**{'latitude': 37.74753421600008, 'longitude': -122.2316317029999}),
+        Point(**{'latitude': 32.74753421600008, 'longitude': -122.2316317029999}),
+    ]
+    output = adequacy._find_closest_location(
+        point=point,
+        measurer=distance.get_measurer('haversine'),
+        locations=locations,
+    )
+    expected = {
+        'id': point['id'],
+        'closest_providers': [1],
+        'to_closest_provider': 0.0
+    }
+    assert output == expected
 
 
 def test_calculate_adequacies():
