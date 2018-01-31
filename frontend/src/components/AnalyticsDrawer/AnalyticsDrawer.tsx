@@ -28,7 +28,7 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedServiceArea')
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
     <div className='ServiceAreas'>
-    <strong className='MediumWeight Muted'>Service areas:</strong>
+      <strong className='MediumWeight Muted'>Service areas:</strong>
       <ServiceAreaSelector
         onChange={store.set('selectedServiceArea')}
         value={store.get('selectedServiceArea')}

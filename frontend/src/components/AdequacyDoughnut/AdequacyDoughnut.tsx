@@ -1,5 +1,7 @@
 import { Chart, ChartData, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
+import { isEmpty } from 'lodash'
+import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
@@ -7,7 +9,7 @@ import { AdequacyMode, Method } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
 import { summaryStatistics } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import  { getLegend } from '../MapLegend/MapLegend'
+import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './AdequacyDoughnut.css'
 
@@ -23,6 +25,16 @@ type Props = {
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
 export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ serviceAreas, store }) => {
+
+  if (isEmpty(store.get('adequacies'))) {
+    return <div className='AdequacyDoughnut Flex -Center'>
+      <CircularProgress
+        size={150}
+        thickness={8}
+        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]}
+      />
+    </div>
+  }
 
   let {
     numAdequatePopulation,
@@ -98,11 +110,11 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
 
 function adequacyRow(populationByAdequacy: number, totalPopulation: number, method: Method, adequacyMode: AdequacyMode) {
   return (
-  <tr>
-    <td>{getLegend(method, adequacyMode)}</td>
-    <td>{formatPercentage(100 * populationByAdequacy / totalPopulation)}</td>
-    <td>{formatNumber(populationByAdequacy)}</td>
-  </tr>
+    <tr>
+      <td>{getLegend(method, adequacyMode)}</td>
+      <td>{formatPercentage(100 * populationByAdequacy / totalPopulation)}</td>
+      <td>{formatNumber(populationByAdequacy)}</td>
+    </tr>
   )
 }
 function label(populationByAdequacy: number[]) {

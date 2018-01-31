@@ -104,6 +104,14 @@ export function withEffects(store: Store) {
       // Reset adequacies.
       store.set('adequacies')({})
 
+      /*
+      * If there are no providers or no representative points, do not compute adequacies
+      * and avoid errors in `getAdequacies`.
+      */
+      if (!providers.length || !representativePoints.length) {
+        return
+      }
+
       // Only compute adequacy when in the analytics panel.
       if (route !== '/analytics')
         return
