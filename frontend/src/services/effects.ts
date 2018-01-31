@@ -101,10 +101,8 @@ export function withEffects(store: Store) {
     store.on('method').startWith(store.get('method'))
     )
     .subscribe(async ([providers, representativePoints, selectedServiceArea, route, method]) => {
-      if (!providers.length || !representativePoints.length) {
-        store.set('adequacies')({})
-        return
-      }
+      // Reset adequacies.
+      store.set('adequacies')({})
 
       // Only compute adequacy when in the analytics panel.
       if (route !== '/analytics')
