@@ -27,7 +27,8 @@ class MockResponse:
 
 
 class TestMapBoxAPI():
-    """Test base metrics in the distance module."""
+    """Test methods related to the MapBox API."""
+
     def setup(self):
         """Initialize a measurer for use in the test cases."""
         api_key = os.environ.get('MAPBOX_TOKEN', 'MAPBOX_API')
