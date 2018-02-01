@@ -20,10 +20,6 @@ jobs:
             - run:
                 name: Build containers
                 command: 'docker-compose build backend'
-            # This next step needs to be figured out. The DB initialization needs to happen at a sensible point.
-#            - run:
-#                name: Set up the containerized DB
-#                command: 'make setup-local-db'
             - run:
                 name: Run linters
                 command: |
@@ -31,7 +27,7 @@ jobs:
             - run:
                 name: Run tests
                 command: |
-                    make backend-coverage
+                    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest -s tests
 
     build_frontend:
         machine:
