@@ -19,7 +19,8 @@ jobs:
                   echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy\nPOSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' > .env
             - run:
                 name: Build containers
-                command: 'docker-compose build backend'
+                command: |
+                    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml build backend
             - run:
                 name: Run linters
                 command: |
