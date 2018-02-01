@@ -39,6 +39,8 @@ export type Method = 'driving_time' | 'haversine'
 
 export type Provider = {
   address: string
+  lat?: number
+  lng?: number
   languages: string[]
   npi: string
   specialty?: string

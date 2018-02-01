@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/data'
+import { maybeParseFloat } from '../../utils/numbers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 
@@ -54,6 +55,8 @@ const COLUMNS = [
   { aliases: ['City'], required: true },
   { aliases: ['State'], required: true },
   { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'], required: true },
+  { aliases: ['Latitude'] },
+  { aliases: ['Longitude'] },
   { aliases: ['NPI'] },
   { aliases: ['Provider Language 1'] },
   { aliases: ['Provider Language 2'] },
@@ -62,13 +65,13 @@ const COLUMNS = [
 ]
 
 let parse = parseRows(COLUMNS, ([address, city, state, zip,
-  npi, language1, language2, language3, specialty]) => {
-
-  let fullAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
+  latitude, longitude, npi, language1, language2, language3, specialty]) => {
+  let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
-
   return {
-    address: fullAddress,
+    address: finalAddress,
+    lat: maybeParseFloat(latitude),
+    lng: maybeParseFloat(longitude),
     languages,
     npi: String(npi),
     specialty: specialty || undefined

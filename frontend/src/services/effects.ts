@@ -3,7 +3,7 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, Method, Provider } from '../constants/datatypes'
+import { AdequacyMode, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_COUNTY_BY_STATE } from '../constants/zipCodes'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
@@ -67,26 +67,34 @@ export function withEffects(store: Store) {
    * Geocode providers when uploadedProviders changes.
    */
   store.on('uploadedProviders').subscribe(async providers => {
-    let result = await postGeocode({ addresses: providers.map(_ => _.address) })
-    store.set('providers')(
-      chain(result)
-        .zip<Provider | Success | Error>(providers)
-        .partition(([res]: [Success | Error]) => isPostGeocodeSuccessResponse(res))
-        .tap(([successes, errors]) => {
-          if (errors.length > 0) {
-            store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
-          } else if (successes.length > 0) {
-            store.set('success')(`All ${successes.length} providers geocoded`)
-          }
-        })
-        .first()
-        .map(([res, req]: [Success, Provider]) => ({
-          ...req,
-          lat: res.lat,
-          lng: res.lng
-        }))
-        .value()
-    )
+
+    let geocodedProviders = providers.filter(provider => provider.lat !== undefined && provider.lng !== undefined) as GeocodedProvider[]
+    let providersToGeocode = providers.filter(provider => provider.lat === undefined || provider.lng === undefined)
+
+    if (providersToGeocode.length) {
+      let result = await postGeocode({ addresses: providersToGeocode.map(_ => _.address) })
+      geocodedProviders = geocodedProviders.concat(
+        chain(result)
+          .zip<Provider | Success | Error>(providers)
+          .partition(([res]: [Success | Error]) => isPostGeocodeSuccessResponse(res))
+          .tap(([successes, errors]) => {
+            if (errors.length > 0) {
+              store.set('error')(`Failed to geocode ${errors.length} (out of ${errors.length + successes.length}) providers`)
+            } else if (successes.length > 0) {
+              store.set('success')(`All ${successes.length} providers geocoded`)
+            }
+          })
+          .first()
+          .map(([res, req]: [Success, Provider]) => ({
+            ...req,
+            lat: res.lat,
+            lng: res.lng
+          }))
+          .value()
+      )
+    }
+
+    store.set('providers')(geocodedProviders)
   })
 
   /**
