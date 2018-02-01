@@ -57,7 +57,7 @@ def _insert_service_areas(json_features):
         )
         return data
     except Exception as e:
-        print("Error inserting service areas: {}".format(e))
+        print('Error inserting service areas: {}'.format(e))
 
 
 def _insert_representative_population_points(json_features):
@@ -73,7 +73,7 @@ def _insert_representative_population_points(json_features):
         )
         return data
     except Exception as e:
-        print("Error inserting representative points")
+        print('Error inserting representative points')
 
 
 def _transform_single_point(point):
