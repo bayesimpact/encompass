@@ -28,8 +28,6 @@ services:
         - ./backend/lib/:/app/lib:ro
         # Entrypoint
         - ./backend/config/entrypoint.sh:/entrypoint.sh:ro
-      environment:
-        - POSTGRES_URL=$POSTGRES_URL
       env_file:
         - .env
       ports:
