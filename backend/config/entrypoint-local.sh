@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sleep 5 # FIXME Wait for DB server to become available
 python runners/initialize_postgres.py
 python runners/check_sample_points_exist.py
 FIRST_INIT=$?
