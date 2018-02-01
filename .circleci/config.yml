@@ -27,7 +27,7 @@ jobs:
             - run:
                 name: Run tests
                 command: |
-                    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest -s tests
+                    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
 
     build_frontend:
         machine:
