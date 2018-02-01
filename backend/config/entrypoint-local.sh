@@ -1,5 +1,6 @@
 #!/bin/bash
 
+python runners/initialize_postgres.py
 python runners/check_sample_points_exist.py
 FIRST_INIT=$?
 if (($FIRST_INIT == 1)); then
