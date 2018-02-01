@@ -13,10 +13,6 @@ explorer:
 rebuild:
 	docker-compose build --no-cache
 
-# Initialize containerized Postgres DB.
-setup-local-db:
-	docker-compose run backend bash -c "python runners/initialize_postgres.py"
-
 # Fetch data from S3 and load to Postgres.
 # State should be specified as a lowercase, two-letter abbreviation, e.g. 'ca'.
 # Example usage: make load_representative_points state='ca'
