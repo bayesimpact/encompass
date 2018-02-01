@@ -18,6 +18,7 @@ jobs:
                   touch .env
                   echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy' >> .env
                   echo 'POSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' >> .env
+                  echo 'DB_GRACE_PERIOD=20' >> .env
             - run:
                 name: Build containers
                 command: |
