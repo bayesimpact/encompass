@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Waiting for DB to become available..."
-sleep 10s # FIXME Wait for DB server to become available
+sleep 20s # FIXME Wait for DB server to become available
 python runners/initialize_postgres.py
 python runners/check_sample_points_exist.py
 FIRST_INIT=$?
