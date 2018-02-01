@@ -27,6 +27,7 @@ function providerToFeature(
       address: point.address,
       languages: point.languages,
       npi: point.npi,
+      name: point.name,
       specialty: point.specialty
     },
     geometry: {

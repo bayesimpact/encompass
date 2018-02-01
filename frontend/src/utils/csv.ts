@@ -23,7 +23,7 @@ type ValidateHeaders = (columns: ColumnDefinition[], fields: string[]) => ParseE
 let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
-      if (c.required && fields.findIndex(_ => c.aliases.some(a => a === _)) < 0) {
+      if (c.required && fields.findIndex(_ => c.aliases.some(a => a.toLowerCase() === _.toLowerCase())) < 0) {
         return new ParseError(0, n, c, `Your CSV must define a column called "${c.aliases[0]}"`)
       }
       return undefined
@@ -99,7 +99,7 @@ export function isEmpty(a: string | null | undefined) {
  */
 function findColumns(columns: ColumnDefinition[], csv: string[][]) {
   return columns.map(({ aliases }) =>
-    csv[0].findIndex(_ => aliases.some(a => a === _))
+    csv[0].findIndex(_ => aliases.some(a => a.toLowerCase() === _.toLowerCase()))
   )
 }
 

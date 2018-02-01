@@ -48,7 +48,7 @@ function onClearInputs(store: Store) {
 }
 
 /**
- * TODO: More column name aliases
+ * Aliases are compared to column names as lowerCase()
  */
 const COLUMNS = [
   { aliases: ['Address'], required: true },
@@ -58,6 +58,9 @@ const COLUMNS = [
   { aliases: ['Latitude'] },
   { aliases: ['Longitude'] },
   { aliases: ['NPI'] },
+  { aliases: ['First Name'] },
+  { aliases: ['Last Name'] },
+  { aliases: ['Name'] },
   { aliases: ['Provider Language 1'] },
   { aliases: ['Provider Language 2'] },
   { aliases: ['Provider Language 3'] },
@@ -65,15 +68,17 @@ const COLUMNS = [
 ]
 
 let parse = parseRows(COLUMNS, ([address, city, state, zip,
-  latitude, longitude, npi, language1, language2, language3, specialty]) => {
+  latitude, longitude, npi, firstname, lastname, name, language1, language2, language3, specialty]) => {
   let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
+  let finalName = [firstname, lastname, name].filter(Boolean).join(' ') as string
   return {
     address: finalAddress,
     lat: maybeParseFloat(latitude),
     lng: maybeParseFloat(longitude),
     languages,
-    npi: String(npi),
+    npi: npi ? String(npi) : undefined,
+    name: finalName || undefined,
     specialty: specialty || undefined
   }
 })

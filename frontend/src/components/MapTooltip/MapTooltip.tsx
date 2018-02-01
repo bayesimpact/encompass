@@ -54,32 +54,33 @@ function _togglePrevProvider(store: Store) {
  * not only the first one.
  */
 export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, point: { features, lngLat } }) => {
-    let index = store.get('providerIndex')
-    let maxIndex = features.length - 1
-    let indexMessage = (index + 1) + ' of ' + (maxIndex + 1)
-    return (
-      <MapTooltip coordinates={lngLat}>
-        <table>
-          <tbody>
-            <TableRow name='NPI' value={features[index].properties.npi} />
-            <TableRow name='Address' value={features[index].properties.address} />
-            <TableRow name='Specialty' value={features[index].properties.specialty} />
-            <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
-            <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
-          </tbody>
-        </table>
-        <div className='controls Flex -Center'>
-          <IconButton touchRippleColor='white' onClick={() => _togglePrevProvider(store)}>
-            <KeyboardArrowLeft className='icon-button' />
-          </IconButton>
-          {indexMessage}
-          <IconButton touchRippleColor='white' onClick={() => _toggleNextProvider(store, maxIndex)}>
-            <KeyboardArrowRight className='icon-button'/>
-          </IconButton>
-        </div >
-      </MapTooltip >
-    )
-  }
+  let index = store.get('providerIndex')
+  let maxIndex = features.length - 1
+  let indexMessage = (index + 1) + ' of ' + (maxIndex + 1)
+  return (
+    <MapTooltip coordinates={lngLat}>
+      <table>
+        <tbody>
+          <TableRow name='Name' value={features[index].properties.name} />
+          <TableRow name='NPI' value={features[index].properties.npi} />
+          <TableRow name='Address' value={features[index].properties.address} />
+          <TableRow name='Specialty' value={features[index].properties.specialty} />
+          <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
+          <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+        </tbody>
+      </table>
+      <div className='controls Flex -Center'>
+        <IconButton touchRippleColor='white' onClick={() => _togglePrevProvider(store)}>
+          <KeyboardArrowLeft className='icon-button' />
+        </IconButton>
+        {indexMessage}
+        <IconButton touchRippleColor='white' onClick={() => _toggleNextProvider(store, maxIndex)}>
+          <KeyboardArrowRight className='icon-button' />
+        </IconButton>
+      </div >
+    </MapTooltip >
+  )
+}
 )
 
 export let RepresentativePointPopup: React.StatelessComponent<RepresentativePointProps> =

@@ -42,7 +42,8 @@ export type Provider = {
   lat?: number
   lng?: number
   languages: string[]
-  npi: string
+  npi?: string
+  name?: string
   specialty?: string
 }
 
