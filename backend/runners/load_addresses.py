@@ -20,14 +20,13 @@ def _get_arguments():
     return parser.parse_args().__dict__
 
 
-def load_csv(kwargs):
+def load_csv(filepath):
     """
     Load a csv file to the address database.
 
     Expects address, latitude, longitude fields.
     """
-    csv_file = kwargs['filepath']
-    with open(csv_file) as csv_f:
+    with open(filepath) as csv_f:
         data = list(csv.DictReader(csv_f))
 
     address_data = [
@@ -50,4 +49,4 @@ def load_csv(kwargs):
 
 
 if __name__ == '__main__':
-    load_csv(_get_arguments())
+    load_csv(**_get_arguments())
