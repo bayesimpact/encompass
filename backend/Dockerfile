@@ -16,9 +16,6 @@ COPY ./app /usr/local/lib/python3.6/site-packages/backend/app
 COPY ./config/uwsgi.ini /app/uwsgi.ini
 COPY ./config/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-COPY ./config/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord"]

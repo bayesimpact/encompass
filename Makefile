@@ -13,10 +13,6 @@ explorer:
 rebuild:
 	docker-compose build --no-cache
 
-# Initialize containerized Postgres DB.
-setup-local-db:
-	docker-compose run backend bash -c "python runners/initialize_postgres.py"
-
 # Fetch data from S3 and load to Postgres.
 # State should be specified as a lowercase, two-letter abbreviation, e.g. 'ca'.
 # Example usage: make load_representative_points state='ca'
@@ -45,6 +41,9 @@ backend-test:
 
 backend-coverage:
 	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+
+backend-coverage-ci:
+    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
 
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"

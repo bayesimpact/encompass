@@ -47,27 +47,33 @@ def _main(kwargs):
 def _insert_service_areas(json_features):
     """Insert service areas into the database from a GeoJSON file."""
     data = _get_all_service_areas(json_features)
-    methods.core_insert(
-        engine=connect.create_db_engine(),
-        sql_class=service_area.ServiceArea,
-        data=data,
-        return_insert_ids=False,
-        unique=False
-    )
-    return data
+    try:
+        methods.core_insert(
+            engine=connect.create_db_engine(),
+            sql_class=service_area.ServiceArea,
+            data=data,
+            return_insert_ids=False,
+            unique=False
+        )
+        return data
+    except Exception as e:
+        print('Error inserting service areas: {}'.format(e))
 
 
 def _insert_representative_population_points(json_features):
     """Insert representative points into the database from a GeoJSON file."""
     data = [_transform_single_point(point) for point in json_features]
-    methods.core_insert(
-        engine=connect.create_db_engine(),
-        sql_class=representative_point.RepresentativePoint,
-        data=data,
-        return_insert_ids=False,
-        unique=False
-    )
-    return data
+    try:
+        methods.core_insert(
+            engine=connect.create_db_engine(),
+            sql_class=representative_point.RepresentativePoint,
+            data=data,
+            return_insert_ids=False,
+            unique=False
+        )
+        return data
+    except Exception as e:
+        print('Error inserting representative points')
 
 
 def _transform_single_point(point):

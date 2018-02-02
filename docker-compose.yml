@@ -26,28 +26,12 @@ services:
         - ./backend/.flake8:/app/.flake8:ro
         - ./backend/.coveragerc:/app/.coveragerc:ro
         - ./backend/lib/:/app/lib:ro
-      environment:
-        - POSTGRES_URL=$POSTGRES_URL
+        # Entrypoint
+        - ./backend/config/entrypoint.sh:/entrypoint.sh:ro
       env_file:
         - .env
       ports:
         - 8080:8080
-      links:
-        # Link with the DB container as `db.local`
-        - db:db.local
-      # TODO we want a `depends` here, but only for using the local db container. So need an override file.
-
-    db:
-      image: mdillon/postgis
-      ports:
-        # Expose port for convenient local access
-        - 5432:5432
-      volumes:
-        - ./backend/init.sql:/tmp/init.sql
-        - postgres-data:/var/lib/postgresql/data
-      environment:
-        POSTGRES_PASSWORD: example
-        POSTGRES_DB: network_adequacy
 
     frontend:
       volumes:

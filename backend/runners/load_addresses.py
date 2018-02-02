@@ -1,28 +1,40 @@
 """Runner to load addresses to databse from a CSV."""
+import argparse
 import csv
 
-from backend.lib.database.postgres import connect
-from backend.lib.database.postgres import methods
+from backend.lib.database.postgres import connect, methods, postgis
 from backend.lib.database.tables import address
 
-CSV_FILE = './data/last-1100-geocoded-pointBs-93710.csv'
+
+def _get_arguments():
+    """Build argument parser."""
+    parser = argparse.ArgumentParser(description="""
+        This script loads provider address data from a specified file into PostGIS.
+    """)
+    parser.add_argument(
+        '-f', '--filepath',
+        help='CSV filepath containing provider address data.',
+        required=True,
+        type=str
+    )
+    return parser.parse_args().__dict__
 
 
-def load_csv(csv_file=CSV_FILE):
+def load_csv(filepath):
     """
     Load a csv file to the address database.
 
     Expects address, latitude, longitude fields.
     """
-    with open(csv_file) as csv_f:
+    with open(filepath) as csv_f:
         data = list(csv.DictReader(csv_f))
 
     address_data = [
         {
             'address': temp['address'],
-            'latitude': temp['latitude'],
-            'longitude': temp['longitude'],
-            'location': (temp['longitude'], temp['latitude'])
+            'latitude': float(temp['latitude']),
+            'longitude': float(temp['longitude']),
+            'location': postgis.to_point(float(temp['longitude']), float(temp['latitude']))
         }
         for temp in data
     ]
@@ -37,4 +49,4 @@ def load_csv(csv_file=CSV_FILE):
 
 
 if __name__ == '__main__':
-    load_csv()
+    load_csv(**_get_arguments())
