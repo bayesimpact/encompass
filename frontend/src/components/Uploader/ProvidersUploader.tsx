@@ -10,7 +10,7 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store }) =>
+export let ProvidersUploader = withStore('uploadedProvidersFilename')(({ store }) =>
   <div>
     <div className='Flex -Row'>
       <CSVUploader label='Providers' onUpload={onFileSelected(store)} />
@@ -23,7 +23,7 @@ export let ProvidersUplodader = withStore('uploadedProvidersFilename')(({ store 
     </div>
   </div>
 )
-ProvidersUplodader.displayName = 'ProvidersUploader'
+ProvidersUploader.displayName = 'ProvidersUploader'
 
 function onFileSelected(store: Store) {
   return async (file: File) => {

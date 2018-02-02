@@ -3,8 +3,8 @@ import * as React from 'react'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { BackLink } from '../Link/Link'
-import { ProvidersUplodader } from '../Uploader/ProvidersUplodader'
-import { ServiceAreasUploader } from '../Uploader/ServiceAreasUplodader'
+import { ProvidersUploader } from '../Uploader/ProvidersUploader'
+import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 import './AddDatasetDrawer.css'
 
 export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
@@ -15,12 +15,12 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
       To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two separate CSV files:
       <ul>
-        <li>list of service areas (County and/or ZIPCode columns).</li>
+        <li>list of service areas (County and/or ZIP columns).</li>
         <li>list of addresses for providers or services.</li>
       </ul>
     </p>
     <ServiceAreasUploader />
-    <ProvidersUplodader />
+    <ProvidersUploader />
     <AnalyzerButton />
   </div>
 )

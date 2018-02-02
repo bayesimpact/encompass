@@ -68,8 +68,8 @@ function getCounties(serviceAreas: [string, string][]): string[] {
 }
 
 const COLUMNS = [
-  { aliases: ['CountyName', 'County Name', 'county'] },
-  { aliases: ['ZipCode', 'Zip Code', 'zip'] }
+  { aliases: ['CountyName', 'County Name', 'county', 'County'] },
+  { aliases: ['ZipCode', 'Zip Code', 'zip', 'ZIP'] }
 ]
 
 let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
