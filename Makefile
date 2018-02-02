@@ -42,6 +42,9 @@ backend-test:
 backend-coverage:
 	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
 
+backend-coverage-ci:
+    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
+
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
 
