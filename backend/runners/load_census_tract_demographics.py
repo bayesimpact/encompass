@@ -15,6 +15,7 @@ import pandas as pd
 N_THREADS = 100
 
 UNUSED_COLUMNS = ['GEO.display-label', 'GEO.id']
+COLUMN_MAPPING = {'GEO.id2': 'census_tract'}
 
 
 def _drop_table_if_exists(table_name):
@@ -24,8 +25,10 @@ def _drop_table_if_exists(table_name):
     engine.execute('DROP TABLE IF EXISTS {};'.format(table_name))
 
 
-def _clean_column_name(column_name):
+def _clean_column_name(column_name, column_mapping=COLUMN_MAPPING):
     """Transform a column name into a format accepted by Postgres."""
+    if column_name in COLUMN_MAPPING:
+        return COLUMN_MAPPING[column_name]
     return column_name.lower().replace('.', '_').replace('-', '_')
 
 
@@ -39,6 +42,12 @@ def _clean_csv(raw_csv_path, output_path):
         for col in df.columns
     ]
     df = df.apply(pd.to_numeric, args=('coerce',))
+    # Zero-pad the census tract ID if necessary.
+    df['census_tract'] = df['census_tract'].astype(str).apply(
+        lambda tract_str:
+            '0' + tract_str if len(tract_str) == 10
+            else tract_str
+    )
     df.to_csv(
         path_or_buf=output_path,
         header=False,
@@ -58,15 +67,15 @@ def _create_census_table_from_csv(raw_csv_path, target_table):
         _clean_column_name(col) for col in columns if col not in UNUSED_COLUMNS
     ]
     datatypes = [
-        'VARCHAR' if col == 'geo_id2' else 'DECIMAL'
+        'VARCHAR' if col == 'census_tract' else 'DECIMAL'
         for col in columns
     ]
     columns_with_types = [
         '{} {}'.format(col, dtype)
         for col, dtype in zip(columns, datatypes)
     ]
-    if 'geo_id2' in columns:
-        primary_key_index = columns.index('geo_id2')
+    if 'census_tract' in columns:
+        primary_key_index = columns.index('census_tract')
         columns_with_types[primary_key_index] += ' PRIMARY KEY '
 
     create_table_query = """
@@ -122,7 +131,7 @@ if __name__ == '__main__':
         'data/census/data-profile-tables/acs_16_5yr_dp05.csv',
     ]
     for target_table, raw_path, clean_path in zip(table_names, raw_filepaths, clean_filepaths):
+        _clean_csv(raw_path, clean_path)
         _drop_table_if_exists(target_table)
         _create_census_table_from_csv(raw_path, target_table)
-        _clean_csv(raw_path, clean_path)
         _upload_csv(clean_path, target_table)
