@@ -9,9 +9,9 @@ type Props = {
 }
 
 export let CSVUploader: React.StatelessComponent<Props> = ({ label, onUpload }) =>
-  <div className='CSVUploader'>
+  <div>
     <FlatButton
-      className='CSVUploader Button -Secondary -Flex-0'
+      className='CSVUploader Button -Secondary'
       label={label}
       labelPosition='before'
       containerElement='label'
@@ -28,5 +28,5 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ label, onUpload }) 
         accept='.csv'
       />
     </FlatButton>
-  </div >
+  </div>
 CSVUploader.displayName = 'CSVUploader'

@@ -96,6 +96,10 @@ p {
   float: right;
 }
 
+.PullLeft {
+  float: left;
+}
+
 .SmallFont {
   font-size: var(--small-font);
 }

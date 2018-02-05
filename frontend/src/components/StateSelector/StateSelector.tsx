@@ -1,10 +1,10 @@
 import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
-import { STATES } from '../../constants/states'
+import { State, STATES } from '../../constants/states'
 
 type Props = {
-  onChange(value: string): void
+  onChange(value: State): void
   value: string
 }
 

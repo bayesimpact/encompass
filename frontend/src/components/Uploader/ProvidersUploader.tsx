@@ -11,16 +11,14 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
 export let ProvidersUploader = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div>
-    <div className='Flex -Row'>
-      <CSVUploader label='Providers' onUpload={onFileSelected(store)} />
-      <div className='Ellipsis Muted SmallFont'>{
-        store.get('uploadedProvidersFilename')
-          ? `Uploaded ${store.get('uploadedProvidersFilename')}`
-          : ''
-      }</div>
-      {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
-    </div>
+  <div className='Flex -PullLeft'>
+    <CSVUploader label='Upload Providers' onUpload={onFileSelected(store)} />
+    <div className='Ellipsis Muted SmallFont'>{
+      store.get('uploadedProvidersFilename')
+        ? `Uploaded ${store.get('uploadedProvidersFilename')}`
+        : ''
+    }</div>
+    {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
   </div>
 )
 ProvidersUploader.displayName = 'ProvidersUploader'
