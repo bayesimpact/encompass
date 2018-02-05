@@ -1,8 +1,8 @@
-# Time Distance Standards [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Encompass [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
-[build]: https://img.shields.io/circleci/project/bayesimpact/tds.svg?branch=master&style=flat-square
+[build]: https://img.shields.io/circleci/project/bayesimpact/encompass.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/tds.svg?columns=all)](http://waffle.io/bayesimpact/tds)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/tds)
 
 > Explore Healthcare network adequacies and population distance to services.
 
@@ -10,7 +10,7 @@
 
 ### 0. Clone this repository
 ```bash
-git clone git@github.com:bayesimpact/tds.git
+git clone git@github.com:bayesimpact/encompass.git
 ```
 
 ### 1. Install Docker
@@ -23,18 +23,17 @@ In this project's root folder, add a file called `.env` with the following info 
 
 ```sh
 MAPBOX_TOKEN=???
-AWS_ACCESS_KEY=???
-AWS_SECRET_KEY=???
 POSTGRES_URL=???
 API_ROOT=http://localhost:8080
 TITLE_SUFFIX=LOCAL
+IS_AWS=FALSE
 ```
 
 * `MAPBOX_TOKEN`: API key provided by [Mapbox](mapbox.com) for mapping.
-* `AWS_ACCESS_KEY` and `AWS_SECRET_KEY`: Required for AWS CLI - see [AWS docs](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
+(https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
 * `POSTGRES_URL`: URL for database to use for the application. This might be `localhost` for development.
 
-There is an `IS_AWS` environment variable which should be set to `TRUE` when running with RDS. This is to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
+To use with an AWS RDS instance, additional environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` are Required for AWS CLI. In addition, `IS_AWS` should be set to `TRUE`. This is to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
 
 ### 3. Run the app
 
