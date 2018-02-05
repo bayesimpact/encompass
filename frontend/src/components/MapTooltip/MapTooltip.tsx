@@ -91,6 +91,8 @@ export let RepresentativePointPopup: React.StatelessComponent<RepresentativePoin
           <TableRow name='County' value={features[0].properties.county} />
           <TableRow name='ZIP' value={features[0].properties.zip} />
           <TableRow name='Population' value={features[0].properties.population} />
+          {/* For debugging purposes only. We will likely not expose raw demographics. */}
+          <TableRow name='Demographics' value={features[0].properties.demographics} />
           <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
           <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
         </tbody>

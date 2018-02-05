@@ -36,6 +36,26 @@ class TestFetchRepresentativePoints():
         results = representative_points.fetch_representative_points(service_areas, engine=engine)
         assert len(results) == 0
 
+    def test_readable_columns_from_census_mapping(self):
+        census_mapping = {
+            'age': {
+                'census_acs_dp_05.hc03_vc08': 'percent_age_under_5_y',
+                'census_acs_dp_05.hc03_vc09': 'percent_age_5_9_y',
+                'census_acs_dp_05.hc03_vc10': 'percent_age_10_14_y',
+                'census_acs_dp_05.hc03_vc11': 'percent_age_15_19_y'
+            }
+        }
+        readable_columns = representative_points.readable_columns_from_census_mapping(
+            census_mapping=census_mapping
+        )
+        excpected_readable_columns = [
+            'census_acs_dp_05.hc03_vc08 as percent_age_under_5_y',
+            'census_acs_dp_05.hc03_vc09 as percent_age_5_9_y',
+            'census_acs_dp_05.hc03_vc10 as percent_age_10_14_y',
+            'census_acs_dp_05.hc03_vc11 as percent_age_15_19_y'
+        ]
+        assert readable_columns == excpected_readable_columns
+
 
 class TestFetchProviders():
     """Test fetch providers."""

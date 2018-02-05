@@ -66,6 +66,7 @@ export type RepresentativePoint = {
   lat: number
   lng: number
   population: number
+  demographics?: any
   serviceAreaId: string
   zip: string
 }

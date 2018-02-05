@@ -22,7 +22,7 @@ jobs:
             - run:
                 name: Build containers
                 command: |
-                    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml build backend
+                    docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build backend
             - run:
                 name: Run linters
                 command: |

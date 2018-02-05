@@ -2,6 +2,9 @@
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.requests import representative_points
 from backend.lib.database.postgres import connect
+from backend.lib.fetch.representative_points import (
+    fetch_representative_points
+)
 
 import flask
 
@@ -23,7 +26,8 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
         app.config['TESTING'] = True
         return app
 
-    def test_rp_request(self):
+    @mock.patch('backend.lib.fetch.representative_points.fetch_representative_points')
+    def test_rp_request(self, mock_fetch):
         """Test provider requests in a simple case."""
         request_service_areas = {'service_area_ids': ['ca_los_angeles_90001', 'not_valid']}
 
@@ -31,6 +35,12 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
             return request_service_areas
         mock_request = mock.MagicMock()
         mock_request.get_json = _mock_get_json
+
+        mock_fetch.return_value = fetch_representative_points(
+            service_area_ids=request_service_areas['service_area_ids'],
+            census_data=False,
+            engine=engine
+        )
 
         try:
             results = representative_points.representative_points_request(

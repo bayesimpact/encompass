@@ -1,6 +1,9 @@
 local:
 	docker-compose up backend frontend
 
+local-db:
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d db
+
 backend:
 	docker-compose up backend
 
@@ -44,7 +47,7 @@ backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
 backend-coverage-ci:
-	docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend ${BACKEND_COVERAGE}
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend ${BACKEND_COVERAGE}
 
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"

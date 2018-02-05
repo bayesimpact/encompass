@@ -76,7 +76,7 @@ class TestOSRMDistanceMetric():
     def test_measure_between_two_points(self):
         """Check that the OSRM distance matches expectations."""
         d = self.measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
-        assert abs(d - 1033026.0882499999) < 20.0 * 10**3
+        assert abs(d - 1183724.0947500002) < 20.0 * 10**3
 
     def test_closest(self):
         """Check that the closest method works as expected."""
@@ -84,7 +84,7 @@ class TestOSRMDistanceMetric():
             origin=NEWPORT_RI,
             point_list=[MIAMI_FL, CLEVELAND_OH, EUCLID_OH],
         )
-        assert closest_town == EUCLID_OH
+        assert closest_town == CLEVELAND_OH
 
     def test_closest_with_early_exit(self):
         """Check that the closest_with_early_exit method works as expected."""

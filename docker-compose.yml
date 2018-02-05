@@ -21,6 +21,7 @@ services:
         - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
         # Data
         - ./data/:/app/data/:rw
+        - ./shared/:/app/shared:rw
         # Runners
         - ./backend/runners/:/app/runners:ro
         # Linters and Tests

@@ -28,7 +28,23 @@ class RepresentativePoint(Base):
     census_tract = Column(String)
 
 
-def row_to_dict(rp_row, format_response=True):
+def prepare_demographics_dict_from_rows(row_dict, census_mapping):
+    """
+    Extract demographic information from a row_dict using a census_mapping.
+
+    Note that the census_amapping used here should be the same or a subset of the one
+    used during extraction.
+    """
+    demographics = {
+        category: {
+            bucket: float(row_dict[bucket]) for bucket in census_mapping[category].values()
+            if row_dict.get(bucket, None)
+        } for category in census_mapping.keys()
+    }
+    return demographics
+
+
+def row_to_dict(rp_row, format_response=True, census_mapping=None):
     """
     Transform a representative point row to a dictionary.
 
@@ -41,6 +57,7 @@ def row_to_dict(rp_row, format_response=True):
       lng: -122.323331
       county: "Alameda",
       population: 2000,
+      demographics?: {'age': {'under_5': 2.0}},
       zip: "94105",
       census_block_group: 105,
       census_block: 3,
@@ -51,7 +68,7 @@ def row_to_dict(rp_row, format_response=True):
     # TODO - Revisit naming to latitude and longitude if performance is ok.
     if not format_response:
         return rp_dict
-    return {
+    response_dict = {
         'id': rp_dict['id'],
         'census_tract': rp_dict['census_tract'],
         'county': rp_dict['county'],
@@ -61,3 +78,9 @@ def row_to_dict(rp_row, format_response=True):
         'service_area_id': rp_dict['service_area_id'],
         'zip': rp_dict['zip_code']
     }
+    if census_mapping:
+        response_dict['demographics'] = prepare_demographics_dict_from_rows(
+            row_dict=rp_dict,
+            census_mapping=census_mapping
+        )
+    return response_dict

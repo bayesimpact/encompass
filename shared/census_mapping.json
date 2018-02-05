@@ -1,0 +1,21 @@
+{
+  "age": {
+    "census_acs_dp_05.hc03_vc08": "percent_age_under_5_y",
+    "census_acs_dp_05.hc03_vc09": "percent_age_5_9_y",
+    "census_acs_dp_05.hc03_vc10": "percent_age_10_14_y",
+    "census_acs_dp_05.hc03_vc11": "percent_age_15_19_y",
+    "census_acs_dp_05.hc03_vc12": "percent_age_20_24_y",
+    "census_acs_dp_05.hc03_vc13": "percent_age_25_34_y",
+    "census_acs_dp_05.hc03_vc14": "percent_age_35_44_y",
+    "census_acs_dp_05.hc03_vc15": "percent_age_45_54_y",
+    "census_acs_dp_05.hc03_vc16": "percent_age_55_59_y",
+    "census_acs_dp_05.hc03_vc17": "percent_age_60_64_y",
+    "census_acs_dp_05.hc03_vc18": "percent_age_65_74_y",
+    "census_acs_dp_05.hc03_vc19": "percent_age_75_84_y",
+    "census_acs_dp_05.hc03_vc20": "percent_age_over_85_y"
+  },
+  "sex": {
+    "census_acs_dp_05.hc03_vc04": "percent_sex_male",
+    "census_acs_dp_05.hc03_vc05": "percent_sex_female"
+  }
+}
