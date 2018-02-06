@@ -9,7 +9,7 @@ import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 /**
  * TODO: Show loading indicator while necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('selectedDataset', 'selectedServiceArea')(({ store }) => {
+export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCounties')(({ store }) => {
 
   let selectedDataset = store.get('selectedDataset')
 
@@ -30,8 +30,8 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedServiceArea')
     <div className='ServiceAreas'>
       <strong className='MediumWeight Muted'>Service areas:</strong>
       <ServiceAreaSelector
-        onChange={store.set('selectedServiceArea')}
-        value={store.get('selectedServiceArea')}
+        onChange={store.set('selectedCounties')}
+        value={store.get('selectedCounties')}
       />
     </div>
     <div className='Analytics'>

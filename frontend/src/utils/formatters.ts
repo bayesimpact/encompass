@@ -68,3 +68,7 @@ function parseSerializedServiceArea(serializedServiceArea: string) {
     zip: serializedServiceArea.slice(-5)
   }
 }
+
+export function countyFromServiceArea(serializedServiceArea: string) {
+  return parseSerializedServiceArea(serializedServiceArea).county
+}

@@ -57,6 +57,8 @@ type Actions = {
 
   route: Route
 
+  selectedCounties: string | null
+
   selectedDataset: Dataset | null
 
   /**
@@ -75,7 +77,7 @@ type Actions = {
    * We support just one selection for now, but will likely support
    * multi-select in the future.
    */
-  selectedServiceArea: string | null
+  selectedServiceAreas: string[] | null
 
   /**
    * `shortName` of the currently selected state.
@@ -129,10 +131,11 @@ let store = withEffects(createStore<Actions>({
   providers: [],
   representativePoints: [],
   route: '/datasets',
+  selectedCounties: null,
   selectedDataset: null,
   selectedProvider: null,
   selectedRepresentativePoint: null,
-  selectedServiceArea: null,
+  selectedServiceAreas: null,
   selectedState: 'ca',
   serviceAreas: [],
   uploadedProviders: [],

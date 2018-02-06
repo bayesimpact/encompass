@@ -38,10 +38,8 @@ function onClick(store: Store) {
       'AvgTime (min)',
       'MaxTime (min)'
     ]
-    let selectedServiceArea = store.get('selectedServiceArea')
-    let serviceAreas = selectedServiceArea
-      ? [selectedServiceArea]
-      : store.get('serviceAreas')
+    let selectedServiceAreas = store.get('selectedServiceAreas')
+    let serviceAreas = selectedServiceAreas ? selectedServiceAreas : store.get('serviceAreas')
     let data = serviceAreas.map(_ => {
       let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
       let adequacies = adequaciesFromServiceArea([_], store)

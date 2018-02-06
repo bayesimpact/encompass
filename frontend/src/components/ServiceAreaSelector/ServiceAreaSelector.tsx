@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
-import { formatServiceArea, unformatServiceArea } from '../../utils/formatters'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
 
 type Props = {
@@ -10,13 +9,13 @@ type Props = {
 
 const ALL_SERVICE_AREAS = 'All service areas'
 
-export let ServiceAreaSelector = withStore('serviceAreas')<Props>(({ onChange, store, value }) =>
+export let ServiceAreaSelector = withStore('counties')<Props>(({ onChange, store, value }) =>
   <Autocomplete
     defaultValue={ALL_SERVICE_AREAS}
-    items={store.get('serviceAreas').map(formatServiceArea)}
-    onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : unformatServiceArea(store.get('selectedState'), _))}
+    items={store.get('counties')}
+    onChange={_ => onChange(_ === ALL_SERVICE_AREAS ? null : _)}
     pinnedItems={[ALL_SERVICE_AREAS]}
-    value={value === null ? ALL_SERVICE_AREAS : formatServiceArea(value)}
+    value={value === null ? ALL_SERVICE_AREAS : value}
   />
 )
 ServiceAreaSelector.displayName = 'ServiceAreaSelector'

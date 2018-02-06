@@ -1,18 +1,18 @@
-import { chain, keyBy } from 'lodash'
+import { chain, filter, intersection, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { countyFromServiceArea } from '../utils/formatters'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
 export function withEffects(store: Store) {
-
   /**
-   * Update representative points when serviceAreas change
+   * Update representative points when serviceAreas change.
    */
   store
     .on('serviceAreas')
@@ -25,6 +25,8 @@ export function withEffects(store: Store) {
       if (!equals(serviceAreas, store.get('serviceAreas'))) {
         return
       }
+
+      store.set('counties')(uniq(serviceAreas.map(countyFromServiceArea)))
 
       store.set('representativePoints')(
         points.map(_ => ({
@@ -96,8 +98,8 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null){
-    if (dataset === null){
+  function safeDatasetHint(dataset: Dataset | null) {
+    if (dataset === null) {
       return ''
     }
     return dataset['hint']
@@ -110,11 +112,11 @@ export function withEffects(store: Store) {
     .combineLatest(
     store.on('providers'),
     store.on('representativePoints'),
-    store.on('selectedServiceArea').startWith(store.get('selectedServiceArea')),
+    store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
     store.on('route'),
     store.on('method').startWith(store.get('method'))
     )
-    .subscribe(async ([providers, representativePoints, selectedServiceArea, route, method]) => {
+    .subscribe(async ([providers, representativePoints, selectedServiceAreas, route, method]) => {
       // Reset adequacies.
       store.set('adequacies')({})
 
@@ -162,7 +164,7 @@ export function withEffects(store: Store) {
           .zipObject(adequacies)
           .mapValues((_, key) => ({
             adequacyMode: getAdequacyMode(
-              _, method, hash[key].serviceAreaId, selectedServiceArea
+              _, method, hash[key].serviceAreaId, selectedServiceAreas
             ),
             id: _.id,
             toClosestProvider: _.to_closest_provider,
@@ -177,10 +179,24 @@ export function withEffects(store: Store) {
    * zip code or county in the Service Area drawer, we should de-select the
    * service area too.
    */
+  store.on('selectedCounties').subscribe(selectedCounties => {
+    if (selectedCounties === null) {
+      store.set('selectedServiceAreas')(null)
+    } else {
+      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) { return selectedCounties.includes(countyFromServiceArea(sA)) })
+      store.set('selectedServiceAreas')(selectedServiceAreas)
+    }
+  })
+
+  /**
+   * If the user selects a service area, then deselects that service area's
+   * zip code or county in the Service Area drawer, we should de-select the
+   * service area too.
+   */
   store.on('serviceAreas').subscribe(serviceAreas => {
-    let selectedServiceArea = store.get('selectedServiceArea')
-    if (selectedServiceArea && !serviceAreas.includes(selectedServiceArea)) {
-      store.set('selectedServiceArea')(null)
+    let selectedServiceAreas = store.get('selectedServiceAreas')
+    if (selectedServiceAreas && !intersection(serviceAreas, selectedServiceAreas)) {
+      store.set('selectedServiceAreas')(null)
     }
   })
 
@@ -189,9 +205,10 @@ export function withEffects(store: Store) {
    */
   store
     .on('selectedState')
-    .subscribe(() =>
+    .subscribe(() => {
       store.set('counties')([])
-    )
+      store.set('selectedCounties')(null)
+    })
 
   /**
    * When the user adds representative points,
@@ -240,10 +257,10 @@ function getAdequacyMode(
   adequacy: PostAdequaciesResponse[0],
   method: Method,
   serviceAreaId: string,
-  selectedServiceArea: string | null
+  selectedServiceAreas: string[] | null
 ): AdequacyMode {
 
-  if (selectedServiceArea && serviceAreaId !== selectedServiceArea) {
+  if (selectedServiceAreas && !selectedServiceAreas.includes(serviceAreaId)) {
     return AdequacyMode.OUT_OF_SCOPE
   }
 

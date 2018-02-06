@@ -6,13 +6,13 @@ import './ServiceAreaAnalytics.css'
 
 export let ServiceAreaAnalytics = withStore(
   'adequacies',
-  'selectedServiceArea',
+  'selectedServiceAreas',
   'serviceAreas'
 )(({ store }) => {
 
   let selectedServiceAreas = store.get('serviceAreas')
-  if (store.get('selectedServiceArea')) {
-    selectedServiceAreas = [store.get('selectedServiceArea')!]
+  if (store.get('selectedServiceAreas')) {
+    selectedServiceAreas = store.get('selectedServiceAreas')!
   }
 
   return <div className='ServiceAreaAnalytics'>
