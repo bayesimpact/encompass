@@ -68,6 +68,13 @@ resource "aws_security_group" "shared_osrm_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Permit everything outbound. Needs to be done explicitly.
   egress {
     from_port       = 0
