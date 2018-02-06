@@ -104,6 +104,8 @@ CONFIG = {
     'geocoding': True,
     'address_database': True,
     'geocoder': 'oxcoder',
+    'cache_adequacy_requests': True,
+    'cached_result_directory': '/app/cache/',
     'measurer': {
         'haversine': 'haversine',
         'driving_time': 'osrm'

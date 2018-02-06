@@ -24,6 +24,7 @@ RESPONSE
 """
 import json
 import logging
+import os
 import random
 
 from backend.app.exceptions.format import InvalidFormat
@@ -36,6 +37,7 @@ from retrying import retry
 
 WAIT_FIXED_MILLISECONDS = 500
 STOP_MAX_ATTEMPT_NUMBER = 2
+DATASET_CACHE_DIRECTORY = config.get('cached_result_directory')
 
 logger = logging.getLogger(__name__)
 
@@ -69,9 +71,10 @@ def adequacy_request(app, flask_request, engine):
     if 'method' not in request:
         raise InvalidFormat(message='Invalid format. Could not find method.')
 
-    provider_addresses = request['providers']
+    provider_locations = request['providers']
     service_area_ids = request['service_area_ids']
     measurer_methods = config.get('measurer').keys()
+    dataset_hint = request.get('dataset_hint', None)
 
     if request['method'] in measurer_methods:
         measurer_name = config.get('measurer')[request['method']]
@@ -82,11 +85,56 @@ def adequacy_request(app, flask_request, engine):
         measurer_name = config.get('measurer')['haversine']
 
     # Exit early if there is no data.
-    if provider_addresses and service_area_ids:
+    if not (provider_locations and service_area_ids):
+        return []
+    # If caching is enabled, return cached data.
+    elif dataset_hint and config.get('cache_adequacy_requests'):
+        return _get_cached_adequacy_response(
+            dataset_hint=dataset_hint,
+            measurer_name=measurer_name,
+            service_area_ids=service_area_ids,
+            locations=provider_locations,
+            engine=engine,
+        )
+    else:
         return adequacy.calculate_adequacies(
+            service_area_ids=service_area_ids,
+            measurer_name=measurer_name,
+            locations=provider_locations,
+            engine=engine,
+        )
+
+
+def _get_cached_adequacy_response(
+    dataset_hint,
+    measurer_name,
+    service_area_ids,
+    locations,
+    engine
+):
+    """
+    Given a hint, return a cached adequacy response if one is available.
+
+    If no response for the hint is available yet, calculate the adequacy and store for later use.
+    """
+    cache_filepath = _convert_dataset_hint_to_cached_filepath(dataset_hint, measurer_name)
+    if os.path.isfile(cache_filepath):
+        with open(cache_filepath, 'r') as f:
+            response = json.load(f)
+        logger.debug('Returning cached adequacy results.')
+    else:
+        response = adequacy.calculate_adequacies(
             engine=engine,
             service_area_ids=service_area_ids,
             measurer_name=measurer_name,
-            locations=provider_addresses
+            locations=locations
         )
-    return []
+        logger.debug('Caching adequacy results.')
+        with open(cache_filepath, 'w+') as f:
+            json.dump(obj=response, fp=f)
+    return response
+
+
+def _convert_dataset_hint_to_cached_filepath(dataset_hint, measurer_name):
+        dataset_name = 'adequacy_{}_{}.json'.format(dataset_hint, measurer_name)
+        return os.path.join(DATASET_CACHE_DIRECTORY, dataset_name)

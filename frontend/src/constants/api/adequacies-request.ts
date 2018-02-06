@@ -25,4 +25,8 @@ export interface PostAdequaciesRequest {
    * For example, ["ca_san_francisco_94014", "ca_san_francisco_94015"]
    */
   service_area_ids: string[]
+  /**
+   * Hint to help the backend use cached adequacy results.
+   */
+  dataset_hint?: string
 }

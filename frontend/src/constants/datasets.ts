@@ -10,6 +10,7 @@ export let DATASETS: Dataset[] = [
         ],
         description: 'Psychiatrists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
         name: 'FKM Medi-Cal - Psychiatrists',
+        hint: 'fkm_psychiatrists',
         providers: [
             {
                 address: '16928 11TH ST., HURON, CA 93234',
@@ -245,6 +246,7 @@ export let DATASETS: Dataset[] = [
     ],
     description: 'Endocrinologists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
     name: 'FKM Medi-Cal - Endocrinologists',
+    hint: 'fkm_endocrinologists',
     providers: [
         {
             address: '41169 Goodwin Way., Madera, CA 93636',
@@ -600,6 +602,7 @@ export let DATASETS: Dataset[] = [
     ],
     description: 'Oncologists in Fresno-Kings-Madera Regional Health Authority Medi-Cal Network (2016)',
     name: 'FKM Medi-Cal - Oncologists',
+    hint: 'fkm_oncologists',
     providers: [
         {
             address: '1791 E. Fir Ave., Fresno, CA 93720',
@@ -827,6 +830,7 @@ export let DATASETS: Dataset[] = [
     ],
     description: 'Abortion Clinics in Texas as of March 2017',
     name: 'Texas Abortion Clinics',
+    hint: 'texas_abortion_clinics',
     providers: [
         {
     address: '7324 Southwest Fwy, Houston, TX 77074, USA, Houston, TX 77074',
@@ -1203,6 +1207,7 @@ export let DATASETS: Dataset[] = [
     dataSources: ['Mock Service Areas', 'Mock Providers'],
     name: 'Fresno Mock Data',
     description: 'A mock dataset in Fresno, CA',
+    hint: 'fresno_mock',
     providers: [
         {address: '6311 N FRESNO ST, FRESNO, CA 93710', languages: [], npi: '1992840490', specialty: 'Internal Medicine', lat: 36.828675, lng: -119.78198},
         {address: '5150 N 6TH ST, FRESNO, CA 93710', languages: ['Burmese', 'Chinese'], npi: '1740295419', specialty: 'Internal Medicine', lat: 36.811246, lng: -119.762693},
@@ -1513,6 +1518,7 @@ export let DATASETS: Dataset[] = [
     ],
     description: 'Oncologists in Magnolia Health Plan (2018), an individual marketplace plan offered in Mississippi.',
     name: 'Magnolia Health Plan - Oncologists',
+    hint: 'ms_ambetter_oncologists',
     providers: [
         {
             address: '1203 Jefferson Street, Laurel, MS 39440',
@@ -4204,6 +4210,7 @@ export let DATASETS: Dataset[] = [
     ],
     description: 'Endocrinologists in Magnolia Health Plan (2018), an individual marketplace plan offered in Mississippi.',
     name: 'Magnolia Health Plan - Endocrinologists',
+    hint: 'ms_ambetter_endocrinologists',
     providers: [
         {
             address: '511 West Laurel Avenue, Hattiesburg, MS 39401',

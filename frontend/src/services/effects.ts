@@ -3,7 +3,7 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
@@ -96,6 +96,13 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
+  function safeDatasetHint(dataset: Dataset | null){
+    if (dataset === null){
+      return ''
+    }
+    return dataset['hint']
+  }
+
   /**
    * Fetch adequacies when providers, representative points, or method change
    */
@@ -134,7 +141,8 @@ export function withEffects(store: Store) {
         getAdequacies({
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
-          service_area_ids: serviceAreas
+          service_area_ids: serviceAreas,
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
         }),
         representativePoints
       ])

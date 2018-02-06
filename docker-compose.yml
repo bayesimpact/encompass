@@ -15,6 +15,8 @@ services:
         - ./backend/config/uwsgi.ini:/app/uwsgi.ini:ro
         - ./backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
         - ./backend/app/main.py:/app/main.py:ro
+        # Cache
+        - ./.cache/:/app/cache:rw
         # Library
         - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
         # Data

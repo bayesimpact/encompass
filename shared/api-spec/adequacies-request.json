@@ -33,6 +33,10 @@
       "items": {
         "type": "string"
       }
+    },
+    "dataset_hint": {
+      "description": "Hint to help the backend use cached adequacy results.",
+      "type": "string"
     }
   },
   "additionalProperties": false,

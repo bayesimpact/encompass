@@ -24,6 +24,7 @@ export type Dataset = {
   dataSources: string[]
   description: string
   name: string
+  hint: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }
