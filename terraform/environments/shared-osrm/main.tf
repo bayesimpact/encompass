@@ -45,7 +45,7 @@ resource "aws_instance" "shared_osrm_app" {
   key_name                        = "na-server"
   monitoring                      = false
   tenancy                         = "default"
-  security_groups                 = ["${aws_security_group.shared_osrm_sg.id}"]
+  security_groups                 = ["shared-osrm-sg"]
 
   tags { Name = "${local.env_name}" }
 }
