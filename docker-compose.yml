@@ -57,7 +57,7 @@ services:
           - ./osrm:/osrm/:ro
         command: sh -c "/osrm/initialize.py"
         ports:
-          - 5000:5000
+          - 80:5000
 
     explorer:
         build:
