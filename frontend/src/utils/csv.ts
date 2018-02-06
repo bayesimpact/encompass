@@ -18,13 +18,20 @@ export type ColumnDefinition = {
   required?: boolean
 }
 
+function safeLowerCase(string: string | undefined) {
+  if (string === undefined) {
+    return ''
+  }
+  return string.toLocaleLowerCase()
+}
+
 type ValidateHeaders = (columns: ColumnDefinition[], fields: string[]) => ParseError[]
 
 let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
-      if (c.required && fields.findIndex(_ => c.aliases.some(a => a.toLowerCase() === _.toLowerCase())) < 0) {
-        return new ParseError(0, n, c, `Your CSV must define a column called "${c.aliases[0]}"`)
+      if (c.required && fields.findIndex(_ => c.aliases.some(a => a.toLowerCase() === safeLowerCase(_))) < 0) {
+        return new ParseError(0, n, c, `Missing column "${c.aliases[0]}"`)
       }
       return undefined
     })
