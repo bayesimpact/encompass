@@ -39,11 +39,12 @@ backend-lint:
 backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
 backend-coverage:
-	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
 backend-coverage-ci:
-    docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
+	docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend ${BACKEND_COVERAGE}
 
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
