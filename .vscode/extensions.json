@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "christian-kohler.npm-intellisense",
-    "christian-kohler.path-intellisense",
-    "eg2.tslint",
-    "eg2.vscode-npm-script",
-    "wix.vscode-import-cost"
-  ]
-}

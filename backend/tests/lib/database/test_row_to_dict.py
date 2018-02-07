@@ -60,7 +60,6 @@ def test_prepare_demographics_dict_from_rows():
     demographics = representative_point.prepare_demographics_dict_from_rows(
         rp_row, CENSUS_MAPPING
     )
-    print(demographics)
     assert demographics == {'age': {'percent_age_under_5_y': 76.0}}
 
 

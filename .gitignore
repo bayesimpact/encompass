@@ -24,6 +24,9 @@ node_modules
 # idea
 .idea/
 
+# vscode
+*.vscode/*
+
 # Private Data
 data/private/*
 *.cache/*
