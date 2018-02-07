@@ -31,7 +31,7 @@ resource "aws_instance" "na_app" {
   tenancy                         = "default"
   security_groups                 = ["${local.app_security_group_name}"]
 
-  tags { Name = "${var.instance_name_tag}" }
+  tags { Name = "encompass-${var.env_name}" }
 }
 
 # This is the RDS instance representing the default app DB.
@@ -115,7 +115,7 @@ resource "aws_security_group" "na_db_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    security_groups = ["${aws_security_group.na_app_sg.name}"]
+    security_groups = ["${aws_security_group.na_app_sg.id}"]
   }
 
   # Permit everything outbound. Needs to be done explicitly.
