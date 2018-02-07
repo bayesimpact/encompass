@@ -26,9 +26,8 @@ node_modules
 
 # Private Data
 data/private/*
-*/.cache/*
+*.cache/*
 
-# terraform local state
+# Terraform local state
 **/.terraform/
 **/*.tfstate*
-

@@ -76,7 +76,7 @@ class TestOSRMDistanceMetric():
     def test_measure_between_two_points(self):
         """Check that the OSRM distance matches expectations."""
         d = self.measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
-        assert abs(d - 1183724.0947500002) < 20.0 * 10**3
+        assert abs(d - 1118051.2389999998) < 20.0 * 10**3
 
     def test_closest(self):
         """Check that the closest method works as expected."""

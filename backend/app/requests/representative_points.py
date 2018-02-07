@@ -28,6 +28,8 @@ RESPONSE
 """
 import json
 import logging
+
+from backend.config import config
 from backend.lib.fetch import representative_points
 from backend.app.exceptions.format import InvalidFormat
 
@@ -51,5 +53,7 @@ def representative_points_request(app, flask_request, engine):
     except (json.JSONDecodeError, KeyError):
         raise InvalidFormat(message='Invalid JSON format.')
     return representative_points.fetch_representative_points(
-        service_area_ids, census_data=True, engine=engine
+        service_area_ids,
+        census_data=config.get('census_data'),
+        engine=engine
     )
