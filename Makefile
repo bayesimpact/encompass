@@ -32,6 +32,8 @@ create_tileset_from_representative_points:
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
 
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+
 backend-lint:
 	docker-compose run --no-deps backend bash -c "flake8 ."
 	docker-compose run --no-deps backend bash -c "pep257 --match-dir '[^\.*data]' ."
@@ -40,10 +42,10 @@ backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
 backend-coverage:
-	docker-compose run --no-deps backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
 backend-coverage-ci:
-	docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend pytest --cov=backend --cov-config .coveragerc --cov-fail-under=68 --cov-report term-missing
+	docker-compose -f docker-compose.yml -f docker-compose.override.local.yml run backend ${BACKEND_COVERAGE}
 
 frontend-test:
 	docker-compose run frontend bash -c "yarn test"
