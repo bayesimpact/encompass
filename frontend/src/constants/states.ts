@@ -3,10 +3,17 @@
  */
 export const STATES = [
   { shortName: 'al', longName: 'Alabama' },
+  { shortName: 'ar', longName: 'Arkansas' },
+  { shortName: 'az', longName: 'Arizona' },
   { shortName: 'ca', longName: 'California' },
   { shortName: 'fl', longName: 'Florida' },
   { shortName: 'ga', longName: 'Georgia' },
+  { shortName: 'id', longName: 'Idaho' },
+  { shortName: 'la', longName: 'Louisiana' },
+  { shortName: 'mo', longName: 'Missouri' },
   { shortName: 'ms', longName: 'Mississippi' },
+  { shortName: 'nm', longName: 'New Mexico' },
+  { shortName: 'nv', longName: 'Nevada' },
   { shortName: 'or', longName: 'Oregon' },
   { shortName: 'ri', longName: 'Rhode Island' },
   { shortName: 'tx', longName: 'Texas' },
@@ -16,7 +23,7 @@ export const STATES = [
 /**
  * TODO: Codegen
  */
-export type State = 'al' | 'ca' | 'fl' | 'ga' | 'ms' | 'or' | 'ri' | 'tx' | 'wa'
+export type State = 'al' | 'ar' | 'az' | 'ca' | 'fl' | 'ga' | 'id' | 'la' | 'mo' | 'ms' | 'nm' | 'nv' | 'or' | 'ri' | 'tx' | 'wa'
 
 export const CaliforniaFKMServiceAreas = [
       'ca_kings_93202',
