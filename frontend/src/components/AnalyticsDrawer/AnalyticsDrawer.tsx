@@ -5,6 +5,7 @@ import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLi
 import { BackLink } from '../Link/Link'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
+import { CensusAnalytics } from './CensusAnalytics'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 
 /**
@@ -30,10 +31,6 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
     </div>
     <div className='ServiceAreas'>
       <strong className='MediumWeight Muted'>Service areas:</strong>
-      <ServiceAreaSelector
-        onChange={store.set('selectedCounties')}
-        value={store.get('selectedCounties')}
-      />
     </div>
     <div className='CensusAnalytics'>
       <strong className='MediumWeight Muted'>Demographic</strong>
@@ -44,6 +41,16 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
     </div>
     <div className='Analytics'>
       <ServiceAreaAnalytics />
+    </div>
+    <div className='CensusAnalytics'>
+      <strong className='MediumWeight Muted'>Census category:</strong>
+    </div>
+    <CensusCategorySelector
+      onChange={store.set('selectedCensusCategory')}
+      value={store.get('selectedCensusCategory')}
+    />
+    <div className='CensusAnalytics'>
+      <CensusAnalytics />
     </div>
     <div className='DownloadLink'>
       <DownloadAnalysisLink />
