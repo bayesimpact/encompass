@@ -31,6 +31,10 @@ create_tileset_from_representative_points:
 	docker-compose run --no-deps backend bash -c "python runners/export_representative_points.py -o data/representative_points_from_db.geojson"
 	tippecanoe -o data/repr_pop_points.mbtiles -Z 3 -z 22 -r 2.5 -B 8.0 -f data/representative_points_from_db.geojson
 
+# Clear cached adequacy results.
+clear-cache:
+	rm .cache/*
+
 # Run the app in debug mode.
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
