@@ -72,7 +72,7 @@ def _insert_representative_population_points(json_features):
             unique=False
         )
         return data
-    except Exception as e:
+    except Exception:
         print('Error inserting representative points')
 
 
@@ -92,7 +92,7 @@ def _transform_single_point(point):
         'zip_code': point['properties']['zip_code'],
         'service_area_id': '{state}_{county}_{zip}'.format(
             state=point['properties']['state'].lower(),
-            county=point['properties']['county'].lower().replace(' ', '_'),
+            county=_sanitize_county_name_in_service_area_id(point['properties']['county']),
             zip=point['properties']['zip_code']
         ),
         'census_tract': '{statefp}{countyfp}{tractce}'.format(
@@ -147,7 +147,7 @@ def _get_all_service_areas(features):
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
                 state=state.lower(),
-                county=county.lower().replace(' ', '_'),
+                county=_sanitize_county_name_in_service_area_id(county),
                 zip=zip_code
             ),
             'county': county,
@@ -157,6 +157,20 @@ def _get_all_service_areas(features):
         })
 
     return service_areas
+
+
+CHARACTER_SUBSTITUTIONS = collections.OrderedDict({
+    ' ': '_',
+    '.': '',
+})
+
+
+def _sanitize_county_name_in_service_area_id(county, replacement_mapping=CHARACTER_SUBSTITUTIONS):
+    """Clean a county string for use in the service_area_id field."""
+    result = county.lower()
+    for original_str, replacement_str in replacement_mapping.items():
+        result = result.replace(original_str, replacement_str)
+    return result
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ variable "app_ami" {
 variable "db_snapshot_id" {
   description = "The snapshot ID to use for initialising the DB server"
   type        = "string"
-  default     = "encompass-prod-01-25-18"
+  default     = "encompass-prod-2018-02-07"
 }
 
 variable "env_name" {

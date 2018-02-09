@@ -49,10 +49,10 @@ class TestFetchRepresentativePoints():
             census_mapping=census_mapping
         )
         excpected_readable_columns = [
-            'census_acs_dp_05.hc03_vc08 as percent_age_under_5_y',
-            'census_acs_dp_05.hc03_vc09 as percent_age_5_9_y',
-            'census_acs_dp_05.hc03_vc10 as percent_age_10_14_y',
-            'census_acs_dp_05.hc03_vc11 as percent_age_15_19_y'
+            'census_acs_dp_05.hc03_vc08 AS percent_age_under_5_y',
+            'census_acs_dp_05.hc03_vc09 AS percent_age_5_9_y',
+            'census_acs_dp_05.hc03_vc10 AS percent_age_10_14_y',
+            'census_acs_dp_05.hc03_vc11 AS percent_age_15_19_y'
         ]
         assert readable_columns == excpected_readable_columns
 

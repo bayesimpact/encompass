@@ -39,9 +39,16 @@ def fetch_representative_points(
         return []
     id_list = '(' + ', '.join(["'%s'" % _id for _id in service_area_ids]) + ')'
     if not census_data:
-        select_query = 'SELECT * FROM {table_name} WHERE service_area_id in {id_list};'.format(
+        select_query = """
+            SELECT *
+            FROM {table_name}
+            WHERE service_area_id IN {id_list}
+            ORDER BY id
+            ;
+        """.format(
             table_name=representative_point.RepresentativePoint.__tablename__,
-            id_list=id_list)
+            id_list=id_list
+        )
 
         representative_points = engine.execute(select_query)
         return [
@@ -54,7 +61,13 @@ def fetch_representative_points(
             table=table) for table in CENSUS_TABLES
     ])
 
-    select_query = 'SELECT {cols} FROM {table} {joins} WHERE service_area_id in {id_list};'.format(
+    select_query = """
+        SELECT {cols}
+        FROM {table} {joins}
+        WHERE service_area_id IN {id_list}
+        ORDER BY id
+        ;
+    """.format(
         cols=', '.join(RP_COLUMNS + readable_columns_from_census_mapping(
             CENSUS_FIELDS_BY_CATEGORY)),
         table=representative_point.RepresentativePoint.__tablename__,
@@ -91,7 +104,7 @@ def fetch_all_service_areas(engine=connect.create_db_engine()):
 
 def readable_columns_from_census_mapping(census_mapping=CENSUS_FIELDS_BY_CATEGORY):
     census_columns = [
-        '{key} as {intelligible_name}'.format(
+        '{key} AS {intelligible_name}'.format(
             key=key,
             intelligible_name=value
         ) for bucket in census_mapping for key, value in census_mapping[bucket].items()
