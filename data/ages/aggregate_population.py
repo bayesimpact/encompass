@@ -6,9 +6,13 @@ import csv
 
 STATES = ['al', 'ca', 'fl', 'ga', 'ms', 'or', 'ri', 'tx', 'wa']
 
-FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/ages-{}/DEC_10_SF1_QTP2.csv"
+# These are the absolute paths in my filesystem.
+# TODO update script to accept arguments for i/o paths and states to process.
+INPUT_FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/ages-{}/DEC_10_SF1_QTP2.csv"
+OUTPUT_FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/transformed/ages-{}-transformed.csv"
 
-# There are so many columns.
+# There are a lot of columns - even more than this. This is the subset of columns which are
+# useful to us - they contain values for specific individual years for both sexes.
 RELEVANT_COLUMN_NAMES = dict(
     SUBHD0101_S03='Number - Both sexes; Total population (all ages) - Under 5 years - Under 1 year',
     SUBHD0101_S04='Number - Both sexes; Total population (all ages) - Under 5 years - 1 year',
@@ -225,20 +229,21 @@ SIXTY_FIVE_PLUS = ['SUBHD0101_S81',
                    'SUBHD0101_S123',
                    'SUBHD0101_S124']
 
+# Now that we have identified the relevant columns, we can do the transformation.
 for state in STATES:
     # Output object.
     output = []
 
     # Input path.
-    file_path = FILE_PATH_TEMPLATE.format(state)
+    input_file_path = INPUT_FILE_PATH_TEMPLATE.format(state)
 
     # Now let's get the data for each state.
-    with open(file_path) as file:
+    with open(input_file_path) as file:
         data = csv.DictReader(file)
         next(data)  # Skip the first row since it's the header row.
         for row in data:  # For each census tract...
-            census_tract = {  # Create a new output dict
-                'name': row['GEO.display-label'],
+            census_tract = {  # Create a new output dict.
+                'tract': row['GEO.id2'],
                 '0-18': 0,
                 '19-25': 0,
                 '26-34': 0,
@@ -246,7 +251,7 @@ for state in STATES:
                 '55-64': 0,
                 '65+': 0,
             }
-            # Then sum together the relevant categories
+            # Then sum together the relevant categories.
             for column in ZERO_TO_EIGHTEEN:
                 census_tract['0-18'] += float(row[column])
             for column in NINETEEN_TO_TWENTY_FIVE:
@@ -261,6 +266,12 @@ for state in STATES:
                 census_tract['65+'] += float(row[column])
 
             # Now we have the aggregated values for each census tract.
-            # output.append(census_tract)
-            print(census_tract)  # debug
-        print("\n")
+            output.append(census_tract)
+
+    # Now write the transformed data to a new file.
+    output_file_path = OUTPUT_FILE_PATH_TEMPLATE.format(state)
+    with open(output_file_path, 'w') as file:
+        fieldnames = ['tract', '0-18', '19-25', '26-34', '35-54', '55-64', '65+']
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(output)
