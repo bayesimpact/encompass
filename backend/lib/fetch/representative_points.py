@@ -50,10 +50,9 @@ def fetch_representative_points(
             id_list=id_list
         )
 
-        representative_points = engine.execute(select_query)
         return [
             representative_point.row_to_dict(point, format_response)
-            for point in representative_points
+            for point in engine.execute(select_query).fetchall()
         ]
 
     join_list = ' '.join([
@@ -75,7 +74,6 @@ def fetch_representative_points(
         id_list=id_list
     )
 
-    representative_points = engine.execute(select_query)
     logger.info('Fetched representative_points with census data.')
     return [
         representative_point.row_to_dict(
@@ -83,7 +81,7 @@ def fetch_representative_points(
             format_response,
             census_mapping=CENSUS_FIELDS_BY_CATEGORY
         )
-        for point in representative_points
+        for point in engine.execute(select_query).fetchall()
     ]
 
 
