@@ -4,7 +4,7 @@
 # Let's go!
 import csv
 
-STATES = ['al', 'ca', 'fl', 'ga', 'ms', 'or', 'ri', 'tx', 'wa']
+STATES = ['al', 'ar', 'az', 'ca', 'fl', 'ga', 'id', 'la', 'mo', 'ms', 'nv', 'or', 'ri', 'tx', 'wa']
 
 # These are the absolute paths in my filesystem.
 # TODO update script to accept arguments for i/o paths and states to process.
