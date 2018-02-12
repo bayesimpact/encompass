@@ -113,7 +113,7 @@ def _get_locations_to_check_by_service_area(
         create_temp_table_query=create_temp_table_query,
         gis_query=gis_query
     )
-    query_results = (dict(row) for row in engine.execute(query))
+    query_results = (dict(row) for row in engine.execute(query).fetchall())
 
     for row in query_results:
         locations_to_check_by_service_area[row['service_area_id']].append(
