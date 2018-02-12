@@ -243,27 +243,27 @@ for state in STATES:
         next(data)  # Skip the first row since it's the header row.
         for row in data:  # For each census tract...
             census_tract = {  # Create a new output dict.
-                'tract': row['GEO.id2'],
-                '0-18': 0,
-                '19-25': 0,
-                '26-34': 0,
-                '35-54': 0,
-                '55-64': 0,
-                '65+': 0,
+                'census_tract': row['GEO.id2'],
+                'zero_to_eighteen': 0,
+                'nineteen_to_twenty_five': 0,
+                'twenty_six_to_thirty_four': 0,
+                'thirty_five_to_fifty_four': 0,
+                'fifty_five_to_sixty_four': 0,
+                'sixty_five_plus': 0,
             }
             # Then sum together the relevant categories.
             for column in ZERO_TO_EIGHTEEN:
-                census_tract['0-18'] += float(row[column])
+                census_tract['zero_to_eighteen'] += float(row[column])
             for column in NINETEEN_TO_TWENTY_FIVE:
-                census_tract['19-25'] += float(row[column])
+                census_tract['nineteen_to_twenty_five'] += float(row[column])
             for column in TWENTY_SIX_TO_THIRTY_FOUR:
-                census_tract['26-34'] += float(row[column])
+                census_tract['twenty_six_to_thirty_four'] += float(row[column])
             for column in THIRTY_FIVE_TO_FIFTY_FOUR:
-                census_tract['35-54'] += float(row[column])
+                census_tract['thirty_five_to_fifty_four'] += float(row[column])
             for column in FIFTY_FIVE_TO_SIXTY_FOUR:
-                census_tract['55-64'] += float(row[column])
+                census_tract['fifty_five_to_sixty_four'] += float(row[column])
             for column in SIXTY_FIVE_PLUS:
-                census_tract['65+'] += float(row[column])
+                census_tract['sixty_five_plus'] += float(row[column])
 
             # Now we have the aggregated values for each census tract.
             output.append(census_tract)
@@ -271,7 +271,10 @@ for state in STATES:
     # Now write the transformed data to a new file.
     output_file_path = OUTPUT_FILE_PATH_TEMPLATE.format(state)
     with open(output_file_path, 'w') as file:
-        fieldnames = ['tract', '0-18', '19-25', '26-34', '35-54', '55-64', '65+']
+        fieldnames = ['census_tract', 'zero_to_eighteen', 'nineteen_to_twenty_five',
+                                      'twenty_six_to_thirty_four', 'thirty_five_to_fifty_four',
+                                      'fifty_five_to_sixty_four',
+                                      'sixty_five_plus']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(output)

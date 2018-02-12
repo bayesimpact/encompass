@@ -1,4 +1,4 @@
-tract,0-18,19-25,26-34,35-54,55-64,65+
+census_tract,zero_to_eighteen,nineteen_to_twenty_five,twenty_six_to_thirty_four,thirty_five_to_fifty_four,fifty_five_to_sixty_four,sixty_five_plus
 06001400200,344.0,106.0,333.0,610.0,293.0,323.0
 06001400300,807.0,329.0,952.0,1804.0,596.0,493.0
 06001400400,587.0,352.0,829.0,1237.0,416.0,353.0

@@ -1,4 +1,4 @@
-tract,0-18,19-25,26-34,35-54,55-64,65+
+census_tract,zero_to_eighteen,nineteen_to_twenty_five,twenty_six_to_thirty_four,thirty_five_to_fifty_four,fifty_five_to_sixty_four,sixty_five_plus
 41001950200,746.0,198.0,283.0,858.0,478.0,617.0
 41001950300,622.0,150.0,216.0,703.0,392.0,585.0
 41001950400,669.0,222.0,272.0,762.0,407.0,727.0

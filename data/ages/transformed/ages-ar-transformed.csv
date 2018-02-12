@@ -1,4 +1,4 @@
-tract,0-18,19-25,26-34,35-54,55-64,65+
+census_tract,zero_to_eighteen,nineteen_to_twenty_five,twenty_six_to_thirty_four,thirty_five_to_fifty_four,fifty_five_to_sixty_four,sixty_five_plus
 05001480200,325.0,113.0,193.0,464.0,270.0,303.0
 05001480300,819.0,246.0,342.0,908.0,435.0,417.0
 05001480400,717.0,216.0,285.0,664.0,327.0,327.0
