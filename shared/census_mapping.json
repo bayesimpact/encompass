@@ -12,28 +12,25 @@
     "census_acs_dp_05.hc03_vc05": "percent_sex_female"
   },
   "race": {
-    "description": "TODO",
-    "census_acs_dp_05.hc03_vc88": "Hispanic or Latino (any race)",
-    "census_acs_dp_05.hc03_vc94": "White (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc95": "Black (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc96": "American Indian and Alaska Native (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc97": "Asian (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc98": "Native Hawaiian and Other Pacific Islander (Not Hispanic or Latino)",
-    "TODO HC03_VC99 and HC03_VC100": "Multiracial or Other (Not Hispanic or Latino)"
+    "census_acs_dp_05.hc03_vc88": "hispanic_or_latino_any_race",
+    "census_acs_dp_05.hc03_vc94": "white_not_hispanic_or_latino",
+    "census_acs_dp_05.hc03_vc95": "black_not_hispanic_or_latino",
+    "census_acs_dp_05.hc03_vc96": "american_indian_and_alaska_native_not_hispanic_or_latino",
+    "census_acs_dp_05.hc03_vc97": "asian_not_hispanic_or_latino)",
+    "census_acs_dp_05.hc03_vc98": "native_hawaiian_and_other_pacific_islander_not_hispanic_or_latino",
+    "census_acs_dp_05.hc03_vc99 + census_acs_dp_05.hc03_vc100": "multiracial_or_other_not_hispanic_or_latino"
   },
   "insurance": {
-    "description": "TODO",
-    "census_acs_dp_03.hc01_vc132": "private health insurance",
-    "census_acs_dp_03.hc01_vc133": "public health insurance",
-    "census_acs_dp_03.hc01_vc134": "no health insurance"
+    "census_acs_dp_03.hc01_vc132": "private_health_insurance",
+    "census_acs_dp_03.hc01_vc133": "public_health_insurance",
+    "census_acs_dp_03.hc01_vc134": "no_health_insurance"
   },
   "income": {
-    "description": "TODO; some of these require multiple columns",
-    "<= 14.999k": "DP03.HC01_VC75 + DP03.HC01_VC76",
-    "15k - 49.999k": "DP03.HC01_VC77 + DP03.HC01_VC78 + DP03.HC01_VC79",
-    "50k - 99.999k": "DP03.HC01_VC80 + DP03.HC01_VC81",
-    "100k - 149.999k": "DP03.HC01_VC82",
-    "150k - 149.999k": "DP03.HC01_VC83",
-    ">= 200k": "DP03.HC01_VC84"
+    "census_acs_dp_03.hc01_vc75 + census_acs_dp_03.hc01_vc76": "less_than_or_equal_to_14999",
+    "census_acs_dp_03.hc01_vc77 + census_acs_dp_03.hc01_vc78 + census_acs_dp_03.hc01_vc79": "15000_to_49999",
+    "census_acs_dp_03.hc01_vc80 + census_acs_dp_03.hc01_vc81": "50000_to_99999",
+    "census_acs_dp_03.hc01_vc82": "100000_to_149999",
+    "census_acs_dp_03.hc01_vc83": "150000_to_149999",
+    "census_acs_dp_03.hc01_vc84": "greater_than_or_equal_to_200000"
   }
 }
