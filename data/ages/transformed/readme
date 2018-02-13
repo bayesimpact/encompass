@@ -1,0 +1,1 @@
+psql --host <database url> --username tds --db network_adequacy -c "\copy aggregated_ages from '<path to repo>/data/ages/transformed/ages-<state>-transformed.csv' with DELIMITER ','"
