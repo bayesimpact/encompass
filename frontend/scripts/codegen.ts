@@ -131,7 +131,7 @@ async function codegenCensusMapping() {
   let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
   console.info('  Updated census mapping with:')
   console.info(censusMapping)
-  let parsedMapping = mapValues(censusMapping, _ => Object.values(_))
+  let parsedMapping = mapValues(censusMapping, _ => _.human_readable_name)
   await writeFile('src/constants/census.ts', format(
     genCensusMapping(parsedMapping), {
       parser: 'typescript',
