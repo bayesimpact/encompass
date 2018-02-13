@@ -41,8 +41,8 @@ def normalize_provider(provider, plan_ids_set):
     return normalized
 
 
-def filter_by_state(providers, states):
-    """Filter providers by type and by state to reduce the quantity of data we're processing."""
+def filter_by_states(providers, states):
+    """Filter providers by list of states to reduce the quantity of data we're processing."""
     return [provider for provider in providers if provider['state'] in states]
 
 
@@ -114,7 +114,7 @@ def _main(**kwargs):
                         continue
                     normalized_providers = normalize_provider(provider, plan_ids_set)
 
-                    filtered_by_state = filter_by_state(normalized_providers, states)
+                    filtered_by_state = filter_by_states(normalized_providers, states)
                     providers.extend(filtered_by_state)
                 logging.info('url {} successfully loaded'.format(url))
                 if kwargs['from_file']:
