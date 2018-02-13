@@ -1,21 +1,108 @@
 {
   "age": {
-    "census_acs_dp_05.hc03_vc08": "percent_age_under_5_y",
-    "census_acs_dp_05.hc03_vc09": "percent_age_5_9_y",
-    "census_acs_dp_05.hc03_vc10": "percent_age_10_14_y",
-    "census_acs_dp_05.hc03_vc11": "percent_age_15_19_y",
-    "census_acs_dp_05.hc03_vc12": "percent_age_20_24_y",
-    "census_acs_dp_05.hc03_vc13": "percent_age_25_34_y",
-    "census_acs_dp_05.hc03_vc14": "percent_age_35_44_y",
-    "census_acs_dp_05.hc03_vc15": "percent_age_45_54_y",
-    "census_acs_dp_05.hc03_vc16": "percent_age_55_59_y",
-    "census_acs_dp_05.hc03_vc17": "percent_age_60_64_y",
-    "census_acs_dp_05.hc03_vc18": "percent_age_65_74_y",
-    "census_acs_dp_05.hc03_vc19": "percent_age_75_84_y",
-    "census_acs_dp_05.hc03_vc20": "percent_age_over_85_y"
+    "aggregated_ages.zero_to_eighteen": {
+      "joined_column_name": "zero_to_eighteen",
+      "human_readable_name": "0-18 Years"
+    },
+    "aggregated_ages.nineteen_to_twenty_five": {
+      "joined_column_name": "nineteen_to_twenty_five",
+      "human_readable_name": "19-25 Years"
+    },
+    "aggregated_ages.twenty_six_to_thirty_four": {
+      "joined_column_name": "twenty_six_to_thirty_four",
+      "human_readable_name": "26-34 Years"
+    },
+    "aggregated_ages.thirty_five_to_fifty_four": {
+      "joined_column_name": "thirty_five_to_fifty_four",
+      "human_readable_name": "35-54 Years"
+    },
+    "aggregated_ages.fifty_five_to_sixty_four": {
+      "joined_column_name": "fifty_five_to_sixty_four",
+      "human_readable_name": "55-64 Years"
+    },
+    "aggregated_ages.sixty_five_plus": {
+      "joined_column_name": "sixty_five_plus",
+      "human_readable_name": "65+ Years"
+    }
   },
   "sex": {
-    "census_acs_dp_05.hc03_vc04": "percent_sex_male",
-    "census_acs_dp_05.hc03_vc05": "percent_sex_female"
+    "census_acs_dp_05.hc03_vc04": {
+      "joined_column_name": "percent_sex_male",
+      "human_readable_name": "Male"
+    },
+    "census_acs_dp_05.hc03_vc05": {
+      "joined_column_name": "percent_sex_female",
+      "human_readable_name": "Female"
+    }
+  },
+  "race": {
+    "census_acs_dp_05.hc03_vc88": {
+      "joined_column_name": "hispanic_or_latino_any_race",
+      "human_readable_name": "Hispanic or Latino (any race)"
+    },
+    "census_acs_dp_05.hc03_vc94": {
+      "joined_column_name": "white_not_hispanic_or_latino",
+      "human_readable_name": "White"
+    },
+    "census_acs_dp_05.hc03_vc95": {
+      "joined_column_name": "black_not_hispanic_or_latino",
+      "human_readable_name": "Black"
+    },
+    "census_acs_dp_05.hc03_vc96": {
+      "joined_column_name": "american_indian_and_alaska_native_not_hispanic_or_latino",
+      "human_readable_name": "American Indian & Alaska Native"
+    },
+    "census_acs_dp_05.hc03_vc97": {
+      "joined_column_name": "asian_not_hispanic_or_latino",
+      "human_readable_name": "Asian"
+    },
+    "census_acs_dp_05.hc03_vc98": {
+      "joined_column_name": "native_hawaiian_and_other_pacific_islander_not_hispanic_or_latino",
+      "human_readable_name": "Native Hawaiian & other Pacific Islander"
+    },
+    "census_acs_dp_05.hc03_vc99 + census_acs_dp_05.hc03_vc100": {
+      "joined_column_name": "multiracial_or_other_not_hispanic_or_latino",
+      "human_readable_name": "Multiracial or Other"
+    },
+    "insurance": {
+      "census_acs_dp_03.hc01_vc132": {
+        "joined_column_name": "private_health_insurance",
+        "human_readable_name": "Private Health Insurance"
+      },
+      "census_acs_dp_03.hc01_vc133": {
+        "joined_column_name": "public_health_insurance",
+        "human_readable_name": "Public Health Insurance"
+      },
+      "census_acs_dp_03.hc01_vc134": {
+        "joined_column_name": "no_health_insurance",
+        "human_readable_name": "No Health Insurance"
+      }
+    },
+    "income": {
+      "census_acs_dp_03.hc01_vc75 + census_acs_dp_03.hc01_vc76": {
+        "joined_column_name": "less_than_or_equal_to_14999",
+        "human_readable_name": "< $15k"
+      },
+      "census_acs_dp_03.hc01_vc77 + census_acs_dp_03.hc01_vc78 + census_acs_dp_03.hc01_vc79": {
+        "joined_column_name": "15000_to_49999",
+        "human_readable_name": "$15k - $50k"
+      },
+      "census_acs_dp_03.hc01_vc80 + census_acs_dp_03.hc01_vc81": {
+        "joined_column_name": "50000_to_99999",
+        "human_readable_name": "$50k - $100k"
+      },
+      "census_acs_dp_03.hc01_vc82": {
+        "joined_column_name": "100000_to_149999",
+        "human_readable_name": "$100k - $150k"
+      },
+      "census_acs_dp_03.hc01_vc83": {
+        "joined_column_name": "150000_to_199999",
+        "human_readable_name": "$150k - $200k"
+      },
+      "census_acs_dp_03.hc01_vc84": {
+        "joined_column_name": "greater_than_or_equal_to_200000",
+        "human_readable_name": "> $200k"
+      }
+    }
   }
 }
