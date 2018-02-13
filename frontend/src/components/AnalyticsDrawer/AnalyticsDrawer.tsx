@@ -34,9 +34,9 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
     </div>
     <div className='CensusAnalytics'>
       <strong className='MediumWeight Muted'>Demographic</strong>
-      <CensusCategorySelector
-        onChange={store.set('selectedCensusCategory')}
-        value={store.get('selectedCensusCategory')}
+      <ServiceAreaSelector
+        onChange={store.set('selectedCounties')}
+        value={store.get('selectedCounties')}
       />
     </div>
     <div className='Analytics'>
