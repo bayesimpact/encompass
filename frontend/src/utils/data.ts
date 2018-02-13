@@ -1,7 +1,8 @@
 import { chain, keyBy } from 'lodash'
-import { Adequacies, Adequacy, AdequacyMode, RepresentativePoint } from '../constants/datatypes'
+import { CENSUS_MAPPING } from '../constants/census'
+import { Adequacies, Adequacy, AdequacyMode, CensusGroup, PopulationByAdequacy, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
-import { totalPopulation } from './analytics'
+import { populationByCensus, totalPopulation } from './analytics'
 
 export function adequaciesFromServiceArea(
   serviceAreas: string[],
@@ -22,59 +23,61 @@ export function representativePointsFromServiceAreas(
     .filter(_ => _.serviceAreaId in hash)
 }
 
-export function summaryStatistics(
+export function summaryStatisticsByServiceArea(
   serviceAreas: string[],
   store: Store
 ) {
   let adequacies = store.get('adequacies')
   let rps = representativePointsFromServiceAreas(serviceAreas, store)
-  let adequateRps = rps.filter(_ =>
-    adequacies[_.id] && (
-      adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_15
-      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_30
-      || adequacies[_.id].adequacyMode === AdequacyMode.ADEQUATE_60
-    )
-  )
+  return summaryStatistics(rps, adequacies)
+}
 
-  let populationByAdequacy = [
-    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_15),
-    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_30),
-    countByAdequacy(adequacies, rps, AdequacyMode.ADEQUATE_60),
-    countByAdequacy(adequacies, rps, AdequacyMode.INADEQUATE)
-  ]
-
-  let population = totalPopulation(rps)
-  let numAdequatePopulation = totalPopulation(adequateRps)
-  let numInadequatePopulation = population - numAdequatePopulation
-
-  let percentAdequatePopulation = 100 * numAdequatePopulation / population
-  let percentInadequatePopulation = 100 - percentAdequatePopulation
-
-  let numRps = rps.size().value()
-  let numAdequateRps = adequateRps.size().value()
-  let numInadequateRps = numRps - numAdequateRps
-
-  return {
-    numAdequatePopulation,
-    numInadequatePopulation,
-    percentAdequatePopulation,
-    percentInadequatePopulation,
-    numAdequateRps,
-    numInadequateRps,
-    populationByAdequacy
+function countByAdequacy(
+  adequacies: Adequacies,
+  rps: Lazy<RepresentativePoint[]>,
+  adequacyMode: AdequacyMode,
+  censusGroup?: CensusGroup) {
+  let filteredRps = rps.filter(_ => adequacies[_.id] && (adequacies[_.id].adequacyMode === adequacyMode))
+  if (censusGroup === undefined) {
+    return totalPopulation(filteredRps)
   }
+  return populationByCensus(censusGroup)(filteredRps)
 }
 
+interface StatisticsByGroup {
+  [censusGroup: string]: PopulationByAdequacy
+}
 /**
- * Converts 9-digit ZIP Codes to 5-digit codes.
- */
-export function normalizeZip(zipCode: string) {
-  return zipCode.split('-')[0]
+* summaryStatisticsByServiceAreaAndCensus returns a mapping of
+* census group to summaryStatitics for this group.
+*/
+
+export function summaryStatisticsByServiceAreaAndCensus(
+  serviceAreas: string[],
+  censusCategory: string,
+  store: Store
+) {
+  let adequacies = store.get('adequacies')
+  let rps = representativePointsFromServiceAreas(serviceAreas, store)
+  let censusCategoryGroups = CENSUS_MAPPING[censusCategory]
+  let statisticsByGroup: StatisticsByGroup = {}
+  censusCategoryGroups.forEach(censusGroup => {
+    statisticsByGroup[censusGroup] = summaryStatistics(rps, adequacies, { censusCategory, censusGroup })
+  })
+  statisticsByGroup['Total'] = summaryStatistics(rps, adequacies)
+  return statisticsByGroup
 }
 
-function countByAdequacy(adequacies: Adequacies, rps: Lazy<RepresentativePoint[]> , adequacyMode: AdequacyMode){
-  return totalPopulation(
-      rps.filter(_ => adequacies[_.id] && (adequacies[_.id].adequacyMode === adequacyMode)
-    )
-  )
+export function summaryStatistics(
+  representativePoints: Lazy<RepresentativePoint[]>,
+  adequacies: Adequacies,
+  censusGroup?: CensusGroup
+): PopulationByAdequacy {
+  let populationByAdequacy = [
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_15, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_30, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_60, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.INADEQUATE, censusGroup)
+  ]
+  return populationByAdequacy
 }

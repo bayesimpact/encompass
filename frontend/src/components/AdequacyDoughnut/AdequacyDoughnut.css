@@ -1,8 +1,0 @@
-.AdequacyDoughnut .HighLevelStats {
-    margin: 10px 0 0px;
-    table-layout: fixed;
-  }
-
-.AdequacyDoughnut canvas + .StatsBox {
-  margin-top: 20px;
- }
