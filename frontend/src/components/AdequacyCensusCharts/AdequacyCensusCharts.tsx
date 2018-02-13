@@ -42,7 +42,7 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
   let censusGroups = CENSUS_MAPPING[censusCategory]
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
 
-  return <div className='AdequacyCensusCharts'>
+  return <div>
     <StatsBox className='HighLevelStats' withBorders>
       <tr>
         <th>Group</th>
