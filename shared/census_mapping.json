@@ -12,21 +12,23 @@
     "census_acs_dp_05.hc03_vc05": "percent_sex_female"
   },
   "race": {
-    "census_acs_dp_05.hc03_vc88": "TODO Hispanic or Latino (any race)",
-    "census_acs_dp_05.hc03_vc94": "TODO White (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc95": "TODO Black (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc96": "TODO American Indian and Alaska Native (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc97": "TODO Asian (Not Hispanic or Latino)",
-    "census_acs_dp_05.hc03_vc98": "TODO Native Hawaiian and Other Pacific Islander (Not Hispanic or Latino)",
-    "TODO HC03_VC99 and HC03_VC100": "TODO Multiracial or Other (Not Hispanic or Latino)"
+    "description": "TODO",
+    "census_acs_dp_05.hc03_vc88": "Hispanic or Latino (any race)",
+    "census_acs_dp_05.hc03_vc94": "White (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc95": "Black (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc96": "American Indian and Alaska Native (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc97": "Asian (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc98": "Native Hawaiian and Other Pacific Islander (Not Hispanic or Latino)",
+    "TODO HC03_VC99 and HC03_VC100": "Multiracial or Other (Not Hispanic or Latino)"
   },
   "insurance": {
-    "census_acs_dp_03.hc01_vc132": "TODO private health insurance",
-    "census_acs_dp_03.hc01_vc133": "TODO public health insurance",
-    "census_acs_dp_03.hc01_vc134": "TODO no health insurance"
+    "description": "TODO",
+    "census_acs_dp_03.hc01_vc132": "private health insurance",
+    "census_acs_dp_03.hc01_vc133": "public health insurance",
+    "census_acs_dp_03.hc01_vc134": "no health insurance"
   },
   "income": {
-    "description": "so some of these require multiple columns",
+    "description": "TODO; some of these require multiple columns",
     "<= 14.999k": "DP03.HC01_VC75 + DP03.HC01_VC76",
     "15k - 49.999k": "DP03.HC01_VC77 + DP03.HC01_VC78 + DP03.HC01_VC79",
     "50k - 99.999k": "DP03.HC01_VC80 + DP03.HC01_VC81",
