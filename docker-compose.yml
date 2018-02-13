@@ -68,9 +68,9 @@ services:
           dockerfile: ./explorer/Dockerfile
         volumes:
           - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
-          - ./explorer/notebooks:/home/jovyan/work/notebooks/:rw
-          - ./explorer/scripts:/home/jovyan/work/scripts/:rw
+          - ./explorer:/home/jovyan/work:rw
           - ./data/:/home/jovyan/work/data/:rw
+
         command: bash -c "start-notebook.sh --NotebookApp.token=''"
         env_file:
           - .env
