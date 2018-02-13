@@ -4,6 +4,9 @@ import json
 import multiprocessing
 import multiprocessing.dummy
 
+ONE_MILE_IN_METERS = 1609.344
+ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
+
 _CONFIG = None
 
 
@@ -116,14 +119,17 @@ CONFIG = {
         'haversine': {
             'adequacy_executor_type': multiprocessing.Pool,  # For CPU-bound tasks.
             'n_adequacy_processors': 8,
+            'exit_distance': 10.0 * ONE_MILE_IN_METERS
         },
         'osrm': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
             'n_adequacy_processors': 255,
+            'exit_distance': 5.0 * ONE_MILE_IN_METERS
         },
         'mapbox': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
             'n_adequacy_processors': 255,
+            'exit_distance': 5.0 * ONE_MILE_IN_METERS
         }
     },
     'logging': {

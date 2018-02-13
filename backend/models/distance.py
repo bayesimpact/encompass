@@ -92,7 +92,7 @@ class OSRMDriving(MeasureDistance):
     Uses the `table` OSRM API endpoint.
     """
 
-    def __init__(self, mode='time', api_url=None, early_exit_outer_radius=50.0 * 10**3):
+    def __init__(self, mode='time', api_url=None, early_exit_outer_radius=120.0 * 10**3):
         """Initialize the distance class with the OSRM URL."""
         logger.debug('Initializing OSRM measurer.')
         self.mode = mode
