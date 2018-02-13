@@ -1,7 +1,7 @@
 import { DropDownMenu } from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
-import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../../constants/census'
+import { CENSUS_MAPPING } from '../../constants/census'
 import { withStore } from '../../services/store'
 import { capitalizeWords, snakeCase } from '../../utils/string'
 
@@ -19,7 +19,7 @@ export let CensusCategorySelector = withStore('selectedCensusCategory')<Props>((
   return (
     <DropDownMenu
       onChange={(_event, _index, value) => onChange(snakeCase(value))}
-      value={value === null ? CENSUS_MAPPING_ERROR : capitalizeWords(value)}>
+      value={value}>
       {items}
     </DropDownMenu >
   )
