@@ -10,9 +10,9 @@ type Props = {
   value: string | null
 }
 
-let items: any = []
+let menuItems: any = []
 Object.keys(CENSUS_MAPPING).forEach(censusCategory => {
-  items.push(<MenuItem value={censusCategory} key={censusCategory} primaryText={capitalizeWords(censusCategory)} />)
+  menuItems.push(<MenuItem value={censusCategory} key={censusCategory} primaryText={capitalizeWords(censusCategory)} />)
 })
 
 export let CensusCategorySelector = withStore('selectedCensusCategory')<Props>(({ onChange, value }) => {
@@ -20,7 +20,7 @@ export let CensusCategorySelector = withStore('selectedCensusCategory')<Props>((
     <DropDownMenu
       onChange={(_event, _index, value) => onChange(snakeCase(value))}
       value={value}>
-      {items}
+      {menuItems}
     </DropDownMenu >
   )
 })
