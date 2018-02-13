@@ -30,10 +30,7 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
     <div className='ServiceAreas'>
-      <strong className='MediumWeight Muted'>Service areas:</strong>
-    </div>
-    <div className='CensusAnalytics'>
-      <strong className='MediumWeight Muted'>Demographic</strong>
+      <strong className='MediumWeight Muted'>Service areas</strong>
       <ServiceAreaSelector
         onChange={store.set('selectedCounties')}
         value={store.get('selectedCounties')}
@@ -43,12 +40,12 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <ServiceAreaAnalytics />
     </div>
     <div className='CensusAnalytics'>
-      <strong className='MediumWeight Muted'>Census category:</strong>
+      <strong className='MediumWeight Muted'>Demographic</strong>
+      <CensusCategorySelector
+        onChange={store.set('selectedCensusCategory')}
+        value={store.get('selectedCensusCategory')}
+      />
     </div>
-    <CensusCategorySelector
-      onChange={store.set('selectedCensusCategory')}
-      value={store.get('selectedCensusCategory')}
-    />
     <div className='CensusAnalytics'>
       <CensusAnalytics />
     </div>

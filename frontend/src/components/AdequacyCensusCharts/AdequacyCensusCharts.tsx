@@ -7,7 +7,7 @@ import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, PopulationByAdequacy } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
-import { summaryStatisticsByServiceArea, summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
+import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
@@ -39,11 +39,8 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
-  let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
-  // Retrieve total population information for the selected service area.
-  let totalPopulationByAdequacy = summaryStatisticsByServiceArea(serviceAreas, store)
   let censusGroups = CENSUS_MAPPING[censusCategory]
-  // let summaryStatistics = populationByAdequacyByGroup[censusGroups[0]]
+  let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
 
   return <div className='AdequacyCensusCharts'>
     <StatsBox className='HighLevelStats' withBorders>
@@ -56,21 +53,22 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
       </tr>
       {
         censusGroups.map(censusGroup =>
-          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], totalPopulationByAdequacy)
+          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup])
         )
       }
     </StatsBox>
   </div>
 })
 
-function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, totalPopulationByAdequacy: number[]) {
+function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy) {
+  let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
   return (
     <tr>
       <td>{censusGroup.replace('percent_', '')}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulationByAdequacy[0])}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulationByAdequacy[1])}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulationByAdequacy[2])}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[3] / totalPopulationByAdequacy[3])}</td>
+      <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulation)}</td>
+      <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulation)}</td>
+      <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulation)}</td>
+      <td>{formatPercentage(100 * populationByAdequacy[3] / totalPopulation)}</td>
     </tr>
   )
 }
