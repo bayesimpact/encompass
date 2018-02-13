@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
+import { CensusCategorySelector } from '../CensusCategorySelector/CensusCategorySelector'
 import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { BackLink } from '../Link/Link'
 import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
@@ -9,7 +10,7 @@ import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 /**
  * TODO: Show loading indicator while necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCounties')(({ store }) => {
+export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategory', 'selectedCounties')(({ store }) => {
 
   let selectedDataset = store.get('selectedDataset')
 
@@ -32,6 +33,13 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCounties')(({
       <ServiceAreaSelector
         onChange={store.set('selectedCounties')}
         value={store.get('selectedCounties')}
+      />
+    </div>
+    <div className='CensusAnalytics'>
+      <strong className='MediumWeight Muted'>Demographic</strong>
+      <CensusCategorySelector
+        onChange={store.set('selectedCensusCategory')}
+        value={store.get('selectedCensusCategory')}
       />
     </div>
     <div className='Analytics'>
