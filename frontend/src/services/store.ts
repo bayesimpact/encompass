@@ -1,6 +1,7 @@
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
-import { Adequacies, Dataset, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
+import { Adequacies, Dataset, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
@@ -57,9 +58,13 @@ type Actions = {
 
   route: Route
 
+  selectedCensusCategory: string
+
   selectedCounties: string | null
 
   selectedDataset: Dataset | null
+
+  selectedFormat: Format
 
   /**
    * Provider that the user selected on the map.
@@ -131,8 +136,10 @@ let store = withEffects(createStore<Actions>({
   providers: [],
   representativePoints: [],
   route: '/datasets',
+  selectedCensusCategory: Object.keys(CENSUS_MAPPING)[0] ? Object.keys(CENSUS_MAPPING)[0] : CENSUS_MAPPING_ERROR,
   selectedCounties: null,
   selectedDataset: null,
+  selectedFormat: 'Percentage',
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceAreas: null,

@@ -3,10 +3,14 @@ from backend.lib.database.tables import representative_point
 
 CENSUS_MAPPING = {
     'age': {
-        'census_acs_dp_05.hc03_vc08': 'percent_age_under_5_y',
-        'census_acs_dp_05.hc03_vc09': 'percent_age_5_9_y',
-        'census_acs_dp_05.hc03_vc10': 'percent_age_10_14_y',
-        'census_acs_dp_05.hc03_vc11': 'percent_age_15_19_y'
+        'aggregated_ages.zero_to_eighteen': {
+            'joined_column_name': 'zero_to_eighteen',
+            'human_readable_name': '0-18 Years'
+        },
+        'aggregated_ages.nineteen_to_twenty_five': {
+            'joined_column_name': 'nineteen_to_twenty_five',
+            'human_readable_name': '19-25 Years'
+        }
     }
 }
 
@@ -26,7 +30,8 @@ def test_representative_point_to_dict():
         'longitude': -79,
         'population': 200.0,
         'service_area_id': 'service_area_id',
-        'zip_code': 'zip_code'
+        'zip_code': 'zip_code',
+        'random_extra_column': 'random_string'
     }
 
     expected_output = {
@@ -55,12 +60,12 @@ def test_prepare_demographics_dict_from_rows():
         'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code',
-        'percent_age_under_5_y': 76
+        'zero_to_eighteen': 76
     }
     demographics = representative_point.prepare_demographics_dict_from_rows(
         rp_row, CENSUS_MAPPING
     )
-    assert demographics == {'age': {'percent_age_under_5_y': 76.0}}
+    assert demographics == {'age': {'0-18 Years': 76.0}}
 
 
 def test_representative_point_to_dict_with_census():
@@ -74,7 +79,7 @@ def test_representative_point_to_dict_with_census():
         'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code',
-        'percent_age_under_5_y': 76
+        'zero_to_eighteen': 76
     }
 
     expected_output = {
@@ -86,7 +91,7 @@ def test_representative_point_to_dict_with_census():
         'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip': 'zip_code',
-        'demographics': {'age': {'percent_age_under_5_y': 76.0}}
+        'demographics': {'age': {'0-18 Years': 76.0}}
     }
 
     output_dict = representative_point.row_to_dict(rp_row, census_mapping=CENSUS_MAPPING)

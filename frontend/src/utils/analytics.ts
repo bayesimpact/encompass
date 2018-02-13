@@ -1,5 +1,5 @@
 import { identity } from 'lodash'
-import { Adequacy, RepresentativePoint } from '../constants/datatypes'
+import { Adequacy, CensusGroup, RepresentativePoint } from '../constants/datatypes'
 
 /**
  * A big generic partially appliable reducer for building math pipelines.
@@ -41,3 +41,9 @@ export let maxMeasure = max<Adequacy>(_ => _.toClosestProvider)
 export let minMeasure = min<Adequacy>(_ => _.toClosestProvider)
 
 export let totalPopulation = sum<RepresentativePoint>(_ => _.population)
+
+export function populationByCensus(censusGroup: CensusGroup) {
+  return sum<RepresentativePoint>(
+    _ => _.population * 0.01 * _.demographics[censusGroup.censusCategory][censusGroup.censusGroup] || 0
+  )
+}

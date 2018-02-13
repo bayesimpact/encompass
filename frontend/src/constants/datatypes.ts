@@ -20,6 +20,11 @@ export enum AdequacyMode {
   OUT_OF_SCOPE = 'OUT_OF_SCOPE'
 }
 
+export type CensusGroup = {
+  censusCategory: string
+  censusGroup: string
+}
+
 export type Dataset = {
   dataSources: string[]
   description: string
@@ -28,6 +33,8 @@ export type Dataset = {
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }
+
+export type Format = 'Percentage' | 'Number'
 
 /**
  * TODO: Contribute this typing to react-mapbox-gl
@@ -70,3 +77,5 @@ export type RepresentativePoint = {
   serviceAreaId: string
   zip: string
 }
+
+export type PopulationByAdequacy = number[]
