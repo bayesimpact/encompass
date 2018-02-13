@@ -37,11 +37,11 @@ function countByAdequacy(
   rps: Lazy<RepresentativePoint[]>,
   adequacyMode: AdequacyMode,
   censusGroup?: CensusGroup) {
-  let filteredRp = rps.filter(_ => adequacies[_.id] && (adequacies[_.id].adequacyMode === adequacyMode))
+  let filteredRps = rps.filter(_ => adequacies[_.id] && (adequacies[_.id].adequacyMode === adequacyMode))
   if (censusGroup === undefined) {
-    return totalPopulation(filteredRp)
+    return totalPopulation(filteredRps)
   }
-  return populationByCensus(censusGroup)(filteredRp)
+  return populationByCensus(censusGroup)(filteredRps)
 }
 
 interface StatisticsByGroup {
@@ -59,8 +59,6 @@ export function summaryStatisticsByServiceAreaAndCensus(
 ) {
   let adequacies = store.get('adequacies')
   let rps = representativePointsFromServiceAreas(serviceAreas, store)
-  // TODO - Loop on available censusGroups here or at the higher level?
-  // Maybe accept censusGroup directly as argument to this function?
   let censusCategoryGroups = CENSUS_MAPPING[censusCategory]
   let statisticsByGroup: StatisticsByGroup = {}
   censusCategoryGroups.forEach(censusGroup => {
