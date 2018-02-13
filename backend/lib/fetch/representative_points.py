@@ -105,7 +105,9 @@ def readable_columns_from_census_mapping(census_mapping=CENSUS_FIELDS_BY_CATEGOR
         '{key} AS {intelligible_name}'.format(
             key=key,
             intelligible_name=value
-        ) for bucket in census_mapping for key, value in census_mapping[bucket].items()
+        ) for bucket in census_mapping
+        for group in bucket
+        for key, value in census_mapping[bucket].items()
 
     ]
     return census_columns

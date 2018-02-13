@@ -5,6 +5,9 @@ from geoalchemy2 import Geography
 
 from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, JSON, String, func
 
+JOINED_COLUMN_NAME = 'joined_column_name'
+HUMAN_READABLE_NAME = 'human_readable_name'
+
 
 class RepresentativePoint(Base):
     """Definition of the representative_points table."""
@@ -32,15 +35,17 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     """
     Extract demographic information from a row_dict using a census_mapping.
 
-    Note that the census_amapping used here should be the same or a subset of the one
+    Note that the census_mapping used here should be the same or a subset of the one
     used during extraction.
     """
-    demographics = {
-        category: {
-            bucket: float(row_dict[bucket]) for bucket in census_mapping[category].values()
-            if row_dict.get(bucket, None)
-        } for category in census_mapping.keys()
-    }
+    demographics = {}
+    for category in census_mapping:
+        demographics[category] = {}
+        for group in category:
+            value = row_dict.get(group[JOINED_COLUMN_NAME], None)
+            if value:
+                demographics[category][group[HUMAN_READABLE_NAME]] = value
+
     return demographics
 
 
