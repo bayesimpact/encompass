@@ -2,7 +2,3 @@
     margin: 10px 0 0px;
     table-layout: fixed;
   }
-
-.AdequacyCensusCharts canvas + .StatsBox {
-  margin-top: 20px;
- }
