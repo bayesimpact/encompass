@@ -1,21 +1,37 @@
 {
   "age": {
-    "census_acs_dp_05.hc03_vc08": "percent_age_under_5_y",
-    "census_acs_dp_05.hc03_vc09": "percent_age_5_9_y",
-    "census_acs_dp_05.hc03_vc10": "percent_age_10_14_y",
-    "census_acs_dp_05.hc03_vc11": "percent_age_15_19_y",
-    "census_acs_dp_05.hc03_vc12": "percent_age_20_24_y",
-    "census_acs_dp_05.hc03_vc13": "percent_age_25_34_y",
-    "census_acs_dp_05.hc03_vc14": "percent_age_35_44_y",
-    "census_acs_dp_05.hc03_vc15": "percent_age_45_54_y",
-    "census_acs_dp_05.hc03_vc16": "percent_age_55_59_y",
-    "census_acs_dp_05.hc03_vc17": "percent_age_60_64_y",
-    "census_acs_dp_05.hc03_vc18": "percent_age_65_74_y",
-    "census_acs_dp_05.hc03_vc19": "percent_age_75_84_y",
-    "census_acs_dp_05.hc03_vc20": "percent_age_over_85_y"
+    "aggregated_ages.zero_to_eighteen": "zero_to_eighteen",
+    "aggregated_ages.nineteen_to_twenty_five": "nineteen_to_twenty_five",
+    "aggregated_ages.twenty_six_to_thirty_four": "twenty_six_to_thirty_four",
+    "aggregated_ages.thirty_five_to_fifty_four": "thirty_five_to_fifty_four",
+    "aggregated_ages.fifty_five_to_sixty_four": "fifty_five_to_sixty_four",
+    "aggregated_ages.sixty_five_plus": "sixty_five_plus"
   },
   "sex": {
     "census_acs_dp_05.hc03_vc04": "percent_sex_male",
     "census_acs_dp_05.hc03_vc05": "percent_sex_female"
+  },
+  "race": {
+    "census_acs_dp_05.hc03_vc88": "TODO Hispanic or Latino (any race)",
+    "census_acs_dp_05.hc03_vc94": "TODO White (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc95": "TODO Black (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc96": "TODO American Indian and Alaska Native (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc97": "TODO Asian (Not Hispanic or Latino)",
+    "census_acs_dp_05.hc03_vc98": "TODO Native Hawaiian and Other Pacific Islander (Not Hispanic or Latino)",
+    "TODO HC03_VC99 and HC03_VC100": "TODO Multiracial or Other (Not Hispanic or Latino)"
+  },
+  "insurance": {
+    "census_acs_dp_03.hc01_vc132": "TODO private health insurance",
+    "census_acs_dp_03.hc01_vc133": "TODO public health insurance",
+    "census_acs_dp_03.hc01_vc134": "TODO no health insurance"
+  },
+  "income": {
+    "description": "so some of these require multiple columns",
+    "<= 14.999k": "DP03.HC01_VC75 + DP03.HC01_VC76",
+    "15k - 49.999k": "DP03.HC01_VC77 + DP03.HC01_VC78 + DP03.HC01_VC79",
+    "50k - 99.999k": "DP03.HC01_VC80 + DP03.HC01_VC81",
+    "100k - 149.999k": "DP03.HC01_VC82",
+    "150k - 149.999k": "DP03.HC01_VC83",
+    ">= 200k": "DP03.HC01_VC84"
   }
 }
