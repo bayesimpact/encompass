@@ -32,16 +32,17 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     """
     Extract demographic information from a row_dict using a census_mapping.
 
-    Note that the census_amapping used here should be the same or a subset of the one
+    Note that the census_mapping used here should be the same or a subset of the one
     used during extraction.
     """
-    demographics = {
+    return {
         category: {
-            bucket: float(row_dict[bucket]) for bucket in census_mapping[category].values()
-            if row_dict.get(bucket, None)
-        } for category in census_mapping.keys()
+            names['human_readable_name']: float(row_dict[names['joined_column_name']] or 0.0)
+            for names in census_mapping[category].values()
+            if names['joined_column_name'] in row_dict
+        }
+        for category in census_mapping
     }
-    return demographics
 
 
 def row_to_dict(rp_row, format_response=True, census_mapping=None):

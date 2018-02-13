@@ -1,8 +1,8 @@
 /**
  * Codegens API typings
  */
-
 import Axios from 'axios'
+import { readFileSync } from 'fs'
 import { compileFromFile, Options } from 'json-schema-to-typescript'
 import { chain } from 'lodash'
 import { mkdir, writeFile } from 'mz/fs'
@@ -31,6 +31,9 @@ async function main() {
 
   console.info('[Step 2] Codegen ZIP codes')
   await codegenZIPCodes()
+
+  console.info('[Step 3] Census Category Mapping')
+  await codegenCensusMapping()
 }
 
 async function codegenZIPCodes() {
@@ -103,4 +106,49 @@ export const ZIPS_BY_COUNTY_BY_STATE: Record<State, {
   [county: string]: string[]
 }> = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
 `
+}
+
+function genCensusMapping(object: object) {
+  return `/**
+* This file was automatically generated.
+* DO NOT MODIFY IT BY HAND. Instead, run "yarn codegen" to regenerate it.
+*/
+
+type censusMapping = {
+  [category: string]: string[]
+}
+
+export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
+
+export const CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
+`
+}
+
+interface ParsedMapping {
+  [category: string]: string[]
+}
+
+async function codegenCensusMapping() {
+  await rmrf('src/constants/census.ts')
+  console.info('  Removed file src/constants/census.ts')
+
+  let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
+  console.info('  Updated census mapping with:')
+  // FIXME - Revise function and simplify.
+  let parsedMapping: ParsedMapping = {}
+  for (let categoryKey in censusMapping) {
+    let category = censusMapping[categoryKey]
+    let groups: string[] = []
+    for (let groupKey in category) {
+      groups.push(category[groupKey].human_readable_name)
+    }
+    parsedMapping[categoryKey] = groups
+  }
+  console.info(parsedMapping)
+  await writeFile('src/constants/census.ts', format(
+    genCensusMapping(parsedMapping), {
+      parser: 'typescript',
+      ...PRETTIER_OPTIONS
+    })
+  )
 }
