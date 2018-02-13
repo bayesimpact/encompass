@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
-import { normalizeZip } from '../../utils/data'
+import { normalizeZip } from '../../utils/formatters'
 import { maybeParseFloat } from '../../utils/numbers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'

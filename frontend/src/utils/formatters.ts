@@ -3,6 +3,13 @@ import { serializeServiceArea } from './serializers'
 import { capitalizeWords, snakeCase } from './string'
 
 /**
+ * Converts 9-digit ZIP Codes (ZIP+4 codes) to 5-digit codes.
+ */
+export function normalizeZip(zipCode: string) {
+  return zipCode.split('-')[0]
+}
+
+/**
  * Formats coordinates for display in the UI.
  */
 export function formatCoordinate(n: number) {
