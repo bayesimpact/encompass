@@ -1,23 +1,28 @@
+import { DropDownMenu } from 'material-ui/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../../constants/census'
 import { withStore } from '../../services/store'
 import { capitalizeWords, snakeCase } from '../../utils/string'
-import { Autocomplete } from '../Autocomplete/Autocomplete'
 
 type Props = {
-  onChange(serviceArea: string | null): void
+  onChange(censusCategory: string | null): void
   value: string | null
 }
 
-// const defaultKey = Object.keys(CENSUS_MAPPING)[0] ? Object.keys(CENSUS_MAPPING)[0] : CENSUS_MAPPING_ERROR
+let items: any = []
+Object.keys(CENSUS_MAPPING).forEach(censusCategory => {
+  items.push(<MenuItem value={censusCategory} key={censusCategory} primaryText={capitalizeWords(censusCategory)} />)
+})
 
 export let CensusCategorySelector = withStore('selectedCensusCategory')<Props>(({ onChange, value }) => {
-  return <Autocomplete
-    items={[]}
-    onChange={_ => onChange(snakeCase(_))}
-    pinnedItems={Object.keys(CENSUS_MAPPING).map(_ => capitalizeWords(_))}
-    value={value === null ? CENSUS_MAPPING_ERROR : capitalizeWords(value)}
-  />
+  return (
+    <DropDownMenu
+      onChange={(_event, _index, value) => onChange(snakeCase(value))}
+      value={value === null ? CENSUS_MAPPING_ERROR : capitalizeWords(value)}>
+      {items}
+    </DropDownMenu >
+  )
 })
 
 CensusCategorySelector.displayName = 'CensusCategorySelector'
