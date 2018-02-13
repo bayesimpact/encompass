@@ -24,12 +24,13 @@
     "mui-icons": "^1.2.1",
     "papaparse": "^4.3.6",
     "react-autocomplete": "^1.7.2",
-    "react-chartjs-2": "^2.6.4",
+    "react-chartjs-2": "^2.7.0",
     "react-mapbox-gl": "^2.7.0",
-    "undux": "^3.0.7"
+    "undux": "^3.0.7",
+    "chartjs-plugin-stacked100": "^0.4.4"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.7.0",
+    "@types/chart.js": "^2.7.7",
     "@types/jest": "^21.1.6",
     "@types/lodash": "^4.14.85",
     "@types/mapbox-gl": "^0.40.1",

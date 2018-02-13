@@ -39,20 +39,23 @@ class TestFetchRepresentativePoints():
     def test_readable_columns_from_census_mapping(self):
         census_mapping = {
             'age': {
-                'census_acs_dp_05.hc03_vc08': 'percent_age_under_5_y',
-                'census_acs_dp_05.hc03_vc09': 'percent_age_5_9_y',
-                'census_acs_dp_05.hc03_vc10': 'percent_age_10_14_y',
-                'census_acs_dp_05.hc03_vc11': 'percent_age_15_19_y'
+                'aggregated_ages.zero_to_eighteen': {
+                    'joined_column_name': 'zero_to_eighteen',
+                    'human_readable_name': '0-18 Years'
+                },
+                'aggregated_ages.nineteen_to_twenty_five': {
+                    'joined_column_name': 'nineteen_to_twenty_five',
+                    'human_readable_name': '19-25 Years'
+                }
             }
         }
+
         readable_columns = representative_points.readable_columns_from_census_mapping(
             census_mapping=census_mapping
         )
         excpected_readable_columns = [
-            'census_acs_dp_05.hc03_vc08 AS percent_age_under_5_y',
-            'census_acs_dp_05.hc03_vc09 AS percent_age_5_9_y',
-            'census_acs_dp_05.hc03_vc10 AS percent_age_10_14_y',
-            'census_acs_dp_05.hc03_vc11 AS percent_age_15_19_y'
+            'aggregated_ages.zero_to_eighteen AS zero_to_eighteen',
+            'aggregated_ages.nineteen_to_twenty_five AS nineteen_to_twenty_five'
         ]
         assert readable_columns == excpected_readable_columns
 
