@@ -34,6 +34,8 @@ export type Dataset = {
   serviceAreaIds: string[]
 }
 
+export type Format = 'Percentage' | 'Number'
+
 /**
  * TODO: Contribute this typing to react-mapbox-gl
  */

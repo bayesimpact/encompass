@@ -9,7 +9,7 @@ import { serializeServiceArea } from '../../utils/serializers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import { SelectAllServiceAreas } from '../SelectAllServiceAreas/SelectAllServiceAreas'
-import { StateSelector } from '../StateSelector/StateSelector'
+import { StateSelector } from '../Selectors/StateSelector'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing

@@ -4,10 +4,10 @@ import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
-import { AdequacyMode, PopulationByAdequacy } from '../../constants/datatypes'
+import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
-import { formatPercentage } from '../../utils/formatters'
+import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './AdequacyCensusCharts.css'
@@ -35,6 +35,7 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
     </div>
   }
 
+  let format = store.get('selectedFormat')
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
@@ -52,22 +53,33 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
       </tr>
       {
         censusGroups.map(censusGroup =>
-          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup])
+          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], format)
         )
       }
     </StatsBox>
   </div>
 })
 
-function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy) {
+function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format) {
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
+  if (format === 'Percentage') {
+    return (
+      <tr>
+        <td>{censusGroup}</td>
+        <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulation)}</td>
+        <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulation)}</td>
+        <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulation)}</td>
+        <td>{formatPercentage(100 * populationByAdequacy[3] / totalPopulation)}</td>
+      </tr>
+    )
+  }
   return (
     <tr>
       <td>{censusGroup}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulation)}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulation)}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulation)}</td>
-      <td>{formatPercentage(100 * populationByAdequacy[3] / totalPopulation)}</td>
+      <td>{formatNumber(populationByAdequacy[0])}</td>
+      <td>{formatNumber(populationByAdequacy[1])}</td>
+      <td>{formatNumber(populationByAdequacy[2])}</td>
+      <td>{formatNumber(populationByAdequacy[3])}</td>
     </tr>
   )
 }
