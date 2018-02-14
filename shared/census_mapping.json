@@ -81,27 +81,27 @@
   },
   "income": {
     "census_acs_dp_03.hc01_vc75 + census_acs_dp_03.hc01_vc76": {
-      "joined_column_name": "less_than_or_equal_to_14999",
+      "joined_column_name": "lte_14999",
       "human_readable_name": "< $15k"
     },
     "census_acs_dp_03.hc01_vc77 + census_acs_dp_03.hc01_vc78 + census_acs_dp_03.hc01_vc79": {
-      "joined_column_name": "15000_to_49999",
+      "joined_column_name": "_15000_to_49999",
       "human_readable_name": "$15k - $50k"
     },
     "census_acs_dp_03.hc01_vc80 + census_acs_dp_03.hc01_vc81": {
-      "joined_column_name": "50000_to_99999",
+      "joined_column_name": "_50000_to_99999",
       "human_readable_name": "$50k - $100k"
     },
     "census_acs_dp_03.hc01_vc82": {
-      "joined_column_name": "100000_to_149999",
+      "joined_column_name": "_100000_to_149999",
       "human_readable_name": "$100k - $150k"
     },
     "census_acs_dp_03.hc01_vc83": {
-      "joined_column_name": "150000_to_199999",
+      "joined_column_name": "_150000_to_199999",
       "human_readable_name": "$150k - $200k"
     },
     "census_acs_dp_03.hc01_vc84": {
-      "joined_column_name": "greater_than_or_equal_to_200000",
+      "joined_column_name": "gte_200000",
       "human_readable_name": "> $200k"
     }
   }

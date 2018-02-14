@@ -4,26 +4,41 @@
  */
 
 type censusMapping = {
-    [category: string]: string[]
+  [category: string]: string[]
 }
 
 export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
 export const CENSUS_MAPPING: censusMapping = {
-    age: [
-        'percent_age_under_5_y',
-        'percent_age_5_9_y',
-        'percent_age_10_14_y',
-        'percent_age_15_19_y',
-        'percent_age_20_24_y',
-        'percent_age_25_34_y',
-        'percent_age_35_44_y',
-        'percent_age_45_54_y',
-        'percent_age_55_59_y',
-        'percent_age_60_64_y',
-        'percent_age_65_74_y',
-        'percent_age_75_84_y',
-        'percent_age_over_85_y'
-    ],
-    sex: ['percent_sex_male', 'percent_sex_female']
+  age: [
+    '0-18 Years',
+    '19-25 Years',
+    '26-34 Years',
+    '35-54 Years',
+    '55-64 Years',
+    '65+ Years'
+  ],
+  sex: ['Male', 'Female'],
+  race: [
+    'Hispanic or Latino (any race)',
+    'White',
+    'Black',
+    'American Indian & Alaska Native',
+    'Asian',
+    'Native Hawaiian & other Pacific Islander',
+    'Multiracial or Other'
+  ],
+  insurance: [
+    'Private Health Insurance',
+    'Public Health Insurance',
+    'No Health Insurance'
+  ],
+  income: [
+    '< $15k',
+    '$15k - $50k',
+    '$50k - $100k',
+    '$100k - $150k',
+    '$150k - $200k',
+    '> $200k'
+  ]
 }
