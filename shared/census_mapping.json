@@ -66,41 +66,41 @@
     }
   },
   "insurance": {
-    "census_acs_dp_03.hc01_vc132": {
+    "census_acs_dp_03.hc03_vc132": {
       "joined_column_name": "private_health_insurance",
       "human_readable_name": "Private Health Insurance"
     },
-    "census_acs_dp_03.hc01_vc133": {
+    "census_acs_dp_03.hc03_vc133": {
       "joined_column_name": "public_health_insurance",
       "human_readable_name": "Public Health Insurance"
     },
-    "census_acs_dp_03.hc01_vc134": {
+    "census_acs_dp_03.hc03_vc134": {
       "joined_column_name": "no_health_insurance",
       "human_readable_name": "No Health Insurance"
     }
   },
   "income": {
-    "census_acs_dp_03.hc01_vc75 + census_acs_dp_03.hc01_vc76": {
+    "census_acs_dp_03.hc03_vc75 + census_acs_dp_03.hc03_vc76": {
       "joined_column_name": "lte_14999",
       "human_readable_name": "< $15k"
     },
-    "census_acs_dp_03.hc01_vc77 + census_acs_dp_03.hc01_vc78 + census_acs_dp_03.hc01_vc79": {
+    "census_acs_dp_03.hc03_vc77 + census_acs_dp_03.hc03_vc78 + census_acs_dp_03.hc03_vc79": {
       "joined_column_name": "_15000_to_49999",
       "human_readable_name": "$15k - $50k"
     },
-    "census_acs_dp_03.hc01_vc80 + census_acs_dp_03.hc01_vc81": {
+    "census_acs_dp_03.hc03_vc80 + census_acs_dp_03.hc03_vc81": {
       "joined_column_name": "_50000_to_99999",
       "human_readable_name": "$50k - $100k"
     },
-    "census_acs_dp_03.hc01_vc82": {
+    "census_acs_dp_03.hc03_vc82": {
       "joined_column_name": "_100000_to_149999",
       "human_readable_name": "$100k - $150k"
     },
-    "census_acs_dp_03.hc01_vc83": {
+    "census_acs_dp_03.hc03_vc83": {
       "joined_column_name": "_150000_to_199999",
       "human_readable_name": "$150k - $200k"
     },
-    "census_acs_dp_03.hc01_vc84": {
+    "census_acs_dp_03.hc03_vc84": {
       "joined_column_name": "gte_200000",
       "human_readable_name": "> $200k"
     }
