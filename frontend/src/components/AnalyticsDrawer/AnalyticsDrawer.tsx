@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
-import { CensusCategorySelector } from '../CensusCategorySelector/CensusCategorySelector'
 import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { BackLink } from '../Link/Link'
-import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
+import { CensusCategorySelector } from '../Selectors/CensusCategorySelector'
+import { FormatSelector } from '../Selectors/FormatSelector'
+import { ServiceAreaSelector } from '../Selectors/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { CensusAnalytics } from './CensusAnalytics'
 import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
@@ -11,7 +12,7 @@ import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 /**
  * TODO: Show loading indicator while necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategory', 'selectedCounties')(({ store }) => {
+export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategory', 'selectedCounties', 'selectedFormat')(({ store }) => {
 
   let selectedDataset = store.get('selectedDataset')
 
@@ -40,13 +41,20 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <ServiceAreaAnalytics />
     </div>
     <div className='CensusAnalytics'>
-      <strong className='MediumWeight Muted'>Demographic</strong>
-      <CensusCategorySelector
-        onChange={store.set('selectedCensusCategory')}
-        value={store.get('selectedCensusCategory')}
-      />
-    </div>
-    <div className='CensusAnalytics'>
+      <div>
+        <strong className='MediumWeight Muted'>Demographic</strong>
+        <CensusCategorySelector
+          onChange={store.set('selectedCensusCategory')}
+          value={store.get('selectedCensusCategory')}
+        />
+      </div>
+      <div>
+        <strong className='MediumWeight Muted'>Format</strong>
+        <FormatSelector
+          onChange={store.set('selectedFormat')}
+          value={store.get('selectedFormat')}
+        />
+      </div>
       <CensusAnalytics />
     </div>
     <div className='DownloadLink'>
