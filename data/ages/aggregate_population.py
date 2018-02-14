@@ -265,16 +265,33 @@ for state in STATES:
             for column in SIXTY_FIVE_PLUS:
                 census_tract['sixty_five_plus'] += float(row[column])
 
+            # Update: Also calculate percentages.
+            total_population = 0
+            total_population += sum([census_tract[group] for group in census_tract
+                                    if group != 'census_tract'])
+            percentages = {}
+            for group in census_tract:
+                if group != 'census_tract':
+                    # Some tracts are in the sea, and have no-one in them.
+                    if total_population < 1:
+                        percentages[group + '_percent'] = 0
+                    else:
+                        percent = float(census_tract[group]) / total_population * 100
+                        percentages[group + '_percent'] = percent
+            census_tract.update(percentages)
+
             # Now we have the aggregated values for each census tract.
             output.append(census_tract)
 
     # Now write the transformed data to a new file.
     output_file_path = OUTPUT_FILE_PATH_TEMPLATE.format(state)
     with open(output_file_path, 'w') as file:
-        fieldnames = ['census_tract', 'zero_to_eighteen', 'nineteen_to_twenty_five',
-                                      'twenty_six_to_thirty_four', 'thirty_five_to_fifty_four',
-                                      'fifty_five_to_sixty_four',
-                                      'sixty_five_plus']
+        fieldnames = ['census_tract', 'zero_to_eighteen', 'zero_to_eighteen_percent',
+                      'nineteen_to_twenty_five', 'nineteen_to_twenty_five_percent',
+                      'twenty_six_to_thirty_four', 'twenty_six_to_thirty_four_percent',
+                      'thirty_five_to_fifty_four', 'thirty_five_to_fifty_four_percent',
+                      'fifty_five_to_sixty_four', 'fifty_five_to_sixty_four_percent',
+                      'sixty_five_plus', 'sixty_five_plus_percent']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(output)
