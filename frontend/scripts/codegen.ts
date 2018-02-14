@@ -130,8 +130,16 @@ async function codegenCensusMapping() {
 
   let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
   console.info('  Updated census mapping with:')
-  console.info(censusMapping)
-  let parsedMapping = mapValues(censusMapping, _ => _.human_readable_name)
+  let parsedMapping = {}
+  for (let categoryKey in censusMapping){
+    let category = censusMapping[categoryKey]
+    let groups = []
+    for (let groupKey in category) {
+      groups.push(category[groupKey].human_readable_name)
+    }
+    parsedMapping[categoryKey] = groups
+  }
+  console.info(parsedMapping)
   await writeFile('src/constants/census.ts', format(
     genCensusMapping(parsedMapping), {
       parser: 'typescript',
