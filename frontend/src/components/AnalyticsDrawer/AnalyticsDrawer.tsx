@@ -41,20 +41,20 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <ServiceAreaAnalytics />
     </div>
     <div className='CensusAnalytics'>
-      <strong className='MediumWeight Muted'>Demographic</strong>
-      <CensusCategorySelector
-        onChange={store.set('selectedCensusCategory')}
-        value={store.get('selectedCensusCategory')}
-      />
-    </div>
-    <div>
-      <strong className='MediumWeight Muted'>Format</strong>
-      <FormatSelector
-        onChange={store.set('selectedFormat')}
-        value={store.get('selectedFormat')}
-      />
-    </div>
-    <div className='CensusAnalytics'>
+      <div>
+        <strong className='MediumWeight Muted'>Demographic</strong>
+        <CensusCategorySelector
+          onChange={store.set('selectedCensusCategory')}
+          value={store.get('selectedCensusCategory')}
+        />
+      </div>
+      <div>
+        <strong className='MediumWeight Muted'>Format</strong>
+        <FormatSelector
+          onChange={store.set('selectedFormat')}
+          value={store.get('selectedFormat')}
+        />
+      </div>
       <CensusAnalytics />
     </div>
     <div className='DownloadLink'>
