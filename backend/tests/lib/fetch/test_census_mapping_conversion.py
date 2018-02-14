@@ -1,24 +1,24 @@
 from backend.lib.utils.census import readable_columns_from_census_mapping
 
 MOCK_CENSUS_MAPPING = {
-    "category1": {
-        "c1g1": {
-            "joined_column_name": "category_one_group_one",
-            "human_readable_name": "Category One, Group One"
+    'category1': {
+        'c1g1': {
+            'joined_column_name': 'category_one_group_one',
+            'human_readable_name': 'Category One, Group One'
         },
-        "c1g2": {
-            "joined_column_name": "category_one_group_two",
-            "human_readable_name": "Category One, Group Two"
+        'c1g2': {
+            'joined_column_name': 'category_one_group_two',
+            'human_readable_name': 'Category One, Group Two'
         }
     },
-    "category2": {
-        "c2g1": {
-            "joined_column_name": "category_two_group_one",
-            "human_readable_name": "Category Two, Group One"
+    'category2': {
+        'c2g1': {
+            'joined_column_name': 'category_two_group_one',
+            'human_readable_name': 'Category Two, Group One'
         },
-        "c2g2": {
-            "joined_column_name": "category_two_group_two",
-            "human_readable_name": "Category Two, Group Two"
+        'c2g2': {
+            'joined_column_name': 'category_two_group_two',
+            'human_readable_name': 'Category Two, Group Two'
         }
     }
 }
