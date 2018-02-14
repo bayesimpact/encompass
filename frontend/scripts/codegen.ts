@@ -124,6 +124,10 @@ export const CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: In
 `
 }
 
+interface ParsedMapping {
+  [category: string]: string[]
+}
+
 async function codegenCensusMapping() {
   await rmrf('src/constants/census.ts')
   console.info('  Removed file src/constants/census.ts')
@@ -131,10 +135,10 @@ async function codegenCensusMapping() {
   let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
   console.info('  Updated census mapping with:')
   // FIXME - Revise function and simplify.
-  let parsedMapping: {} = {}
+  let parsedMapping: ParsedMapping = {}
   for (let categoryKey in censusMapping) {
-    let category: object = censusMapping[categoryKey]
-    let groups = []
+    let category = censusMapping[categoryKey]
+    let groups: string[] = []
     for (let groupKey in category) {
       groups.push(category[groupKey].human_readable_name)
     }
