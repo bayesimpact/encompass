@@ -13,7 +13,8 @@ from sqlalchemy.orm import sessionmaker
 
 logger = logging.getLogger(__name__)
 
-CENSUS_TABLES = ['census_acs_dp_02', 'census_acs_dp_03', 'census_acs_dp_04', 'census_acs_dp_05']
+CENSUS_TABLES = ['aggregated_ages, census_acs_dp_02', 'census_acs_dp_03', 'census_acs_dp_04',
+                 'census_acs_dp_05']
 CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
 
 RP_COLUMNS = [
