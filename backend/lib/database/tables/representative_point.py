@@ -41,10 +41,11 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     demographics = {}
     for category in census_mapping:
         demographics[category] = {}
-        for group in category:
-            value = row_dict.get(group[JOINED_COLUMN_NAME], None)
+        for group in census_mapping[category]:
+            value = row_dict.get(census_mapping[category][group][JOINED_COLUMN_NAME], None)
             if value:
-                demographics[category][group[HUMAN_READABLE_NAME]] = value
+                human_readable_name = census_mapping[category][group][HUMAN_READABLE_NAME]
+                demographics[category][human_readable_name] = float(value)
 
     return demographics
 
