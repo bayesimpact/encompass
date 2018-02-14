@@ -7,7 +7,6 @@ import { FormatSelector } from '../Selectors/FormatSelector'
 import { ServiceAreaSelector } from '../Selectors/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
 import { CensusAnalytics } from './CensusAnalytics'
-import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
 
 /**
  * TODO: Show loading indicator while necessary data is being fetched.
@@ -30,17 +29,12 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <strong className='MediumWeight Muted'>Data sources:</strong>
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
-    <div className='ServiceAreas'>
+    <div className='Selectors'>
       <strong className='MediumWeight Muted'>Service areas</strong>
       <ServiceAreaSelector
         onChange={store.set('selectedCounties')}
         value={store.get('selectedCounties')}
       />
-    </div>
-    <div className='Analytics'>
-      <ServiceAreaAnalytics />
-    </div>
-    <div className='CensusAnalytics'>
       <div>
         <strong className='MediumWeight Muted'>Demographic</strong>
         <CensusCategorySelector
@@ -55,6 +49,8 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
           value={store.get('selectedFormat')}
         />
       </div>
+    </div>
+    <div className='CensusAnalytics'>
       <CensusAnalytics />
     </div>
     <div className='DownloadLink'>

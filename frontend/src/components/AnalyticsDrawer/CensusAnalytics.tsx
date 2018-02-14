@@ -9,11 +9,7 @@ export let CensusAnalytics = withStore(
   'serviceAreas'
 )(({ store }) => {
 
-  let selectedServiceAreas = store.get('serviceAreas')
-  if (store.get('selectedServiceAreas')) {
-    selectedServiceAreas = store.get('selectedServiceAreas')!
-  }
-
+  let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')
 
   return <div className='CensusAnalytics'>
