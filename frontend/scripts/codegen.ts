@@ -4,7 +4,7 @@
 import Axios from 'axios'
 import { readFileSync } from 'fs'
 import { compileFromFile, Options } from 'json-schema-to-typescript'
-import { chain, mapValues } from 'lodash'
+import { chain } from 'lodash'
 import { mkdir, writeFile } from 'mz/fs'
 import { format, Options as PrettierOptions } from 'prettier'
 import rmrf = require('rmfr')
@@ -130,11 +130,11 @@ async function codegenCensusMapping() {
 
   let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
   console.info('  Updated census mapping with:')
-  let parsedMapping = {}
-  for (let categoryKey in censusMapping){
-    let category = censusMapping[categoryKey]
+  let parsedMapping: {} = {}
+  for (let categoryKey: string in censusMapping){
+    let category: object = censusMapping[categoryKey]
     let groups = []
-    for (let groupKey in category) {
+    for (let groupKey: string in category) {
       groups.push(category[groupKey].human_readable_name)
     }
     parsedMapping[categoryKey] = groups
