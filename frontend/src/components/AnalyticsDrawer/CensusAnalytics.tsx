@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
 import { AdequacyCensusCharts } from '../AdequacyCensusCharts/AdequacyCensusCharts'
+import { AdequacyDoughnut } from '../AdequacyDoughnut/AdequacyDoughnut'
 import './CensusAnalytics.css'
 
 export let CensusAnalytics = withStore(
@@ -16,7 +17,12 @@ export let CensusAnalytics = withStore(
 
   let selectedCensusCategory = store.get('selectedCensusCategory')
 
+  if (selectedCensusCategory !== 'all') {
+    return <div className='CensusAnalytics'>
+      <AdequacyCensusCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
+    </div>
+  }
   return <div className='CensusAnalytics'>
-    <AdequacyCensusCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
+    <AdequacyDoughnut serviceAreas={selectedServiceAreas} />
   </div>
 })
