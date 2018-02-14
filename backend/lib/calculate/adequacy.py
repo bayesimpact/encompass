@@ -14,8 +14,7 @@ from backend.models import distance
 
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
-EXIT_DISTANCE_IN_METERS = 10.0 * ONE_MILE_IN_METERS
-# Adequacy results will be inaccurate with smaller values.
+# Adequacy results will be inaccurate with smaller RELEVANCY_RADIUS_IN_METERS values.
 RELEVANCY_RADIUS_IN_METERS = 15.0 * ONE_MILE_IN_METERS
 
 
@@ -186,6 +185,7 @@ def calculate_adequacies(
     measurer_config = config.get('measurer_config')[measurer_name]
     executor_type = measurer_config['adequacy_executor_type']
     n_processors = measurer_config['n_adequacy_processors']
+    exit_distance = measurer_config['exit_distance']
 
     logger.debug('Starting {} executors for adequacy calculations...'.format(n_processors))
     with executor_type(processes=n_processors) as executor:
@@ -195,7 +195,7 @@ def calculate_adequacies(
                 points,
                 locations_to_check_by_point,
                 itertools.repeat(measurer),
-                itertools.repeat(EXIT_DISTANCE_IN_METERS)
+                itertools.repeat(exit_distance)
             )
         )
 
