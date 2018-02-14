@@ -130,11 +130,12 @@ async function codegenCensusMapping() {
 
   let censusMapping = JSON.parse(readFileSync('../shared/census_mapping.json', 'utf8'))
   console.info('  Updated census mapping with:')
+  // FIXME - Revise function and simplify.
   let parsedMapping: {} = {}
-  for (let categoryKey: string in censusMapping){
+  for (let categoryKey in censusMapping) {
     let category: object = censusMapping[categoryKey]
     let groups = []
-    for (let groupKey: string in category) {
+    for (let groupKey in category) {
       groups.push(category[groupKey].human_readable_name)
     }
     parsedMapping[categoryKey] = groups

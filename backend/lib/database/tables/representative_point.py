@@ -38,6 +38,7 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     Note that the census_mapping used here should be the same or a subset of the one
     used during extraction.
     """
+    # FIXME - Revise function and simplify.
     demographics = {}
     for category in census_mapping:
         demographics[category] = {}
