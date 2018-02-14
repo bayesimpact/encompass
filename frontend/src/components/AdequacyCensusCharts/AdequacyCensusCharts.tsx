@@ -62,24 +62,27 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
 
 function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format) {
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
+  let adequacyColumnIndices = [0, 1, 2, 3]
   if (format === 'Percentage') {
     return (
       <tr>
         <td>{censusGroup}</td>
-        <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulation)}</td>
-        <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulation)}</td>
-        <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulation)}</td>
-        <td>{formatPercentage(100 * populationByAdequacy[3] / totalPopulation)}</td>
+        {
+          adequacyColumnIndices.map(i =>
+            (<td>{formatPercentage(100 * populationByAdequacy[i] / totalPopulation)}</td>)
+          )
+        }
       </tr>
     )
   }
   return (
     <tr>
       <td>{censusGroup}</td>
-      <td>{formatNumber(populationByAdequacy[0])}</td>
-      <td>{formatNumber(populationByAdequacy[1])}</td>
-      <td>{formatNumber(populationByAdequacy[2])}</td>
-      <td>{formatNumber(populationByAdequacy[3])}</td>
+      {
+        adequacyColumnIndices.map(i =>
+          (<td>{formatNumber(populationByAdequacy[i])}</td>)
+        )
+      }
     </tr>
   )
 }
