@@ -20091,7 +20091,6 @@ export const ZIPS_BY_COUNTY_BY_STATE: Record<
       '78881'
     ]
   },
-  tz: { tz: ['tz'] },
   wa: {
     Adams: [
       '98832',
