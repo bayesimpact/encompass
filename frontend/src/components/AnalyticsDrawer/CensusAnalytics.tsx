@@ -10,19 +10,14 @@ export let CensusAnalytics = withStore(
   'serviceAreas'
 )(({ store }) => {
 
-  let selectedServiceAreas = store.get('serviceAreas')
-  if (store.get('selectedServiceAreas')) {
-    selectedServiceAreas = store.get('selectedServiceAreas')!
-  }
-
+  let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')
 
-  if (selectedCensusCategory !== 'all') {
-    return <div className='CensusAnalytics'>
+  return selectedCensusCategory !== 'all' ?
+    <div className='CensusAnalytics'>
       <AdequacyCensusCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
+    </div> :
+    <div className='CensusAnalytics'>
+      <AdequacyDoughnut serviceAreas={selectedServiceAreas} />
     </div>
-  }
-  return <div className='CensusAnalytics'>
-    <AdequacyDoughnut serviceAreas={selectedServiceAreas} />
-  </div>
 })
