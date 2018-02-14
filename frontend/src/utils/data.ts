@@ -44,7 +44,7 @@ function countByAdequacy(
   return populationByCensus(censusGroup)(filteredRps)
 }
 
-interface StatisticsByGroup {
+export interface StatisticsByGroup {
   [censusGroup: string]: PopulationByAdequacy
 }
 /**
