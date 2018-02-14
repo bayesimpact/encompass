@@ -2,7 +2,6 @@ import 'chart.piecelabel.js'
 import { isEmpty } from 'lodash'
 import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
-// import { Doughnut } from 'react-chartjs-2'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, PopulationByAdequacy } from '../../constants/datatypes'
@@ -64,7 +63,7 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
   return (
     <tr>
-      <td>{censusGroup.replace('percent_', '')}</td>
+      <td>{censusGroup}</td>
       <td>{formatPercentage(100 * populationByAdequacy[0] / totalPopulation)}</td>
       <td>{formatPercentage(100 * populationByAdequacy[1] / totalPopulation)}</td>
       <td>{formatPercentage(100 * populationByAdequacy[2] / totalPopulation)}</td>
