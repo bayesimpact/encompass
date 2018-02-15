@@ -10,11 +10,15 @@ import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
-import './AdequacyCensusCharts.css'
 
 type Props = {
   serviceAreas: string[],
   censusCategory: string
+}
+
+// Force first column to be larger than the other ones.
+let firstColumnStyle = {
+  width: '30%'
 }
 
 /**
@@ -39,13 +43,13 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
-  let censusGroups = CENSUS_MAPPING[censusCategory]
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
+  let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
-    <StatsBox className='HighLevelStats' withBorders>
+    <StatsBox className='HighLevelStats' withBorders withFixedColumns>
       <tr>
-        <th>Group</th>
+        <th style={firstColumnStyle}>Group</th>
         <th>{getLegend(method, AdequacyMode.ADEQUATE_15)}</th>
         <th>{getLegend(method, AdequacyMode.ADEQUATE_30)}</th>
         <th>{getLegend(method, AdequacyMode.ADEQUATE_60)}</th>
@@ -57,7 +61,7 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
         )
       }
     </StatsBox>
-  </div>
+  </div >
 })
 
 function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format) {
