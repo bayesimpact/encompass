@@ -162,6 +162,7 @@ def _get_all_service_areas(features):
 CHARACTER_SUBSTITUTIONS = collections.OrderedDict({
     ' ': '_',
     '.': '',
+    '-': '_',
 })
 
 
