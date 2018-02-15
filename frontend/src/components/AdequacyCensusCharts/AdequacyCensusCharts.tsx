@@ -9,7 +9,7 @@ import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/data
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { CensusAbsoluteValueChart } from '../CensusAbsoluteValueChart/CensusAbsoluteValueChart';
+import { CensusAbsoluteValueChart } from '../CensusAbsoluteValueChart/CensusAbsoluteValueChart'
 import { CensusStackedPercentageChart } from '../CensusStackedPercentageChart/CensusStackedPercentageChart'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
