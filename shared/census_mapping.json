@@ -57,7 +57,7 @@
       "human_readable_name": "Asian"
     },
     "census_acs_dp_05.hc03_vc98": {
-      "joined_column_name": "native_hawaiian_and_other_pacific_islander_not_hispanic_or_latino",
+      "joined_column_name": "hawaiian_and_pacific_islander_not_hispanic_or_latino",
       "human_readable_name": "Native Hawaiian & other Pacific Islander"
     },
     "census_acs_dp_05.hc03_vc99 + census_acs_dp_05.hc03_vc100": {
