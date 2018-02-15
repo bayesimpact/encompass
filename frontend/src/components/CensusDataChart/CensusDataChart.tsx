@@ -37,7 +37,6 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             scales: {
                 yAxes: [{
                     stacked: true,
-                    barThickness: 30
                 }]
             },
             plugins: {
