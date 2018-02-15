@@ -1,5 +1,6 @@
 import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
+import { merge } from 'lodash'
 import * as React from 'react'
 import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
@@ -23,31 +24,26 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             data: censusGroups.map(_ => populationByAdequacyByGroup[_][idx])
         }
     })
-    let options
+    let xLabel = percent ? 'Percentage of Population by Access' : 'Population by Access'
+    let options = {
+        scales: {
+            xAxes: [{
+                scaleLabel: { display: true, labelString: xLabel }
+            }]
+        }
+    }
 
-    if (percent) {
-        options = {
+    let percentOptions = {
             scales: {
-                yAxes: [
-                    { stacked: true }
-                ],
-                xAxes: [{
-                    scaleLabel: { display: true, labelString: 'Percentage of Population by Access' }
+                yAxes: [{
+                    stacked: true,
+                    barThickness: 30
                 }]
             },
             plugins: {
                 stacked100: { enable: true }
             }
         }
-    } else {
-        options = {
-            scales: {
-                xAxes: [{
-                    scaleLabel: { display: true, labelString: 'Population by Access' }
-                }]
-            }
-        }
-    }
 
     return (
         <HorizontalBar
@@ -55,7 +51,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                 labels: censusGroups,
                 datasets
             }}
-            options={options}
+            options={percent ? merge(options, percentOptions) : options}
         />
     )
 }
