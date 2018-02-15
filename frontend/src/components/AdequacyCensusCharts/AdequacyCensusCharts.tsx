@@ -2,6 +2,7 @@ import 'chart.piecelabel.js'
 import { isEmpty } from 'lodash'
 import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
+import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
@@ -43,10 +44,10 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
 
   // Calculate summaryStatistics for each group.
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
-  let censusGroups = Object.keys(populationByAdequacyByGroup).sort()
+  let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
-    <StatsBox className='HighLevelStats' withBorders fixedColumns>
+    <StatsBox className='HighLevelStats' withBorders withFixedColumns>
       <tr>
         <th style={firstColumnStyle}>Group</th>
         <th>{getLegend(method, AdequacyMode.ADEQUATE_15)}</th>

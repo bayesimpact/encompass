@@ -3,19 +3,19 @@ import './StatsBox.css'
 
 type Props = {
   className?: string
-  fixedColumns?: true
+  withFixedColumns?: true
   withBorders?: true
   withHorizontalLines?: true
 }
 
 export let StatsBox: React.StatelessComponent<Props> = ({
-  children, className, fixedColumns, withBorders, withHorizontalLines
+  children, className, withFixedColumns, withBorders, withHorizontalLines
 }) =>
   <table className={
     'StatsBox'
     + (className ? ` ${className}` : '')
     + (withBorders ? ' -withBorders' : '')
-    + (fixedColumns ? ' -withFixedColumnns' : '')
+    + (withFixedColumns ? ' -withFixedColumnns' : '')
     + (withHorizontalLines ? ' -withHorizontalLines' : '')
   }>
     <tbody>{children}</tbody>
