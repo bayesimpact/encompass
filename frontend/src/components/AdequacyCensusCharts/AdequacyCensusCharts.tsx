@@ -1,6 +1,6 @@
 import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
-import { isEmpty } from 'lodash'
+import { isEmpty, tail } from 'lodash'
 import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
@@ -9,6 +9,7 @@ import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/data
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
+import { CensusAbsoluteValueChart } from '../CensusAbsoluteValueChart/CensusAbsoluteValueChart';
 import { CensusStackedPercentageChart } from '../CensusStackedPercentageChart/CensusStackedPercentageChart'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
@@ -66,6 +67,11 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
     <CensusStackedPercentageChart
       measurementMethod={method}
       censusGroups={censusGroups}
+      populationByAdequacyByGroup={populationByAdequacyByGroup}
+    />
+    <CensusAbsoluteValueChart
+      measurementMethod={method}
+      censusGroups={tail(censusGroups)}
       populationByAdequacyByGroup={populationByAdequacyByGroup}
     />
   </div>
