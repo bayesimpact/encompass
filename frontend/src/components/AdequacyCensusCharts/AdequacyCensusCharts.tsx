@@ -9,8 +9,7 @@ import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/data
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { CensusAbsoluteValueChart } from '../CensusAbsoluteValueChart/CensusAbsoluteValueChart'
-import { CensusStackedPercentageChart } from '../CensusStackedPercentageChart/CensusStackedPercentageChart'
+import { CensusDataChart } from '../CensusDataChart/CensusDataChart'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 
@@ -64,14 +63,16 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
         )
       }
     </StatsBox>
-    <CensusStackedPercentageChart
+    <CensusDataChart
+      percent={true}
       measurementMethod={method}
       censusGroups={censusGroups}
       populationByAdequacyByGroup={populationByAdequacyByGroup}
     />
-    <CensusAbsoluteValueChart
+    <CensusDataChart
+      percent={false}
       measurementMethod={method}
-      censusGroups={tail(censusGroups)}
+      censusGroups={tail(censusGroups)} // Don't include total population in absolute value chart.
       populationByAdequacyByGroup={populationByAdequacyByGroup}
     />
   </div>
