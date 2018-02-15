@@ -9,6 +9,8 @@ from backend.lib.database.tables import representative_point, service_area
 
 import geojson
 
+import pandas as pd
+
 
 def _get_arguments():
     """Build argument parser."""
@@ -55,9 +57,8 @@ def _insert_service_areas(json_features):
             return_insert_ids=False,
             unique=False
         )
-        return data
     except Exception as e:
-        print('Error inserting service areas: {}'.format(e))
+        print('Error inserting service areas: {}'.format(str(e)))
 
 
 def _insert_representative_population_points(json_features):
@@ -137,6 +138,8 @@ def _get_all_service_areas(features):
         for service_area, coords in service_area_to_coords.items()
     }
 
+    urban_rural_designations = _get_urban_rural_code_map()
+
     service_areas = []
     for state, county, zip_code in service_area_to_bounding_box:
         bbox = service_area_to_bounding_box[(state, county, zip_code)]
@@ -147,6 +150,11 @@ def _get_all_service_areas(features):
             (bbox['min_lon'], bbox['max_lat']),
             (bbox['min_lon'], bbox['min_lat']),
         ]
+
+        state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
+        county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
+        urban_rural_designation = urban_rural_designations[(state_fips, county_fips)]
+
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
                 state=state.lower(),
@@ -159,9 +167,49 @@ def _get_all_service_areas(features):
             'location': postgis.to_polygon(geometry),
             'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
             'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
+            'nchs_urban_rural_code': urban_rural_designation,
         })
 
     return service_areas
+
+
+def _get_urban_rural_code_map(filepath='data/urban_rural_codes/NCHSURCodes2013.txt'):
+    """
+    Return a map (state_fips, county_fips) --> NCHS urban/rural code.
+
+    This map is used to populate the nchs_urban_rural_code column in the service_areas table.
+    """
+    colspecs = [
+        (0, 2),
+        (2, 5),
+        (6, 8),
+        (9, 45),
+        (46, 96),
+        (97, 105),
+        (106, 114),
+        (115, 116),
+        (117, 118),
+        (119, 120),
+    ]
+    names = [
+        'statefips',
+        'countyfips',
+        'state',
+        'county',
+        'cbsa_title',
+        'cbsa_population',
+        'county_population',
+        'urban_rural_code_2013',
+        'urban_rural_code_2006',
+        'urban_rural_code_1990',
+    ]
+    raw_data = pd.read_fwf(
+        filepath,
+        colspecs=colspecs,
+        names=names,
+        dtype=str
+    )
+    return raw_data.set_index(['statefips', 'countyfips'])['urban_rural_code_2013'].to_dict()
 
 
 CHARACTER_SUBSTITUTIONS = collections.OrderedDict({

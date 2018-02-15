@@ -23,3 +23,4 @@ class ServiceArea(Base):
     )
     state_fips = Column(String, nullable=False)
     county_fips = Column(String, nullable=False)
+    nchs_urban_rural_code = Column(String)
