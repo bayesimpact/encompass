@@ -9,7 +9,7 @@ import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/data
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { censusStackedPercentageChart } from '../CensusStackedPercentageChart/CensusStackedPercentageChart'
+import { CensusStackedPercentageChart } from '../CensusStackedPercentageChart/CensusStackedPercentageChart'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 
@@ -63,9 +63,11 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
         )
       }
     </StatsBox>
-    <div>
-      {censusStackedPercentageChart(method, censusGroups, populationByAdequacyByGroup)}
-    </div>
+    <CensusStackedPercentageChart
+      measurementMethod={method}
+      censusGroups={censusGroups}
+      populationByAdequacyByGroup={populationByAdequacyByGroup}
+    />
   </div>
 })
 

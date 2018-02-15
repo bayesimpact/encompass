@@ -7,7 +7,13 @@ import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StatisticsByGroup } from '../../utils/data'
 import { getLegend } from '../MapLegend/MapLegend'
 
-export function censusStackedPercentageChart(measurementMethod: Method, censusGroups: string[], populationByAdequacyByGroup: StatisticsByGroup) {
+type Props = {
+    measurementMethod: Method,
+    censusGroups: string[],
+    populationByAdequacyByGroup: StatisticsByGroup
+  }
+
+export let CensusStackedPercentageChart: React.StatelessComponent<Props> = ({ measurementMethod, censusGroups, populationByAdequacyByGroup}) => {
     let adequacyModes = [AdequacyMode.ADEQUATE_15, AdequacyMode.ADEQUATE_30, AdequacyMode.ADEQUATE_60, AdequacyMode.INADEQUATE]
     let datasets = adequacyModes.map((mode, idx) => {
         return {
