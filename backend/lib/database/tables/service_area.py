@@ -21,3 +21,5 @@ class ServiceArea(Base):
         Geography(geometry_type='POLYGON', srid=4326, spatial_index=True),
         nullable=False
     )
+    state_fips = Column(String, nullable=False)
+    county_fips = Column(String, nullable=False)

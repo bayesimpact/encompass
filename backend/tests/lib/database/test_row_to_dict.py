@@ -24,7 +24,7 @@ def test_representative_point_to_dict():
         'county': 'county',
         'latitude': 40,
         'longitude': -79,
-        'population': {'1.0': 200},
+        'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code'
     }
@@ -52,7 +52,7 @@ def test_prepare_demographics_dict_from_rows():
         'county': 'county',
         'latitude': 40,
         'longitude': -79,
-        'population': {'1.0': 200},
+        'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code',
         'percent_age_under_5_y': 76
@@ -71,7 +71,7 @@ def test_representative_point_to_dict_with_census():
         'county': 'county',
         'latitude': 40,
         'longitude': -79,
-        'population': {'1.0': 200},
+        'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code',
         'percent_age_under_5_y': 76
@@ -83,7 +83,7 @@ def test_representative_point_to_dict_with_census():
         'county': 'county',
         'lat': 40,
         'lng': -79,
-        'population': 200,
+        'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip': 'zip_code',
         'demographics': {'age': {'percent_age_under_5_y': 76.0}}

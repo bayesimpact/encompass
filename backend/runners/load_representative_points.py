@@ -72,8 +72,8 @@ def _insert_representative_population_points(json_features):
             unique=False
         )
         return data
-    except Exception:
-        print('Error inserting representative points')
+    except Exception as e:
+        print('Error inserting representative points: {}'.format(e))
 
 
 def _transform_single_point(point):
@@ -85,9 +85,7 @@ def _transform_single_point(point):
             longitude=point['geometry']['coordinates'][0],
             latitude=point['geometry']['coordinates'][1]
         ),
-        # FIXME: Once appropriate behavior is implemented in the frontend,
-        # move to a more honest representation for this column.
-        'population': point['properties']['population'],
+        'population': point['properties']['population']['1.0'],
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip_code'],
         'service_area_id': '{state}_{county}_{zip}'.format(
@@ -116,13 +114,18 @@ def _get_all_service_areas(features):
     Each feature should have `state`, `county`, `zip_code` attributes.
     """
     service_area_to_coords = collections.defaultdict(list)
+    service_area_to_fips_codes = {}
     for point in features:
-        key = (
+        service_area_id = (
             point['properties']['state'],
             point['properties']['county'],
             point['properties']['zip_code']
         )
-        service_area_to_coords[key].append(point['geometry']['coordinates'])
+        service_area_to_coords[service_area_id].append(point['geometry']['coordinates'])
+        service_area_to_fips_codes[service_area_id] = {
+            'state_fips': point['properties']['statefp'],
+            'county_fips': point['properties']['countyfp'],
+        }
 
     service_area_to_bounding_box = {
         service_area: {
@@ -136,13 +139,13 @@ def _get_all_service_areas(features):
 
     service_areas = []
     for state, county, zip_code in service_area_to_bounding_box:
-        c = service_area_to_bounding_box[(state, county, zip_code)]
-        bbox = [
-            (c['min_lon'], c['min_lat']),
-            (c['max_lon'], c['min_lat']),
-            (c['max_lon'], c['max_lat']),
-            (c['min_lon'], c['max_lat']),
-            (c['min_lon'], c['min_lat']),
+        bbox = service_area_to_bounding_box[(state, county, zip_code)]
+        geometry = [
+            (bbox['min_lon'], bbox['min_lat']),
+            (bbox['max_lon'], bbox['min_lat']),
+            (bbox['max_lon'], bbox['max_lat']),
+            (bbox['min_lon'], bbox['max_lat']),
+            (bbox['min_lon'], bbox['min_lat']),
         ]
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
@@ -153,7 +156,9 @@ def _get_all_service_areas(features):
             'county': county,
             'state': state,
             'zip_code': zip_code,
-            'location': postgis.to_polygon(bbox)
+            'location': postgis.to_polygon(geometry),
+            'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
+            'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
         })
 
     return service_areas

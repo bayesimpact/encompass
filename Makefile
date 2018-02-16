@@ -16,7 +16,7 @@ rebuild:
 # Fetch data from S3 and load to Postgres.
 # State should be specified as a lowercase, two-letter abbreviation, e.g. 'ca'.
 # Example usage: make load_representative_points state='ca'
-S3_BUCKET='https://s3-us-west-1.amazonaws.com/network-adequacy/data-011317/etl/output/'
+S3_BUCKET='https://s3-us-west-1.amazonaws.com/network-adequacy/data-02-15-18/etl/output/'
 load_representative_points:
 	curl  --create-dirs -o 'data/representative_points.geojson' ${S3_BUCKET}$(state)'_representative_points.geojson'
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"

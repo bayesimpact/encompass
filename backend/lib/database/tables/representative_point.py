@@ -19,7 +19,7 @@ class RepresentativePoint(Base):
     location = Column(
         Geography(geometry_type='POINT', srid=4326, spatial_index=True),
         nullable=False)
-    population = Column(JSON, nullable=False)
+    population = Column(Float, nullable=False)
     county = Column(String, nullable=False, index=True)
     isodistancePolygon = Column(JSON)
     zip_code = Column(String, nullable=False, index=True)
@@ -74,7 +74,7 @@ def row_to_dict(rp_row, format_response=True, census_mapping=None):
         'county': rp_dict['county'],
         'lat': rp_dict['latitude'],
         'lng': rp_dict['longitude'],
-        'population': rp_dict['population']['1.0'],
+        'population': rp_dict['population'],
         'service_area_id': rp_dict['service_area_id'],
         'zip': rp_dict['zip_code']
     }
