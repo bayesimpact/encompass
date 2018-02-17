@@ -1,17 +1,14 @@
+deploy:
+	git pull
+	$(MAKE) clear-cache
+	docker-compose down
+	docker-compose up -d backend frontend
+
 local:
 	docker-compose up backend frontend
 
 local-db:
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d db
-
-backend:
-	docker-compose up backend
-
-frontend:
-	docker-compose up frontend
-
-explorer:
-	docker-compose up explorer
 
 rebuild:
 	docker-compose build --no-cache

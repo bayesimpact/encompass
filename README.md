@@ -87,3 +87,6 @@ The database will be initialized but won't contain any data. There is some sampl
 ```bash
 python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
 ``` 
+
+### Deploy
+To pull the latest version and re-spin the dockers, simply run `make deploy` in the main directory.
