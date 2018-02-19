@@ -22,6 +22,9 @@ load_representative_points:
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"
 	rm data/representative_points.geojson
 
+normalize_population_totals:
+	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
+
 # Export representative points data and build a MapBox tileset.
 # Note: You may need to run `brew install tippecanoe`.
 create_tileset_from_representative_points:
