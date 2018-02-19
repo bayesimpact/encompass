@@ -32,7 +32,7 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     """
     Extract demographic information from a row_dict using a census_mapping.
 
-    Note that the census_amapping used here should be the same or a subset of the one
+    Note that the census_mapping used here should be the same or a subset of the one
     used during extraction.
     """
     return {
