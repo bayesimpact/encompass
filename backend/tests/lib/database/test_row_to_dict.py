@@ -30,7 +30,8 @@ def test_representative_point_to_dict():
         'longitude': -79,
         'population': 200.0,
         'service_area_id': 'service_area_id',
-        'zip_code': 'zip_code'
+        'zip_code': 'zip_code',
+        'random_extra_column': 'random_string'
     }
 
     expected_output = {
