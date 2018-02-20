@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash'
-import { FlatButton } from 'material-ui'
+import { FlatButton } from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'

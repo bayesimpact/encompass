@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval',
   devServer: {
     contentBase: __dirname + '/dist',
     compress: true,
@@ -34,15 +34,18 @@ module.exports = {
   module: {
     rules: [{
       test: /\.tsx?$/,
+      include: path.resolve(__dirname, "src"),
       loader: 'awesome-typescript-loader'
     },
     {
       enforce: 'pre',
+      include: path.resolve(__dirname, "src"),
       test: /\.js$/,
       loader: 'source-map-loader'
     },
     {
       test: /\.css$/,
+      include: path.resolve(__dirname, "src"),
       use: ExtractTextPlugin.extract({
         use: ['css-loader', {
           loader: 'postcss-loader',
