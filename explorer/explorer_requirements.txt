@@ -2,4 +2,4 @@ descartes>=1.1.0
 seaborn>=0.8.1
 pandas>=0.22.0
 numpy>=1.14.0
-ijson=2.3
+ijson==2.3
