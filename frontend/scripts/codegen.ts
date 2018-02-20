@@ -13,8 +13,7 @@ import { GetAvailableServiceAreasResponse } from '../src/constants/api/available
 
 const PRETTIER_OPTIONS: PrettierOptions = {
   semi: false,
-  singleQuote: true,
-  printWidth: 10000
+  singleQuote: true
 }
 
 const OPTIONS: Partial<Options> = {
