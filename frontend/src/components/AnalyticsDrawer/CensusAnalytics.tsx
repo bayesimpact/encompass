@@ -28,7 +28,7 @@ export let CensusAnalytics = withStore(
       <tr>
         <td>{formatNumber(totalPopulation)}</td>
         <td>{formatNumber(totalProviders)}</td>
-        <td>{formatNumber(totalProviders / totalPopulation)}</td>
+        <td>{formatNumber(totalPopulation / totalProviders)}</td>
       </tr>
     </StatsBox>
     <AdequacyCensusCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
