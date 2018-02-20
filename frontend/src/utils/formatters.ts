@@ -31,7 +31,7 @@ export function formatNumber(n: number) {
       if (Number.isNaN(n)) {
         return '-'
       }
-      return n.toFixed(0).toLocaleString()
+      return n.toFixed(0).toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 }
 
