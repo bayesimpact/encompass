@@ -37,7 +37,7 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     """
     return {
         category: {
-            names['human_readable_name']: float(row_dict[names['joined_column_name']])
+            names['human_readable_name']: float(row_dict[names['joined_column_name']] or 0)
             for names in census_mapping[category].values()
             if names['joined_column_name'] in row_dict
         }
