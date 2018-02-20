@@ -5,11 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-<<<<<<< HEAD
-  devtool: false,
-=======
   devtool: 'eval',
->>>>>>> 437dbd2985cf66c12c43d6d4915f0d9162546ffb
   devServer: {
     contentBase: __dirname + '/dist',
     compress: true,
