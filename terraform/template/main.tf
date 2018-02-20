@@ -176,6 +176,10 @@ resource "aws_lb_target_group" "na_lb_tg_8080" {
   protocol    = "HTTP"
   vpc_id      = "${aws_vpc.main.id}"
   target_type = "instance"
+
+  health_check {
+    interval        = 300
+  }
 }
 
 resource "aws_lb_target_group_attachment" "na_lb_tga_8080" {
