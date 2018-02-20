@@ -1,8 +1,8 @@
-# Encompass [![Build Status][build]](https://circleci.com/gh/bayesimpact/tds) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Encompass [![Build Status][build]](https://circleci.com/gh/bayesimpact/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/encompass.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/tds)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/encompass)
 
 > Explore Healthcare network adequacies and population distance to services.
 
@@ -86,7 +86,7 @@ This container will allow you to run a fully functioning local system with a `PO
 The database will be initialized but won't contain any data. There is some sample data for Rhode Island population included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
 ```bash
 python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
-``` 
+```
 
 ### Deploy
 To pull the latest version and re-spin the dockers, simply run `make deploy` in the main directory.
