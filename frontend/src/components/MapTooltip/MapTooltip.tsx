@@ -1,5 +1,5 @@
 import { LngLat } from 'mapbox-gl'
-import { IconButton } from 'material-ui'
+import { IconButton } from 'material-ui/IconButton'
 import KeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
 import * as React from 'react'

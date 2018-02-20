@@ -11,7 +11,7 @@
     "codegen": "ts-node scripts/codegen.ts",
     "lint": "tslint -p .",
     "pretest": "npm run lint && npm run build",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --config webpack.config.js",
     "start:prod": "webpack-dev-server --config webpack.config.prod.js --host 0.0.0.0",
     "tdd": "concurrently -k 'jest --watch' 'npm run start' 'npm run watch'",
     "test": "jest",
