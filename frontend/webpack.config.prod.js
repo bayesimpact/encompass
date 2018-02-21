@@ -5,11 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-<<<<<<< HEAD
-  devtool: false,
-=======
   devtool: 'cheap-eval-source-map',
->>>>>>> master
   devServer: {
     contentBase: __dirname + '/dist',
     compress: true,
