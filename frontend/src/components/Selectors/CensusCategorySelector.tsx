@@ -20,7 +20,6 @@ export let CensusCategorySelector: React.StatelessComponent<Props> = ({ onChange
   <DropDownMenu
     className={className ? className : undefined}
     onChange={(_event, _index, value) => onChange(snakeCase(value))}
-    maxHeight={'50px'}
     value={value}>
     {menuItems}
   </DropDownMenu>
