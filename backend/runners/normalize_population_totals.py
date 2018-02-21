@@ -54,4 +54,5 @@ POPULATION_UPDATE_QUERY_COUNTY_LEVEL = """
 
 if __name__ == '__main__':
     engine = connect.create_db_engine()
-    engine.execute(POPULATION_UPDATE_QUERY_COUNTY_LEVEL)
+    with engine.begin() as conn:
+        engine.execute(POPULATION_UPDATE_QUERY_COUNTY_LEVEL)
