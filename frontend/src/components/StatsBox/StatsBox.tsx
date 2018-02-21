@@ -15,7 +15,7 @@ export let StatsBox: React.StatelessComponent<Props> = ({
     'StatsBox'
     + (className ? ` ${className}` : '')
     + (withBorders ? ' -withBorders' : '')
-    + (withFixedColumns ? ' -withFixedColumnns' : '')
+    + (withFixedColumns ? ' -withFixedColumns' : '')
     + (withHorizontalLines ? ' -withHorizontalLines' : '')
   }>
     <tbody>{children}</tbody>
