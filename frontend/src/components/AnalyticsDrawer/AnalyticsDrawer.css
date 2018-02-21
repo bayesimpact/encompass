@@ -26,10 +26,6 @@
   height: 40px !important;
 }
 
-.Selectors .Menu > * {
-  vertical-align: middle;
-}
-
 .Selectors body {
   width: 100px;
   vertical-align: middle !important;
