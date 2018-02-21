@@ -33,6 +33,7 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
       <div className='SelectorRow'>
         <body className='HeavyWeight Muted'>Service areas</body>
         <ServiceAreaSelector
+          className='Menu'
           onChange={store.set('selectedCounties')}
           value={store.get('selectedCounties')}
         />
