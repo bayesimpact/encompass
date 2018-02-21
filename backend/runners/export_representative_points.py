@@ -10,15 +10,16 @@ SELECT_REPRESENTATIVE_POINTS_QUERY = """
         r.id,
         r.census_tract,
         r.county,
-        r.latitude as lat,
-        r.longitude AS lng,
-        (r.population #>> '{1.0}')::int AS population,
+        r.latitude::NUMERIC(10, 6) AS lat,
+        r.longitude::NUMERIC(10, 6) AS lng,
+        r.population,
         r.service_area_id,
         r.zip_code AS zip,
         r.location
     FROM representative_points r
     JOIN service_areas sa
         ON (r.service_area_id = sa.service_area_id)
+    WHERE 1=1
     ;
 """.replace('\n', ' ')
 
@@ -38,14 +39,29 @@ def _get_arguments():
         required=True,
         type=str
     )
+    parser.add_argument(
+        '-s', '--state',
+        help="State to extract GeoJSON data for (e.g., 'TX'.",
+        required=False,
+        type=str
+    )
     return parser.parse_args().__dict__
 
 
 if __name__ == '__main__':
     kwargs = _get_arguments()
+
+    state = kwargs.get('state', None)
+    if state:
+        query = SELECT_REPRESENTATIVE_POINTS_QUERY.replace(
+            'WHERE 1=1', 'WHERE state = \'{}\''.format(state.upper())
+        )
+    else:
+        query = SELECT_REPRESENTATIVE_POINTS_QUERY
+
     command = EXPORT_COMMAND.format(
         output_path=kwargs['output_path'],
         connection_string=os.getenv('POSTGRES_URL'),
-        extraction_query=SELECT_REPRESENTATIVE_POINTS_QUERY
+        extraction_query=query
     )
     subprocess.call(args=[command], shell=True)
