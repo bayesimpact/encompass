@@ -8,7 +8,7 @@ STATES = ['al', 'ar', 'az', 'ca', 'fl', 'ga', 'id', 'la', 'mo', 'ms', 'nv', 'or'
 
 # These are the absolute paths in my filesystem.
 # TODO update script to accept arguments for i/o paths and states to process.
-INPUT_FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/ages-{}/DEC_10_SF1_QTP2.csv"
+INPUT_FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/raw/ages-{}/DEC_10_SF1_QTP2.csv"
 OUTPUT_FILE_PATH_TEMPLATE = "/Users/philip/repos/tds/data/ages/transformed/ages-{}-transformed.csv"
 
 # There are a lot of columns - even more than this. This is the subset of columns which are
@@ -293,5 +293,5 @@ for state in STATES:
                       'fifty_five_to_sixty_four', 'fifty_five_to_sixty_four_percent',
                       'sixty_five_plus', 'sixty_five_plus_percent']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
+        # writer.writeheader() # PSQL doesn't want the header.
         writer.writerows(output)

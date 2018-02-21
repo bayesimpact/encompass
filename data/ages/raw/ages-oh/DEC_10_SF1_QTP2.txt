@@ -1,0 +1,47 @@
+QT-P2
+Single Years of Age and Sex: 2010
+
+NOTE: For information on confidentiality protection, nonsampling error, and definitions, see  http://www.census.gov/prod/cen2010/doc/sf1.pdf.
+
+T1_POP$1400000US45013002103
+	(r48026)	This count has been revised.   
+Revised count: 3,315 Revision date: 12-27-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US45013002104
+	(r48027)	This count has been revised.   
+Revised count: 11,262 Revision date: 12-27-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US45021970601
+	(r48151)	This count has been revised.   
+Revised count: 5,333 Revision date: 02-22-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US45055970902
+	(r48159)	This count has been revised.   
+Revised count: 2,904 Revision date: 02-22-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+X Not applicable.
+
+Source: U.S. Census Bureau, 2010 Census.
+
+Summary File 1, Table PCT12.
+
