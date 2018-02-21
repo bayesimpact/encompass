@@ -8,7 +8,7 @@ export const COUNTIES_BY_STATE: Record<State, string[]> = chain(ZIPS_BY_COUNTY_B
   .value()
 
 export const COUNTIES_BY_ZIP = chain(ZIPS_BY_COUNTY_BY_STATE)
-  .map(_ => chain(_).map((zs, c) => zs.map(z => [z, c])).flatten().value())
+  .map(_ => chain(_).map((zs, c) => zs.zip_codes.map(z => [z, c])).flatten().value())
   .flatten()
   .fromPairs()
   .value()
@@ -22,7 +22,7 @@ export const SERVICE_AREAS_BY_COUNTY_BY_STATE: Record<State, { [county: string]:
     ZIPS_BY_COUNTY_BY_STATE,
     (cs, s: State) => mapValues(
       cs,
-      (zs, c) => zs.map(z => serializeServiceArea(s, c, z)))
+      (zs, c) => zs.zip_codes.map(z => serializeServiceArea(s, c, z)))
   )
 
 export const SERVICE_AREAS_BY_STATE: Record<State, string[]> = chain(SERVICE_AREAS_BY_COUNTY_BY_STATE)

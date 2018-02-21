@@ -1,4 +1,5 @@
 import { EventData } from 'mapbox-gl'
+import { State } from './states'
 
 export type Adequacies = {
   [representativePointId: string]: Adequacy
@@ -25,8 +26,11 @@ export type CensusGroup = {
   censusGroup: string
 }
 
+export type CountyType = 'Rural' | 'Urban'
+
 export type Dataset = {
-  dataSources: string[]
+  dataSources: string[],
+  state: State,
   description: string
   name: string
   hint: string
@@ -44,6 +48,8 @@ export type GeoJSONEventData = EventData & {
 }
 
 export type Method = 'driving_time' | 'haversine'
+
+export type PopulationByAdequacy = number[]
 
 export type Provider = {
   address: string
@@ -78,4 +84,4 @@ export type RepresentativePoint = {
   zip: string
 }
 
-export type PopulationByAdequacy = number[]
+export type SelectorMethod = 'All' | 'County Name' | 'County Type'

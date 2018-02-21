@@ -44,6 +44,7 @@ function Analyze(store: Store) {
         store.get('uploadedServiceAreasFilename') || 'No Service Areas',
         store.get('uploadedProvidersFilename') || 'No Providers'],
       description: 'Your own data',
+      state: store.get('selectedState'),
       name: 'Your Data',
       providers: store.get('providers'),
       serviceAreaIds: store.get('serviceAreas'),

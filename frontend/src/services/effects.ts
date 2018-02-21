@@ -4,9 +4,11 @@ import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
-import { countyFromServiceArea } from '../utils/formatters'
+import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
+import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
+import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
@@ -26,7 +28,7 @@ export function withEffects(store: Store) {
         return
       }
 
-      store.set('counties')(uniq(serviceAreas.map(countyFromServiceArea)))
+      store.set('counties')(uniq(serviceAreas.map(_ => parseSerializedServiceArea(_).county)))
 
       store.set('representativePoints')(
         points.map(_ => ({
@@ -180,12 +182,43 @@ export function withEffects(store: Store) {
    * service area too.
    */
   store.on('selectedCounties').subscribe(selectedCounties => {
-    if (selectedCounties === null) {
-      store.set('selectedServiceAreas')(null)
-    } else {
-      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) { return selectedCounties.includes(countyFromServiceArea(sA)) })
+    if (selectedCounties !== null) {
+      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
+        return selectedCounties.includes(parseSerializedServiceArea(sA).county)
+      })
       store.set('selectedServiceAreas')(selectedServiceAreas)
     }
+  })
+
+  /**
+   * If the user selects a county, then deselects that service area's
+   * zip code or county in the Service Area drawer, we should de-select the
+   * service area too.
+   */
+  store.on('selectedCountyType').subscribe(selectedCountyType => {
+    if (selectedCountyType !== null) {
+      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
+        let { state, county } = parseSerializedServiceArea(sA)
+        let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
+        console.log(nhcs_code)
+        // Maybe need to change to 4/5 instead?
+        if (selectedCountyType === 'Rural') {
+          return nhcs_code > 3
+        }
+        if (selectedCountyType === 'Urban') {
+          return nhcs_code < 4
+        }
+        return true
+      })
+      store.set('selectedServiceAreas')(selectedServiceAreas)
+    }
+  })
+
+  /**
+   * If the user selects a new selector method, re-select all service areas.
+   */
+  store.on('selectorMethod').subscribe(_ => {
+    store.set('selectedServiceAreas')(null)
   })
 
   /**
@@ -240,6 +273,7 @@ export function withEffects(store: Store) {
       if (selectedDataset) {
         store.set('serviceAreas')(selectedDataset.serviceAreaIds)
         store.set('providers')(selectedDataset.providers)
+        store.set('selectedState')(selectedDataset.state)
         store.set('route')('/analytics')
       } else {
         store.set('providers')([])
