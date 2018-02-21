@@ -19,7 +19,7 @@ export let CensusAnalytics = withStore(
   let totalProviders = store.get('providers').length
 
   return <div className='CensusAnalytics'>
-    <StatsBox className='HighLevelStats -withFixedColumnns' withBorders>
+    <StatsBox className='HighLevelStats' withBorders withFixedColumns>
       <tr>
         <th>Total Population</th>
         <th>Providers</th>

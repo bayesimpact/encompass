@@ -34,7 +34,7 @@
   padding: 10px 0;
 }
 
-.StatsBox.-withFixedColumnns {
+.StatsBox.-withFixedColumns {
   table-layout: fixed;
 }
 
