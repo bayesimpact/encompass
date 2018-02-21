@@ -19,9 +19,30 @@
   margin-left: 7px;
 }
 
-.Selectors strong {
-  width: 30%;
-  max-width: 30%;
-  display: inline-block;
+.Selectors {
+  padding-top: 10px;
+}
+
+.Selectors .SelectorRow {
+  padding-right: 10px;
+}
+
+.Selectors .Menu {
+  font: 400 13px/21px -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif !important;
+  font-weight: var(--heavy-weight) !important;
+  vertical-align: bottom;
+  height: 40px !important;
+}
+
+.Selectors .Menu > * {
   vertical-align: middle;
+}
+
+.Selectors body {
+  width: 100px;
+  vertical-align: middle !important;
+}
+
+.SelectorRow * {
+  display: inline-block !important;
 }

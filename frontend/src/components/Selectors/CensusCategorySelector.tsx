@@ -8,6 +8,7 @@ import { capitalizeWords, snakeCase } from '../../utils/string'
 type Props = {
   onChange(censusCategory: string | null): void
   value: string | null
+  className?: string
 }
 
 let menuItems = chain(CENSUS_MAPPING)
@@ -15,9 +16,11 @@ let menuItems = chain(CENSUS_MAPPING)
   .map(_ => <MenuItem value={_} key={_} primaryText={capitalizeWords(_)} />)
   .value()
 
-export let CensusCategorySelector: React.StatelessComponent<Props> = ({ onChange, value }) =>
+export let CensusCategorySelector: React.StatelessComponent<Props> = ({ onChange, value, className }) =>
   <DropDownMenu
+    className={className ? className : undefined}
     onChange={(_event, _index, value) => onChange(snakeCase(value))}
+    maxHeight={'50px'}
     value={value}>
     {menuItems}
   </DropDownMenu>

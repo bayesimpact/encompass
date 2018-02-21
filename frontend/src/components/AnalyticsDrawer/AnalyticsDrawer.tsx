@@ -26,29 +26,34 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
     <BackLink />
     <h2 className='Secondary'>{selectedDataset.name}</h2>
     <div className='DataSources'>
-      <strong className='MediumWeight Muted'>Data sources:</strong>
+      <body className='HeavyWeight Muted'>Data sources:</body>
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
     <div className='Selectors'>
-      <strong className='MediumWeight Muted'>Service areas</strong>
-      <ServiceAreaSelector
-        onChange={store.set('selectedCounties')}
-        value={store.get('selectedCounties')}
-      />
-      <div>
-        <strong className='MediumWeight Muted'>Demographic</strong>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Service areas</body>
+        <ServiceAreaSelector
+          onChange={store.set('selectedCounties')}
+          value={store.get('selectedCounties')}
+        />
+      </div>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Demographic</body>
         <CensusCategorySelector
+          className='Menu'
           onChange={store.set('selectedCensusCategory')}
           value={store.get('selectedCensusCategory')}
         />
       </div>
-      <div>
-        <strong className='MediumWeight Muted'>Format</strong>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Format</body>
         <FormatSelector
+          className='Menu'
           onChange={store.set('selectedFormat')}
           value={store.get('selectedFormat')}
         />
       </div>
+
     </div>
     <div className='CensusAnalytics'>
       <CensusAnalytics />

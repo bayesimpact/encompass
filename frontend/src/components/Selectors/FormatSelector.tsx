@@ -7,6 +7,7 @@ import { Format } from '../../constants/datatypes'
 type Props = {
   onChange(format: Format): void
   value: Format
+  className?: string
 }
 
 let options: Format[] = ['Percentage', 'Number']
@@ -14,8 +15,9 @@ let menuItems = chain(options).map(
   _ => <MenuItem value={_} key={_} primaryText={_} />
 ).value()
 
-export let FormatSelector: React.StatelessComponent<Props> = ({ onChange, value }) =>
+export let FormatSelector: React.StatelessComponent<Props> = ({ onChange, value, className }) =>
   <DropDownMenu
+    className={className ? className : undefined}
     onChange={(_event, _index, value) => onChange(value)}
     value={value}>
     {menuItems}
