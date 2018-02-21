@@ -76,7 +76,7 @@ export function withEffects(store: Store) {
       let result = await postGeocode({ addresses: providersToGeocode.map(_ => _.address) })
       geocodedProviders = geocodedProviders.concat(
         chain(result)
-          .zip<Provider | Success | Error>(providers)
+          .zip<Provider | Success | Error>(providersToGeocode)
           .partition(([res]: [Success | Error]) => isPostGeocodeSuccessResponse(res))
           .tap(([successes, errors]) => {
             if (errors.length > 0) {
