@@ -2,14 +2,16 @@ import * as React from 'react'
 import { withStore } from '../../services/store'
 import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { BackLink } from '../Link/Link'
-import { ServiceAreaSelector } from '../ServiceAreaSelector/ServiceAreaSelector'
+import { CensusCategorySelector } from '../Selectors/CensusCategorySelector'
+import { FormatSelector } from '../Selectors/FormatSelector'
+import { ServiceAreaSelector } from '../Selectors/ServiceAreaSelector'
 import './AnalyticsDrawer.css'
-import { ServiceAreaAnalytics } from './ServiceAreaAnalytics'
+import { CensusAnalytics } from './CensusAnalytics'
 
 /**
  * TODO: Show loading indicator while necessary data is being fetched.
  */
-export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCounties')(({ store }) => {
+export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategory', 'selectedCounties', 'selectedFormat')(({ store }) => {
 
   let selectedDataset = store.get('selectedDataset')
 
@@ -24,18 +26,38 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCounties')(({
     <BackLink />
     <h2 className='Secondary'>{selectedDataset.name}</h2>
     <div className='DataSources'>
-      <strong className='MediumWeight Muted'>Data sources:</strong>
+      <body className='HeavyWeight Muted'>Data sources:</body>
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
-    <div className='ServiceAreas'>
-      <strong className='MediumWeight Muted'>Service areas:</strong>
-      <ServiceAreaSelector
-        onChange={store.set('selectedCounties')}
-        value={store.get('selectedCounties')}
-      />
+    <div className='Selectors'>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Service areas</body>
+        <ServiceAreaSelector
+          className='Menu'
+          onChange={store.set('selectedCounties')}
+          value={store.get('selectedCounties')}
+        />
+      </div>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Demographic</body>
+        <CensusCategorySelector
+          className='Menu'
+          onChange={store.set('selectedCensusCategory')}
+          value={store.get('selectedCensusCategory')}
+        />
+      </div>
+      <div className='SelectorRow'>
+        <body className='HeavyWeight Muted'>Format</body>
+        <FormatSelector
+          className='Menu'
+          onChange={store.set('selectedFormat')}
+          value={store.get('selectedFormat')}
+        />
+      </div>
+
     </div>
-    <div className='Analytics'>
-      <ServiceAreaAnalytics />
+    <div className='CensusAnalytics'>
+      <CensusAnalytics />
     </div>
     <div className='DownloadLink'>
       <DownloadAnalysisLink />

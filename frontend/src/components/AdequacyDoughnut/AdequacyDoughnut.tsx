@@ -7,11 +7,10 @@ import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
-import { summaryStatistics } from '../../utils/data'
+import { summaryStatisticsByServiceArea } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
-import './AdequacyDoughnut.css'
 
 type Props = {
   serviceAreas: string[]
@@ -36,13 +35,9 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
     </div>
   }
 
-  let {
-    numAdequatePopulation,
-    numInadequatePopulation,
-    populationByAdequacy
-  } = summaryStatistics(serviceAreas, store)
+  let populationByAdequacy = summaryStatisticsByServiceArea(serviceAreas, store)
 
-  let totalPopulation = populationByAdequacy.reduce(function(a, b) { return a + b }, 0)
+  let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let method = store.get('method')
 
   return <div className='AdequacyDoughnut'>
@@ -90,7 +85,7 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
       </tr>
       <tr>
         <td>{serviceAreas.length.toLocaleString()}</td>
-        <td>{(numAdequatePopulation + numInadequatePopulation).toLocaleString()}</td>
+        <td>{totalPopulation.toLocaleString()}</td>
         <td>{store.get('providers').length.toLocaleString()}</td>
       </tr>
     </StatsBox>
@@ -122,7 +117,7 @@ function label(populationByAdequacy: number[]) {
     if (!tooltipItem || !data || !data.datasets) {
       return ''
     }
-    let totalPopulation = populationByAdequacy.reduce(function(a, b) { return a + b }, 0)
+    let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
     let index = tooltipItem.index || 0
     let population = populationByAdequacy[index]
     let percentage = 100 * populationByAdequacy[index] / totalPopulation

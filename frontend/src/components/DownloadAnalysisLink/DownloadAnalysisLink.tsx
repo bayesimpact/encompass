@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
-import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatistics } from '../../utils/data'
+import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea } from '../../utils/data'
 import { download } from '../../utils/download'
 import './DownloadAnalysisLink.css'
 
@@ -27,10 +27,10 @@ function onClick(store: Store) {
       'CountyName',
       'ZipCode',
       'SpecDesc',
-      'BeneficiariesWithAccess',
-      'BeneficiariesWithoutAccess',
-      'PctWithAccess',
-      'PctWithoutAccess',
+      'BeneficiariesWith15MileAccess',
+      'BeneficiariesWith30MileAccess',
+      'BeneficiariesWith50MileAccess',
+      'BeneficiariesOver60MileAccess',
       'MinDist (mi)',
       'AvgDist (mi)',
       'MaxDist (mi)',
@@ -43,12 +43,7 @@ function onClick(store: Store) {
     let data = serviceAreas.map(_ => {
       let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
       let adequacies = adequaciesFromServiceArea([_], store)
-      let {
-        numAdequatePopulation,
-        numInadequatePopulation,
-        percentAdequatePopulation,
-        percentInadequatePopulation
-      } = summaryStatistics([_], store)
+      let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
       let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
       if (specialty == null) {
         specialty = '-'
@@ -57,10 +52,10 @@ function onClick(store: Store) {
         representativePoint.county,
         representativePoint.zip,
         specialty,
-        numAdequatePopulation,
-        numInadequatePopulation,
-        percentAdequatePopulation,
-        percentInadequatePopulation,
+        populationByAnalytics[0],
+        populationByAnalytics[1],
+        populationByAnalytics[2],
+        populationByAnalytics[3],
         minMeasure(adequacies),
         averageMeasure(adequacies),
         maxMeasure(adequacies),
