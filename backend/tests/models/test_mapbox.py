@@ -1,7 +1,7 @@
 """Test MapBox API."""
 import os
 
-from backend.models import distance
+from backend.models import time
 
 import mock
 
@@ -33,7 +33,7 @@ class TestMapBoxAPI():
         """Initialize a measurer for use in the test cases."""
         api_key = os.environ.get('MAPBOX_TOKEN', 'MAPBOX_API')
         self.api_key = api_key
-        self.measurer = distance.MapBoxDrivingTime(api_key=api_key)
+        self.measurer = time.MapBoxDrivingTime(api_key=api_key)
 
     @mock.patch('requests.get')
     def test_matrix(self, mock_get):

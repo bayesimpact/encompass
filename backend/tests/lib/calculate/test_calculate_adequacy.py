@@ -4,7 +4,7 @@ from functools import partial
 from backend.lib.calculate import adequacy
 from backend.lib.database.postgres import connect
 from backend.lib.utils.datatypes import Point
-from backend.models import distance
+from backend.models.base import get_measurer
 
 import pyproj
 
@@ -35,7 +35,7 @@ def test_find_closest_location():
     ]
     output = adequacy._find_closest_location(
         point=point,
-        measurer=distance.get_measurer('haversine'),
+        measurer=get_measurer('haversine'),
         locations=locations,
     )
     expected = {
