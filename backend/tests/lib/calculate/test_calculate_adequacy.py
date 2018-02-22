@@ -4,7 +4,7 @@ from functools import partial
 from backend.lib.calculate import adequacy
 from backend.lib.database.postgres import connect
 from backend.lib.utils.datatypes import Point
-from backend.models.base import get_measurer
+from backend.models.measurers import get_measurer
 
 import pyproj
 

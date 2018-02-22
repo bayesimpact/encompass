@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 # TODO: Determine a more intelligent way for converting distance to time.
 TIME_TO_DISTANCE_HOURS_TO_METERS = 104607.0  # 65 miles per hour in meters per hour.
+ABSURDLY_LARGE_TIME_IN_MINUTES = 10**42  # Placeholder value when no nearby providers are found.
 
 
 def _retry_if_result_none(result):
@@ -116,7 +117,7 @@ class OSRMDrivingTime(Measurer):
         ]
 
         if not relevant_points:
-            return 10**42, point_list[0]
+            return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
 
         return self.closest(origin=origin, point_list=relevant_points)
 
@@ -223,7 +224,7 @@ class MapBoxDrivingTime(Measurer):
         ]
 
         if not relevant_points:
-            return 10**42, point_list[0]
+            return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
 
         return self.closest(origin=origin, point_list=relevant_points)
 

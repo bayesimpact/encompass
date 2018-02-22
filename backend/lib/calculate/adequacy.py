@@ -10,7 +10,7 @@ from backend.lib.fetch import representative_points
 from backend.lib.timer import timed
 from backend.lib.utils.datatypes import Point
 
-from backend.models.base import get_measurer
+from backend.models.measurers import get_measurer
 
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS

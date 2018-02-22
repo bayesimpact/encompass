@@ -4,14 +4,6 @@
 class Measurer():
     """Generic class for measuring distance or time."""
 
-    def __init__(self, api_url=None, api_key=None):
-        """
-        Class for measuring distances or times, possibly using an API.
-
-        This is an interface to be extended by other specific classes.
-        """
-        pass
-
     def measure_between_two_points(self, point_a, point_b):
         """
         Get distance or time measure between two points.
@@ -45,19 +37,3 @@ class Measurer():
                 if min_measurement <= exit_distance:
                     break
         return min_measurement, min_point
-
-
-def get_measurer(name, **kwargs):
-    """Return an instantiated measurer class with the given name."""
-    return MEASURER_NAME_TO_CLASS_MAPPING[name.lower()](**kwargs)
-
-
-from backend.models import distance
-from backend.models import time
-
-
-MEASURER_NAME_TO_CLASS_MAPPING = {
-    'haversine': distance.HaversineDistance,
-    'osrm': time.OSRMDrivingTime,
-    'mapbox': time.MapBoxDrivingTime
-}
