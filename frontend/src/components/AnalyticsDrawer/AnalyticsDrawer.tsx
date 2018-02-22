@@ -26,7 +26,7 @@ export let AnalyticsDrawer = withStore('selectedDataset', 'selectedCensusCategor
     <BackLink />
     <h2 className='Secondary'>{selectedDataset.name}</h2>
     <div className='DataSources'>
-      <body className='HeavyWeight Muted'>Data sources:</body>
+      <body className='HeavyWeight Muted'>Data sources</body>
       <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
     </div>
     <div className='Selectors'>

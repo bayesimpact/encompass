@@ -1,8 +1,7 @@
 @import "../../index.css";
 
 .AnalyticsDrawer .DataSources {
-  height: 60px;
-  margin: 10px 0;
+  padding-bottom: 15px;
   position: relative;
 }
 .AnalyticsDrawer .DataSources > div {
@@ -11,12 +10,16 @@
     top: 0;
 }
 .AnalyticsDrawer .DataSources > div p {
-  padding: 0 0 4px;
+  padding: 0 0 4px 24px;
 }
 
 .AnalyticsDrawer .Autocomplete {
   display: inline-block;
   margin-left: 7px;
+}
+
+.Selectors {
+  margin: 0px 0 20px;
 }
 
 .Selectors .Menu {
