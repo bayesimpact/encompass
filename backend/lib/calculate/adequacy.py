@@ -10,7 +10,7 @@ from backend.lib.fetch import representative_points
 from backend.lib.timer import timed
 from backend.lib.utils.datatypes import Point
 
-from backend.models import distance
+from backend.models.base import get_measurer
 
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
@@ -181,7 +181,7 @@ def calculate_adequacies(
             str(sum(len(locations) for locations in locations_to_check_by_point)))
     )
 
-    measurer = distance.get_measurer(measurer_name)
+    measurer = get_measurer(measurer_name)
     measurer_config = config.get('measurer_config')[measurer_name]
     executor_type = measurer_config['adequacy_executor_type']
     n_processors = measurer_config['n_adequacy_processors']
