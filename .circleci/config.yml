@@ -55,9 +55,30 @@ jobs:
                 command: |
                     make frontend-test
 
+    deploy:
+        machine:
+            docker_layer_caching: true
+        steps:
+            - run:
+                name: CircleCI2 should have all keys from ui loaded into ssh-agent automatically...
+                command: |
+                    echo "testing testing 123" > testing
+                    scp -i brunosp.pem testing ec2-user@ec2-54-218-59-142.us-west-2.compute.amazonaws.com:/tmp/
+
 workflows:
     version: 2
     build:
         jobs:
             - build_backend
             - build_frontend
+    build-deploy-qa:
+        jobs:
+#          - build_backend
+#          - build_frontend
+          - deploy:
+#              requires:
+#                - build_backend
+#                - build_frontend
+              filters:
+                branches:
+                  only: deploy-qa
