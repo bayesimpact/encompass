@@ -17,7 +17,6 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
     icon={<DownloadIcon />}
     label='Download'
     labelPosition='before'
-    disabled={store.get('adequacies') === null}
     onClick={onClick(store)}
   />
 )
