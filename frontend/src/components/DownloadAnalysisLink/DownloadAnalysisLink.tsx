@@ -33,9 +33,9 @@ function onClick(store: Store) {
       getLegend(method, AdequacyMode.ADEQUATE_30),
       getLegend(method, AdequacyMode.ADEQUATE_60),
       getLegend(method, AdequacyMode.INADEQUATE),
-      'Min ' + method,
-      'Avg ' + method,
-      'Max ' + method
+      'Min_' + method,
+      'Avg_' + method,
+      'Max_' + method
     ]
     let selectedServiceAreas = store.get('selectedServiceAreas')
     let serviceAreas = selectedServiceAreas ? selectedServiceAreas : store.get('serviceAreas')
