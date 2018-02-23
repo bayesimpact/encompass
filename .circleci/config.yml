@@ -62,8 +62,7 @@ jobs:
             - run:
                 name: CircleCI2 should have all keys from ui loaded into ssh-agent automatically...
                 command: |
-                    echo "testing testing 123" > testing
-                    scp testing ec2-user@ec2-54-218-59-142.us-west-2.compute.amazonaws.com:/tmp/
+                    ssh ec2-user@ec2-54-218-59-142.us-west-2.compute.amazonaws.com 'cd tds; docker-compose down; rm .cache/*; git checkout ${CIRCLE_COMPARE_URL:(-12)}; docker-compose up -d backend frontend;
 
 workflows:
     version: 2
