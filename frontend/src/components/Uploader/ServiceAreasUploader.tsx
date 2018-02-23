@@ -56,6 +56,7 @@ function onFileSelected(store: Store) {
     )
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea(store.get('selectedState'), county, zip)))
+    // TODO - Handle .extensions of different lengths.
     store.set('uploadedServiceAreasFilename')(file.name.slice(0, -4))
   }
 }
