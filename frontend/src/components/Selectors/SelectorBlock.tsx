@@ -43,7 +43,6 @@ export let SelectorBlock = withStore()(({ store }) => {
 
 function selectorByMethod(method: SelectorMethod, store: Store) {
     if (method === 'County Name') {
-        store.set('selectedCountyType')(null)
         return <ServiceAreaSelector
             className='Menu'
             onChange={store.set('selectedCounties')}
@@ -51,7 +50,6 @@ function selectorByMethod(method: SelectorMethod, store: Store) {
         />
     }
     if (method === 'County Type') {
-        store.set('selectedCounties')(null)
         return <CountyTypeSelector
             className='Menu'
             onChange={store.set('selectedCountyType')}

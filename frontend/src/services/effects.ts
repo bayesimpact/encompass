@@ -210,9 +210,14 @@ export function withEffects(store: Store) {
 
   /**
    * If the user selects a new selector method, re-select all service areas.
+   * And reset selectors to 'All Counties'.
    */
   store.on('selectorMethod').subscribe(_ => {
-    store.set('selectedServiceAreas')(null)
+    if (store.set('selectedServiceAreas') !== null) {
+      store.set('selectedServiceAreas')(null)
+      store.set('selectedCountyType')(null)
+      store.set('selectedCounties')(null)
+    }
   })
 
   /**
@@ -245,7 +250,6 @@ export function withEffects(store: Store) {
   store
     .on('representativePoints')
     .subscribe(representativePoints => {
-      // Force representative points to show up on the map.
       store.set('adequacies')({})
       let temp_providers = store.get('providers')
       if (representativePoints.length && temp_providers.length) {
