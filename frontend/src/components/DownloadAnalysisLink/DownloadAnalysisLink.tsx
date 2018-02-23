@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
@@ -15,7 +14,7 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
     icon={<DownloadIcon />}
     label='Download'
     labelPosition='before'
-    disabled={isEmpty(store.get('adequacies'))}
+    disabled={store.get('adequacies') === null}
     onClick={onClick(store)}
   />
 )
