@@ -32,7 +32,7 @@ function onFileSelected(store: Store) {
       store.set('error')(e.toString())
     )
     store.set('uploadedProviders')(providers)
-    store.set('uploadedProvidersFilename')(file.name)
+    store.set('uploadedProvidersFilename')(file.name.slice(0, -4))
   }
 }
 
