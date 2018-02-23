@@ -81,24 +81,36 @@ workflows:
             - build_frontend
     build-deploy-qa:
         jobs:
-          - build_backend
-          - build_frontend
-          - deploy-qa:
-              requires:
-                - build_backend
-                - build_frontend
-              filters:
-                branches:
-                  only: deploy-qa
+            - build_backend
+                filters:
+                    branches:
+                        only: deploy-qa
+            - build_frontend
+                filters:
+                    branches:
+                        only: deploy-qa
+            - deploy-qa:
+                requires:
+                    - build_backend
+                    - build_frontend
+                filters:
+                    branches:
+                        only: deploy-qa
 
     build-deploy-demo:
         jobs:
-          - build_backend
-          - build_frontend
-          - deploy-demo:
-              requires:
-                - build_backend
-                - build_frontend
-              filters:
-                branches:
-                  only: deploy-demo
+            - build_backend
+                filters:
+                    branches:
+                        only: deploy-demo
+            - build_frontend
+                filters:
+                    branches:
+                        only: deploy-demo
+            - deploy-demo:
+                requires:
+                    - build_backend
+                    - build_frontend
+                filters:
+                    branches:
+                      only: deploy-demo
