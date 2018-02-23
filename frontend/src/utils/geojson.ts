@@ -44,7 +44,7 @@ export function representativePointToFeature(adequacies: Adequacies) {
     properties: {
       county: point.county,
       adequacyMode: adequacyToString(adequacies, point.id),
-      population: point.population,
+      population: point.population.toFixed(0),
       demographics: JSON.stringify(point.demographics, null, '\t'),
       service_area_id: point.serviceAreaId,
       zip: point.zip
