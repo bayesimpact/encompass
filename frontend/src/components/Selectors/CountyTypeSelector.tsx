@@ -10,10 +10,14 @@ type Props = {
   value: CountyType | null
 }
 
+const ALL_SERVICE_AREAS = 'All Counties'
+
 let options: CountyType[] = ['Rural', 'Urban']
 let menuItems = chain(options).map(
   _ => <MenuItem value={_} key={_} primaryText={_} />
 ).value()
+
+menuItems.unshift(<MenuItem value={null} key={ALL_SERVICE_AREAS} primaryText={ALL_SERVICE_AREAS} />)
 
 export let CountyTypeSelector: React.StatelessComponent<Props> = ({ className, onChange, value }) =>
   <DropDownMenu

@@ -112,11 +112,11 @@ export function withEffects(store: Store) {
    */
   Observable
     .combineLatest(
-    store.on('providers'),
-    store.on('representativePoints'),
-    store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
-    store.on('route'),
-    store.on('method').startWith(store.get('method'))
+      store.on('providers'),
+      store.on('representativePoints'),
+      store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
+      store.on('route'),
+      store.on('method').startWith(store.get('method'))
     )
     .subscribe(async ([providers, representativePoints, selectedServiceAreas, route, method]) => {
       // Reset adequacies.
@@ -200,15 +200,9 @@ export function withEffects(store: Store) {
       let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
         let { state, county } = parseSerializedServiceArea(sA)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
-        console.log(nhcs_code)
-        // Maybe need to change to 4/5 instead?
-        if (selectedCountyType === 'Rural') {
-          return nhcs_code > 3
-        }
-        if (selectedCountyType === 'Urban') {
-          return nhcs_code < 4
-        }
-        return true
+        let urban = nhcs_code <= 4
+        console.log({ state, county, urban })
+        return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
     }
