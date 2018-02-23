@@ -77,15 +77,22 @@ workflows:
     version: 2
     build:
         jobs:
-            - build_backend
-            - build_frontend
+            - build_backend:
+                filters:
+                    branches:
+                        ignore: /deploy-/
+            - build_frontend:
+                filters:
+                    branches:
+                        ignore: /deploy-/
+
     build-deploy-qa:
         jobs:
-            - build_backend
+            - build_backend:
                 filters:
                     branches:
                         only: deploy-qa
-            - build_frontend
+            - build_frontend:
                 filters:
                     branches:
                         only: deploy-qa
@@ -99,11 +106,11 @@ workflows:
 
     build-deploy-demo:
         jobs:
-            - build_backend
+            - build_backend:
                 filters:
                     branches:
                         only: deploy-demo
-            - build_frontend
+            - build_frontend:
                 filters:
                     branches:
                         only: deploy-demo
@@ -113,4 +120,4 @@ workflows:
                     - build_frontend
                 filters:
                     branches:
-                      only: deploy-demo
+                        only: deploy-demo
