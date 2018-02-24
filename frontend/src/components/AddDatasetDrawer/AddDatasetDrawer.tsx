@@ -71,7 +71,7 @@ let DownloadDatasetLink = withStore()(({ store }) =>
   <FlatButton
     className='DownloadDatasetLink Button -Primary'
     icon={<DownloadIcon />}
-    label='Save'
+    label='Save JSON'
     labelPosition='before'
     onClick={onClick(store)}
   />
