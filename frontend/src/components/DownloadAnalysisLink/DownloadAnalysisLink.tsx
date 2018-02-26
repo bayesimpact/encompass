@@ -61,6 +61,6 @@ function onClick(store: Store) {
       ]
     })
     let csv = generateCSV(headers, data)
-    download(csv, 'text/csv', `bayesimpact-analysis-${new Date().toISOString()}.csv`)
+    download(csv, 'text/csv', `bayesimpact-analysis-${method}-${new Date().toISOString()}.csv`)
   }
 }
