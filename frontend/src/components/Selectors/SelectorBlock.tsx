@@ -9,6 +9,7 @@ import { FormatSelector } from './FormatSelector'
 import './SelectorBlock.css'
 import { ServiceAreaSelector } from './ServiceAreaSelector'
 
+// TODO - Consider abstracting the Selector class to avoid duplications.
 export let SelectorBlock = withStore()(({ store }) => {
     return (
         <div className='Selectors'>
