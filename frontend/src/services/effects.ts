@@ -1,4 +1,4 @@
-import { chain, filter, intersection, keyBy, uniq } from 'lodash'
+import { chain, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
@@ -185,6 +185,8 @@ export function withEffects(store: Store) {
         return selectedCounties.includes(parseSerializedServiceArea(sA).county)
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
+    } else if (store.get('selectorMethod') === 'County Name') {
+      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
