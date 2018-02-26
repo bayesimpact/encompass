@@ -1,6 +1,6 @@
 
 import * as React from 'react'
-import { SelectorMethod } from '../../constants/datatypes'
+import { FilterMethod } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { CensusCategorySelector } from './CensusCategorySelector'
 import { CountyTypeSelector } from './CountyTypeSelector'
@@ -42,7 +42,7 @@ export let SelectorBlock = withStore()(({ store }) => {
     )
 })
 
-function selectorByMethod(method: SelectorMethod, store: Store) {
+function selectorByMethod(method: FilterMethod, store: Store) {
     if (method === 'County Name') {
         return <ServiceAreaSelector
             className='Menu'

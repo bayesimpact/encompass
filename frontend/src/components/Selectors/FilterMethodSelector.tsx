@@ -2,15 +2,15 @@ import { chain } from 'lodash'
 import { DropDownMenu } from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
-import { SelectorMethod } from '../../constants/datatypes'
+import { FilterMethod } from '../../constants/datatypes'
 
 type Props = {
   className?: string
-  onChange(format: SelectorMethod): void
-  value: SelectorMethod
+  onChange(format: FilterMethod): void
+  value: FilterMethod
 }
 
-let options: SelectorMethod[] = ['All', 'County Name', 'County Type']
+let options: FilterMethod[] = ['All', 'County Name', 'County Type']
 let menuItems = chain(options).map(
   _ => <MenuItem value={_} key={_} primaryText={_} />
 ).value()

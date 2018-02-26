@@ -84,4 +84,4 @@ export type RepresentativePoint = {
   zip: string
 }
 
-export type SelectorMethod = 'All' | 'County Name' | 'County Type'
+export type FilterMethod = 'All' | 'County Name' | 'County Type'

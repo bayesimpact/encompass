@@ -1,7 +1,7 @@
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
-import { Adequacies, CountyType, Dataset, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route, SelectorMethod } from '../constants/datatypes'
+import { Adequacies, CountyType, Dataset, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route, FilterMethod } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
@@ -69,7 +69,7 @@ type Actions = {
   /**
    * Selector method, by County Name or County Type
    */
-  selectedFilterMethod: SelectorMethod
+  selectedFilterMethod: FilterMethod
 
   selectedFormat: Format
 
