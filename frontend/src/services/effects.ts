@@ -177,9 +177,7 @@ export function withEffects(store: Store) {
     })
 
   /**
-   * If the user selects a service area, then deselects that service area's
-   * zip code or county in the Service Area drawer, we should de-select the
-   * service area too.
+   * Update selectedServiceAreas when selected county changes.
    */
   store.on('selectedCounties').subscribe(selectedCounties => {
     if (selectedCounties !== null) {
@@ -191,9 +189,7 @@ export function withEffects(store: Store) {
   })
 
   /**
-   * If the user selects a county, then deselects that service area's
-   * zip code or county in the Service Area drawer, we should de-select the
-   * service area too.
+   * Filter counties by urban/rural if the countyTypeSelector is in use.
    */
   store.on('selectedCountyType').subscribe(selectedCountyType => {
     if (selectedCountyType !== null) {
@@ -201,7 +197,6 @@ export function withEffects(store: Store) {
         let { state, county } = parseSerializedServiceArea(sA)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
         let urban = nhcs_code <= 4
-        console.log({ state, county, urban })
         return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
@@ -217,18 +212,6 @@ export function withEffects(store: Store) {
       store.set('selectedServiceAreas')(null)
       store.set('selectedCountyType')(null)
       store.set('selectedCounties')(null)
-    }
-  })
-
-  /**
-   * If the user selects a service area, then deselects that service area's
-   * zip code or county in the Service Area drawer, we should de-select the
-   * service area too.
-   */
-  store.on('serviceAreas').subscribe(serviceAreas => {
-    let selectedServiceAreas = store.get('selectedServiceAreas')
-    if (selectedServiceAreas && !intersection(serviceAreas, selectedServiceAreas)) {
-      store.set('selectedServiceAreas')(null)
     }
   })
 
