@@ -11,7 +11,7 @@ import { CensusAnalytics } from './CensusAnalytics'
  */
 export let AnalyticsDrawer = withStore(
   'selectedDataset', 'selectedCensusCategory', 'selectedCounties',
-  'selectedCountyType', 'selectedFormat', 'selectedServiceAreas', 'selectorMethod')(({ store }) => {
+  'selectedCountyType', 'selectedFormat', 'selectedServiceAreas', 'selectedFilterMethod')(({ store }) => {
 
     let selectedDataset = store.get('selectedDataset')
 

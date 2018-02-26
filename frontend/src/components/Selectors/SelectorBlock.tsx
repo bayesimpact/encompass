@@ -25,10 +25,10 @@ export let SelectorBlock = withStore()(({ store }) => {
                 <body className='HeavyWeight Muted'>Filter By</body>
                 <FilterMethodSelector
                     className='Menu'
-                    onChange={store.set('selectorMethod')}
-                    value={store.get('selectorMethod')}
+                    onChange={store.set('selectedFilterMethod')}
+                    value={store.get('selectedFilterMethod')}
                 />
-                {selectorByMethod(store.get('selectorMethod'), store)}
+                {selectorByMethod(store.get('selectedFilterMethod'), store)}
             </div>
             <div className='SelectorRow'>
                 <body className='HeavyWeight Muted'>Values</body>

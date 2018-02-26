@@ -185,7 +185,7 @@ export function withEffects(store: Store) {
         return selectedCounties.includes(parseSerializedServiceArea(sA).county)
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectorMethod') === 'County Name') {
+    } else if (store.get('selectedFilterMethod') === 'County Name') {
       store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
@@ -209,7 +209,7 @@ export function withEffects(store: Store) {
    * If the user selects a new selector method, re-select all service areas.
    * And reset selectors to 'All Counties'.
    */
-  store.on('selectorMethod').subscribe(_ => {
+  store.on('selectedFilterMethod').subscribe(_ => {
     if (store.set('selectedServiceAreas') !== null) {
       store.set('selectedServiceAreas')(null)
       store.set('selectedCountyType')(null)

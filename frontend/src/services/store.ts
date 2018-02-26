@@ -66,6 +66,11 @@ type Actions = {
 
   selectedDataset: Dataset | null
 
+  /**
+   * Selector method, by County Name or County Type
+   */
+  selectedFilterMethod: SelectorMethod
+
   selectedFormat: Format
 
   /**
@@ -91,11 +96,6 @@ type Actions = {
    * Users set this in the Service Area drawer.
    */
   selectedState: State
-
-  /**
-   * Selector method, by County Name or County Type
-   */
-  selectorMethod: SelectorMethod
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -147,11 +147,11 @@ let store = withEffects(createStore<Actions>({
   selectedCounties: null,
   selectedCountyType: null,
   selectedDataset: null,
+  selectedFilterMethod: 'All',
   selectedFormat: 'Percentage',
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceAreas: null,
-  selectorMethod: 'All',
   selectedState: 'ca',
   serviceAreas: [],
   uploadedProviders: [],
