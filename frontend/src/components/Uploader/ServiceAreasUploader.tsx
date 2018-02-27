@@ -109,7 +109,7 @@ let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, 
 
   // Validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
-  let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].includes(zip))
+  let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].zip_codes.includes(zip))
   if (badZip) {
     return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain ZIP code "${badZip[1]}"`)
   }
@@ -137,7 +137,7 @@ function getCountyAndZip(state: State, county: string | null, zip: string | null
     case ParseMode.INFER_ZIP:
       // If county is defined but zip isn't, default to all zips for
       // the given county.
-      return chain(ZIPS_BY_COUNTY_BY_STATE[state][county!])
+      return chain(ZIPS_BY_COUNTY_BY_STATE[state][county!].zip_codes)
         .map(zip => [county, zip] as [string, string])
 
     case ParseMode.WELL_FORMED:

@@ -76,6 +76,35 @@ jobs:
 workflows:
     version: 2
     build:
+        jobs:  # TODO figure out why `ignore` doesn't work.
+            - build_backend:
+                filters:
+                    branches:
+                        ignore: /deploy-/
+            - build_frontend:
+                filters:
+                    branches:
+                        ignore: /deploy-/
+
+    build-deploy-qa:
+        jobs:
+            - build_backend:
+                filters:
+                    branches:
+                        only: deploy-qa
+            - build_frontend:
+                filters:
+                    branches:
+                        only: deploy-qa
+            - deploy-qa:
+                requires:
+                    - build_backend
+                    - build_frontend
+                filters:
+                    branches:
+                        only: deploy-qa
+
+    build-deploy-demo:
         jobs:
             - build_backend:
                 filters:
