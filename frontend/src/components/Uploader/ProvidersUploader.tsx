@@ -32,7 +32,8 @@ function onFileSelected(store: Store) {
       store.set('error')(e.toString())
     )
     store.set('uploadedProviders')(providers)
-    store.set('uploadedProvidersFilename')(file.name)
+    // TODO - Handle .extensions of different lengths.
+    store.set('uploadedProvidersFilename')(file.name.slice(0, -4))
   }
 }
 

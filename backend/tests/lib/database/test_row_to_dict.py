@@ -79,7 +79,8 @@ def test_representative_point_to_dict_with_census():
         'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip_code': 'zip_code',
-        'zero_to_eighteen': 76
+        'zero_to_eighteen': 76,
+        'nineteen_to_twenty_five': None,
     }
 
     expected_output = {
@@ -91,7 +92,9 @@ def test_representative_point_to_dict_with_census():
         'population': 200.0,
         'service_area_id': 'service_area_id',
         'zip': 'zip_code',
-        'demographics': {'age': {'0-18 Years': 76.0}}
+        'demographics': {
+            'age': {'0-18 Years': 76.0, '19-25 Years': 0.0}
+        }
     }
 
     output_dict = representative_point.row_to_dict(rp_row, census_mapping=CENSUS_MAPPING)

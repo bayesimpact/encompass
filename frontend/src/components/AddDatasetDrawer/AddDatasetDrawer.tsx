@@ -1,10 +1,14 @@
+import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
+import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
+import { download } from '../../utils/download'
 import { BackLink } from '../Link/Link'
 import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
+
 import './AddDatasetDrawer.css'
 
 export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
@@ -21,8 +25,9 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
     </p>
     <ServiceAreasUploader />
     <ProvidersUploader />
+    <DownloadDatasetLink />
     <AnalyzerButton />
-  </div>
+  </div >
 )
 
 let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
@@ -37,23 +42,46 @@ let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
   </div>
 )
 
+function createDataset(store: Store) {
+  let dataSet: Dataset = {
+    dataSources: [
+      store.get('uploadedServiceAreasFilename') || 'No Service Areas',
+      store.get('uploadedProvidersFilename') || 'No Providers'],
+    description: 'Your own data',
+    state: store.get('selectedState'),
+    name: 'Your Data',
+    providers: store.get('providers'),
+    serviceAreaIds: store.get('serviceAreas'),
+    hint: ''
+  }
+  return dataSet
+}
+
 function Analyze(store: Store) {
   if (store.get('providers').length && store.get('serviceAreas').length) {
-    let dataSet: Dataset = {
-      dataSources: [
-        store.get('uploadedServiceAreasFilename') || 'No Service Areas',
-        store.get('uploadedProvidersFilename') || 'No Providers'],
-      description: 'Your own data',
-      state: store.get('selectedState'),
-      name: 'Your Data',
-      providers: store.get('providers'),
-      serviceAreaIds: store.get('serviceAreas'),
-      hint: ''
-    }
-    // To Save dataSet, use - console.log(JSON.stringify(dataSet, null, 4))
+    let dataSet = createDataset(store) || null
+    store.set('selectedDataset')(dataSet)
+    // Re-initialize filenames.
     store.set('uploadedServiceAreasFilename')(null)
     store.set('uploadedProvidersFilename')(null)
-    store.set('selectedDataset')(dataSet)
     return
+  }
+}
+
+let DownloadDatasetLink = withStore()(({ store }) =>
+  <FlatButton
+    className='DownloadDatasetLink Button -Primary'
+    icon={<DownloadIcon />}
+    label='Save JSON'
+    labelPosition='before'
+    onClick={onClick(store)}
+  />
+)
+
+function onClick(store: Store) {
+  return () => {
+    let dataset = createDataset(store)
+    let jsonDataset = JSON.stringify(dataset, null, 4)
+    download(jsonDataset, 'json', `bayesimpact-dataset-${dataset.dataSources.join('_')}.json`)
   }
 }

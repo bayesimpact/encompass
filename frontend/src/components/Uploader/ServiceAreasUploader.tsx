@@ -35,7 +35,7 @@ export let ServiceAreasUploader = withStore(
       {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
     </div>
   </div >
-  )
+)
 
 ServiceAreasUploader.displayName = 'ServiceAreasUploader'
 
@@ -56,7 +56,8 @@ function onFileSelected(store: Store) {
     )
     store.set('counties')(getCounties(serviceAreas))
     store.set('serviceAreas')(serviceAreas.map(([county, zip]) => serializeServiceArea(store.get('selectedState'), county, zip)))
-    store.set('uploadedServiceAreasFilename')(file.name)
+    // TODO - Handle .extensions of different lengths.
+    store.set('uploadedServiceAreasFilename')(file.name.slice(0, -4))
   }
 }
 
