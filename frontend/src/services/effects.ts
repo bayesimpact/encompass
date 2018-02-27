@@ -202,6 +202,8 @@ export function withEffects(store: Store) {
         return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
+    } else if (store.get('selectedFilterMethod') === 'County Type') {
+      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
