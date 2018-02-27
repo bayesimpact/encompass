@@ -1,12 +1,14 @@
-import { chain, filter, intersection, keyBy, uniq } from 'lodash'
+import { chain, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
-import { countyFromServiceArea } from '../utils/formatters'
+import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
+import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox } from '../utils/geojson'
 import { equals } from '../utils/list'
+import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
@@ -26,7 +28,7 @@ export function withEffects(store: Store) {
         return
       }
 
-      store.set('counties')(uniq(serviceAreas.map(countyFromServiceArea)))
+      store.set('counties')(uniq(serviceAreas.map(_ => parseSerializedServiceArea(_).county)))
 
       store.set('representativePoints')(
         points.map(_ => ({
@@ -110,11 +112,11 @@ export function withEffects(store: Store) {
    */
   Observable
     .combineLatest(
-    store.on('providers'),
-    store.on('representativePoints'),
-    store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
-    store.on('route'),
-    store.on('method').startWith(store.get('method'))
+      store.on('providers'),
+      store.on('representativePoints'),
+      store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
+      store.on('route'),
+      store.on('method').startWith(store.get('method'))
     )
     .subscribe(async ([providers, representativePoints, selectedServiceAreas, route, method]) => {
       // Reset adequacies.
@@ -175,28 +177,45 @@ export function withEffects(store: Store) {
     })
 
   /**
-   * If the user selects a service area, then deselects that service area's
-   * zip code or county in the Service Area drawer, we should de-select the
-   * service area too.
+   * Update selectedServiceAreas when selected county changes.
    */
   store.on('selectedCounties').subscribe(selectedCounties => {
-    if (selectedCounties === null) {
-      store.set('selectedServiceAreas')(null)
-    } else {
-      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) { return selectedCounties.includes(countyFromServiceArea(sA)) })
+    if (selectedCounties !== null) {
+      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
+        return selectedCounties.includes(parseSerializedServiceArea(sA).county)
+      })
       store.set('selectedServiceAreas')(selectedServiceAreas)
+    } else if (store.get('selectedFilterMethod') === 'County Name') {
+      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
   /**
-   * If the user selects a service area, then deselects that service area's
-   * zip code or county in the Service Area drawer, we should de-select the
-   * service area too.
+   * Filter counties by urban/rural if the countyTypeSelector is in use.
    */
-  store.on('serviceAreas').subscribe(serviceAreas => {
-    let selectedServiceAreas = store.get('selectedServiceAreas')
-    if (selectedServiceAreas && !intersection(serviceAreas, selectedServiceAreas)) {
+  store.on('selectedCountyType').subscribe(selectedCountyType => {
+    if (selectedCountyType !== null) {
+      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
+        let { state, county } = parseSerializedServiceArea(sA)
+        let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
+        let urban = nhcs_code <= 4
+        return (selectedCountyType === 'Urban') ? urban : !urban
+      })
+      store.set('selectedServiceAreas')(selectedServiceAreas)
+    } else if (store.get('selectedFilterMethod') === 'County Type') {
+      store.set('selectedServiceAreas')(store.get('serviceAreas'))
+    }
+  })
+
+  /**
+   * If the user selects a new selector method, re-select all service areas.
+   * And reset selectors to 'All Counties'.
+   */
+  store.on('selectedFilterMethod').subscribe(_ => {
+    if (store.set('selectedServiceAreas') !== null) {
       store.set('selectedServiceAreas')(null)
+      store.set('selectedCountyType')(null)
+      store.set('selectedCounties')(null)
     }
   })
 
@@ -218,7 +237,6 @@ export function withEffects(store: Store) {
   store
     .on('representativePoints')
     .subscribe(representativePoints => {
-      // Force representative points to show up on the map.
       store.set('adequacies')({})
       let temp_providers = store.get('providers')
       if (representativePoints.length && temp_providers.length) {
@@ -240,6 +258,7 @@ export function withEffects(store: Store) {
       if (selectedDataset) {
         store.set('serviceAreas')(selectedDataset.serviceAreaIds)
         store.set('providers')(selectedDataset.providers)
+        store.set('selectedState')(selectedDataset.state)
         store.set('route')('/analytics')
       } else {
         store.set('providers')([])

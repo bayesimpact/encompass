@@ -134,7 +134,7 @@ resource "aws_lb" "na_app_elb" {
   ip_address_type            = "ipv4"
   load_balancer_type         = "application"
   enable_deletion_protection = true
-  idle_timeout               = 60
+  idle_timeout               = 180
   security_groups            = ["${aws_security_group.na_app_sg.id}"]
 
   subnets = "${var.default_subnets}"

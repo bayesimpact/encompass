@@ -90,3 +90,10 @@ python runners/load_representative_points.py -f data/rhode-island/ri_representat
 
 ### Deploy
 To pull the latest version and re-spin the dockers, simply run `make deploy` in the main directory.
+
+## 4. Remote Deployment
+Sample [Terraform](terraform.io) configuration is provided in the [/terraform directory](/terraform). Further information is available [here](/terraform/README.md).
+
+Sample [CircleCI](circleci.com) configuration is provided in the [/.circleci directory](/.circleci). The default configurations are setup to run all tests and coverage on any branch, and to update remote environments on specific branches. You can modify this configuration to match your own remote environment schema.
+
+To use these CircleCI jobs for deployment, you'll need to set up keys in CircleCI to allow SSH access to your application servers. You'll also need to set the relevant environment variables up containing the DNS names for your application servers.

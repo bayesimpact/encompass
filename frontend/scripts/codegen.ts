@@ -43,19 +43,19 @@ async function codegenZIPCodes() {
   }
 
   type ZipsByCountyByState = Record<string, {
-    [county: string]: string[]
+    [county: string]: { zip_codes: string[], nhcs_code: number }
   }>
 
   let data: GetAvailableServiceAreasResponse = r.data
   let zipsByCountyByState = chain(data)
-    .reduce<GetAvailableServiceAreasResponse[0], ZipsByCountyByState>((acc, [_a, c, z, s]) => {
+    .reduce<GetAvailableServiceAreasResponse[0], ZipsByCountyByState>((acc, [_a, c, z, s, r]) => {
       if (!acc[s]) {
         acc[s] = {}
       }
       if (!acc[s][c]) {
-        acc[s][c] = []
+        acc[s][c] = { zip_codes: [], nhcs_code: parseFloat(r) }
       }
-      acc[s][c].push(z)
+      acc[s][c].zip_codes.push(z)
       return acc
     }, {})
     .mapKeys((_v, k) => k.toLowerCase())
@@ -64,6 +64,7 @@ async function codegenZIPCodes() {
   await writeFile(`src/constants/zipCodesByCountyByState.ts`, format(
     genZipsByCountyByState(zipsByCountyByState), {
       parser: 'typescript',
+      printWidth: 10000,
       ...PRETTIER_OPTIONS
     })
   )
@@ -103,7 +104,7 @@ function genZipsByCountyByState(object: object) {
 import { State } from './states'
 
 export const ZIPS_BY_COUNTY_BY_STATE: Record<State, {
-  [county: string]: string[]
+  [county: string]: { zip_codes: string[], nhcs_code: number }
 }> = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
 `
 }

@@ -20,6 +20,10 @@
       {
         "description": "State",
         "type": "string"
+      },
+      {
+        "description": "NCHS urban/rural code",
+        "type": "string"
       }
     ]
   },

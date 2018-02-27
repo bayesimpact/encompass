@@ -7,4 +7,4 @@
 /**
  * Response shape for GET /api/available-service-areas/
  */
-export type GetAvailableServiceAreasResponse = [string, string, string, string][]
+export type GetAvailableServiceAreasResponse = [string, string, string, string, string][]

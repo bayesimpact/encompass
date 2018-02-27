@@ -68,14 +68,10 @@ function parseFormattedServiceArea(formattedServiceArea: string) {
   }
 }
 
-function parseSerializedServiceArea(serializedServiceArea: string) {
+export function parseSerializedServiceArea(serializedServiceArea: string) {
   return {
     county: serializedServiceArea.slice(3, -6),
-    state: serializedServiceArea.slice(0, 2),
+    state: serializedServiceArea.slice(0, 2) as State,
     zip: serializedServiceArea.slice(-5)
   }
-}
-
-export function countyFromServiceArea(serializedServiceArea: string) {
-  return parseSerializedServiceArea(serializedServiceArea).county
 }
