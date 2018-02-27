@@ -98,5 +98,6 @@ def fetch_all_service_areas(engine=connect.create_db_engine()):
         service_area.ServiceArea.service_area_id,
         service_area.ServiceArea.county,
         service_area.ServiceArea.zip_code,
-        service_area.ServiceArea.state
+        service_area.ServiceArea.state,
+        service_area.ServiceArea.nchs_urban_rural_code
     ).order_by(service_area.ServiceArea.service_area_id).all()

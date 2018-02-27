@@ -11,7 +11,7 @@ type Props = {
   value: string | null
 }
 
-const ALL_SERVICE_AREAS = 'All service areas'
+const ALL_SERVICE_AREAS = 'All Counties'
 
 export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onChange, store, value }) => {
   let menuItems = chain(store.get('counties'))
