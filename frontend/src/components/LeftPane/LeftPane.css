@@ -36,6 +36,11 @@
     right: 20px;
 }
 
+.LeftPane .DownloadDatasetLink {
+  position: absolute !important; /* override material-ui inline style */
+    left: 20px;
+}
+
 .LeftPane .CountySelector {
   overflow-y: auto;
   position: absolute;
