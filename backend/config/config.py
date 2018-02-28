@@ -106,7 +106,7 @@ def _load_config(path=None):
 CONFIG = {
     'geocoding': True,
     'address_database': True,
-    'geocoder': 'oxcoder',
+    'geocoder': 'geocodio',
     'cache_adequacy_requests': True,
     'cached_result_directory': '/app/cache/',
     'measurer': {
