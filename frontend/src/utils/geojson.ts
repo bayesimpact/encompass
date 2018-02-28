@@ -28,7 +28,8 @@ function providerToFeature(
       languages: point.languages,
       npi: point.npi,
       name: point.name,
-      specialty: point.specialty
+      specialty: point.specialty,
+      center_type: point.center_type
     },
     geometry: {
       type: 'Point',
