@@ -4,6 +4,7 @@ import * as React from 'react'
 import { DATASET_COLORS } from '../../constants/colors'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
+import { SERVICE_AREAS_BY_STATE } from '../../constants/zipCodes'
 import { Store, withStore } from '../../services/store'
 import { Tile, TilePicker } from '../TilePicker/TilePicker'
 import './DatasetsDrawer.css'
@@ -56,6 +57,9 @@ function onChange(store: Store) {
       // TODO: Show Analyze Your Own Dataset Modal modal
       store.set('route')('/add-data')
       return
+    }
+    if (tile.data.serviceAreaIds === []) {
+      tile.data.serviceAreaIds = SERVICE_AREAS_BY_STATE[tile.data.state]
     }
     store.set('selectedDataset')(tile.data)
   }
