@@ -59,6 +59,7 @@ export type Provider = {
   npi?: string
   name?: string
   specialty?: string
+  center_type?: string
 }
 
 export type GeocodedProvider = Provider & {

@@ -54,6 +54,7 @@ const COLUMNS = [
   { aliases: ['City'], required: true },
   { aliases: ['State'], required: true },
   { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'], required: true },
+  { aliases: ['Health Center Type'] },
   { aliases: ['Latitude'] },
   { aliases: ['Longitude'] },
   { aliases: ['NPI'] },
@@ -66,7 +67,7 @@ const COLUMNS = [
   { aliases: ['Specialty', 'PCPSpecialty', 'SpecialistSpecialty'] }
 ]
 
-let parse = parseRows(COLUMNS, ([address, city, state, zip,
+let parse = parseRows(COLUMNS, ([address, city, state, zip, center_type,
   latitude, longitude, npi, firstname, lastname, name, language1, language2, language3, specialty]) => {
   let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
@@ -78,6 +79,7 @@ let parse = parseRows(COLUMNS, ([address, city, state, zip,
     languages,
     npi: npi ? String(npi) : undefined,
     name: finalName || undefined,
-    specialty: specialty || undefined
+    specialty: specialty || undefined,
+    center_type: center_type || undefined
   }
 })

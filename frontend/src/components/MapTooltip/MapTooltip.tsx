@@ -65,6 +65,7 @@ export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, p
           <TableRow name='NPI' value={features[index].properties.npi} />
           <TableRow name='Address' value={features[index].properties.address} />
           <TableRow name='Specialty' value={features[index].properties.specialty} />
+          <TableRow name='Health Center Type' value={features[index].properties.center_type} />
           <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
           <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
         </tbody>
