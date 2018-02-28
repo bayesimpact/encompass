@@ -264,6 +264,7 @@ export function withEffects(store: Store) {
         store.set('providers')([])
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
+        store.set('selectedFilterMethod')('All')
       }
     })
   return store
