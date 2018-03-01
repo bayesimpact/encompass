@@ -57,7 +57,7 @@ export const STATES = [
   { shortName: 'gu', longName: 'Guam' },
   { shortName: 'mp', longName: 'Northern Mariana Islands' },
   { shortName: 'pr', longName: 'Puerto Rico' },
-  { shortName: 'vi', longName: 'Virgin Islands' },
+  { shortName: 'vi', longName: 'Virgin Islands' }
 ]
 
 /**
