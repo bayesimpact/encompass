@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Store, withStore } from '../../services/store'
 import { parseRows } from '../../utils/csv'
-import { normalizeZip } from '../../utils/formatters'
+// import { normalizeZip } from '../../utils/formatters'
 import { maybeParseFloat } from '../../utils/numbers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
@@ -50,10 +50,10 @@ function onClearInputs(store: Store) {
  * Aliases are compared to column names as lowerCase()
  */
 const COLUMNS = [
-  { aliases: ['Address'], required: true },
-  { aliases: ['City'], required: true },
-  { aliases: ['State'], required: true },
-  { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'], required: true },
+  { aliases: ['Address'], required: false },
+  { aliases: ['City'], required: false },
+  { aliases: ['State'], required: false },
+  { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'], required: false },
   { aliases: ['Health Center Type'] },
   { aliases: ['Latitude'] },
   { aliases: ['Longitude'] },
@@ -67,13 +67,13 @@ const COLUMNS = [
   { aliases: ['Specialty', 'PCPSpecialty', 'SpecialistSpecialty'] }
 ]
 
-let parse = parseRows(COLUMNS, ([address, city, state, zip, center_type,
+let parse = parseRows(COLUMNS, ([_address, _city, _state, _zip, center_type,
   latitude, longitude, npi, firstname, lastname, name, language1, language2, language3, specialty]) => {
-  let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
+  // let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   let languages = [language1, language2, language3].filter(Boolean) as string[]
   let finalName = [firstname, lastname, name].filter(Boolean).join(' ') as string
   return {
-    address: finalAddress,
+    address: 'NA',
     lat: maybeParseFloat(latitude),
     lng: maybeParseFloat(longitude),
     languages,

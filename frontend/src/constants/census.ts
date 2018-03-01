@@ -10,5 +10,5 @@ type censusMapping = {
 export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
 export const CENSUS_MAPPING: censusMapping = {
-  sex: ['Male', 'Female']
+  all: ['All']
 }
