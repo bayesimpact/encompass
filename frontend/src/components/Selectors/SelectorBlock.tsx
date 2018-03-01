@@ -45,7 +45,7 @@ export let SelectorBlock = withStore()(({ store }) => {
 function selectorByMethod(method: FilterMethod, store: Store) {
     if (method === 'County Name') {
         return <ServiceAreaSelector
-            className='Menu'
+            className='Menu MultiSelect'
             onChange={store.set('selectedCounties')}
             values={store.get('selectedCounties')}
         />

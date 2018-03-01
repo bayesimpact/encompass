@@ -11,6 +11,12 @@ type Props = {
   values: string[] | null
 }
 
+const styles = {
+  customWidth: {
+    width: 200
+  }
+}
+
 export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onChange, store, values }) => {
   let menuItems = chain(store.get('counties'))
     .map(_ => <MenuItem value={_} key={_} primaryText={capitalizeWords(_)} />)
@@ -20,7 +26,10 @@ export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onCh
     multiple={true}
     onChange={(_event, _index, value) => onChange(value.map((_: string) => snakeCase(_)))}
     value={values}
-  >
+    maxHeight={200}
+    style={styles.customWidth}
+    autoWidth={false}
+>
     {menuItems}
   </DropDownMenu>
 })

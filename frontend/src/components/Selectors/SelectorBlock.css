@@ -19,3 +19,8 @@
   .SelectorRow * {
     display: inline-block !important;
   }
+
+
+.Menu.MultiSelect > div > div + div {
+  width: 55% !important;
+}
