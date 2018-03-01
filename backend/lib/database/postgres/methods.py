@@ -55,18 +55,17 @@ def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
     return {}
 
 
-def _safe_core_insert(conn, sql_class, row):
+def _safe_core_insert(conn, sql_class, row, unique_column):
     """Safe insert in case of duplicates."""
     try:
         result = conn.execute(sql_class.__table__.insert(), row)
         return result.inserted_primary_key[0]
     except IntegrityError:
-        # FIXME - SHOULD NOT DEPEND ON ADDRESS_ID.
         data = _get_data(
             conn,
             sql_class,
             columns_to_select=['id'],
-            column_to_value_map={'address_id': row['address_id']}
+            column_to_value_map={unique_column: row[unique_column]}
         )
         return data.get('id', None)
 
@@ -106,7 +105,7 @@ def bulk_insert_via_query(engine, sql_class, data):
         return results
 
 
-def core_insert(engine, sql_class, data, return_insert_ids=False, unique=False):
+def core_insert(engine, sql_class, data, return_insert_ids=False, unique_column=None):
     """
     A single Core INSERT construct inserting mappings in bulk.
 
@@ -119,9 +118,9 @@ def core_insert(engine, sql_class, data, return_insert_ids=False, unique=False):
     unique: flag to warn of uniqueness constraints one or more of the inserted fields.
     """
     with engine.connect() as conn:
-        if return_insert_ids or unique:
+        if return_insert_ids or unique_column:
             return [
-                _safe_core_insert(conn, sql_class, row)
+                _safe_core_insert(conn, sql_class, row, unique_column)
                 for row in data
             ]
         results = conn.execute(sql_class.__table__.insert().values(data))

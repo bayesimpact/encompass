@@ -44,7 +44,8 @@ def load_csv(filepath):
         engine,
         sql_class=address.Address,
         data=address_data,
-        return_insert_ids=True
+        return_insert_ids=True,
+        unique_column='address'
     )
 
 
