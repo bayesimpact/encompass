@@ -17,6 +17,7 @@ from raven.contrib.flask import Sentry
 
 dictConfig(config.get('logging'))
 app = flask.Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False  # Disable pretty JSON.
 engine = connect.create_db_engine()
 
 CORS(app, resources={r'/api/*': {'origins': '*'}})
