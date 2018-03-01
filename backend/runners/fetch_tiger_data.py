@@ -99,6 +99,7 @@ def _get_valid_fips_codes():
     assert len(fips_codes) == 56
     return fips_codes
 
+
 if __name__ == '__main__':
     fips_codes = _get_valid_fips_codes()
     fetch_and_project_census_data(fips_codes)
@@ -109,5 +110,5 @@ if __name__ == '__main__':
     ]
     print('Merging all files in {}.'.format(OUTPUT_DIRECTORY))
     feature_collection = merge_geojson_feature_collections(output_filepaths)
-    with open(os.path.join(OUTPUT_DIRECTORY, 'census_tract_boundaries.geojson'), 'w+') as f:
+    with open(os.path.join('data/census/', 'census_tract_boundaries.geojson'), 'w+') as f:
         geojson.dump(feature_collection, f)

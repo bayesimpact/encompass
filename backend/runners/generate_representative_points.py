@@ -29,13 +29,13 @@ RASTER_DATA_PATH = (
     'data/GHSL/GHS_POP_GPW42015_GLOBE_R2015A_54009_250_v1_0/'
     'GHS_POP_GPW42015_GLOBE_R2015A_54009_250_v1_0.tif'
 )
-CENSUS_TRACT_PATH = 'data/census_tract_boundaries.geojson'
+CENSUS_TRACT_PATH = 'data/census/census_tract_boundaries.geojson'
 FIPS_CODE_PATH = 'data/census/county_fips_codes.csv'
 
 WORLD_OUTPUT_PATH = 'data/world_mw-{}_t-{}.geojson'.format(str(MASK_WIDTH), str(THRESHOLD))
 US_OUTPUT_PATH = 'data/united_states_mw-{}_t-{}.geojson'.format(str(MASK_WIDTH), str(THRESHOLD))
 
-MOLLWEIDE = "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+MOLLWEIDE = '+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
 
 
 def raster_to_geojson():
@@ -86,6 +86,7 @@ def extract_united_states_from_world(points):
 
 def clean_united_states_dataframe(us):
     """Clean data and finalize columns."""
+    print('Adding state and county names...')
     fips_df = pd.read_csv(
         FIPS_CODE_PATH,
         names=['state', 'statefp', 'countyfp', 'county', 'what'], dtype=str
@@ -116,3 +117,4 @@ if __name__ == '__main__':
     points = raster_to_geojson()
     us = extract_united_states_from_world(points)
     clean_us = clean_united_states_dataframe(us)
+    print('Finished!')
