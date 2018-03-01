@@ -66,3 +66,9 @@ variable "aws_region" {
   type        = "string"
   default     = "us-west-2" # Default to Oregon
 }
+
+variable "ssl_certificate_arn" {
+  description = "ARN for SSL cert to use in LBs"
+  type        = "string"
+  default     = "arn:aws:acm:us-west-2:951168128976:certificate/ff93f488-e4a6-4f0c-b494-755cfdade4ee"
+}
