@@ -152,7 +152,7 @@ let store = withEffects(createStore<Actions>({
   selectedProvider: null,
   selectedRepresentativePoint: null,
   selectedServiceAreas: null,
-  selectedState: 'ca',
+  selectedState: 'tz',
   serviceAreas: [],
   uploadedProviders: [],
   uploadedProvidersFilename: null,

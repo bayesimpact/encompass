@@ -113,7 +113,7 @@ CONFIG = {
         'haversine': 'haversine',
         'driving_time': 'osrm'
     },
-    'census_data': True,
+    'census_data': False,
     'census_mapping_json': '/app/shared/census_mapping.json',
     'measurer_config': {
         'haversine': {

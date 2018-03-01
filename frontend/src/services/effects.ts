@@ -24,6 +24,7 @@ export function withEffects(store: Store) {
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
+      let fake_demographic = { sex: { Female: 0.5, Male: 0.5 } }
       if (!equals(serviceAreas, store.get('serviceAreas'))) {
         return
       }
@@ -33,6 +34,7 @@ export function withEffects(store: Store) {
       store.set('representativePoints')(
         points.map(_ => ({
           ..._,
+          demographics: fake_demographic,
           population: _.population,
           serviceAreaId: _.service_area_id
         }))
@@ -285,13 +287,13 @@ function getAdequacyMode(
   }
 
   if (method === 'haversine') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 15) {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 6) {
       return AdequacyMode.ADEQUATE_15
     }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 12) {
       return AdequacyMode.ADEQUATE_30
     }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 60) {
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 24) {
       return AdequacyMode.ADEQUATE_60
     }
   }

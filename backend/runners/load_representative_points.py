@@ -13,6 +13,8 @@ import pandas as pd
 
 
 FAKE_ZIP_CODE = '00000'
+FAKE_COUNTY = 'county'
+FAKE_STATE = 'tz'
 
 
 def _get_arguments():
@@ -46,6 +48,8 @@ def _main(kwargs):
 
     for feature in json_features:
         feature['properties']['zip_code'] = FAKE_ZIP_CODE
+        feature['properties']['state'] = FAKE_STATE
+        feature['properties']['county'] = feature['properties']['state'] + FAKE_COUNTY
 
     _insert_service_areas(json_features)
     _insert_representative_population_points(json_features)
@@ -101,11 +105,11 @@ def _transform_single_point(point):
             county=_sanitize_county_name_in_service_area_id(point['properties']['county']),
             zip=point['properties']['zip_code']
         ),
-        'census_tract': '{statefp}{countyfp}{tractce}'.format(
-            statefp=point['properties']['statefp'],
-            countyfp=point['properties']['countyfp'],
-            tractce=point['properties']['tractce'],
-        ),
+        # 'census_tract': '{statefp}{countyfp}{tractce}'.format(
+        #     statefp=point['properties']['statefp'],
+        #     countyfp=point['properties']['countyfp'],
+        #     tractce=point['properties']['tractce'],
+        # ),
     }
 
 
@@ -124,10 +128,10 @@ def _get_all_service_areas(features):
             point['properties']['zip_code']
         )
         service_area_to_coords[service_area_id].append(point['geometry']['coordinates'])
-        service_area_to_fips_codes[service_area_id] = {
-            'state_fips': point['properties']['statefp'],
-            'county_fips': point['properties']['countyfp'],
-        }
+        # service_area_to_fips_codes[service_area_id] = {
+        #     'state_fips': point['properties']['statefp'],
+        #     'county_fips': point['properties']['countyfp'],
+        # }
 
     service_area_to_bounding_box = {
         service_area: {
@@ -139,7 +143,7 @@ def _get_all_service_areas(features):
         for service_area, coords in service_area_to_coords.items()
     }
 
-    urban_rural_designations = _get_urban_rural_code_map()
+    # urban_rural_designations = _get_urban_rural_code_map()
 
     service_areas = []
     for state, county, zip_code in service_area_to_bounding_box:
@@ -152,9 +156,9 @@ def _get_all_service_areas(features):
             (bbox['min_lon'], bbox['min_lat']),
         ]
 
-        state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
-        county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
-        urban_rural_designation = urban_rural_designations.get((state_fips, county_fips), None)
+        # state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
+        # county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
+        # urban_rural_designation = urban_rural_designations.get((state_fips, county_fips), None)
 
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
@@ -166,9 +170,9 @@ def _get_all_service_areas(features):
             'state': state,
             'zip_code': zip_code,
             'location': postgis.to_polygon(geometry),
-            'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
-            'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
-            'nchs_urban_rural_code': urban_rural_designation,
+            # 'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
+            # 'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
+            # 'nchs_urban_rural_code': urban_rural_designation,
         })
 
     return service_areas

@@ -14,7 +14,7 @@ export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   data: {
     dataSources: [],
     description: '',
-    state: 'ca',
+    state: 'tz',
     name: '',
     hint: '',
     providers: [],
