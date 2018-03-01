@@ -7,21 +7,20 @@ import { capitalizeWords, snakeCase } from '../../utils/string'
 
 type Props = {
   className?: string
-  onChange(serviceArea: string | null): void
-  value: string | null
+  onChange(values: string[] | null): void
+  values: string[] | null
 }
 
-const ALL_SERVICE_AREAS = 'All Counties'
-
-export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onChange, store, value }) => {
+export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onChange, store, values }) => {
   let menuItems = chain(store.get('counties'))
     .map(_ => <MenuItem value={_} key={_} primaryText={capitalizeWords(_)} />)
     .value()
-  menuItems.unshift(<MenuItem value={null} key={ALL_SERVICE_AREAS} primaryText={ALL_SERVICE_AREAS} />)
   return <DropDownMenu
     className={className ? className : undefined}
-    onChange={(_event, _index, value) => onChange(value === null ? null : snakeCase(value))}
-    value={value}>
+    multiple={true}
+    onChange={(_event, _index, value) => onChange(value.map((_: string) => snakeCase(_)))}
+    value={values}
+  >
     {menuItems}
   </DropDownMenu>
 })

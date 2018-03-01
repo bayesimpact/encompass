@@ -47,7 +47,7 @@ function selectorByMethod(method: FilterMethod, store: Store) {
         return <ServiceAreaSelector
             className='Menu'
             onChange={store.set('selectedCounties')}
-            value={store.get('selectedCounties')}
+            values={store.get('selectedCounties')}
         />
     }
     if (method === 'County Type') {

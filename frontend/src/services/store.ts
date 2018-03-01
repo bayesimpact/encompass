@@ -60,7 +60,7 @@ type Actions = {
 
   selectedCensusCategory: string
 
-  selectedCounties: string | null
+  selectedCounties: string[] | null
 
   selectedCountyType: CountyType | null
 
