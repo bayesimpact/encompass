@@ -35,7 +35,7 @@ FIPS_CODE_PATH = 'data/census/county_fips_codes.csv'
 WORLD_OUTPUT_PATH = 'data/world_mw-{}_t-{}.geojson'.format(str(MASK_WIDTH), str(THRESHOLD))
 US_OUTPUT_PATH = 'data/united_states_mw-{}_t-{}.geojson'.format(str(MASK_WIDTH), str(THRESHOLD))
 
-MOLLWEIDE = "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+MOLLWEIDE = '+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
 
 
 def raster_to_geojson():

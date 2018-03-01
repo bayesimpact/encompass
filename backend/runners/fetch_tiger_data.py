@@ -99,6 +99,7 @@ def _get_valid_fips_codes():
     assert len(fips_codes) == 56
     return fips_codes
 
+
 if __name__ == '__main__':
     fips_codes = _get_valid_fips_codes()
     fetch_and_project_census_data(fips_codes)
