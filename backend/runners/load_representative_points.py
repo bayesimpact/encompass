@@ -45,8 +45,7 @@ def _main(kwargs):
         json_features = geojson.load(f)['features']
 
     for feature in json_features:
-        if 'zip_code' not in feature['properties']:
-            feature['properties']['zip_code'] = FAKE_ZIP_CODE
+        feature['properties']['zip_code'] = FAKE_ZIP_CODE
 
     _insert_service_areas(json_features)
     _insert_representative_population_points(json_features)
