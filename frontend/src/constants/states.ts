@@ -67,7 +67,7 @@ export type State = 'al' |'ak' |'ar' |'az' |'ca' |'co' |'ct' |'de' |'dc' |'fl' |
 | 'as' | 'gu' | 'mp' | 'pr' | 'vi'
 
 export const CaliforniaFKMServiceAreas = [
-      'ca_kings_00000',
-      'ca_fresno_00000',
-      'ca_madera_00000'
+      'ca_kings_county_00000',
+      'ca_fresno_county_00000',
+      'ca_madera_county_00000'
 ]
