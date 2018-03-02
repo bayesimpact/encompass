@@ -27,7 +27,7 @@ export let AnalyticsDrawer = withStore(
       <h2 className='Secondary'>{selectedDataset.name}</h2>
       <div className='DataSources'>
         <body className='HeavyWeight Muted'>Data sources</body>
-        <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
+        <div>{selectedDataset.dataSources}</div>
       </div>
       <div className='Selectors'>
         <SelectorBlock />
