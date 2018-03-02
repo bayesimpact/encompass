@@ -29,7 +29,7 @@ RASTER_DATA_PATH = (
     'data/GHSL/GHS_POP_GPW42015_GLOBE_R2015A_54009_250_v1_0/'
     'GHS_POP_GPW42015_GLOBE_R2015A_54009_250_v1_0.tif'
 )
-CENSUS_TRACT_PATH = 'data/census_tract_boundaries.geojson'
+CENSUS_TRACT_PATH = 'data/census/census_tract_boundaries.geojson'
 FIPS_CODE_PATH = 'data/census/county_fips_codes.csv'
 
 WORLD_OUTPUT_PATH = 'data/world_mw-{}_t-{}.geojson'.format(str(MASK_WIDTH), str(THRESHOLD))

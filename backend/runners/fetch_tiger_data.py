@@ -110,5 +110,5 @@ if __name__ == '__main__':
     ]
     print('Merging all files in {}.'.format(OUTPUT_DIRECTORY))
     feature_collection = merge_geojson_feature_collections(output_filepaths)
-    with open(os.path.join(OUTPUT_DIRECTORY, 'census_tract_boundaries.geojson'), 'w+') as f:
+    with open(os.path.join('data/census/', 'census_tract_boundaries.geojson'), 'w+') as f:
         geojson.dump(feature_collection, f)
