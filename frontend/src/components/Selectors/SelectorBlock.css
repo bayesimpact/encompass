@@ -12,7 +12,7 @@
   }
   
   .Selectors body {
-    width: 100px;
+    width: var(--analytics-title-width);
     vertical-align: middle !important;
   }
   

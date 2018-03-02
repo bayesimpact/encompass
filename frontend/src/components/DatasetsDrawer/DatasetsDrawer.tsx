@@ -28,9 +28,10 @@ let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
   datasets.map((_, n) => ({
     color: DATASET_COLORS[n],
     data: _,
-    description: _.description,
+    description: _.subtitle,
     name: _.name
-  }))
+  })
+)
 )
 
 let tiles = [

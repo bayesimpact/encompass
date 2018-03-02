@@ -25,9 +25,9 @@ export let AnalyticsDrawer = withStore(
     return <div className='AnalyticsDrawer'>
       <BackLink />
       <h2 className='Secondary'>{selectedDataset.name}</h2>
-      <div className='DataSources'>
-        <body className='HeavyWeight Muted'>Data sources</body>
-        <div>{selectedDataset.dataSources}</div>
+      <div className='Description'>
+        <body className='HeavyWeight Muted'>Description</body>
+        <div>{selectedDataset.description}</div>
       </div>
       <div className='Selectors'>
         <SelectorBlock />
