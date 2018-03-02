@@ -127,8 +127,8 @@ type Actions = {
   uploadedServiceAreasFilename: string | null
 
   /**
-  * Keep the point geojson in the store so we don't have to keep rebuilding it.
-  */
+   * Keep the point geojson in the store so we don't have to keep rebuilding it.
+   */
   pointGeoJson: FeatureCollection<GeometryObject> | null
 }
 
@@ -163,7 +163,6 @@ let store = withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null,
-  // lets try this
   pointGeoJson: null
 }))
 

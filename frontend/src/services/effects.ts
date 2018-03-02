@@ -247,8 +247,8 @@ export function withEffects(store: Store) {
     )
 
   /**
-  * Rebuild the geojson whenever the adequacies change.
-  */
+   * Rebuild the geojson whenever the adequacies change.
+   */
   store
   .on('adequacies')
   .subscribe(adequacies => {

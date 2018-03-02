@@ -67,7 +67,6 @@ const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
 const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
 
 export let MapView = withStore(
-  // 'adequacies',
   'pointGeoJson',
   'mapCenter',
   'providerIndex',
