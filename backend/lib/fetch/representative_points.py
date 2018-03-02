@@ -31,7 +31,7 @@ else:
 # table name is used to disambiguate between shared column names.
 RP_COLUMNS = [
     'id',
-    'representative_points.census_tract',
+    representative_point.RepresentativePoint.__tablename__ + '.census_tract',
     'county',
     'latitude',
     'longitude',
