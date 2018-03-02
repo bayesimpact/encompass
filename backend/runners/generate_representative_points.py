@@ -86,6 +86,7 @@ def extract_united_states_from_world(points):
 
 def clean_united_states_dataframe(us):
     """Clean data and finalize columns."""
+    print('Adding state and county names...')
     fips_df = pd.read_csv(
         FIPS_CODE_PATH,
         names=['state', 'statefp', 'countyfp', 'county', 'what'], dtype=str
@@ -116,3 +117,4 @@ if __name__ == '__main__':
     points = raster_to_geojson()
     us = extract_united_states_from_world(points)
     clean_us = clean_united_states_dataframe(us)
+    print('Finished!')
