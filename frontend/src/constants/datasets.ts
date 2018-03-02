@@ -1,6 +1,7 @@
 import { Dataset } from './datatypes'
 
 export let DATASETS: Dataset[] = [
+  // FIXME: Programatically read in datasets.
   // tslint:disable:no-var-requires
   require('./datasets/MS_HCSD_and_Look-Alike_MS.json'),
   require('./datasets/FL_HCSD_and_Look-Alike_FL.json'),
