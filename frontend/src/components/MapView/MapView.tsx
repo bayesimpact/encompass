@@ -54,7 +54,7 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
 const providerCircleStyle: MapboxGL.CirclePaint = {
   'circle-color': '#000',
   'circle-opacity': 0.6,
-  'circle-radius': 5
+  'circle-radius': 3
 }
 
 function removePopup(store: Store) {

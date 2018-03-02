@@ -30,10 +30,10 @@ export function getLegend(method: Method, standard: AdequacyMode) {
   switch (method) {
     case 'haversine':
       switch (standard) {
-        case AdequacyMode.ADEQUATE_15: return '< 2 wlk hrs'
-        case AdequacyMode.ADEQUATE_30: return '< 4 wlk hrs'
-        case AdequacyMode.ADEQUATE_60: return '< 8 wlk hrs'
-        case AdequacyMode.INADEQUATE: return '> 8 wlk hrs'
+        case AdequacyMode.ADEQUATE_15: return '< 5 km'
+        case AdequacyMode.ADEQUATE_30: return '< 10 km'
+        case AdequacyMode.ADEQUATE_60: return '< 20 km'
+        case AdequacyMode.INADEQUATE: return '> 20 km'
       }
       break
     case 'driving_time':

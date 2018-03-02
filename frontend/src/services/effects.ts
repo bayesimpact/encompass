@@ -272,8 +272,8 @@ export function withEffects(store: Store) {
   return store
 }
 
-let ONE_MILE_IN_METERS = 1609.344
-let ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
+// let ONE_MILE_IN_METERS = 1609.344
+// let ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
 
 function getAdequacyMode(
   adequacy: PostAdequaciesResponse[0],
@@ -287,13 +287,13 @@ function getAdequacyMode(
   }
 
   if (method === 'haversine') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 6) {
+    if (adequacy.to_closest_provider / 1000 <= 5) {
       return AdequacyMode.ADEQUATE_15
     }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 12) {
+    if (adequacy.to_closest_provider / 1000 <= 10) {
       return AdequacyMode.ADEQUATE_30
     }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 24) {
+    if (adequacy.to_closest_provider / 1000 <= 20) {
       return AdequacyMode.ADEQUATE_60
     }
   }
