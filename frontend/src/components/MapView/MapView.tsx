@@ -75,9 +75,7 @@ export let MapView = withStore(
   'selectedProvider',
   'selectedRepresentativePoint'
 )(({ store }) => {
-  // let adequacies = store.get('adequacies')
   let providers = store.get('providers')
-  let representativePoints = store.get('representativePoints')
   let selectedRepresentativePoint = store.get('selectedRepresentativePoint')
   let selectedProvider = store.get('selectedProvider')
   const pointGeoJson = store.get('pointGeoJson')
@@ -89,7 +87,7 @@ export let MapView = withStore(
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onClick={() => removePopup(store)}
     >
-      {representativePoints.length && <GeoJSONLayer
+      {pointGeoJson && <GeoJSONLayer
         data={pointGeoJson}
         circlePaint={representativePointCircleStyle}
         circleOnClick={store.set('selectedRepresentativePoint')}

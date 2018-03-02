@@ -246,12 +246,15 @@ export function withEffects(store: Store) {
     }
     )
 
-  // let's try this
+  /**
+  * Rebuild the geojson whenever the adequacies change.
+  */
   store
   .on('adequacies')
   .subscribe(adequacies => {
     if (adequacies){
-      store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies))
+      const representativePoints = store.get('representativePoints')
+      store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
     }
   })
 

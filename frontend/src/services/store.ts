@@ -1,4 +1,4 @@
-import { FeatureCollection, GeoJsonProperties, GeometryObject } from 'geojson'
+import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
@@ -126,8 +126,10 @@ type Actions = {
    */
   uploadedServiceAreasFilename: string | null
 
-    // lets try this
-    pointGeoJson: FeatureCollection<GeometryObject, GeoJsonProperties>
+  /**
+  * Keep the point geojson in the store so we don't have to keep rebuilding it.
+  */
+  pointGeoJson: FeatureCollection<GeometryObject> | null
 }
 
 /**
