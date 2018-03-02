@@ -27,11 +27,7 @@ def mock_representative_point(service_area_id=0, rp_id=0):
         'lat': random_lat(),
         'lng': random_lng(),
         'county': county,
-        'population': {
-            0.5: random.randint(10, 10000),
-            2.5: random.randint(100, 100000),
-            5: random.randint(1000, 1000000)
-        },
+        'population': random.randint(10, 10000),
         'zip': zip_code,
         'census_block_group': 105,
         'census_block': 3,
