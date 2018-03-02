@@ -12,6 +12,9 @@ import geojson
 import pandas as pd
 
 
+FAKE_ZIP_CODE = '00000'
+
+
 def _get_arguments():
     """Build argument parser."""
     parser = argparse.ArgumentParser(description="""
@@ -34,13 +37,15 @@ def _main(kwargs):
     Each feature should have the following properties:
         - state: str
         - county: str
-        - zip_code: str
-        - population: mapping (distance cutoff --> population at that cutoff)
+        - population: float
 
     Note: To ensure referential integrity, service areas must be added first.
     """
     with open(kwargs['filepath'], 'r') as f:
         json_features = geojson.load(f)['features']
+
+    for feature in json_features:
+        feature['properties']['zip_code'] = FAKE_ZIP_CODE
 
     _insert_service_areas(json_features)
     _insert_representative_population_points(json_features)
@@ -48,6 +53,7 @@ def _main(kwargs):
 
 def _insert_service_areas(json_features):
     """Insert service areas into the database from a GeoJSON file."""
+    print('Inserting service areas...')
     data = _get_all_service_areas(json_features)
     try:
         methods.core_insert(
@@ -58,11 +64,12 @@ def _insert_service_areas(json_features):
             unique=False
         )
     except Exception as e:
-        print('Error inserting service areas: {}'.format(str(e)))
+        print('Error inserting service areas: {}'.format(e))
 
 
 def _insert_representative_population_points(json_features):
     """Insert representative points into the database from a GeoJSON file."""
+    print('Inserting representative points...')
     data = [_transform_single_point(point) for point in json_features]
     try:
         methods.core_insert(
@@ -86,7 +93,7 @@ def _transform_single_point(point):
             longitude=point['geometry']['coordinates'][0],
             latitude=point['geometry']['coordinates'][1]
         ),
-        'population': point['properties']['population']['1.0'],
+        'population': point['properties']['population'],
         'county': point['properties']['county'],
         'zip_code': point['properties']['zip_code'],
         'service_area_id': '{state}_{county}_{zip}'.format(
@@ -99,12 +106,6 @@ def _transform_single_point(point):
             countyfp=point['properties']['countyfp'],
             tractce=point['properties']['tractce'],
         ),
-        'census_block_group': '{statefp}{countyfp}{tractce}{blkgrpce}'.format(
-            statefp=point['properties']['statefp'],
-            countyfp=point['properties']['countyfp'],
-            tractce=point['properties']['tractce'],
-            blkgrpce=point['properties']['blkgrpce']
-        )
     }
 
 
@@ -153,7 +154,7 @@ def _get_all_service_areas(features):
 
         state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
         county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
-        urban_rural_designation = urban_rural_designations[(state_fips, county_fips)]
+        urban_rural_designation = urban_rural_designations.get((state_fips, county_fips), None)
 
         service_areas.append({
             'service_area_id': '{state}_{county}_{zip}'.format(
@@ -213,9 +214,10 @@ def _get_urban_rural_code_map(filepath='data/urban_rural_codes/NCHSURCodes2013.t
 
 
 CHARACTER_SUBSTITUTIONS = collections.OrderedDict({
-    ' ': '_',
-    '.': '',
-    '-': '_',
+    ' ': '_',   # San Luis Obispo County
+    '.': '',    # St. Louis County
+    '-': '_',   # Miami-Dade County
+    '\'': ''    # Queen Anne's County
 })
 
 
