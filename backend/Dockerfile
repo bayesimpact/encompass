@@ -6,7 +6,9 @@ RUN apt-get install -y \
     libspatialindex-dev \
     gdal-bin \
     man \
-    --fix-missing
+    unzip \
+    --fix-missing \
+    > /dev/null
 
 COPY ./app/main.py /app/main.py
 COPY ./lib /usr/local/lib/python3.6/site-packages/backend/lib
