@@ -22,6 +22,7 @@
   /* dimensions */
   --header-height: 64px;
   --leftpane-width: calc(40%);
+  --analytics-title-width: 85px;
 
   /* fonts */
   --giant-font: 22px;

@@ -52,7 +52,8 @@ function createDataset(store: Store) {
     name: 'Your Data',
     providers: store.get('providers'),
     serviceAreaIds: store.get('serviceAreas'),
-    hint: ''
+    hint: '',
+    subtitle: ''
   }
   return dataSet
 }

@@ -33,6 +33,7 @@ export type Dataset = {
   state: State,
   description: string
   name: string
+  subtitle: string
   hint: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
