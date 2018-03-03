@@ -11,6 +11,8 @@ type Actions = {
 
   adequacies: Adequacies
 
+  allowDrivingTime: boolean
+
   /**
    * Counties selected by the user in the Service Area Drawer.
    *
@@ -137,6 +139,7 @@ type Actions = {
  */
 let store = withEffects(createStore<Actions>({
   adequacies: {},
+  allowDrivingTime: true,
   counties: [],
   error: null,
   success: null,
@@ -144,7 +147,7 @@ let store = withEffects(createStore<Actions>({
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
   mapZoom: DEFAULT_MAP_ZOOM,
-  method: 'haversine',
+  method: 'driving_time',
   providerIndex: 0,
   providers: [],
   representativePoints: [],

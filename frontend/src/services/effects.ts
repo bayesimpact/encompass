@@ -12,6 +12,8 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
+const { APP_IS_PUBLIC } = process.env
+
 export function withEffects(store: Store) {
   /**
    * Update representative points when serviceAreas change.
@@ -276,6 +278,21 @@ export function withEffects(store: Store) {
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
         store.set('selectedFilterMethod')('All')
+      }
+    })
+
+  /**
+   * Switch to haversine of the app is public and user is adding a dataset.
+   */
+  store
+    .on('route')
+    .subscribe(route => {
+      if (route === '/add-data') {
+        store.set('allowDrivingTime')(!APP_IS_PUBLIC)
+        store.set('method')('haversine')
+      } else if (route === '/datasets') {
+        store.set('allowDrivingTime')(true)
+        store.set('method')('driving_time')
       }
     })
   return store

@@ -28,9 +28,9 @@ def mock_representative_point(service_area_id=0, rp_id=0):
         'lng': random_lng(),
         'county': county,
         'population': {
-          0.5: random.randint(10, 10000),
-          2.5: random.randint(100, 100000),
-          5: random.randint(1000, 1000000)
+            0.5: random.randint(10, 10000),
+            2.5: random.randint(100, 100000),
+            5: random.randint(1000, 1000000)
         },
         'zip': zip_code,
         'census_block_group': 105,
@@ -50,10 +50,11 @@ def mock_adequacy(rp_id, provider_id):
     }
 
 
-### Helpers
+# Helpers
 def random_coord(seed):
     """Generate a mock lat/lng coordinate."""
     return lambda: seed + random.uniform(-0.03, 0.03)
+
 
 random_lat = random_coord(37.765134)
 random_lng = random_coord(-122.444687)
