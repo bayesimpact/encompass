@@ -42,7 +42,7 @@ def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
     """
     columns = ', '.join(columns_to_select)
     column_to_value_clause = 'AND '.join(
-        ["{k} = '{v}'".format(k=k, v=v) for k, v in column_to_value_map.items()]
+        ["%s = $$%s$$" % (k, v) for k, v in column_to_value_map.items()]
     )
     query = 'SELECT {columns} FROM {table_name} WHERE {column_to_value_clause};'.format(
         columns=columns,

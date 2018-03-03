@@ -13,14 +13,14 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_00000']
         results = representative_points.fetch_representative_points(service_areas, engine=engine)
-        assert len(results) == 2784
+        assert len(results) > 1000
 
     @staticmethod
     def test_fetch_representative_points_two_service_areas():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_00000', 'ca_los_angeles_00000']
         results = representative_points.fetch_representative_points(service_areas, engine=engine)
-        assert len(results) == 2784
+        assert len(results) > 1000
 
     @staticmethod
     def test_fetch_representative_points_no_service_area():
