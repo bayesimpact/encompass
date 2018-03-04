@@ -27,7 +27,7 @@ export let AnalyticsDrawer = withStore(
       <h2 className='Secondary'>{selectedDataset.name}</h2>
       <div className='Description'>
         <h4 className='HeavyWeight Muted'>Description</h4>
-        <div>{selectedDataset.description}</div>
+        <div dangerouslySetInnerHTML={{ __html: selectedDataset.description }} />
       </div>
       <div className='Selectors'>
         <SelectorBlock />
