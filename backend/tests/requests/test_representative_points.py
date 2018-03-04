@@ -49,7 +49,7 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
         except Exception:
             pytest.fail('Could not fetch representative_points.')
 
-        assert len(results) == 2897
+        assert len(results) > 1000
         assert all(
             result['service_area_id'] in request_service_areas['service_area_ids']
             for result in results
