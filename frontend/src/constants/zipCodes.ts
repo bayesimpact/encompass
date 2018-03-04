@@ -26,5 +26,5 @@ export const SERVICE_AREAS_BY_COUNTY_BY_STATE: Record<State, { [county: string]:
   )
 
 export const SERVICE_AREAS_BY_STATE: Record<State, string[]> = chain(SERVICE_AREAS_BY_COUNTY_BY_STATE)
-  .mapValues(flow(values, flatten))
+  .mapValues(_ => flatten(values(_)))
   .value()
