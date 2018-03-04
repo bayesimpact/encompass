@@ -42,7 +42,7 @@ def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
     """
     columns = ', '.join(columns_to_select)
     column_to_value_clause = 'AND '.join(
-        ["%s = $$%s$$" % (k, v) for k, v in column_to_value_map.items()]
+        ['%s = $$%s$$' % (k, v) for k, v in column_to_value_map.items()]
     )
     query = 'SELECT {columns} FROM {table_name} WHERE {column_to_value_clause};'.format(
         columns=columns,
@@ -93,12 +93,13 @@ def bulk_insert_via_query(engine, sql_class, data):
         bulk_insert_str.append(current_value_string)
 
     query = """
-            INSERT INTO {table} ({insert_columns})
-            VALUES {values}
-        """.format(
-            table=sql_class.__tablename__,
-            insert_columns=', '.join(columns),
-            values=', '.join(bulk_insert_str))
+            INSERT INTO %(table)s (%(insert_columns)s)
+            VALUES %(insert_columns)s
+        """ % {
+        'table': sql_class.__tablename__,
+        'insert_columns': ', '.join(columns),
+        'values': ', '.join(bulk_insert_str)
+    }
 
     with engine.connect() as conn:
         results = conn.execute(query)
@@ -147,7 +148,8 @@ def bulk_insert(engine, sql_class, data):
 def delete(engine, sql_class, ids):
     """Delete ids."""
     id_list = '(' + ', '.join([str(_id) for _id in ids]) + ')'
-    delete_query = 'DELETE FROM {table_name} WHERE id in {id_list};'.format(
-        table_name=sql_class.__tablename__,
-        id_list=id_list)
+    delete_query = 'DELETE FROM %(table)s WHERE id in %(id_list)s;' % {
+        'table': sql_class.__tablename__,
+        'id_list': id_list
+    }
     engine.execute(delete_query)
