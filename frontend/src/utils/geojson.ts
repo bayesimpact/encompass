@@ -20,7 +20,7 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
  */
 function providerToFeature(
   point: GeocodedProvider
-): GeoJSON.Feature<GeoJSON.GeometryObject> {
+): GeoJSON.Feature<GeoJSON.Point> {
   return {
     type: 'Feature',
     properties: {
@@ -39,7 +39,7 @@ function providerToFeature(
 }
 
 export function representativePointToFeature(adequacies: Adequacies) {
-  return (point: RepresentativePoint): GeoJSON.Feature<GeoJSON.GeometryObject> => ({
+  return (point: RepresentativePoint): GeoJSON.Feature<GeoJSON.Point> => ({
     id: point.id,
     type: 'Feature',
     properties: {

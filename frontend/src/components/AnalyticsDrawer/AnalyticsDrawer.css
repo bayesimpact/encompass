@@ -4,7 +4,7 @@
   position: relative;
 }
 
-.AnalyticsDrawer .Description > body {
+.AnalyticsDrawer .Description > h4 {
   width: var(--analytics-title-width);
   display: inline-block;
   vertical-align: top;
