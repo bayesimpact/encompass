@@ -251,7 +251,7 @@ export function withEffects(store: Store) {
    */
   store
     .on('adequacies')
-    .filter(adequacies)
+    .filter(Boolean)
     .subscribe(adequacies => {
       const representativePoints = store.get('representativePoints')
       store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
