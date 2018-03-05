@@ -3,7 +3,6 @@ import { SERVICE_AREAS_BY_STATE } from './zipCodes'
 
 export let DATASETS: Dataset[] = [
   // FIXME: Programatically read in datasets.
-  // TODO: If no service area IDs, then assume full state.
   // tslint:disable:no-var-requires
   emptyListToFullState(require('./datasets/MS_HCSD_and_Look-Alike_MS.json')),
   emptyListToFullState(require('./datasets/FL_HCSD_and_Look-Alike_FL.json')),
