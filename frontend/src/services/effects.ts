@@ -250,13 +250,12 @@ export function withEffects(store: Store) {
    * Rebuild the geojson whenever the adequacies change.
    */
   store
-  .on('adequacies')
-  .subscribe(adequacies => {
-    if (adequacies){
+    .on('adequacies')
+    .filter(adequacies)
+    .subscribe(adequacies => {
       const representativePoints = store.get('representativePoints')
       store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
-    }
-  })
+    })
 
   /**
    * Clear state when the user selects a dataset in the Datasets Drawer.
