@@ -13,10 +13,22 @@ from sqlalchemy.orm import sessionmaker
 
 logger = logging.getLogger(__name__)
 
-CENSUS_TABLES = ['aggregated_ages', 'census_acs_dp_02', 'census_acs_dp_03', 'census_acs_dp_04',
-                 'census_acs_dp_05']
-CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
+CENSUS_TABLES = [
+    'aggregated_ages',
+    'census_acs_dp_02',
+    'census_acs_dp_03',
+    'census_acs_dp_04',
+    'census_acs_dp_05'
+]
 
+if config.get('census_data'):
+    CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
+else:
+    CENSUS_FIELDS_BY_CATEGORY = {}
+
+# The full list of representative point columns required for use in the frontend.
+# Used by `fetch_representative_points`. When census data is present, the representative_points
+# table name is used to disambiguate between shared column names.
 RP_COLUMNS = [
     'id',
     'representative_points.census_tract',
@@ -28,19 +40,55 @@ RP_COLUMNS = [
     'zip_code'
 ]
 
+# A minimal list of representative point columns. Used by the backend during adequacy calculation.
+MINIMAL_RP_COLUMNS = [
+    'id',
+    'latitude',
+    'longitude',
+    'service_area_id',
+]
+
 
 @timed
 def fetch_representative_points(
     service_area_ids,
-    format_response=True,
     census_data=False,
     engine=connect.create_db_engine()
 ):
-    """Fetch representative points for a list of service areas."""
+    """
+    Fetch representative points for a list of service areas.
+
+    Prepares responses for use by the frontend.
+    """
     if not service_area_ids:
         return []
-    id_list = '(' + ', '.join(["'%s'" % _id for _id in service_area_ids]) + ')'
-    if not census_data:
+
+    id_list = '( {} )'.format(', '.join(["'%s'" % _id for _id in service_area_ids]))
+
+    if census_data:
+        join_list = ' '.join(["""
+            LEFT JOIN {table}
+            ON (representative_points.census_tract = {table}.census_tract)
+        """.format(
+            table=table) for table in CENSUS_TABLES
+        ])
+
+        select_query = """
+            SELECT {cols}
+            FROM {table_name}
+            {joins}
+            WHERE service_area_id IN {id_list}
+            ORDER BY id
+            ;
+        """.format(
+            cols=', '.join(
+                RP_COLUMNS + readable_columns_from_census_mapping(CENSUS_FIELDS_BY_CATEGORY)),
+            table_name=representative_point.RepresentativePoint.__tablename__,
+            joins=join_list,
+            id_list=id_list
+        )
+        logger.info('Fetching representative_points with census data.')
+    else:
         select_query = """
             SELECT {cols}
             FROM {table_name}
@@ -52,40 +100,37 @@ def fetch_representative_points(
             table_name=representative_point.RepresentativePoint.__tablename__,
             id_list=id_list
         )
+    return [
+        representative_point.row_to_dict(row, census_mapping={})
+        for row in engine.execute(select_query).fetchall()
+    ]
 
-        return [
-            representative_point.row_to_dict(point, format_response)
-            for point in engine.execute(select_query).fetchall()
-        ]
 
-    join_list = ' '.join([
-        'LEFT JOIN {table} ON (representative_points.census_tract = {table}.census_tract)'.format(
-            table=table) for table in CENSUS_TABLES
-    ])
+@timed
+def minimal_fetch_representative_points(service_area_ids, engine=connect.create_db_engine()):
+    """
+    Fetch representative points for a list of service areas.
 
+    No transformations are applied to the points. In particular, census data is not added and the
+    format does not necessarily match the frontend's expectations.
+    """
+    if not service_area_ids:
+        return []
+
+    id_list = '( {} )'.format(', '.join(["'%s'" % _id for _id in service_area_ids]))
     select_query = """
         SELECT {cols}
-        FROM {table} {joins}
+        FROM {table_name}
         WHERE service_area_id IN {id_list}
         ORDER BY id
         ;
     """.format(
-        cols=', '.join(RP_COLUMNS + readable_columns_from_census_mapping(
-            CENSUS_FIELDS_BY_CATEGORY)),
-        table=representative_point.RepresentativePoint.__tablename__,
-        joins=join_list,
+        cols=', '.join(MINIMAL_RP_COLUMNS),
+        table_name=representative_point.RepresentativePoint.__tablename__,
         id_list=id_list
     )
 
-    logger.info('Fetched representative_points with census data.')
-    return [
-        representative_point.row_to_dict(
-            point,
-            format_response,
-            census_mapping=CENSUS_FIELDS_BY_CATEGORY
-        )
-        for point in engine.execute(select_query).fetchall()
-    ]
+    return [dict(row) for row in engine.execute(select_query).fetchall()]
 
 
 def fetch_all_service_areas(engine=connect.create_db_engine()):

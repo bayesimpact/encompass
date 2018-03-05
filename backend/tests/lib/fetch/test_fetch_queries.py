@@ -36,6 +36,13 @@ class TestFetchRepresentativePoints():
         results = representative_points.fetch_representative_points(service_areas, engine=engine)
         assert len(results) == 0
 
+    @staticmethod
+    def test_minimal_fetch_representative_points_one_service_area():
+        """Test fetch_representative_points as used internally by the backend."""
+        service_areas = ['ca_los_angeles_00000']
+        results = representative_points.fetch_representative_points(service_areas, engine=engine)
+        assert len(results) > 1000
+
     def test_readable_columns_from_census_mapping(self):
         census_mapping = {
             'age': {

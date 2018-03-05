@@ -158,9 +158,8 @@ def calculate_adequacies(
         'Calculating adequacies for {} locations ({} unique) and {} service areas using {}.'.format(
             len(locations), len(location_mapping), len(service_area_ids), measurer_name))
 
-    points = representative_points.fetch_representative_points(
+    points = representative_points.minimal_fetch_representative_points(
         service_area_ids=service_area_ids,
-        format_response=False,
         engine=engine
     )
 

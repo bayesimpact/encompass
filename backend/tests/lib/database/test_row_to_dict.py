@@ -43,13 +43,14 @@ def test_representative_point_to_dict():
         'population': 200,
         'zip': 'zip_code',
         'service_area_id': 'service_area_id',
+        'demographics': {},
     }
 
     output_dict = representative_point.row_to_dict(rp_row)
     assert output_dict == expected_output
 
 
-def test_prepare_demographics_dict_from_rows():
+def test_prepare_demographics_dict_from_row():
     """Test prepare_demographics."""
     rp_row = {
         'id': 123,
@@ -62,7 +63,7 @@ def test_prepare_demographics_dict_from_rows():
         'zip_code': 'zip_code',
         'zero_to_eighteen': 76
     }
-    demographics = representative_point.prepare_demographics_dict_from_rows(
+    demographics = representative_point.prepare_demographics_dict_from_row(
         rp_row, CENSUS_MAPPING
     )
     assert demographics == {'age': {'0-18 Years': 76.0}}
