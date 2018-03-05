@@ -11,7 +11,7 @@
     height: 40px !important;
   }
   
-  .Selectors body {
+  .Selectors h4 {
     width: var(--analytics-title-width);
     vertical-align: middle !important;
   }
