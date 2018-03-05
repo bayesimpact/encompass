@@ -97,6 +97,13 @@ resource "aws_security_group" "na_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Permit everything outbound. Needs to be done explicitly.
   egress {
     from_port       = 0
@@ -222,4 +229,35 @@ resource "aws_lb_listener" "na_app_elb_listener_8081" {
     target_group_arn = "${aws_lb_target_group.na_lb_tg_8081.arn}"
     type             = "forward"
   }
+}
+
+resource "aws_lb_listener" "na_app_elb_listener_443" {
+  load_balancer_arn = "${aws_lb.na_app_elb.arn}"
+  port              = "443"
+  protocol          = "HTTPS"
+
+  ssl_policy = "ELBSecurityPolicy-2016-08"
+  certificate_arn = "${var.ssl_certificate_arn}"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_80.arn}"
+    type = "forward"
+  }
+}
+
+resource "aws_lb_listener_rule" "api" {
+  listener_arn = "${aws_lb_listener.na_app_elb_listener_443.arn}"
+  priority = 1
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_8080.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/api/*"]
+  }
+
+
 }
