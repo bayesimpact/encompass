@@ -6,7 +6,7 @@ import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
-import { boundingBox } from '../utils/geojson'
+import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
@@ -245,6 +245,17 @@ export function withEffects(store: Store) {
       }
     }
     )
+
+  /**
+   * Rebuild the geojson whenever the adequacies change.
+   */
+  store
+    .on('adequacies')
+    .filter(Boolean)
+    .subscribe(adequacies => {
+      const representativePoints = store.get('representativePoints')
+      store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
+    })
 
   /**
    * Clear state when the user selects a dataset in the Datasets Drawer.
