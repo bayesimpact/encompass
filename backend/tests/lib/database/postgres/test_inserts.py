@@ -4,7 +4,7 @@ from backend.lib.database.postgres import methods
 from backend.lib.database.tables import address, provider
 
 
-def test_core():
+def test_core_insert():
     engine = connect.create_db_engine()
     address_data = [
         {
@@ -19,7 +19,8 @@ def test_core():
         engine,
         sql_class=address.Address,
         data=address_data,
-        return_insert_ids=True
+        return_insert_ids=True,
+        unique_column='address'
     )
 
     provider_data = [

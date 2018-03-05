@@ -42,12 +42,13 @@ def fetch_representative_points(
     id_list = '(' + ', '.join(["'%s'" % _id for _id in service_area_ids]) + ')'
     if not census_data:
         select_query = """
-            SELECT *
+            SELECT {cols}
             FROM {table_name}
             WHERE service_area_id IN {id_list}
             ORDER BY id
             ;
         """.format(
+            cols=', '.join(RP_COLUMNS),
             table_name=representative_point.RepresentativePoint.__tablename__,
             id_list=id_list
         )

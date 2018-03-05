@@ -1,6 +1,6 @@
 """Configuration management."""
 import os
-import json
+import ujson as json
 import multiprocessing
 import multiprocessing.dummy
 

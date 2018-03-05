@@ -15,14 +15,14 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
-    <p className='MediumWeight Muted'>
+    <span className='MediumWeight Muted'>
       To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two separate CSV files:
       <ul>
         <li>List of service areas (County and/or ZIP columns).</li>
         <li>List of addresses for providers or services.</li>
       </ul>
-    </p>
+    </span>
     <ServiceAreasUploader />
     <ProvidersUploader />
     <DownloadDatasetLink />
@@ -52,7 +52,8 @@ function createDataset(store: Store) {
     name: 'Your Data',
     providers: store.get('providers'),
     serviceAreaIds: store.get('serviceAreas'),
-    hint: ''
+    hint: '',
+    subtitle: ''
   }
   return dataSet
 }

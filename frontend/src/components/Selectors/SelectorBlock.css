@@ -11,11 +11,15 @@
     height: 40px !important;
   }
   
-  .Selectors body {
-    width: 100px;
+  .Selectors h4 {
+    width: var(--analytics-title-width);
     vertical-align: middle !important;
   }
   
   .SelectorRow * {
     display: inline-block !important;
   }
+
+.Menu.MultiSelect > div > div + div {
+  width: 55% !important;
+}

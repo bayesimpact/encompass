@@ -18,7 +18,7 @@ class RepresentativePoint(Base):
     longitude = Column(Float, nullable=False)
     location = Column(
         Geography(geometry_type='POINT', srid=4326, spatial_index=True),
-        nullable=False)
+        nullable=False, unique=True)
     population = Column(Float, nullable=False)
     county = Column(String, nullable=False, index=True)
     isodistancePolygon = Column(JSON)

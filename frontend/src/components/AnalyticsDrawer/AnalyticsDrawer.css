@@ -1,14 +1,19 @@
 @import "../../index.css";
 
-.AnalyticsDrawer .DataSources {
-  padding-bottom: 15px;
+.AnalyticsDrawer .Description {
   position: relative;
 }
-.AnalyticsDrawer .DataSources > div {
-  position: absolute;
-    left: 100px;
-    top: 0;
+
+.AnalyticsDrawer .Description > h4 {
+  width: var(--analytics-title-width);
+  display: inline-block;
+  vertical-align: top;
 }
-.AnalyticsDrawer .DataSources > div p {
-  padding: 0 0 4px 24px;
+
+.AnalyticsDrawer .Description > div {
+  padding: 0 0 0 24px;
+  position: relative;
+  display: inline-block;
+  width: calc(100% - var(--analytics-title-width) - 24px);
 }
+

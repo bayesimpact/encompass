@@ -65,7 +65,7 @@ def test_calculate_adequacies():
 def test_get_locations_to_check_by_service_area():
     locations = [
         Point(**{'latitude': 33.77500830300005, 'longitude': -118.11176916399995}),
-        Point(**{'latitude': 45.00000000000000, 'longitude': -100.00000000000000})
+        Point(**{'latitude': 85.00000000000000, 'longitude': -100.00000000000000})
     ]
     output = adequacy._get_locations_to_check_by_service_area(
         service_area_ids=['ca_los_angeles_00000'],

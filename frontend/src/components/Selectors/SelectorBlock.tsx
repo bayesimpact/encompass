@@ -14,7 +14,7 @@ export let SelectorBlock = withStore()(({ store }) => {
     return (
         <div className='Selectors'>
             <div className='SelectorRow'>
-                <body className='HeavyWeight Muted'>Demographic</body>
+                <h4 className='HeavyWeight Muted'>Demographic</h4>
                 <CensusCategorySelector
                     className='Menu'
                     onChange={store.set('selectedCensusCategory')}
@@ -22,7 +22,7 @@ export let SelectorBlock = withStore()(({ store }) => {
                 />
             </div>
             <div className='SelectorRow'>
-                <body className='HeavyWeight Muted'>Filter By</body>
+                <h4 className='HeavyWeight Muted'>Filter By</h4>
                 <FilterMethodSelector
                     className='Menu'
                     onChange={store.set('selectedFilterMethod')}
@@ -31,7 +31,7 @@ export let SelectorBlock = withStore()(({ store }) => {
                 {selectorByMethod(store.get('selectedFilterMethod'), store)}
             </div>
             <div className='SelectorRow'>
-                <body className='HeavyWeight Muted'>Values</body>
+                <h4 className='HeavyWeight Muted'>Values</h4>
                 <FormatSelector
                     className='Menu'
                     onChange={store.set('selectedFormat')}
@@ -45,9 +45,9 @@ export let SelectorBlock = withStore()(({ store }) => {
 function selectorByMethod(method: FilterMethod, store: Store) {
     if (method === 'County Name') {
         return <ServiceAreaSelector
-            className='Menu'
+            className='Menu MultiSelect'
             onChange={store.set('selectedCounties')}
-            value={store.get('selectedCounties')}
+            values={store.get('selectedCounties')}
         />
     }
     if (method === 'County Type') {
