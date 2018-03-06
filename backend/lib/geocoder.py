@@ -53,7 +53,11 @@ class GeocodioCoder():
         except GeocodioError as error:
             logger.error(error.__class__.__name__ + ' - ' + str(error))
             results = []
-        if results and len(addresses) > 0:
+
+        if len(addresses) == 0:
+            return []
+
+        if results:
             geocoded_addresses = [
                 GeocodioCoder._format_result(
                     address=address,
@@ -62,7 +66,7 @@ class GeocodioCoder():
                 for address in addresses
                 if results.get(address) and results.get(address).coords
             ]
-        if not results and len(addresses) > 0:
+        else:
             logger.warning('Error in batch geocoding - switching to single geocoding.')
             with multiprocessing.dummy.Pool(processes=MAX_THREADS) as executor:
                 geocoded_addresses = executor.map(self.geocode, addresses)

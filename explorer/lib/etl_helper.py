@@ -53,6 +53,6 @@ def clean_plan_name(plan_name):
 def query_yes_no(message, default='y'):
     """Query user for yes/no choide."""
     choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
-    choice = input('%s (%s) ' % (message, choices))
+    choice = str(input('%s (%s) ' % (message, choices)))
     values = ('y', 'yes', '') if choices == 'Y/n' else ('y', 'yes')
     return choice.strip().lower() in values
