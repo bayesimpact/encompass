@@ -1,3 +1,7 @@
 .CensusAnalytics .p {
     margin-top: 2px;
   }
+
+.CensusAnalytics .DownloadLink {
+  height: 36px;
+}

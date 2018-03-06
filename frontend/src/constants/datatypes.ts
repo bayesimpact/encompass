@@ -29,7 +29,7 @@ export type CensusGroup = {
 export type CountyType = 'Rural' | 'Urban'
 
 export type Dataset = {
-  dataSources: string[],
+  dataSources: string,
   state: State,
   description: string
   name: string
