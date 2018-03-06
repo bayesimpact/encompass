@@ -36,7 +36,7 @@ export let AnalyticsDrawer = withStore(
       </div>
       <div className='Description'>
         <h4 className='HeavyWeight Muted'>Data Sources</h4>
-        <div dangerouslySetInnerHTML={{ __html: selectedDataset.dataSources[0] }} />
+        <div dangerouslySetInnerHTML={{ __html: selectedDataset.dataSources }} />
       </div>
     </div>
   })

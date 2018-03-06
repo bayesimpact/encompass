@@ -46,7 +46,7 @@ function createDataset(store: Store) {
   let dataSet: Dataset = {
     dataSources: [
       store.get('uploadedServiceAreasFilename') || 'No Service Areas',
-      store.get('uploadedProvidersFilename') || 'No Providers'],
+      store.get('uploadedProvidersFilename') || 'No Providers'].join(', '),
     description: 'Your own data',
     state: store.get('selectedState'),
     name: 'Your Data',
@@ -83,6 +83,6 @@ function onClick(store: Store) {
   return () => {
     let dataset = createDataset(store)
     let jsonDataset = JSON.stringify(dataset, null, 4)
-    download(jsonDataset, 'json', `bayesimpact-dataset-${dataset.dataSources.join('_')}.json`)
+    download(jsonDataset, 'json', `bayesimpact-dataset-${dataset.dataSources}.json`)
   }
 }
