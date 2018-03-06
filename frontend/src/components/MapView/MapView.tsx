@@ -79,6 +79,35 @@ export let MapView = withStore(
   let selectedProvider = store.get('selectedProvider')
   const pointGeoJson = store.get('pointGeoJson')
 
+  // what happens if we slice it up a bit?
+  const slices = 10
+  const newFeatureCollections = []
+  if (pointGeoJson) {
+    const numberOfPoints = pointGeoJson.features.length
+    const slicedGeoJson = []
+    const amountPerSlice = Math.floor(numberOfPoints / slices)
+    // let remainder = numberOfPoints - slices * amountPerSlice
+    let boundary = 0
+    for (let i = 0; i < slices; i++){
+      slicedGeoJson[i] = pointGeoJson.features.slice(boundary, boundary + amountPerSlice)
+      boundary += amountPerSlice
+      if (i === slices - 1){
+        // add remainder
+        // remainder++ // lint
+      }
+    }
+
+    // now build new FeatureCollections
+    for (let slicedList of slicedGeoJson){
+      newFeatureCollections.push({
+        type: 'FeatureCollection',
+        features: slicedList
+      })
+    }
+  }
+
+  console.log(newFeatureCollections)
+
   return <div className='MapView'>
     <Map
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
@@ -87,10 +116,11 @@ export let MapView = withStore(
       onClick={() => removePopup(store)}
     >
       {pointGeoJson && <GeoJSONLayer
-        data={pointGeoJson}
+        data={newFeatureCollections[1]}
         circlePaint={representativePointCircleStyle}
         circleOnClick={store.set('selectedRepresentativePoint')}
       />}
+
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
