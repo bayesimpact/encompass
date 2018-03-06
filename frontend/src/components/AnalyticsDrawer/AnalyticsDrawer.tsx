@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
-import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { BackLink } from '../Link/Link'
 import { SelectorBlock } from '../Selectors/SelectorBlock'
 import './AnalyticsDrawer.css'
@@ -34,9 +33,10 @@ export let AnalyticsDrawer = withStore(
         <div className='CensusAnalytics'>
           <CensusAnalytics />
         </div>
-        <div className='DownloadLink'>
-          <DownloadAnalysisLink />
-        </div>
+      </div>
+      <div className='Description'>
+        <h4 className='HeavyWeight Muted'>Data Sources</h4>
+        <div dangerouslySetInnerHTML={{ __html: selectedDataset.dataSources }} />
       </div>
     </div>
   })

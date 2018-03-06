@@ -12,7 +12,7 @@ export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   color: '#237900',
   description: 'Upload a list of addresses for providers, facilities, or social services',
   data: {
-    dataSources: [],
+    dataSources: '',
     description: '',
     state: 'ca',
     name: '',

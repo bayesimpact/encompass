@@ -20,15 +20,16 @@ class TestOSRMDrivingTimeMetric():
 
     def test_measure_between_two_points(self):
         """Check that the OSRM time matches expectations."""
-        d = self.measurer.measure_between_two_points(NEWPORT_RI, CLEVELAND_OH)
+        measurements = self.measurer._measure_one_to_many_points(NEWPORT_RI, [CLEVELAND_OH])
+        # measure_one_to_many_points return measurements in seconds.
         # The time should be more than 10 hours (600 minutes) but less than 20 hours (1200 minutes).
-        assert abs(d - 900.0) < 300.0
+        assert abs(float(measurements[0]) / 60 - 900.0) < 300.0
 
     def test_closest(self):
         """Check that the closest method works as expected."""
         min_time, closest_town = self.measurer.closest(
             origin=NEWPORT_RI,
-            point_list=[MIAMI_FL, CLEVELAND_OH],
+            point_list=[MIAMI_FL, CLEVELAND_OH]
         )
         assert closest_town == CLEVELAND_OH
 

@@ -12,29 +12,46 @@ class TestFetchRepresentativePoints():
     def test_fetch_representative_points_one_service_area():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_00000']
-        results = representative_points.fetch_representative_points(service_areas, engine=engine)
+        results = representative_points.fetch_representative_points(
+            service_areas, census_data=False, engine=engine
+        )
         assert len(results) > 1000
 
     @staticmethod
     def test_fetch_representative_points_two_service_areas():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_00000', 'ca_los_angeles_00000']
-        results = representative_points.fetch_representative_points(service_areas, engine=engine)
+        results = representative_points.fetch_representative_points(
+            service_areas, census_data=False, engine=engine
+        )
         assert len(results) > 1000
 
     @staticmethod
     def test_fetch_representative_points_no_service_area():
         """Test fetch_representative_points."""
         service_areas = []
-        results = representative_points.fetch_representative_points(service_areas, engine=engine)
+        results = representative_points.fetch_representative_points(
+            service_areas, census_data=False, engine=engine
+        )
         assert len(results) == 0
 
     @staticmethod
     def test_fetch_representative_points_no_valid_service_area():
         """Test fetch_representative_points."""
         service_areas = ['not_valid']
-        results = representative_points.fetch_representative_points(service_areas, engine=engine)
+        results = representative_points.fetch_representative_points(
+            service_areas, census_data=False, engine=engine
+        )
         assert len(results) == 0
+
+    @staticmethod
+    def test_minimal_fetch_representative_points_one_service_area():
+        """Test fetch_representative_points as used internally by the backend."""
+        service_areas = ['ca_los_angeles_00000']
+        results = representative_points.minimal_fetch_representative_points(
+            service_areas, engine=engine
+        )
+        assert len(results) > 1000
 
     def test_readable_columns_from_census_mapping(self):
         census_mapping = {

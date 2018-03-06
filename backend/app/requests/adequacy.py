@@ -132,7 +132,7 @@ def _get_cached_adequacy_response(
         )
         logger.debug('Caching adequacy results.')
         with open(cache_filepath, 'w+') as f:
-            ujson.dump(obj=response, fp=f)
+            json.dump(obj=response, fp=f)
     return response
 
 
