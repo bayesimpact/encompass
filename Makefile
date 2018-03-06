@@ -33,7 +33,7 @@ create_tileset_from_representative_points:
 
 # Clear cached adequacy results.
 clear-cache:
-	rm .cache/*
+	rm -f .cache/*
 
 # Run the app in debug mode.
 flask-debug:
