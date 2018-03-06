@@ -10,7 +10,9 @@ def check_sample_points_exist():
     """
     engine = connect.create_db_engine(echo=True)
     service_areas = ['ca_los_angeles_00000']  # A service area from the base sample data.
-    results = representative_points.fetch_representative_points(service_areas, engine=engine)
+    results = representative_points.fetch_representative_points(
+        service_areas, census_data=False, engine=engine
+    )
     if len(results) == 0:
         exit(1)  # Exit nonzero to indicate that no records exist.
 
