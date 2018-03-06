@@ -83,6 +83,6 @@ function onClick(store: Store) {
   return () => {
     let dataset = createDataset(store)
     let jsonDataset = JSON.stringify(dataset, null, 4)
-    download(jsonDataset, 'json', `bayesimpact-dataset-${dataset.dataSources}.json`)
+    download(jsonDataset, 'json', `encompass-dataset-${dataset.state}-${dataset.providers.length}-providers-${new Date().toJSON().slice(0, 10)}.json`)
   }
 }
