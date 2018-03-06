@@ -52,7 +52,7 @@ MINIMAL_RP_COLUMNS = [
 @timed
 def fetch_representative_points(
     service_area_ids,
-    census_data=False,
+    census_data,
     engine=connect.create_db_engine()
 ):
     """
@@ -101,7 +101,7 @@ def fetch_representative_points(
             id_list=id_list
         )
     return [
-        representative_point.row_to_dict(row, census_mapping={})
+        representative_point.row_to_dict(row, census_mapping=CENSUS_FIELDS_BY_CATEGORY)
         for row in engine.execute(select_query).fetchall()
     ]
 
