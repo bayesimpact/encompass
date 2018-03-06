@@ -34,7 +34,7 @@ services:
       env_file:
         - .env
       ports:
-        - 8080:8080
+        - 8082:8080
 
     frontend:
       volumes:
@@ -45,8 +45,7 @@ services:
         context: ./frontend
         dockerfile: Dockerfile
       ports:
-        - 80:8081
-        - 8081:8081
+        - 8083:8081
       env_file:
         - .env
 
