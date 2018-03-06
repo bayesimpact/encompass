@@ -27,7 +27,7 @@ export function TilePicker<T>() {
               ReactGA.event({
                 category: 'Dataset',
                 action: 'Selected a dataset',
-                label: tile.name
+                label: tile.name.toString()
               })
               this.props.onChange(tile)
             }}
