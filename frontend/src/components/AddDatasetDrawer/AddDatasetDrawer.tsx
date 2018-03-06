@@ -83,6 +83,7 @@ function onClick(store: Store) {
   return () => {
     let dataset = createDataset(store)
     let jsonDataset = JSON.stringify(dataset, null, 4)
+    // Sample filename: encompass-dataset-tx-9-providers-2018-03-06.json
     download(jsonDataset, 'json', `encompass-dataset-${dataset.state}-${dataset.providers.length}-providers-${new Date().toJSON().slice(0, 10)}.json`)
   }
 }

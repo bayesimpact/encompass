@@ -61,6 +61,7 @@ function onClick(store: Store) {
       ]
     })
     let csv = generateCSV(headers, data)
+    // Sample filename: encompass-analysis-haversine-2018-03-06.csv
     download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
   }
 }
