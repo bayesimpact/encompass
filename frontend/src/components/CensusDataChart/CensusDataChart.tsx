@@ -27,24 +27,29 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         }
     })
     let xLabel = percent ? 'Percentage of Population by Access' : 'Population by Access'
+
+    let formatTooltipLabel = (tooltipItem: ChartTooltipItem, data: any) => {
+        let label = data.datasets[tooltipItem.datasetIndex!].label
+        if (percent) {
+            let percentData = data.calculatedData[tooltipItem.datasetIndex!][tooltipItem.index!]
+            return `${label}: ${formatPercentage(percentData)} (${formatNumber(Number(tooltipItem.xLabel))})`
+        }
+        return `${label}: ${formatNumber(Number(tooltipItem.xLabel))}`
+    }
+
+    let formatxAxisLabels = (value: any) => {return percent ? `${formatPercentage(value, 0)}` : `${formatNumber(value)}`}
+
     let options = {
         scales: {
             xAxes: [{
                 scaleLabel: { display: true, labelString: xLabel },
                 ticks: {
-                    callback: (value: any) => {
-                        return `${formatNumber(value)}`
-                     }
+                    callback: formatxAxisLabels
                 }
             }]
         },
         tooltips: {
-            callbacks: {
-                label: (tooltipItem: ChartTooltipItem, data: any) => {
-                    let label = data.datasets[tooltipItem.datasetIndex!].label
-                    return `${label}: ${formatNumber(Number(tooltipItem.xLabel))}`
-                }
-            }
+            callbacks: {label: formatTooltipLabel}
         }
     }
 
@@ -52,26 +57,10 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             scales: {
                 yAxes: [{
                     stacked: true
-                }],
-                xAxes: [{
-                    ticks: {
-                        callback: (value: any) => {
-                            return `${formatPercentage(value, 0)}`
-                         }
-                    }
                 }]
             },
             plugins: {
                 stacked100: { enable: true }
-            },
-            tooltips: {
-                callbacks: {
-                    label: (tooltipItem: ChartTooltipItem, data: any) => {
-                        let percentData = data.calculatedData[tooltipItem.datasetIndex!][tooltipItem.index!]
-                        let label = data.datasets[tooltipItem.datasetIndex!].label
-                        return `${label}: ${formatPercentage(percentData)} (${formatNumber(Number(tooltipItem.xLabel))})`
-                    }
-                }
             }
         }
 
