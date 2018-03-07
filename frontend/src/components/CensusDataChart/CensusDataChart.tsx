@@ -2,11 +2,12 @@ import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
 import { merge } from 'lodash'
 import * as React from 'react'
-import { HorizontalBar } from 'react-chartjs-2'
+import { HorizontalBar, ChartData, ChartTooltipItem } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StatisticsByGroup } from '../../utils/data'
 import { getLegend } from '../MapLegend/MapLegend'
+import { formatPercentage, formatNumber } from '../../utils/formatters';
 
 type Props = {
     percent: boolean,
@@ -30,6 +31,14 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             xAxes: [{
                 scaleLabel: { display: true, labelString: xLabel }
             }]
+        },
+        tooltips: {
+            callbacks: {
+                label: (tooltipItem: ChartTooltipItem, data: any) => {
+                    let label = data.datasets[tooltipItem.datasetIndex].label
+                    return `${label}: ${formatNumber(tooltipItem.xLabel)}`
+                }
+            }
         }
     }
 
@@ -41,6 +50,15 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             },
             plugins: {
                 stacked100: { enable: true }
+            },
+            tooltips: {
+                callbacks: {
+                    label: (tooltipItem: ChartTooltipItem, data: any) => {
+                        let percentData = data.calculatedData[tooltipItem.datasetIndex][tooltipItem.index]
+                        let label = data.datasets[tooltipItem.datasetIndex].label
+                        return `${label}: ${formatPercentage(percentData)} (${formatNumber(tooltipItem.xLabel)})`
+                    }
+                }
             }
         }
 
