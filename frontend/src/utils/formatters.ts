@@ -38,11 +38,11 @@ export function formatNumber(n: number) {
 /**
  * Formats percentage number for display in the UI.
  */
-export function formatPercentage(n: number) {
+export function formatPercentage(n: number, decimal?: number) {
   if (Number.isNaN(n)) {
     return '-'
   }
-  return n.toFixed(2).toLocaleString() + '%'
+  return n.toFixed(decimal != null ? decimal : 2).toLocaleString() + '%'
 }
 
 export function formatServiceArea(serializedServiceArea: string) {

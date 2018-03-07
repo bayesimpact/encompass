@@ -4,8 +4,6 @@ import logging
 import os
 import six
 
-import ujson
-
 from backend.config import config
 
 logger = logging.getLogger(__name__)
@@ -45,7 +43,7 @@ def _cache(func, hint_fields, **kwargs):
     # If the file exists, read and return.
     elif os.path.isfile(cache_filepath):
         with open(cache_filepath, 'r') as f:
-            response = ujson.load(f)
+            response = json.load(f)
         logger.debug('Returning cached response.')
     # If the file does not exist, calculate and write to the cache.
     else:
