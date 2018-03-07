@@ -7,7 +7,7 @@ import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StatisticsByGroup } from '../../utils/data'
-import { formatNumber, formatPercentage } from '../../utils/formatters';
+import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
@@ -41,8 +41,8 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         tooltips: {
             callbacks: {
                 label: (tooltipItem: ChartTooltipItem, data: any) => {
-                    let label = data.datasets[tooltipItem.datasetIndex || 0].label
-                    return `${label}: ${formatNumber(Number(tooltipItem.xLabel) || 0)}`
+                    let label = data.datasets[tooltipItem.datasetIndex!].label
+                    return `${label}: ${formatNumber(Number(tooltipItem.xLabel))}`
                 }
             }
         }
@@ -67,9 +67,9 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             tooltips: {
                 callbacks: {
                     label: (tooltipItem: ChartTooltipItem, data: any) => {
-                        let percentData = data.calculatedData[tooltipItem.datasetIndex || 0][tooltipItem.index || 0]
-                        let label = data.datasets[tooltipItem.datasetIndex || 0].label
-                        return `${label}: ${formatPercentage(percentData)} (${formatNumber(Number(tooltipItem.xLabel) || 0)})`
+                        let percentData = data.calculatedData[tooltipItem.datasetIndex!][tooltipItem.index!]
+                        let label = data.datasets[tooltipItem.datasetIndex!].label
+                        return `${label}: ${formatPercentage(percentData)} (${formatNumber(Number(tooltipItem.xLabel))})`
                     }
                 }
             }
