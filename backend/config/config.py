@@ -1,6 +1,6 @@
 """Configuration management."""
 import os
-import json
+import ujson as json
 import multiprocessing
 import multiprocessing.dummy
 
@@ -122,6 +122,11 @@ CONFIG = {
             'exit_distance': 10.0 * ONE_MILE_IN_METERS
         },
         'osrm': {
+            'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
+            'n_adequacy_processors': 255,
+            'exit_distance': 5.0 * ONE_MILE_IN_METERS
+        },
+        'open_route_service_driving': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
             'n_adequacy_processors': 255,
             'exit_distance': 5.0 * ONE_MILE_IN_METERS

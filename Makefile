@@ -29,11 +29,11 @@ normalize_population_totals:
 # Note: You may need to run `brew install tippecanoe`.
 create_tileset_from_representative_points:
 	docker-compose run --no-deps backend bash -c "python runners/export_representative_points.py -o data/representative_points_from_db.geojson"
-	tippecanoe -o data/repr_pop_points.mbtiles -Z 3 -z 22 -r 2.5 -B 8.0 -f data/representative_points_from_db.geojson
+	tippecanoe -o data/repr_pop_points.mbtiles -Z 7 -z 22 -r 2.5 -B 8.0 -f data/representative_points_from_db.geojson
 
 # Clear cached adequacy results.
 clear-cache:
-	rm .cache/*
+	rm -f .cache/*
 
 # Run the app in debug mode.
 flask-debug:
@@ -46,7 +46,7 @@ backend-lint:
 backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
-BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=80 --cov-report term-missing
 backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 

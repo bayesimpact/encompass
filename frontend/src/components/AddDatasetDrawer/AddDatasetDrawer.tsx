@@ -15,14 +15,14 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
-    <p className='MediumWeight Muted'>
+    <span className='MediumWeight Muted'>
       To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two separate CSV files:
       <ul>
         <li>List of service areas (County and/or ZIP columns).</li>
         <li>List of addresses for providers or services.</li>
       </ul>
-    </p>
+    </span>
     <ServiceAreasUploader />
     <ProvidersUploader />
     <DownloadDatasetLink />
@@ -46,13 +46,14 @@ function createDataset(store: Store) {
   let dataSet: Dataset = {
     dataSources: [
       store.get('uploadedServiceAreasFilename') || 'No Service Areas',
-      store.get('uploadedProvidersFilename') || 'No Providers'],
+      store.get('uploadedProvidersFilename') || 'No Providers'].join(', '),
     description: 'Your own data',
     state: store.get('selectedState'),
     name: 'Your Data',
     providers: store.get('providers'),
     serviceAreaIds: store.get('serviceAreas'),
-    hint: ''
+    hint: '',
+    subtitle: ''
   }
   return dataSet
 }
@@ -82,6 +83,7 @@ function onClick(store: Store) {
   return () => {
     let dataset = createDataset(store)
     let jsonDataset = JSON.stringify(dataset, null, 4)
-    download(jsonDataset, 'json', `bayesimpact-dataset-${dataset.dataSources.join('_')}.json`)
+    // Sample filename: encompass-dataset-tx-9-providers-2018-03-06.json
+    download(jsonDataset, 'json', `encompass-dataset-${dataset.state}-${dataset.providers.length}-providers-${new Date().toJSON().slice(0, 10)}.json`)
   }
 }

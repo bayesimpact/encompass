@@ -9,8 +9,12 @@ werkzeug==0.12.2
 cHaversine==0.3.0
 geopy==1.11.0
 Shapely==1.6.2
+openrouteservice==0.1
 osmnx==0.6
 pygeocodio==0.5.0
+unrasterize==0.1.0
+# Utils
+ujson==1.35
 # Database
 ratelimit==1.1.0
 retrying==1.3.3

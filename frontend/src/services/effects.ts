@@ -6,11 +6,13 @@ import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
-import { boundingBox } from '../utils/geojson'
+import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
+
+const { APP_IS_PUBLIC } = process.env
 
 export function withEffects(store: Store) {
   /**
@@ -247,6 +249,17 @@ export function withEffects(store: Store) {
     )
 
   /**
+   * Rebuild the geojson whenever the adequacies change.
+   */
+  store
+    .on('adequacies')
+    .filter(Boolean)
+    .subscribe(adequacies => {
+      const representativePoints = store.get('representativePoints')
+      store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
+    })
+
+  /**
    * Clear state when the user selects a dataset in the Datasets Drawer.
    */
   store
@@ -265,6 +278,21 @@ export function withEffects(store: Store) {
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
         store.set('selectedFilterMethod')('All')
+      }
+    })
+
+  /**
+   * Switch to haversine of the app is public and user is adding a dataset.
+   */
+  store
+    .on('route')
+    .subscribe(route => {
+      if (route === '/add-data') {
+        store.set('allowDrivingTime')(!APP_IS_PUBLIC)
+        store.set('method')('haversine')
+      } else if (route === '/datasets') {
+        store.set('allowDrivingTime')(true)
+        store.set('method')('driving_time')
       }
     })
   return store

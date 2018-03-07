@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { withStore } from '../../services/store'
-import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { BackLink } from '../Link/Link'
 import { SelectorBlock } from '../Selectors/SelectorBlock'
 import './AnalyticsDrawer.css'
@@ -25,18 +24,19 @@ export let AnalyticsDrawer = withStore(
     return <div className='AnalyticsDrawer'>
       <BackLink />
       <h2 className='Secondary'>{selectedDataset.name}</h2>
-      <div className='DataSources'>
-        <body className='HeavyWeight Muted'>Data sources</body>
-        <div>{selectedDataset.dataSources.map(_ => <p key={_}>{_}</p>)}</div>
+      <div className='Description'>
+        <h4 className='HeavyWeight Muted'>Description</h4>
+        <div dangerouslySetInnerHTML={{ __html: selectedDataset.description }} />
       </div>
       <div className='Selectors'>
         <SelectorBlock />
         <div className='CensusAnalytics'>
           <CensusAnalytics />
         </div>
-        <div className='DownloadLink'>
-          <DownloadAnalysisLink />
-        </div>
+      </div>
+      <div className='Description'>
+        <h4 className='HeavyWeight Muted'>Data Sources</h4>
+        <div dangerouslySetInnerHTML={{ __html: selectedDataset.dataSources }} />
       </div>
     </div>
   })

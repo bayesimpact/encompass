@@ -29,7 +29,7 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
     @mock.patch('backend.lib.fetch.representative_points.fetch_representative_points')
     def test_rp_request(self, mock_fetch):
         """Test provider requests in a simple case."""
-        request_service_areas = {'service_area_ids': ['ca_los_angeles_90001', 'not_valid']}
+        request_service_areas = {'service_area_ids': ['ca_los_angeles_00000', 'not_valid']}
 
         def _mock_get_json(force=True):
             return request_service_areas
@@ -49,7 +49,7 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
         except Exception:
             pytest.fail('Could not fetch representative_points.')
 
-        assert len(results) == 5
+        assert len(results) > 1000
         assert all(
             result['service_area_id'] in request_service_areas['service_area_ids']
             for result in results
@@ -57,7 +57,7 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
 
     def test_rp_request_missing_service_areas(self):
         """Test provider requests in a simple case."""
-        request_service_areas = {'no_service_area_ids': ['ca_los_angeles_90001', 'not_valid']}
+        request_service_areas = {'no_service_area_ids': ['ca_los_angeles_00000', 'not_valid']}
 
         def _mock_get_json(force=True):
             return request_service_areas

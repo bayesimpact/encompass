@@ -18,7 +18,7 @@ RESPONSE
     {'status': 'success', lat': 37.06098362, 'lng': -122.038742210}
 ]
 """
-import json
+import ujson as json
 import logging
 
 from backend.lib.fetch import providers

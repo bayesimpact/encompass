@@ -26,6 +26,7 @@ import json
 import logging
 import os
 import random
+import ujson
 
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.mocks.responses import mock_adequacy
@@ -120,7 +121,7 @@ def _get_cached_adequacy_response(
     cache_filepath = _convert_dataset_hint_to_cached_filepath(dataset_hint, measurer_name)
     if os.path.isfile(cache_filepath):
         with open(cache_filepath, 'r') as f:
-            response = json.load(f)
+            response = ujson.load(f)
         logger.debug('Returning cached adequacy results.')
     else:
         response = adequacy.calculate_adequacies(

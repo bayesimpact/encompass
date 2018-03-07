@@ -1,6 +1,6 @@
 import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
-import { isEmpty, tail } from 'lodash'
+import { isEmpty } from 'lodash'
 import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
@@ -9,7 +9,6 @@ import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/data
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { CensusDataChart } from '../CensusDataChart/CensusDataChart'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 
@@ -30,9 +29,9 @@ let firstColumnStyle = {
  */
 // (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ serviceAreas, censusCategory, store }) => {
+export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ serviceAreas, censusCategory, store }) => {
   if (isEmpty(store.get('adequacies'))) {
-    return <div className='AdequacyCensusCharts Flex -Center'>
+    return <div className='CensusAdequacyTable Flex -Center'>
       <CircularProgress
         size={150}
         thickness={8}
@@ -63,18 +62,6 @@ export let AdequacyCensusCharts = withStore('adequacies', 'method')<Props>(({ se
         )
       }
     </StatsBox>
-    <CensusDataChart
-      percent={true}
-      measurementMethod={method}
-      censusGroups={censusGroups}
-      populationByAdequacyByGroup={populationByAdequacyByGroup}
-    />
-    <CensusDataChart
-      percent={false}
-      measurementMethod={method}
-      censusGroups={tail(censusGroups)} // Don't include total population in absolute value chart.
-      populationByAdequacyByGroup={populationByAdequacyByGroup}
-    />
   </div>
 })
 
