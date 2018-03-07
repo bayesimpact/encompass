@@ -46,10 +46,11 @@ def _main(kwargs):
     with open(kwargs['filepath'], 'r') as f:
         json_features = geojson.load(f)['features']
 
-    for feature in json_features:
-        feature['properties']['zip_code'] = FAKE_ZIP_CODE
-        feature['properties']['state'] = FAKE_STATE
-        feature['properties']['county'] = feature['properties']['state'] + FAKE_COUNTY
+    for ft in json_features:
+        ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
+        ft['properties']['state'] = ft['properties'].get('state', None) or FAKE_STATE
+        ft['properties']['county'] = ft['properties'].get('county', None) or\
+            ft['properties']['state'] + FAKE_COUNTY
 
     _insert_service_areas(json_features)
     _insert_representative_population_points(json_features)
@@ -65,7 +66,6 @@ def _insert_service_areas(json_features):
             sql_class=service_area.ServiceArea,
             data=data,
             return_insert_ids=False,
-            unique=False
         )
     except Exception as e:
         print('Error inserting service areas: {}'.format(e))
@@ -81,7 +81,6 @@ def _insert_representative_population_points(json_features):
             sql_class=representative_point.RepresentativePoint,
             data=data,
             return_insert_ids=False,
-            unique=False
         )
         return data
     except Exception as e:

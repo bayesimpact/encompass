@@ -1,0 +1,147 @@
+{
+    "dataSources": "<a href=\"https://fundtexaschoice.org/index.php/about/\" target=\"_blank\">Fund Texas Choice</a>, Feb 2018.",
+    "description": "The passing of Texas House Bill 2 closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics.",
+    "subtitle": "Explore how maps can illuminate policy impacts",
+    "state": "tx",
+    "name": "Abortion Clinics in Texas",
+    "providers": [
+        {
+            "address": "1902 S IH-35 Suite A, Austin, TX 78704",
+            "lat": 30.30886,
+            "lng": -97.754883,
+            "languages": [],
+            "name": "Austin Women's Health Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "201 East Ben White, Austin, TX 78704",
+            "lat": 30.221356,
+            "lng": -97.76293,
+            "languages": [],
+            "name": "Planned Parenthood, South Austin Health Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "8401 N Interstate 35 Frontage Rd, Austin, TX 78753",
+            "lat": 30.388532,
+            "lng": -97.672564,
+            "languages": [],
+            "name": "Whole Woman's Health of Austin",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "7989 W. Virginia Dr., Dallas, TX 75237",
+            "lat": 32.649991,
+            "lng": -96.877165,
+            "languages": [],
+            "name": "Planned Parenthood, South Dallas Surgical Health Services Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "8616 Greenville Ave Ste 101, Dallas, TX 75243",
+            "lat": 32.894425,
+            "lng": -96.752722,
+            "languages": [],
+            "name": "Southwestern Women's Surgery Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "6464 John Ryan Dr, Fort Worth, TX 76132",
+            "lat": 32.654893,
+            "lng": -97.420833,
+            "languages": [],
+            "name": "Planned Parenthood, Southwest Fort Worth Health Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "3256 Lackland Road, Fort Worth, TX 76116",
+            "lat": 32.725223,
+            "lng": -97.435538,
+            "languages": [],
+            "name": "Whole Woman's Health of Fort Worth",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "2505 N. Shepherd Dr., Houston, TX 77008",
+            "lat": 29.809083,
+            "lng": -95.410493,
+            "languages": [],
+            "name": "Texas Ambulatory Surgery Center, Aaron's Clinic",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "4820 San Jacinto, Houston, TX 77004",
+            "lat": 29.729907,
+            "lng": -95.3843,
+            "languages": [],
+            "name": "Houston Women's Clinic",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "4600 Gulf Freeway, Houston, TX 77023",
+            "lat": 29.725695,
+            "lng": -95.334709,
+            "languages": [],
+            "name": "Planned Parenthood, Center for Choice Ambulatory Surgical Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "802 S. Main Street, McAllen, TX 78501",
+            "lat": 26.196697,
+            "lng": -98.235848,
+            "languages": [],
+            "name": "Whole Woman's Health of McAllen",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "7402 John Smith Dr, #101, San Antonio, TX 78229",
+            "lat": 29.506173,
+            "lng": -98.586049,
+            "languages": [],
+            "name": "Alamo Women's Reproductive Services",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "4025 East Southcross, San Antonio, TX 78222",
+            "lat": 29.35494,
+            "lng": -98.371889,
+            "languages": [],
+            "name": "Whole Woman's Health of San Antonio",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "1511 E Missouri Avenue, El Paso, TX 79902",
+            "lat": 31.770213,
+            "lng": -106.476909,
+            "languages": [],
+            "name": "Reproductive Services Texas",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "3101 Richmond Ave, Suite 250, Houston, TX 77098",
+            "lat": 29.733334,
+            "lng": -95.424668,
+            "languages": [],
+            "name": "Suburban Women's Clinic",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "1121 Ross Avenue, Suite A, Waco, TX 76706",
+            "lat": 31.546326,
+            "lng": -97.131813,
+            "languages": [],
+            "name": "Audre Rapoport Abortion Services Center of Waco (Planned Parenthood)",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "2140 Babcock Rd #201, San Antonio, TX 78229",
+            "lat": 29.502565,
+            "lng": -98.581715,
+            "languages": [],
+            "name": "Planned Parenthood, South Texas",
+            "specialty": "Abortion Clinic"
+        }
+    ],
+    "serviceAreaIds": [],
+    "hint": "texas_abortion"
+}

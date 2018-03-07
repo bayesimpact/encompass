@@ -15,7 +15,7 @@ from backend.models.measurers import get_measurer
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
 # Adequacy results will be inaccurate with smaller RELEVANCY_RADIUS_IN_METERS values.
-RELEVANCY_RADIUS_IN_METERS = 15.0 * ONE_MILE_IN_METERS
+RELEVANCY_RADIUS_IN_METERS = 80.0 * ONE_MILE_IN_METERS
 
 
 logger = logging.getLogger(__name__)
@@ -158,9 +158,8 @@ def calculate_adequacies(
         'Calculating adequacies for {} locations ({} unique) and {} service areas using {}.'.format(
             len(locations), len(location_mapping), len(service_area_ids), measurer_name))
 
-    points = representative_points.fetch_representative_points(
+    points = representative_points.minimal_fetch_representative_points(
         service_area_ids=service_area_ids,
-        format_response=False,
         engine=engine
     )
 

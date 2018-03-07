@@ -1,8 +1,14 @@
+import { isEmpty } from 'lodash'
+import CircularProgress from 'material-ui/CircularProgress'
 import * as React from 'react'
+import { ADEQUACY_COLORS } from '../../constants/colors'
+import { AdequacyMode } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceArea } from '../../utils/data'
 import { formatNumber } from '../../utils/formatters'
-import { AdequacyCensusCharts } from '../AdequacyCensusCharts/AdequacyCensusCharts'
+import { CensusAdequacyCharts } from '../CensusAdequacyCharts/CensusAdequacyCharts'
+import { CensusAdequacyTable } from '../CensusAdequacyTable/CensusAdequacyTable'
+import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLink'
 import { StatsBox } from '../StatsBox/StatsBox'
 import './CensusAnalytics.css'
 
@@ -18,6 +24,15 @@ export let CensusAnalytics = withStore(
   let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let totalProviders = store.get('providers').length
 
+  if (isEmpty(store.get('adequacies'))) {
+    return <div className='CensusAdequacyCharts Flex -Center'>
+      <CircularProgress
+        size={150}
+        thickness={8}
+        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]}
+      />
+    </div>
+  }
   return <div className='CensusAnalytics'>
     <StatsBox className='HighLevelStats' withBorders withFixedColumns>
       <tr>
@@ -29,6 +44,10 @@ export let CensusAnalytics = withStore(
         <td>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
-    <AdequacyCensusCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
+    <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory}/>
+    <div className='DownloadLink'>
+      <DownloadAnalysisLink />
+    </div>
+    <CensusAdequacyCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
   </div>
 })

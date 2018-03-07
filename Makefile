@@ -33,7 +33,7 @@ create_tileset_from_representative_points:
 
 # Clear cached adequacy results.
 clear-cache:
-	rm .cache/*
+	rm -f .cache/*
 
 # Run the app in debug mode.
 flask-debug:
@@ -46,7 +46,7 @@ backend-lint:
 backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
-BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=78 --cov-report term-missing
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=80 --cov-report term-missing
 backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 

@@ -18,7 +18,7 @@ class RepresentativePoint(Base):
     longitude = Column(Float, nullable=False)
     location = Column(
         Geography(geometry_type='POINT', srid=4326, spatial_index=True),
-        nullable=False)
+        nullable=False, unique=True)
     population = Column(Float, nullable=False)
     county = Column(String, nullable=False, index=True)
     isodistancePolygon = Column(JSON)
@@ -28,7 +28,7 @@ class RepresentativePoint(Base):
     census_tract = Column(String)
 
 
-def prepare_demographics_dict_from_rows(row_dict, census_mapping):
+def prepare_demographics_dict_from_row(row_dict, census_mapping):
     """
     Extract demographic information from a row_dict using a census_mapping.
 
@@ -45,7 +45,7 @@ def prepare_demographics_dict_from_rows(row_dict, census_mapping):
     }
 
 
-def row_to_dict(rp_row, format_response=True, census_mapping=None):
+def row_to_dict(rp_row, census_mapping={}):
     """
     Transform a representative point row to a dictionary.
 
@@ -58,30 +58,24 @@ def row_to_dict(rp_row, format_response=True, census_mapping=None):
       lng: -122.323331
       county: "Alameda",
       population: 2000,
-      demographics?: {'age': {'under_5': 2.0}},
       zip: "94105",
-      census_block_group: 105,
-      census_block: 3,
       census_tract: 304,
+      census_block?: 3,
+      census_block_group?: 105,
+      demographics?: {'age': {'under_5': 2.0}},
     }
     """
-    rp_dict = dict(rp_row)
-    # TODO - Revisit naming to latitude and longitude if performance is ok.
-    if not format_response:
-        return rp_dict
-    response_dict = {
-        'id': rp_dict['id'],
-        'census_tract': rp_dict['census_tract'],
-        'county': rp_dict['county'],
-        'lat': rp_dict['latitude'],
-        'lng': rp_dict['longitude'],
-        'population': rp_dict['population'],
-        'service_area_id': rp_dict['service_area_id'],
-        'zip': rp_dict['zip_code']
-    }
-    if census_mapping:
-        response_dict['demographics'] = prepare_demographics_dict_from_rows(
-            row_dict=rp_dict,
+    return {
+        'id': rp_row['id'],
+        'census_tract': rp_row['census_tract'],
+        'county': rp_row['county'],
+        'lat': rp_row['latitude'],
+        'lng': rp_row['longitude'],
+        'population': rp_row['population'],
+        'service_area_id': rp_row['service_area_id'],
+        'zip': rp_row['zip_code'],
+        'demographics': prepare_demographics_dict_from_row(
+            row_dict=rp_row,
             census_mapping=census_mapping
         )
-    return response_dict
+    }

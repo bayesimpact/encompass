@@ -42,7 +42,7 @@ def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
     """
     columns = ', '.join(columns_to_select)
     column_to_value_clause = 'AND '.join(
-        ["{k} = '{v}'".format(k=k, v=v) for k, v in column_to_value_map.items()]
+        ['%s = $$%s$$' % (k, v) for k, v in column_to_value_map.items()]
     )
     query = 'SELECT {columns} FROM {table_name} WHERE {column_to_value_clause};'.format(
         columns=columns,
@@ -55,18 +55,18 @@ def _get_data(conn, sql_class, columns_to_select, column_to_value_map):
     return {}
 
 
-def _safe_core_insert(conn, sql_class, row):
+def _safe_core_insert(conn, sql_class, row, unique_column):
     """Safe insert in case of duplicates."""
     try:
         result = conn.execute(sql_class.__table__.insert(), row)
         return result.inserted_primary_key[0]
-    except IntegrityError:
-        # FIXME - SHOULD NOT DEPEND ON ADDRESS_ID.
+    except IntegrityError as e:
+        logger.warning(e)
         data = _get_data(
             conn,
             sql_class,
             columns_to_select=['id'],
-            column_to_value_map={'address_id': row['address_id']}
+            column_to_value_map={unique_column: row[unique_column]}
         )
         return data.get('id', None)
 
@@ -94,19 +94,20 @@ def bulk_insert_via_query(engine, sql_class, data):
         bulk_insert_str.append(current_value_string)
 
     query = """
-            INSERT INTO {table} ({insert_columns})
-            VALUES {values}
-        """.format(
-            table=sql_class.__tablename__,
-            insert_columns=', '.join(columns),
-            values=', '.join(bulk_insert_str))
+            INSERT INTO %(table)s (%(insert_columns)s)
+            VALUES %(insert_columns)s
+        """ % {
+        'table': sql_class.__tablename__,
+        'insert_columns': ', '.join(columns),
+        'values': ', '.join(bulk_insert_str)
+    }
 
     with engine.connect() as conn:
         results = conn.execute(query)
         return results
 
 
-def core_insert(engine, sql_class, data, return_insert_ids=False, unique=False):
+def core_insert(engine, sql_class, data, return_insert_ids=False, unique_column=None):
     """
     A single Core INSERT construct inserting mappings in bulk.
 
@@ -119,9 +120,9 @@ def core_insert(engine, sql_class, data, return_insert_ids=False, unique=False):
     unique: flag to warn of uniqueness constraints one or more of the inserted fields.
     """
     with engine.connect() as conn:
-        if return_insert_ids or unique:
+        if return_insert_ids or unique_column:
             return [
-                _safe_core_insert(conn, sql_class, row)
+                _safe_core_insert(conn, sql_class, row, unique_column)
                 for row in data
             ]
         results = conn.execute(sql_class.__table__.insert().values(data))
@@ -148,7 +149,8 @@ def bulk_insert(engine, sql_class, data):
 def delete(engine, sql_class, ids):
     """Delete ids."""
     id_list = '(' + ', '.join([str(_id) for _id in ids]) + ')'
-    delete_query = 'DELETE FROM {table_name} WHERE id in {id_list};'.format(
-        table_name=sql_class.__tablename__,
-        id_list=id_list)
+    delete_query = 'DELETE FROM %(table)s WHERE id in %(id_list)s;' % {
+        'table': sql_class.__tablename__,
+        'id_list': id_list
+    }
     engine.execute(delete_query)

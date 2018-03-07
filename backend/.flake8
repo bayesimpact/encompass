@@ -1,3 +1,5 @@
 [flake8]
 max-line-length = 100
 exclude = ./data/*
+# Ignore "E731 do not assign a lambda expression, use a def"
+ignore = E731

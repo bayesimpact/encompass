@@ -4,7 +4,7 @@ import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-ma
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
-import { providersToGeoJSON, representativePointsToGeoJSON } from '../../utils/geojson'
+import { providersToGeoJSON } from '../../utils/geojson'
 import { MapLegend } from '../MapLegend/MapLegend'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
@@ -67,18 +67,17 @@ const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
 const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
 
 export let MapView = withStore(
-  'adequacies',
+  'pointGeoJson',
   'mapCenter',
   'providerIndex',
   'providers',
   'selectedProvider',
   'selectedRepresentativePoint'
 )(({ store }) => {
-  let adequacies = store.get('adequacies')
   let providers = store.get('providers')
-  let representativePoints = store.get('representativePoints')
   let selectedRepresentativePoint = store.get('selectedRepresentativePoint')
   let selectedProvider = store.get('selectedProvider')
+  const pointGeoJson = store.get('pointGeoJson')
 
   return <div className='MapView'>
     <Map
@@ -87,8 +86,8 @@ export let MapView = withStore(
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onClick={() => removePopup(store)}
     >
-      {representativePoints.length && <GeoJSONLayer
-        data={representativePointsToGeoJSON(adequacies)(representativePoints)}
+      {pointGeoJson && <GeoJSONLayer
+        data={pointGeoJson}
         circlePaint={representativePointCircleStyle}
         circleOnClick={store.set('selectedRepresentativePoint')}
       />}

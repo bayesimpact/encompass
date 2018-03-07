@@ -24,11 +24,11 @@ RESPONSE
 """
 import json
 import logging
-import os
 import random
 
 from backend.app.exceptions.format import InvalidFormat
 from backend.app.mocks.responses import mock_adequacy
+from backend.app.requests.caching import cache
 from backend.config import config
 from backend.lib.calculate import adequacy
 from backend.lib.fetch import representative_points
@@ -37,7 +37,6 @@ from retrying import retry
 
 WAIT_FIXED_MILLISECONDS = 500
 STOP_MAX_ATTEMPT_NUMBER = 2
-DATASET_CACHE_DIRECTORY = config.get('cached_result_directory')
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +54,8 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
 
 @retry(
     wait_fixed=WAIT_FIXED_MILLISECONDS,
-    stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER)
+    stop_max_attempt_number=STOP_MAX_ATTEMPT_NUMBER
+)
 def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
     logger.info('Calculating adequacies.')
@@ -87,25 +87,18 @@ def adequacy_request(app, flask_request, engine):
     # Exit early if there is no data.
     if not (provider_locations and service_area_ids):
         return []
-    # If caching is enabled, return cached data.
-    elif dataset_hint and config.get('cache_adequacy_requests'):
-        return _get_cached_adequacy_response(
-            dataset_hint=dataset_hint,
-            measurer_name=measurer_name,
-            service_area_ids=service_area_ids,
-            locations=provider_locations,
-            engine=engine,
-        )
-    else:
-        return adequacy.calculate_adequacies(
-            service_area_ids=service_area_ids,
-            measurer_name=measurer_name,
-            locations=provider_locations,
-            engine=engine,
-        )
+
+    return construct_adequacy_response(
+        dataset_hint=dataset_hint,
+        service_area_ids=service_area_ids,
+        measurer_name=measurer_name,
+        locations=provider_locations,
+        engine=engine,
+    )
 
 
-def _get_cached_adequacy_response(
+@cache(hint_fields=('dataset_hint', 'measurer_name'))
+def construct_adequacy_response(
     dataset_hint,
     measurer_name,
     service_area_ids,
@@ -117,24 +110,9 @@ def _get_cached_adequacy_response(
 
     If no response for the hint is available yet, calculate the adequacy and store for later use.
     """
-    cache_filepath = _convert_dataset_hint_to_cached_filepath(dataset_hint, measurer_name)
-    if os.path.isfile(cache_filepath):
-        with open(cache_filepath, 'r') as f:
-            response = json.load(f)
-        logger.debug('Returning cached adequacy results.')
-    else:
-        response = adequacy.calculate_adequacies(
-            engine=engine,
-            service_area_ids=service_area_ids,
-            measurer_name=measurer_name,
-            locations=locations
-        )
-        logger.debug('Caching adequacy results.')
-        with open(cache_filepath, 'w+') as f:
-            json.dump(obj=response, fp=f)
-    return response
-
-
-def _convert_dataset_hint_to_cached_filepath(dataset_hint, measurer_name):
-        dataset_name = 'adequacy_{}_{}.json'.format(dataset_hint, measurer_name)
-        return os.path.join(DATASET_CACHE_DIRECTORY, dataset_name)
+    return adequacy.calculate_adequacies(
+        engine=engine,
+        service_area_ids=service_area_ids,
+        measurer_name=measurer_name,
+        locations=locations
+    )

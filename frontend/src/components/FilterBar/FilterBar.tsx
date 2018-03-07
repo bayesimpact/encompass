@@ -5,8 +5,8 @@ import * as React from 'react'
 import { withStore } from '../../services/store'
 import './FilterBar.css'
 
-export let FilterBar = withStore('method')(({ store }) =>
-  <Paper className='FilterBar' zDepth={1}>
+export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
+  return <Paper className='FilterBar' zDepth={1}>
     <div className='Filter -FixedWidthBig'>
       <span>Method</span>
       <DropDownMenu
@@ -14,10 +14,10 @@ export let FilterBar = withStore('method')(({ store }) =>
         onChange={(_e, _i, value) => store.set('method')(value)}
         value={store.get('method')}
       >
-        <MenuItem value='driving_time' primaryText='Driving Time' />
+        <MenuItem value='driving_time' primaryText='Driving Time' disabled={!store.get('allowDrivingTime')} />
         <MenuItem value='haversine' primaryText='Haversine Distance' />
       </DropDownMenu>
     </div>
   </Paper>
-)
+})
 FilterBar.displayName = 'FilterBar'

@@ -57,43 +57,47 @@ export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, p
   let index = store.get('providerIndex')
   let maxIndex = features.length - 1
   let indexMessage = (index + 1) + ' of ' + (maxIndex + 1)
-  return (
-    <MapTooltip coordinates={lngLat}>
-      <table>
-        <tbody>
-          <TableRow name='Name' value={features[index].properties.name} />
-          <TableRow name='NPI' value={features[index].properties.npi} />
-          <TableRow name='Address' value={features[index].properties.address} />
-          <TableRow name='Specialty' value={features[index].properties.specialty} />
-          <TableRow name='Health Center Type' value={features[index].properties.center_type} />
-          <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
-          <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
-        </tbody>
-      </table>
-      <div className='controls Flex -Center'>
-        <IconButton touchRippleColor='white' onClick={() => _togglePrevProvider(store)}>
-          <KeyboardArrowLeft className='icon-button' />
-        </IconButton>
-        {indexMessage}
-        <IconButton touchRippleColor='white' onClick={() => _toggleNextProvider(store, maxIndex)}>
-          <KeyboardArrowRight className='icon-button' />
-        </IconButton>
-      </div >
-    </MapTooltip >
-  )
-}
-)
+  let { properties } = features[index]
+  return <MapTooltip coordinates={lngLat}>
+    <table>
+      <tbody>
+        {properties && <React.Fragment>
+          <TableRow name='Name' value={properties.name} />
+          <TableRow name='NPI' value={properties.npi} />
+          <TableRow name='Address' value={properties.address} />
+          <TableRow name='Specialty' value={properties.specialty} />
+          <TableRow name='Health Center Type' value={properties.center_type} />
+        </React.Fragment>}
+        <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
+        <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+      </tbody>
+    </table>
+    <div className='controls Flex -Center'>
+      <IconButton touchRippleColor='white' onClick={() => _togglePrevProvider(store)}>
+        <KeyboardArrowLeft className='icon-button' />
+      </IconButton>
+      {indexMessage}
+      <IconButton touchRippleColor='white' onClick={() => _toggleNextProvider(store, maxIndex)}>
+        <KeyboardArrowRight className='icon-button' />
+      </IconButton>
+    </div >
+  </MapTooltip >
+})
 
 export let RepresentativePointPopup: React.StatelessComponent<RepresentativePointProps> =
-  ({ point: { features, lngLat } }) =>
-    <MapTooltip coordinates={lngLat}>
+  ({ point: { features, lngLat } }) => {
+    let { properties } = features[0]
+    return <MapTooltip coordinates={lngLat}>
       <table>
         <tbody>
-          <TableRow name='County' value={features[0].properties.county} />
-          <TableRow name='ZIP' value={features[0].properties.zip} />
-          <TableRow name='Population' value={features[0].properties.population} />
+          {properties && <React.Fragment>
+            <TableRow name='County' value={properties.county} />
+            <TableRow name='ZIP' value={properties.zip} />
+            <TableRow name='Population' value={properties.population} />
+          </React.Fragment>}
           <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
           <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
         </tbody>
       </table>
     </MapTooltip>
+  }

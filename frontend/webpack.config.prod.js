@@ -2,10 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  devtool: 'cheap-eval-source-map',
+  mode: 'production',
   devServer: {
     contentBase: __dirname + '/dist',
     compress: true,
@@ -32,31 +31,31 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.json']
   },
   module: {
-    rules: [{
-      test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader'
-    },
-    {
-      enforce: 'pre',
-      test: /\.js$/,
-      loader: 'source-map-loader'
-    },
-    {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        use: ['css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: loader => [
-              require('postcss-import')(),
-              require('postcss-cssnext')({
-                browsers: '>2%'
-              })
-            ]
-          }
-        }]
-      })
-    },
+    rules: [
+      {
+        include: path.resolve(__dirname, 'src'),
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: false
+        },
+        test: /\.tsx?$/,
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', {
+            loader: 'postcss-loader',
+            options: {
+              plugins: loader => [
+                require('postcss-import')(),
+                require('postcss-cssnext')({
+                  browsers: '>2%'
+                })
+              ]
+            }
+          }]
+        })
+      }
     ]
   },
   plugins: [
@@ -74,11 +73,8 @@ module.exports = {
       'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       'process.env.SHOULD_SHOW_CSV_UPLOADER': JSON.stringify(process.env.SHOULD_SHOW_CSV_UPLOADER),
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.TITLE_SUFFIX': JSON.stringify(process.env.TITLE_SUFFIX)
-    }),
-    new UglifyJsPlugin({
-      parallel: true,
-      sourceMap: true
+      'process.env.TITLE_SUFFIX': JSON.stringify(process.env.TITLE_SUFFIX),
+      'process.env.APP_IS_PUBLIC': JSON.stringify(process.env.APP_IS_PUBLIC)
     })
   ]
 }

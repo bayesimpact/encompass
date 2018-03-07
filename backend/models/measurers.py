@@ -7,8 +7,10 @@ def get_measurer(name, **kwargs):
     """Return an instantiated measurer class with the given name."""
     return MEASURER_NAME_TO_CLASS_MAPPING[name.lower()](**kwargs)
 
+
 MEASURER_NAME_TO_CLASS_MAPPING = {
     'haversine': distance.HaversineDistance,
     'osrm': time.OSRMDrivingTime,
-    'mapbox': time.MapBoxDrivingTime
+    'mapbox': time.MapBoxDrivingTime,
+    'open_route_service_driving': time.OpenRouteDrivingTime
 }

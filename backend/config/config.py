@@ -107,8 +107,6 @@ CONFIG = {
     'geocoding': True,
     'address_database': True,
     'geocoder': 'oxcoder',
-    'cache_adequacy_requests': True,
-    'cached_result_directory': '/app/cache/',
     'measurer': {
         'haversine': 'haversine',
         'driving_time': 'osrm'
@@ -126,11 +124,20 @@ CONFIG = {
             'n_adequacy_processors': 255,
             'exit_distance': 5.0 * ONE_MILE_IN_METERS
         },
+        'open_route_service_driving': {
+            'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
+            'n_adequacy_processors': 255,
+            'exit_distance': 5.0 * ONE_MILE_IN_METERS
+        },
         'mapbox': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
             'n_adequacy_processors': 255,
             'exit_distance': 5.0 * ONE_MILE_IN_METERS
         }
+    },
+    'cache': {
+        'enabled': True,
+        'directory': '/app/cache/',
     },
     'logging': {
         'version': 1,

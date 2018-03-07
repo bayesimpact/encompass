@@ -2,16 +2,14 @@ import { Dataset } from './datatypes'
 // import { CaliforniaFKMServiceAreas } from './states'
 import { SERVICE_AREAS_BY_STATE } from './zipCodes'
 
-export let DATASETS: Dataset[] = [
+export let DATASETS: Dataset[] = [inferServiceAreaIds(
     {
-        dataSources: [
-            'Tanzania',
-            'Healthsites.io'
-        ],
+        dataSources: 'Tanzania - healthsites.io',
         state: 'tz',
         description: 'Healthsites.io',
         name: 'Healthsites.io Tanzania',
         hint: 'tz',
+        subtitle: 'Healthsites.io',
         providers: [
         {
             address: 'NA',
@@ -54328,5 +54326,12 @@ export let DATASETS: Dataset[] = [
         }
     ],
         serviceAreaIds: SERVICE_AREAS_BY_STATE.tz
-    }
+    })
 ]
+
+function inferServiceAreaIds(dataset: Dataset) {
+  if (dataset.serviceAreaIds.length === 0) {
+    dataset.serviceAreaIds = SERVICE_AREAS_BY_STATE[dataset.state]
+  }
+  return dataset
+}

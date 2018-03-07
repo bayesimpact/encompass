@@ -1,3 +1,4 @@
+import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
@@ -9,6 +10,8 @@ import { withEffects } from './effects'
 type Actions = {
 
   adequacies: Adequacies
+
+  allowDrivingTime: boolean
 
   /**
    * Counties selected by the user in the Service Area Drawer.
@@ -60,7 +63,7 @@ type Actions = {
 
   selectedCensusCategory: string
 
-  selectedCounties: string | null
+  selectedCounties: string[] | null
 
   selectedCountyType: CountyType | null
 
@@ -124,6 +127,11 @@ type Actions = {
    * Filename of the CSV the user uploaded to compute `serviceAreas`.
    */
   uploadedServiceAreasFilename: string | null
+
+  /**
+   * Keep the point geojson in the store so we don't have to keep rebuilding it.
+   */
+  pointGeoJson: FeatureCollection<GeometryObject> | null
 }
 
 /**
@@ -131,6 +139,7 @@ type Actions = {
  */
 let store = withEffects(createStore<Actions>({
   adequacies: {},
+  allowDrivingTime: true,
   counties: [],
   error: null,
   success: null,
@@ -138,7 +147,7 @@ let store = withEffects(createStore<Actions>({
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
   mapZoom: DEFAULT_MAP_ZOOM,
-  method: 'haversine',
+  method: 'driving_time',
   providerIndex: 0,
   providers: [],
   representativePoints: [],
@@ -156,7 +165,8 @@ let store = withEffects(createStore<Actions>({
   serviceAreas: [],
   uploadedProviders: [],
   uploadedProvidersFilename: null,
-  uploadedServiceAreasFilename: null
+  uploadedServiceAreasFilename: null,
+  pointGeoJson: null
 }))
 
 export let withStore = connect(store)
