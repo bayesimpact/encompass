@@ -1,0 +1,1843 @@
+{
+    "dataSources": "<a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018; <a href=\"https://www.kff.org/other/state-indicator/total-population/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D\" target=\"_blank\">Kaiser Family Foundation</a>, 2016.",
+    "description": "Health Centers are federally funded, community-based and patient-directed organizations that serve populations with limited access to health care, including low-income populations, and the uninsured. Read more about Health Centers here. Use this map to explore how accessible these centers are for target populations.",
+    "state": "co",
+    "name": "Health Centers in Colorado",
+    "providers": [
+        {
+            "address": "5000 Crown Blvd, Denver, CO 80239",
+            "lat": 39.78700177,
+            "lng": -104.8292847,
+            "languages": [],
+            "name": "MONTBELLO HIGH SCHOOL-BASED HLTH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4800 Telluride St, Denver, CO 80249",
+            "lat": 39.78475381,
+            "lng": -104.7808077,
+            "languages": [],
+            "name": "Evie Garrett Dennis Campus",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "250 W 14th Ave, Denver, CO 80204",
+            "lat": 39.73842052,
+            "lng": -104.9912728,
+            "languages": [],
+            "name": "FORUM APARTMENTS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2130 Stout St, Denver, CO 80205",
+            "lat": 39.75106919,
+            "lng": -104.986263,
+            "languages": [],
+            "name": "Stout Street Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3950 S Holly St, Denver, CO 80237",
+            "lat": 39.64734071,
+            "lng": -104.9225216,
+            "languages": [],
+            "name": "Thomas Jefferson High School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "25 E 16th Ave, Denver, CO 80202",
+            "lat": 39.74167446,
+            "lng": -104.9864806,
+            "languages": [],
+            "name": "Civic Center Apartments",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1100 S Pearl St, Denver, CO 80210",
+            "lat": 39.69654719,
+            "lng": -104.9803361,
+            "languages": [],
+            "name": "Turning Point",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2960 N Speer Blvd, Denver, CO 80211",
+            "lat": 39.75960661,
+            "lng": -105.0235895,
+            "languages": [],
+            "name": "NORTH HIGH SCHOOL-BASED HLTH CTR",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "5050 W Colfax Ave, Denver, CO 80204",
+            "lat": 39.7402925,
+            "lng": -105.051853,
+            "languages": [],
+            "name": "West End Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "911 S Hazel Ct, Denver, CO 80219",
+            "lat": 39.70002663,
+            "lng": -105.0274667,
+            "languages": [],
+            "name": "KEPNER MIDDLE SCHOOL SBHC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4545 Navajo St, Denver, CO 80211",
+            "lat": 39.77901883,
+            "lng": -105.0041888,
+            "languages": [],
+            "name": "La Casa Quigg Newton Family Health & Counseling Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1001 Park Ave W, Denver, CO 80205",
+            "lat": 39.75385775,
+            "lng": -104.986493,
+            "languages": [],
+            "name": "Stout Street Clinic at St. Francis Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "7125 Cherry Creek North Dr, Denver, CO 80224",
+            "lat": 39.68783013,
+            "lng": -104.906508,
+            "languages": [],
+            "name": "Place Bridge Academy SBHC and Pediatric Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "55 S Zuni St, Denver, CO 80223",
+            "lat": 39.71533227,
+            "lng": -105.0157293,
+            "languages": [],
+            "name": "Florence Crittenton High School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2111 Champa St, Denver, CO 80205",
+            "lat": 39.7514477,
+            "lng": -104.9875987,
+            "languages": [],
+            "name": "CCH Administration/Clinical and Support Services",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "5075 Lincoln St, Denver, CO 80216",
+            "lat": 39.788514,
+            "lng": -104.9864293,
+            "languages": [],
+            "name": "Clinica Tepeyac Mobile Unit",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2929 W 10th Ave, Denver, CO 80204",
+            "lat": 39.7329855,
+            "lng": -105.0237722,
+            "languages": [],
+            "name": "FAMILY CRISIS CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1100 Federal Blvd, Denver, CO 80204",
+            "lat": 39.73436044,
+            "lng": -105.0251677,
+            "languages": [],
+            "name": "WESTSIDE FAMILY HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1001 Yosemite St, Denver, CO 80230",
+            "lat": 39.73015214,
+            "lng": -104.8854828,
+            "languages": [],
+            "name": "LOWRY FAMILY HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2250 S Quitman Way, Denver, CO 80219",
+            "lat": 39.67597965,
+            "lng": -105.0406183,
+            "languages": [],
+            "name": "Kunsmiller Middle School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1000 Alpine Ave, Boulder, CO 80304",
+            "lat": 40.02549251,
+            "lng": -105.284232,
+            "languages": [],
+            "name": "Clinica Family Health - MHP Alpine",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "0850 W Beaver Creek Blvd, Avon, CO 81620",
+            "lat": 39.63842551,
+            "lng": -106.5347283,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS AVON SCHOOL-BASED HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4869 Broadway St, Boulder, CO 80304",
+            "lat": 40.06258297,
+            "lng": -105.2821799,
+            "languages": [],
+            "name": "Boulder Shelter For The Homeless",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1200 W South Boulder Rd Ste 206, Lafayette, CO 80026",
+            "lat": 39.98693149,
+            "lng": -105.1072922,
+            "languages": [],
+            "name": "Clinica Family Health - Admin East",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "3303 Broadway St, Boulder, CO 80304",
+            "lat": 40.03556316,
+            "lng": -105.2821159,
+            "languages": [],
+            "name": "Clinica Family Health Services - People&#39;s Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1345 Plaza Ct N, Lafayette, CO 80026",
+            "lat": 39.98621247,
+            "lng": -105.1085333,
+            "languages": [],
+            "name": "Clinica Family Health - Administration",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "2000 W South Boulder Rd, Lafayette, CO 80026",
+            "lat": 39.98704248,
+            "lng": -105.1167233,
+            "languages": [],
+            "name": "Clinica Family Health Services - Lafayette",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2525 13th St, Boulder, CO 80304",
+            "lat": 40.02368036,
+            "lng": -105.2805794,
+            "languages": [],
+            "name": "Clinica Family Health - People&#39;s",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "302 3rd St SE, Loveland, CO 80537",
+            "lat": 40.39041947,
+            "lng": -105.0720622,
+            "languages": [],
+            "name": "LOVELAND COMMUNITY HEALTH CENTER/DENTAL",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1635 Blue Spruce Dr, Fort Collins, CO 80524",
+            "lat": 40.6100693,
+            "lng": -105.0717392,
+            "languages": [],
+            "name": "Fort Collins Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1250 N Wilson Ave, Loveland, CO 80537",
+            "lat": 40.4061216,
+            "lng": -105.1103254,
+            "languages": [],
+            "name": "SUNRISE SUMMITSTONE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1830 Laporte Ave, Fort Collins, CO 80521",
+            "lat": 40.58917947,
+            "lng": -105.1094093,
+            "languages": [],
+            "name": "Salud at LaPorte",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1950 Redtail Hawk Dr, Estes Park, CO 80517",
+            "lat": 40.38898849,
+            "lng": -105.4890637,
+            "languages": [],
+            "name": "Estes Park Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "158 School Rd, Frisco, CO 80443",
+            "lat": 39.58246156,
+            "lng": -106.0902037,
+            "languages": [],
+            "name": "Summit Middle School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "916 N Summit Blvd, Frisco, CO 80443",
+            "lat": 39.58870954,
+            "lng": -106.0951483,
+            "languages": [],
+            "name": "Summit Community Care Clinic - Administrative Office",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "108 Deer Path Rd, Dillon, CO 80435",
+            "lat": 39.63922318,
+            "lng": -106.0401526,
+            "languages": [],
+            "name": "Dillon Valley Elementary",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "16201 Highway 9, Breckenridge, CO 80424",
+            "lat": 39.56604673,
+            "lng": -106.0530034,
+            "languages": [],
+            "name": "Summit High School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "360 Peak One Dr, Frisco, CO 80443",
+            "lat": 39.57086647,
+            "lng": -106.0766489,
+            "languages": [],
+            "name": "Summit Community Care Clinic, Inc.",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "360 Peak One Dr, Frisco, CO 80443",
+            "lat": 39.57086647,
+            "lng": -106.0766489,
+            "languages": [],
+            "name": "Summit Community Care Clinic Dental Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "101 Hamilton Creek Rd, Silverthorne, CO 80498",
+            "lat": 39.65963576,
+            "lng": -106.0833698,
+            "languages": [],
+            "name": "Silverthorne Elementary",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "234 Cody Ln, Basalt, CO 81621",
+            "lat": 39.36265965,
+            "lng": -107.0332052,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS BASALT",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "300 Colorado Ave, Pueblo, CO 81004",
+            "lat": 38.25740889,
+            "lng": -104.6240511,
+            "languages": [],
+            "name": "COLORADO AVENUE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1008 N Grand Ave, Pueblo, CO 81003",
+            "lat": 38.2762698,
+            "lng": -104.6116475,
+            "languages": [],
+            "name": "GRAND AVENUE HOMELESS CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "216 E Orman Ave, Pueblo, CO 81004",
+            "lat": 38.25323989,
+            "lng": -104.6255046,
+            "languages": [],
+            "name": "Central High School SBWC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2030 Lake Ave, Pueblo, CO 81004",
+            "lat": 38.23201069,
+            "lng": -104.6246304,
+            "languages": [],
+            "name": "O'ROURKE DENTAL CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "328 Avondale Blvd, Avondale, CO 81022",
+            "lat": 38.23767138,
+            "lng": -104.3499223,
+            "languages": [],
+            "name": "AVONDALE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "112 E Pitkin Ave, Pueblo, CO 81004",
+            "lat": 38.25620204,
+            "lng": -104.6242428,
+            "languages": [],
+            "name": "ADMINISTRATION",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "110 E Routt Ave, Pueblo, CO 81004",
+            "lat": 38.25737341,
+            "lng": -104.6233156,
+            "languages": [],
+            "name": "Patient Pharmacy and Administration",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "900 W Orman Ave Bldg Room # 118, Pueblo, CO 81004",
+            "lat": 38.26228353,
+            "lng": -104.6372323,
+            "languages": [],
+            "name": "Pueblo Community College Student Health Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1302 E 5th St, Pueblo, CO 81001",
+            "lat": 38.27208851,
+            "lng": -104.5885511,
+            "languages": [],
+            "name": "PARK HILL CLINIC &amp; PHARMACY",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1050 35th Ln, Pueblo, CO 81006",
+            "lat": 38.24631233,
+            "lng": -104.468477,
+            "languages": [],
+            "name": "County High School SBWC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "9 Macneil Rd, Pueblo, CO 81001",
+            "lat": 38.28846484,
+            "lng": -104.5763867,
+            "languages": [],
+            "name": "East High School SBWC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "625 N Monument Ave, Pueblo, CO 81001",
+            "lat": 38.27345613,
+            "lng": -104.5867054,
+            "languages": [],
+            "name": "Risley Middle School SBWC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2525 Mountview Dr, Pueblo, CO 81008",
+            "lat": 38.30331051,
+            "lng": -104.638444,
+            "languages": [],
+            "name": "Centennial High School SBWC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "925 2nd Ave, Monte Vista, CO 81144",
+            "lat": 37.57925147,
+            "lng": -106.1457203,
+            "languages": [],
+            "name": "Edward M. Kennedy Health Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "940 Central Park Dr Ste 101, Steamboat Springs, CO 80487",
+            "lat": 40.46254047,
+            "lng": -106.8159635,
+            "languages": [],
+            "name": "Northwest Colorado Visiting Nurse Association Community Health Center - Routt County",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "186 Hurt St, Center, CO 81125",
+            "lat": 37.75465358,
+            "lng": -106.1109641,
+            "languages": [],
+            "name": "Cesar E. Chavez Medical Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "220 S Worth St, Center, CO 81125",
+            "lat": 37.75423514,
+            "lng": -106.1083205,
+            "languages": [],
+            "name": "Center Dental Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "545 Moffat Way, Moffat, CO 81143",
+            "lat": 37.99939955,
+            "lng": -105.9083393,
+            "languages": [],
+            "name": "Moffat Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1350 Aspen St, Norwood, CO 81423",
+            "lat": 38.1294723,
+            "lng": -108.2976459,
+            "languages": [],
+            "name": "UNCOMPAHGRE COMBINED CLINICS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "223 Harrison Ave, Leadville, CO 80461",
+            "lat": 39.24549077,
+            "lng": -106.2907464,
+            "languages": [],
+            "name": "Lake County Dental",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1000 W 4th St, Leadville, CO 80461",
+            "lat": 39.24394065,
+            "lng": -106.3039581,
+            "languages": [],
+            "name": "Lake County High School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "185 Suttle St, Durango, CO 81303",
+            "lat": 37.24854305,
+            "lng": -107.876221,
+            "languages": [],
+            "name": "Southwest Colorado Mental Health Center dba Axis Health System, Corporate Office",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "1970 E 3rd Ave Unit Level, Durango, CO 81301",
+            "lat": 37.28432837,
+            "lng": -107.8743517,
+            "languages": [],
+            "name": "Southwest Colorado Mental Health Center, Inc., dba La Plata Integrated Healthcare",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2530 Colorado Ave Unit 1A, Durango, CO 81301",
+            "lat": 37.29021878,
+            "lng": -107.8648601,
+            "languages": [],
+            "name": "Axis Health System Oral Health Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "421 Walnut St, La Jara, CO 81140",
+            "lat": 37.27295336,
+            "lng": -105.9596854,
+            "languages": [],
+            "name": "La Jara Dental Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "W 10th Ave & Dahlia St, Antonito, CO 81120",
+            "lat": 37.080945,
+            "lng": -106.0151715,
+            "languages": [],
+            "name": "Guadalupe Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "233 Main St, Sanford, CO 81151",
+            "lat": 37.19724655,
+            "lng": -105.4274242,
+            "languages": [],
+            "name": "San Luis Health Center, Ernesto Pacheco Dental Clinic, or San Luis Physical Therapy and Rehabilitation",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "107 W 11th St, Delta, CO 81416",
+            "lat": 38.7325545,
+            "lng": -108.0712122,
+            "languages": [],
+            "name": "River Family Family Health Center of Delta",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "510 29 1/2 Rd, Grand Junction, CO 81504",
+            "lat": 39.07849555,
+            "lng": -108.5058446,
+            "languages": [],
+            "name": "Marillac Clinic-County Health Department",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "302 Pitkin Ave, Grand Junction, CO 81501",
+            "lat": 39.06440945,
+            "lng": -108.5676029,
+            "languages": [],
+            "name": "Marillac Clinic-OUTREACH DAY CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1160 Patterson Rd, Grand Junction, CO 81506",
+            "lat": 39.09191564,
+            "lng": -108.5530326,
+            "languages": [],
+            "name": "Farmworker Health Services Clinic - Grand Junction",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3150 N 12th St, Grand Junction, CO 81506",
+            "lat": 39.09480506,
+            "lng": -108.5523376,
+            "languages": [],
+            "name": "Marillac Clinic - Primary Care Partners",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "707 Elberta Ave Unit A, Palisade, CO 81526",
+            "lat": 39.10665605,
+            "lng": -108.3602661,
+            "languages": [],
+            "name": "Farmworker Health Services at Palisade",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2853 North Ave, Grand Junction, CO 81501",
+            "lat": 39.0772585,
+            "lng": -108.5229225,
+            "languages": [],
+            "name": "Marillac Clinic-HOMEWARD BOUND OF THE GRAND VALLEY",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2333 N 6th St, Grand Junction, CO 81501",
+            "lat": 39.0890355,
+            "lng": -108.5621073,
+            "languages": [],
+            "name": "Marillac Clinic-Grand Junction",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "485 Yampa Ave, Craig, CO 81625",
+            "lat": 40.513925,
+            "lng": -107.5471992,
+            "languages": [],
+            "name": "Northwest Colorado Health - Dental Services",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "745 Russell St, Craig, CO 81625",
+            "lat": 40.51868022,
+            "lng": -107.5460092,
+            "languages": [],
+            "name": "Northwest Colorado Visiting Nurse Association Community Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "691 E Empire St, Cortez, CO 81321",
+            "lat": 37.35612847,
+            "lng": -108.5764237,
+            "languages": [],
+            "name": "Cortez Integrated Healthcare",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "308 Main St, Olathe, CO 81425",
+            "lat": 38.60618852,
+            "lng": -107.9837228,
+            "languages": [],
+            "name": "Olathe Community Clinic, Inc.",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "100 Tessitore Ct, Montrose, CO 81401",
+            "lat": 38.48669457,
+            "lng": -107.8646915,
+            "languages": [],
+            "name": "River Valley Family Health Center of Montrose",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "5 Hillcrest Plaza Way, Montrose, CO 81401",
+            "lat": 38.48866027,
+            "lng": -107.858767,
+            "languages": [],
+            "name": "River Valley Family Health Center of Montrose at Hillcrest",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "0020 Eagle County Rd, El Jebel, CO 81623",
+            "lat": 39.39293875,
+            "lng": -107.0918566,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS DENTAL VAN",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "320 Beard Creek Rd, Edwards, CO 81632",
+            "lat": 39.65177942,
+            "lng": -106.5911537,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS EDWARDS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2700 Gilstrap Ct Ste 230, Glenwood Springs, CO 81601",
+            "lat": 39.56022255,
+            "lng": -107.3651069,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS  Riverside",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "195 W 14th, Rifle, CO 81650",
+            "lat": 39.54209453,
+            "lng": -107.7851873,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS RIFLE",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "100 S 2nd Ct, Parachute, CO 81635",
+            "lat": 39.44820262,
+            "lng": -108.0513474,
+            "languages": [],
+            "name": "Mountain Family Health Centers SMILES Grand Valley Center for Family Learning",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "50633 Highway 6, Glenwood Springs, CO 81601",
+            "lat": 39.56206246,
+            "lng": -107.3699737,
+            "languages": [],
+            "name": "Mountain Family Health Centers West Glenwood Administration",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "741 Tamarisk Trl Rm 104, Parachute, CO 81635",
+            "lat": 39.42923454,
+            "lng": -108.0441712,
+            "languages": [],
+            "name": "Mountain Family Health Centers SMILES Bea Underwood Elementary School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1905 Blake Ave Ste 101, Glenwood Springs, CO 81601",
+            "lat": 39.53246623,
+            "lng": -107.3228671,
+            "languages": [],
+            "name": "MOUNTAIN FAMILY HEALTH CENTERS GLENWOOD SPRINGS",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "129 Kansas Ave, Walsenburg, CO 81089",
+            "lat": 37.62772757,
+            "lng": -104.7814816,
+            "languages": [],
+            "name": "WALSENBURG OB CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "8745 County Road 9 S Bldg C, Alamosa, CO 81101",
+            "lat": 37.44435045,
+            "lng": -105.8789017,
+            "languages": [],
+            "name": "Alamosa South Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "204 Carson Ave, Alamosa, CO 81101",
+            "lat": 37.47114827,
+            "lng": -105.8817794,
+            "languages": [],
+            "name": "Valley-Wide Health Systems, Inc. - Carson Building",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "106 Blanca Ave Ste 300, Alamosa, CO 81101",
+            "lat": 37.471716,
+            "lng": -105.8834974,
+            "languages": [],
+            "name": "Sierra Blanca Medical Center or Alamosa Physical Therapy and Rehabilitation",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "128 Market St, Alamosa, CO 81101",
+            "lat": 37.47512304,
+            "lng": -105.8912302,
+            "languages": [],
+            "name": "Valley-Wide Health Systems, Inc., Administrative Services Building, Alamosa Dental Clinic, VWHS Nutrition Services, or  Medical Services",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "1710 1st St, Alamosa, CO 81101",
+            "lat": 37.47286548,
+            "lng": -105.8828034,
+            "languages": [],
+            "name": "Alamosa Family Medical Center, VWHS Pharmacy, or Anti-Coagulation Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "106 Blanca Ave Ste 300, Alamosa, CO 81101",
+            "lat": 37.471716,
+            "lng": -105.8834974,
+            "languages": [],
+            "name": "VWHS Mobile Health Unit",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1131 Main St, Alamosa, CO 81101",
+            "lat": 37.46820253,
+            "lng": -105.87392,
+            "languages": [],
+            "name": "Convenient Care Community Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "495 W 4th St, Dove Creek, CO 81324",
+            "lat": 37.76502648,
+            "lng": -108.9134999,
+            "languages": [],
+            "name": "COMMUNITY HEALTH CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "220 E Rogers Rd, Longmont, CO 80501",
+            "lat": 40.16239091,
+            "lng": -105.0872004,
+            "languages": [],
+            "name": "Longmont Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "30999 County Road 15 Bldg 5, Fort Lyon, CO 81054",
+            "lat": 38.08508772,
+            "lng": -103.142724,
+            "languages": [],
+            "name": "Fort Lyon Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "245 Vine Ave, Las Animas, CO 81054",
+            "lat": 38.07074787,
+            "lng": -103.2279559,
+            "languages": [],
+            "name": "Las Animas Clinic and Las Animas Dental Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "55981 E Colfax Ave, Strasburg, CO 80136",
+            "lat": 39.73834247,
+            "lng": -104.332024,
+            "languages": [],
+            "name": "Health Center at Strasburg",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "320 Comanche St, Kiowa, CO 80117",
+            "lat": 39.34653549,
+            "lng": -104.4653623,
+            "languages": [],
+            "name": "Health Center at Kiowa",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "300 Lake St, Fort Morgan, CO 80701",
+            "lat": 40.25057405,
+            "lng": -103.796748,
+            "languages": [],
+            "name": "Salud Baker Central School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "729 E Railroad Ave, Fort Morgan, CO 80701",
+            "lat": 40.24851052,
+            "lng": -103.7895741,
+            "languages": [],
+            "name": "Fort Morgan Salud Family Health Centers",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "415 Spruce St, Fort Morgan, CO 80701",
+            "lat": 40.2430726,
+            "lng": -103.7973107,
+            "languages": [],
+            "name": "Salud Pioneer Elementary School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "930 Sherman St, Fort Morgan, CO 80701",
+            "lat": 40.2592053,
+            "lng": -103.7919765,
+            "languages": [],
+            "name": "Salud Green Acres Elementary School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "815 West St, Fort Morgan, CO 80701",
+            "lat": 40.25826836,
+            "lng": -103.8108965,
+            "languages": [],
+            "name": "Salud Columbine Elementary School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1012 Belmont Ave, La Junta, CO 81050",
+            "lat": 37.98474074,
+            "lng": -103.5555584,
+            "languages": [],
+            "name": "La Junta Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "903 S 12th St, Rocky Ford, CO 81067",
+            "lat": 38.04493967,
+            "lng": -103.7200643,
+            "languages": [],
+            "name": "Rocky Ford Clinic or Rocky Ford Dental Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "615 W 5th St N, Cheyenne Wells, CO 80810",
+            "lat": 38.82729199,
+            "lng": -102.3544378,
+            "languages": [],
+            "name": "Cheyenne County Public Health Office",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "911 Robinson Ave, Trinidad, CO 81082",
+            "lat": 37.16621333,
+            "lng": -104.5206811,
+            "languages": [],
+            "name": "Mt. Carmel Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "820 1st St, Limon, CO 80828",
+            "lat": 39.26087528,
+            "lng": -103.6869158,
+            "languages": [],
+            "name": "Health Center  at Limon",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1410 S 7th Ave, Sterling, CO 80751",
+            "lat": 40.61199045,
+            "lng": -103.2214574,
+            "languages": [],
+            "name": "Sterling Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "252 S 14th St, Burlington, CO 80807",
+            "lat": 39.29898616,
+            "lng": -102.2679865,
+            "languages": [],
+            "name": "Kit Carson County H&amp;HS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "309 Pawnee Ave, Flagler, CO 80815",
+            "lat": 39.29134525,
+            "lng": -103.0640285,
+            "languages": [],
+            "name": "Dental Center at Flagler",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "100 N 11th Ave, Greeley, CO 80631",
+            "lat": 40.43428205,
+            "lng": -104.6965979,
+            "languages": [],
+            "name": "MONFORT CHILDREN'S CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "203 S Rollie Ave, Fort Lupton, CO 80621",
+            "lat": 40.07844299,
+            "lng": -104.8047269,
+            "languages": [],
+            "name": "Salud Family Health Center Administrative Site",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "1551 N 17th Ave, Greeley, CO 80631",
+            "lat": 40.45181183,
+            "lng": -104.706129,
+            "languages": [],
+            "name": "WELD COUNTY HEALTH DEPT. PRENATAL CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1300 N 17th Ave, Greeley, CO 80631",
+            "lat": 40.44946209,
+            "lng": -104.6998589,
+            "languages": [],
+            "name": "SUNRISE NORTH RANGE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "5995 Iris Pkwy, Frederick, CO 80504",
+            "lat": 40.11139647,
+            "lng": -104.9426621,
+            "languages": [],
+            "name": "Frederick Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1010 A St, Greeley, CO 80631",
+            "lat": 40.43500345,
+            "lng": -104.6954021,
+            "languages": [],
+            "name": "SUNRISE ADELANTE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1400 37th St, Evans, CO 80620",
+            "lat": 40.37745348,
+            "lng": -104.702442,
+            "languages": [],
+            "name": "KIDS CARE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1006 A St, Greeley, CO 80631",
+            "lat": 40.43505453,
+            "lng": -104.6955144,
+            "languages": [],
+            "name": "SUNRISE FAMILY DENTAL CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2930 11th Ave, Evans, CO 80620",
+            "lat": 40.38903512,
+            "lng": -104.6968228,
+            "languages": [],
+            "name": "MONFORT FAMILY CLINIC",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "203 S Rollie Ave, Fort Lupton, CO 80621",
+            "lat": 40.07844299,
+            "lng": -104.8047269,
+            "languages": [],
+            "name": "Mobile Unit- Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1115 2nd St, Fort Lupton, CO 80621",
+            "lat": 40.08149347,
+            "lng": -104.805141,
+            "languages": [],
+            "name": "Fort Lupton Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2930 11th Ave, Evans, CO 80620",
+            "lat": 40.38903512,
+            "lng": -104.6968228,
+            "languages": [],
+            "name": "OUTREACH SERVICES/MOBILE VAN",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "108 S 5th St, Lamar, CO 81052",
+            "lat": 38.08831384,
+            "lng": -102.6205962,
+            "languages": [],
+            "name": "High Plains Financial Services Site",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "200 Kendall Dr, Lamar, CO 81052",
+            "lat": 38.06855622,
+            "lng": -102.6111317,
+            "languages": [],
+            "name": "HIGH PLAINS CH DENTAL CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "201 Kendall Dr, Lamar, CO 81052",
+            "lat": 38.06830075,
+            "lng": -102.6119191,
+            "languages": [],
+            "name": "HIGH PLAINS COMMUNITY HEALTH CENTER",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "2221 Wellness Way, Lamar, CO 81052",
+            "lat": 38.076531,
+            "lng": -102.616361,
+            "languages": [],
+            "name": "High Plains Adult Community Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "303 Main St, Wiley, CO 81092",
+            "lat": 38.15384692,
+            "lng": -102.7197685,
+            "languages": [],
+            "name": "High Plains Wiley Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2401 S Main St, Lamar, CO 81052",
+            "lat": 38.06632157,
+            "lng": -102.6173087,
+            "languages": [],
+            "name": "LCC CAMPUS HEALTH CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "410 W Colorado St, Holly, CO 81047",
+            "lat": 38.05334547,
+            "lng": -102.12336,
+            "languages": [],
+            "name": "High Plains Holly Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "34 Hybrook Rd S, Divide, CO 80814",
+            "lat": 38.94080514,
+            "lng": -105.1546755,
+            "languages": [],
+            "name": "Health Center at Divide",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3205 N Academy Blvd Ste 100, Colorado Springs, CO 80917",
+            "lat": 38.87826494,
+            "lng": -104.7569652,
+            "languages": [],
+            "name": "Convenient Care Center and Pediatric Health Center at Academy",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "117 W Rio Grande St, Colorado Springs, CO 80903",
+            "lat": 38.82444947,
+            "lng": -104.8288815,
+            "languages": [],
+            "name": "Homeless Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2828 International Cir Ste 120, Colorado Springs, CO 80910",
+            "lat": 38.82711543,
+            "lng": -104.7883544,
+            "languages": [],
+            "name": "Enrollment Services",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "350 Lyckman Pl, Fountain, CO 80817",
+            "lat": 38.69356598,
+            "lng": -104.7065378,
+            "languages": [],
+            "name": "Health Center at Fountain",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "410 Gold Pass Hts, Colorado Springs, CO 80906",
+            "lat": 38.79355238,
+            "lng": -104.8200847,
+            "languages": [],
+            "name": "Health Center at Myron Stratton",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2828 International Cir Ste 100, Colorado Springs, CO 80910",
+            "lat": 38.82711543,
+            "lng": -104.7883544,
+            "languages": [],
+            "name": "Dental Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "430 Gold Pass Hts, Colorado Springs, CO 80906",
+            "lat": 38.7938532,
+            "lng": -104.819132,
+            "languages": [],
+            "name": "Logan Health Center at Myron Stratton",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3207 N Academy Blvd Ste 1200, Colorado Springs, CO 80917",
+            "lat": 38.87832357,
+            "lng": -104.7569456,
+            "languages": [],
+            "name": "Peak Vista Pharmacy at Academy",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "2828 International Cir Ste 160, Colorado Springs, CO 80910",
+            "lat": 38.82711543,
+            "lng": -104.7883544,
+            "languages": [],
+            "name": "Health Center at International Circle",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "340 Printers Pkwy, Colorado Springs, CO 80910",
+            "lat": 38.82677646,
+            "lng": -104.7864219,
+            "languages": [],
+            "name": "Mobile Health Services Van",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "350 Printers Pkwy, Colorado Springs, CO 80910",
+            "lat": 38.82653321,
+            "lng": -104.7863536,
+            "languages": [],
+            "name": "Health Center at Printers Parkway, 350",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "225 S Union Blvd, Colorado Springs, CO 80910",
+            "lat": 38.82837707,
+            "lng": -104.7949368,
+            "languages": [],
+            "name": "Health Center at Union",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "12050 Falcon Hwy, Peyton, CO 80831",
+            "lat": 38.92610648,
+            "lng": -104.6032716,
+            "languages": [],
+            "name": "Falcon Peak School Based Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4863 N Nevada Ave, Colorado Springs, CO 80918",
+            "lat": 38.90164774,
+            "lng": -104.8174284,
+            "languages": [],
+            "name": "Lane Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "340 Printers Pkwy, Colorado Springs, CO 80910",
+            "lat": 38.82677646,
+            "lng": -104.7864219,
+            "languages": [],
+            "name": "Health Center at Printers Parkway, 340",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "340 Printers Pkwy, Colorado Springs, CO 80910",
+            "lat": 38.82677646,
+            "lng": -104.7864219,
+            "languages": [],
+            "name": "Ronald McDonald Care Mobile",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3207 N Academy Blvd Ste 3100, Colorado Springs, CO 80917",
+            "lat": 38.87832357,
+            "lng": -104.7569456,
+            "languages": [],
+            "name": "Health Center at Academy-South",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1740 Pepperwood Dr, Colorado Springs, CO 80910",
+            "lat": 38.80649892,
+            "lng": -104.7655459,
+            "languages": [],
+            "name": "Entrada School Based Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3207 N Academy Blvd Ste 1500, Colorado Springs, CO 80917",
+            "lat": 38.87832357,
+            "lng": -104.7569456,
+            "languages": [],
+            "name": "Enrollment Services at Academy, Suite 1500",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "2828 International Cir Ste 140, Colorado Springs, CO 80910",
+            "lat": 38.82711543,
+            "lng": -104.7883544,
+            "languages": [],
+            "name": "Pediatric Health Center at International Circle",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "722 S Wahsatch Ave, Colorado Springs, CO 80903",
+            "lat": 38.82367778,
+            "lng": -104.8186183,
+            "languages": [],
+            "name": "Health Center at Wahsatch",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3207 N Academy Blvd, Colorado Springs, CO 80917",
+            "lat": 38.87832357,
+            "lng": -104.7569456,
+            "languages": [],
+            "name": "Health Center at Academy Suite 3500",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3205 N Academy Blvd Ste 130, Colorado Springs, CO 80917",
+            "lat": 38.87826494,
+            "lng": -104.7569652,
+            "languages": [],
+            "name": "Peak Vista Administrative Services Center",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "3207 N Academy Blvd Ste 3300, Colorado Springs, CO 80917",
+            "lat": 38.87832357,
+            "lng": -104.7569456,
+            "languages": [],
+            "name": "Developmental Disabilities Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "602 Yale Pl, Canon City, CO 81212",
+            "lat": 38.456019,
+            "lng": -105.2323484,
+            "languages": [],
+            "name": "Fremont Family Medical Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1335 Phay Ave Ste C, Canon City, CO 81212",
+            "lat": 38.45577151,
+            "lng": -105.231591,
+            "languages": [],
+            "name": "Valley-Wide Canon City",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1145 Ohio Ave Ste A, Canon City, CO 81212",
+            "lat": 38.45442545,
+            "lng": -105.2329005,
+            "languages": [],
+            "name": "Valley-Wide Health Systems, Inc. - Ohio Building",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "30 S 20th Ave, Brighton, CO 80601",
+            "lat": 39.98618027,
+            "lng": -104.7977367,
+            "languages": [],
+            "name": "Brighton&#39;s Women Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "700 Potomac St Ste A, Aurora, CO 80011",
+            "lat": 39.727548,
+            "lng": -104.8282783,
+            "languages": [],
+            "name": "POTOMAC STREET HEALTH CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "15132 E Hampden Ave Ste G, Aurora, CO 80014",
+            "lat": 39.65299049,
+            "lng": -104.8116105,
+            "languages": [],
+            "name": "SOUTH AURORA FAMILY HEALTH SERVICES CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1410 Moline St Apt 108, Aurora, CO 80010",
+            "lat": 39.73858149,
+            "lng": -104.8540743,
+            "languages": [],
+            "name": "FOREST MANOR APTS SUPP. HOUSING",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "15501 E 13th Ave, Aurora, CO 80011",
+            "lat": 39.73741348,
+            "lng": -104.80752,
+            "languages": [],
+            "name": "HELENA Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1666 Elmira St, Aurora, CO 80010",
+            "lat": 39.74346925,
+            "lng": -104.8728547,
+            "languages": [],
+            "name": "Elmira Refugee Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2206 Victor St, Aurora, CO 80045",
+            "lat": 39.74904,
+            "lng": -104.8328552,
+            "languages": [],
+            "name": "MCPN Fitzsimons Crisis Services Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "791 Chambers Rd, Aurora, CO 80011",
+            "lat": 39.72743767,
+            "lng": -104.8102944,
+            "languages": [],
+            "name": "Chambers Clinic at AuMHC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3292 Peoria St, Aurora, CO 80010",
+            "lat": 39.76403431,
+            "lng": -104.8461407,
+            "languages": [],
+            "name": "North Aurora Family Health Services Center",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "10680 Del Mar Pkwy, Aurora, CO 80010",
+            "lat": 39.74572893,
+            "lng": -104.8739145,
+            "languages": [],
+            "name": "MCPN Aurora Health &amp; Wellness Plaza",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1860 E Egbert St, Brighton, CO 80601",
+            "lat": 39.98363048,
+            "lng": -104.799753,
+            "languages": [],
+            "name": "Brighton Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1537 Alton St, Aurora, CO 80010",
+            "lat": 39.74121933,
+            "lng": -104.8823157,
+            "languages": [],
+            "name": "MCPN - Health & Wellness Center at the Asian Pacific Development Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4371 E 72nd Ave, Commerce City, CO 80022",
+            "lat": 39.8272555,
+            "lng": -104.9368141,
+            "languages": [],
+            "name": "Community Reach Center Salud",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "8510 Bryant St Ste 200, Westminster, CO 80031",
+            "lat": 39.85059905,
+            "lng": -105.0193847,
+            "languages": [],
+            "name": "Clinica Family Health - Westminster",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "388 E 88th Ave, Thornton, CO 80229",
+            "lat": 39.85620182,
+            "lng": -104.9823896,
+            "languages": [],
+            "name": "The Renaissance Village 88",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1701 W 72nd Ave, Denver, CO 80221",
+            "lat": 39.82730552,
+            "lng": -105.0074505,
+            "languages": [],
+            "name": "Clinica Family Health - Pecos",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "7200 Quebec Pkwy, Commerce City, CO 80022",
+            "lat": 39.827286,
+            "lng": -104.9027231,
+            "languages": [],
+            "name": "Salud Adams City High School",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "8990 Washington St, Thornton, CO 80229",
+            "lat": 39.85883488,
+            "lng": -104.9778416,
+            "languages": [],
+            "name": "Clinica Family Health - Thornton",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "6255 Quebec St, Commerce City, CO 80022",
+            "lat": 39.81080479,
+            "lng": -104.9035958,
+            "languages": [],
+            "name": "Commerce City Salud Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "9485 W Colfax Ave, Lakewood, CO 80215",
+            "lat": 39.7403195,
+            "lng": -105.1029443,
+            "languages": [],
+            "name": "Colfax Health Center at JCMH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "645 Parfet St, Lakewood, CO 80215",
+            "lat": 39.72727744,
+            "lng": -105.1194882,
+            "languages": [],
+            "name": "MCPN Women&#39;s &amp; Children&#39;s Oral Health Services - Parfet",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "7495 W 29th Ave, Wheat Ridge, CO 80033",
+            "lat": 39.75847445,
+            "lng": -105.0807034,
+            "languages": [],
+            "name": "Jeffco Family Health Services Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "6303 Wadsworth Byp, Arvada, CO 80003",
+            "lat": 39.81131742,
+            "lng": -105.0799758,
+            "languages": [],
+            "name": "MCPN Women&#39;s &amp; Children&#39;s Oral Health Services - Wadsworth Bypass",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4851 Independence St, Wheat Ridge, CO 80033",
+            "lat": 39.78480655,
+            "lng": -105.1049378,
+            "languages": [],
+            "name": "Independence Health Center at JCMH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "80 S Teller St, Lakewood, CO 80226",
+            "lat": 39.7157278,
+            "lng": -105.0768384,
+            "languages": [],
+            "name": "STEIN KIDS HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1255 S Wadsworth Blvd, Lakewood, CO 80232",
+            "lat": 39.693447,
+            "lng": -105.0816182,
+            "languages": [],
+            "name": "Alameda High School Kids &amp; Teen Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "11005 Ralston Rd Ste 100G, Arvada, CO 80004",
+            "lat": 39.81281351,
+            "lng": -105.1216235,
+            "languages": [],
+            "name": "ARVADA HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1797 Kendall St, Lakewood, CO 80214",
+            "lat": 39.74557001,
+            "lng": -105.0662104,
+            "languages": [],
+            "name": "RENAISSANCE CHILDREN'S CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3595 S Teller St, Lakewood, CO 80235",
+            "lat": 39.65040033,
+            "lng": -105.0766097,
+            "languages": [],
+            "name": "MCPN Jefferson Plaza Family Health Home",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "8500 W Colfax Ave, Lakewood, CO 80215",
+            "lat": 39.7401445,
+            "lng": -105.0921535,
+            "languages": [],
+            "name": "MCPN Lakewood Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3515 S Delaware St, Englewood, CO 80110",
+            "lat": 39.65256,
+            "lng": -104.9924262,
+            "languages": [],
+            "name": "ENGLEWOOD HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4107 S Federal Blvd, Englewood, CO 80110",
+            "lat": 39.63987,
+            "lng": -105.0254162,
+            "languages": [],
+            "name": "Sheridan Health Services",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3701 S Broadway, Englewood, CO 80113",
+            "lat": 39.6491585,
+            "lng": -104.9877256,
+            "languages": [],
+            "name": "METRO COMMUNITY PROVIDER NETWORK",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "2135 Stout St, Denver, CO 80205",
+            "lat": 39.75115078,
+            "lng": -104.9862595,
+            "languages": [],
+            "name": "OFF-BROADWAY LOFTS SUPP. HOUSING",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "660 Bannock St, Denver, CO 80204",
+            "lat": 39.72646803,
+            "lng": -104.9902258,
+            "languages": [],
+            "name": "WOMEN'S MOBILE CLINIC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2111 Champa St, Denver, CO 80205",
+            "lat": 39.7514477,
+            "lng": -104.9875987,
+            "languages": [],
+            "name": "Health Outreach Program",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "777 Bannock St, Denver, CO 80204",
+            "lat": 39.727305,
+            "lng": -104.9903162,
+            "languages": [],
+            "name": "DENVER HEALTH MEDICAL CAMPUS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1630 S Acoma St, Denver, CO 80223",
+            "lat": 39.68680444,
+            "lng": -104.9887343,
+            "languages": [],
+            "name": "Urban Peak",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4455 E 12th Ave, Denver, CO 80220",
+            "lat": 39.73470247,
+            "lng": -104.9356537,
+            "languages": [],
+            "name": "Primary Care Clinic at MHCD",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1700 E Louisiana Ave, Denver, CO 80210",
+            "lat": 39.69293248,
+            "lng": -104.9663925,
+            "languages": [],
+            "name": "SOUTH HIGH SCHOOL SBHC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4995 E 33rd Ave, Denver, CO 80207",
+            "lat": 39.76381453,
+            "lng": -104.9299602,
+            "languages": [],
+            "name": "PARK HILL FAMILY HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "550 Alton Way, Denver, CO 80230",
+            "lat": 39.72424093,
+            "lng": -104.8792746,
+            "languages": [],
+            "name": "LOWRY SUPPORTIVE HOUSING",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "301 W 6th Ave, Denver, CO 80204",
+            "lat": 39.72568946,
+            "lng": -104.992353,
+            "languages": [],
+            "name": "Wellington E. Webb Center for Primary Care",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3525 W Oxford Ave, Denver, CO 80236",
+            "lat": 39.64233822,
+            "lng": -105.0326518,
+            "languages": [],
+            "name": "Sheridan Health Services",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "5075 Lincoln St, Denver, CO 80216",
+            "lat": 39.788514,
+            "lng": -104.9864293,
+            "languages": [],
+            "name": "Clinica Tepeyac - Clinic",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1820 Lowell Blvd, Denver, CO 80204",
+            "lat": 39.74654456,
+            "lng": -105.0345229,
+            "languages": [],
+            "name": "LAKE MIDDLE SCHOOL-BASED HLTH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3636 W Colfax Ave, Denver, CO 80204",
+            "lat": 39.74033053,
+            "lng": -105.0354815,
+            "languages": [],
+            "name": "BEACON PLACE",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1339 S Federal Blvd, Denver, CO 80219",
+            "lat": 39.692268,
+            "lng": -105.0251097,
+            "languages": [],
+            "name": "Federico F. Pena Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "12600 Albrook Dr, Denver, CO 80239",
+            "lat": 39.78149242,
+            "lng": -104.843702,
+            "languages": [],
+            "name": "Montbello Family Health Center",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "5290 Kittredge St, Denver, CO 80239",
+            "lat": 39.78876882,
+            "lng": -104.8021338,
+            "languages": [],
+            "name": "RACHEL NOEL MIDDLE SCHOOL-BASED",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "951 Elati St, Denver, CO 80204",
+            "lat": 39.73134524,
+            "lng": -104.9941677,
+            "languages": [],
+            "name": "WEST HIGH SCHOOL-BASED HLTH CTR",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "3955 N Steele St, Denver, CO 80205",
+            "lat": 39.771828,
+            "lng": -104.9499082,
+            "languages": [],
+            "name": "BRUCE RANDOLPH MIDDLE SCHOOL SBHC",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "501 28th St, Denver, CO 80205",
+            "lat": 39.75522125,
+            "lng": -104.9761151,
+            "languages": [],
+            "name": "EAST SIDE FAMILY HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "1700 E 28th Ave, Denver, CO 80205",
+            "lat": 39.75692548,
+            "lng": -104.9659518,
+            "languages": [],
+            "name": "School-Based Health Center at Manual Campus",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2855 S Lamar St, Denver, CO 80227",
+            "lat": 39.66252266,
+            "lng": -105.0673257,
+            "languages": [],
+            "name": "JFK HIGH SCHOOL-BASED HEALTH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2285 S Federal Blvd, Denver, CO 80219",
+            "lat": 39.67696744,
+            "lng": -105.0250872,
+            "languages": [],
+            "name": "LINCOLN HIGH SCHOOL-BASED HLTH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4320 W Alaska Pl, Denver, CO 80219",
+            "lat": 39.70892151,
+            "lng": -105.0442335,
+            "languages": [],
+            "name": "WESTWOOD FAMILY HEALTH CENTER",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "2301 Lawrence St, Denver, CO 80205",
+            "lat": 39.75543152,
+            "lng": -104.9876715,
+            "languages": [],
+            "name": "SAMARITAN HOUSE STOUT ST CLINIC and MEDICAL RESPITE CARE",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4725 High St, Denver, CO 80216",
+            "lat": 39.78251927,
+            "lng": -104.9645883,
+            "languages": [],
+            "name": "Clinica Tepeyac - Behavioral Health Clinic and Administrative Office",
+            "center_type": "Administrative/Service Delivery Site"
+        },
+        {
+            "address": "2100 N Broadway, Denver, CO 80205",
+            "lat": 39.75029707,
+            "lng": -104.9873484,
+            "languages": [],
+            "name": "2100 Broadway Services Builiding",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "19535 E 46th Ave, Denver, CO 80249",
+            "lat": 39.78006052,
+            "lng": -104.760152,
+            "languages": [],
+            "name": "MLK MIDDLE SCHOOL-BASED HLTH",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4650 Columbine St, Denver, CO 80216",
+            "lat": 39.78120499,
+            "lng": -104.9570072,
+            "languages": [],
+            "name": "Swansea Elementary",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "660 Bannock St, Denver, CO 80204",
+            "lat": 39.72646803,
+            "lng": -104.9902258,
+            "languages": [],
+            "name": "DENVER HEALTH AND HOSPITALS",
+            "center_type": "Administrative"
+        },
+        {
+            "address": "1420 Xenia St, Denver, CO 80220",
+            "lat": 39.7390325,
+            "lng": -104.8857873,
+            "languages": [],
+            "name": "XENIA MANOR APARTMENTS",
+            "center_type": "Service Delivery Site"
+        },
+        {
+            "address": "4545 Navajo St, Denver, CO 80211",
+            "lat": 39.77901883,
+            "lng": -105.0041888,
+            "languages": [],
+            "name": "LACASA-QUIGG-NEWTON",
+            "center_type": "Service Delivery Site"
+        }
+    ],
+    "serviceAreaIds": [],
+    "hint": "demo-colorado",
+    "subtitle": ""
+}
