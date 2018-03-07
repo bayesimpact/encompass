@@ -29,7 +29,12 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
     let options = {
         scales: {
             xAxes: [{
-                scaleLabel: { display: true, labelString: xLabel }
+                scaleLabel: { display: true, labelString: xLabel },
+                ticks: {
+                    callback: (value: any) => {
+                        return `${formatNumber(value)}`
+                     }
+                }
             }]
         },
         tooltips: {
@@ -46,6 +51,13 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             scales: {
                 yAxes: [{
                     stacked: true
+                }],
+                xAxes: [{
+                    ticks: {
+                        callback: (value: any) => {
+                            return `${formatPercentage(value, 0)}`
+                         }
+                    }
                 }]
             },
             plugins: {
