@@ -1,3 +1,3 @@
 export function getGoogleAnalyticsAppId(){
-  return process.env.GA_ID
+  return process.env.GA_ID || 'Unknown App ID'
 }
