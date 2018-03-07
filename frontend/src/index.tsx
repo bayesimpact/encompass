@@ -5,7 +5,9 @@ import { App } from './components/App/App'
 import { getGoogleAnalyticsAppId } from './utils/env'
 
 // Set up Google Analytics.
-ReactGA.initialize(getGoogleAnalyticsAppId())
+const googleAnalyticsAppId = getGoogleAnalyticsAppId()
+console.log('Initializing Google Analytics with app ID: ' + googleAnalyticsAppId)
+ReactGA.initialize(googleAnalyticsAppId)
 ReactGA.pageview(window.location.pathname + window.location.search)
 
 render(<App />, document.querySelector('#App'))
