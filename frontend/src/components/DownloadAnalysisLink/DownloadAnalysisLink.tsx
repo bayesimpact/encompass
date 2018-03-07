@@ -28,7 +28,8 @@ function onClick(store: Store) {
   return () => {
     ReactGA.event({
       category: 'Analysis',
-      action: 'Download analysis results'
+      action: 'Download analysis results',
+      label: store.get('selectedDataset').name
     })
     let headers = [
       'CountyName',
