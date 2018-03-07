@@ -61,7 +61,6 @@ def _insert_service_areas(json_features):
             sql_class=service_area.ServiceArea,
             data=data,
             return_insert_ids=False,
-            unique_column='service_area_id'
         )
     except Exception as e:
         print('Error inserting service areas: {}'.format(e))
@@ -77,7 +76,6 @@ def _insert_representative_population_points(json_features):
             sql_class=representative_point.RepresentativePoint,
             data=data,
             return_insert_ids=False,
-            unique_column='location'
         )
         return data
     except Exception as e:
