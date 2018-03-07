@@ -1,6 +1,7 @@
 import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import { AdequacyMode } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
@@ -25,6 +26,10 @@ DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 function onClick(store: Store) {
   let method = store.get('method')
   return () => {
+    ReactGA.event({
+      category: 'Analysis',
+      action: 'Download analysis results'
+    })
     let headers = [
       'CountyName',
       'ZipCode',

@@ -2,6 +2,7 @@ import { chain } from 'lodash'
 import { DropDownMenu } from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { capitalizeWords, snakeCase } from '../../utils/string'
 
@@ -19,7 +20,14 @@ let menuItems = chain(CENSUS_MAPPING)
 export let CensusCategorySelector: React.StatelessComponent<Props> = ({ onChange, value, className }) =>
   <DropDownMenu
     className={className ? className : undefined}
-    onChange={(_event, _index, value) => onChange(snakeCase(value))}
+    onChange={(_event, _index, value) => {
+      ReactGA.event({
+        category: 'Census Category',
+        action: 'Selected a demographic',
+        label: value
+      })
+      onChange(snakeCase(value))
+    }}
     value={value}>
     {menuItems}
   </DropDownMenu>
