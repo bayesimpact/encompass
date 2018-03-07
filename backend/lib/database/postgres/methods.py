@@ -60,7 +60,8 @@ def _safe_core_insert(conn, sql_class, row, unique_column):
     try:
         result = conn.execute(sql_class.__table__.insert(), row)
         return result.inserted_primary_key[0]
-    except IntegrityError:
+    except IntegrityError as e:
+        logger.warning(e)
         data = _get_data(
             conn,
             sql_class,
