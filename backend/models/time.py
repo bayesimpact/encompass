@@ -117,8 +117,6 @@ class APIDrivingTime(Measurer):
             enumerate(distance_responses),
             key=operator.itemgetter(1)
         )
-        print(distance_responses)
-        print(min_measurement)
         return float(min_measurement) / 60.0, point_list[min_idx]
 
     @staticmethod
