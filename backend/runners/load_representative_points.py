@@ -14,7 +14,7 @@ import pandas as pd
 
 FAKE_ZIP_CODE = '00000'
 FAKE_COUNTY = 'county'
-FAKE_STATE = 'tz'
+FAKE_STATE = 'yafc'  # Yet another fake country.
 
 
 def _get_arguments():
@@ -26,6 +26,13 @@ def _get_arguments():
         '-f', '--filepath',
         help='GeoJSON filepath containing representative population point data.',
         required=True,
+        type=str
+    )
+    parser.add_argument(
+        '-s', '--fake_state',
+        help='Fake state name to use to fill in GeoJSON.',
+        required=False,
+        default=FAKE_STATE,
         type=str
     )
     return parser.parse_args().__dict__
@@ -48,7 +55,7 @@ def _main(kwargs):
 
     for ft in json_features:
         ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
-        ft['properties']['state'] = ft['properties'].get('state', None) or FAKE_STATE
+        ft['properties']['state'] = ft['properties'].get('state', None) or kwargs['fake_state']
         ft['properties']['county'] = ft['properties'].get('county', None) or\
             ft['properties']['state'] + FAKE_COUNTY
 
@@ -233,4 +240,10 @@ def _sanitize_county_name_in_service_area_id(county, replacement_mapping=CHARACT
 
 
 if __name__ == '__main__':
-    _main(_get_arguments())
+    arguments = _get_arguments()
+    print('Adding file - %s' % arguments['filepath'])
+    try:
+        _main(arguments)
+    except Exception as e:
+        print('An error occured')
+        print(e)

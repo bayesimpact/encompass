@@ -12,6 +12,8 @@ services:
         - db:db.local
       volumes:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
+      environment:
+        - POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy
 
     db:
       image: mdillon/postgis
