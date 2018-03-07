@@ -25,11 +25,12 @@ DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
 function onClick(store: Store) {
   let method = store.get('method')
+  const selectedDataset = store.get('selectedDataset')
   return () => {
     ReactGA.event({
       category: 'Analysis',
       action: 'Download analysis results',
-      label: store.get('selectedDataset').name
+      label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
     })
     let headers = [
       'CountyName',
