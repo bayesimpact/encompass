@@ -10,6 +10,12 @@ local:
 local-db:
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d db
 
+initialize-local-db:
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/initialize_postgres.py"
+	echo "Performing load of initial Encompass data."
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'app/data/sample/los-angeles-points.geojson'"
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_addresses.py -f 'data/sample/mock-providers.csv'"
+
 rebuild:
 	docker-compose build --no-cache
 
@@ -21,6 +27,14 @@ load_representative_points:
 	curl  --create-dirs -o 'data/representative_points.geojson' ${S3_BUCKET}$(state)'_representative_points.geojson'
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"
 	rm data/representative_points.geojson
+
+load_local_state:
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/sample/$(state).geojson' -s $(state)"
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d backend
+	# TODO - Figure out network issue to use docker instead.
+	cd frontend; yarn codegen
+	cd ..
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml stop backend
 
 normalize_population_totals:
 	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
@@ -51,6 +65,7 @@ backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
 backend-coverage-ci:
+	$(MAKE) initialize-local-db
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend ${BACKEND_COVERAGE}
 
 frontend-test:
