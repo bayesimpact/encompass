@@ -1,0 +1,92 @@
+QT-P2
+Single Years of Age and Sex: 2010
+
+NOTE: For information on confidentiality protection, nonsampling error, and definitions, see  http://www.census.gov/prod/cen2010/doc/sf1.pdf.
+
+T1_POP$1400000US36027060201
+	(r46992)	This count has been revised.   
+Revised count: 3,229 Revision date: 10-22-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36027140101
+	(r46993)	This count has been revised.   
+Revised count: 6,817 Revision date: 03-29-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36027220100
+	(r46994)	This count has been revised.   
+Revised count: 4,320 Revision date: 03-29-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36027640001
+	(r46995)	This count has been revised.   
+Revised count: 1,198 Revision date: 10-22-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36067003602
+	(r47028)	This count has been revised.   
+Revised count: 2,210 Revision date: 01-10-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36067014600
+	(r47029)	This count has been revised.   
+Revised count: 4,941 Revision date: 01-10-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36077591000
+	(r47040)	This count has been revised.   
+Revised count: 3,287 Revision date: 08-21-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36077591200
+	(r47041)	This count has been revised.   
+Revised count: 2,031 Revision date: 08-21-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US36077591300
+	(r47042)	This count has been revised.   
+Revised count: 3,128 Revision date: 08-21-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+X Not applicable.
+
+Source: U.S. Census Bureau, 2010 Census.
+
+Summary File 1, Table PCT12.
+

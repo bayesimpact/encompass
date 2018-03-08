@@ -1,0 +1,200 @@
+QT-P2
+Single Years of Age and Sex: 2010
+
+NOTE: For information on confidentiality protection, nonsampling error, and definitions, see  http://www.census.gov/prod/cen2010/doc/sf1.pdf.
+
+T1_POP$1400000US04003000600
+	(r38847)	This count has been revised.   
+Revised count: 3,260 Revision date: 01-31-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04003000700
+	(r38848)	This count has been revised.   
+Revised count: 4,920 Revision date: 01-31-2013
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013723305
+	(r38345)	This count has been revised.   
+Revised count: 2,724 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811000
+	(r38346)	This count has been revised.   
+Revised count: 2,810 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811300
+	(r38347)	This count has been revised.   
+Revised count: 2,850 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811400
+	(r38348)	This count has been revised.   
+Revised count: 5,230 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811500
+	(r38349)	This count has been revised.   
+Revised count: 2,454 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811600
+	(r38350)	This count has been revised.   
+Revised count: 4,158 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013811700
+	(r38351)	This count has been revised.   
+Revised count: 4,490 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013812100
+	(r38352)	This count has been revised.   
+Revised count: 6,140 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013812200
+	(r38353)	This count has been revised.   
+Revised count: 6,282 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013812300
+	(r38354)	This count has been revised.   
+Revised count: 4,724 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013812400
+	(r38355)	This count has been revised.   
+Revised count: 3,754 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013813000
+	(r38356)	This count has been revised.   
+Revised count: 3,147 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013813300
+	(r38357)	This count has been revised.   
+Revised count: 4,837 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013813500
+	(r38358)	This count has been revised.   
+Revised count: 2,931 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013813900
+	(r38359)	This count has been revised.   
+Revised count: 5,854 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013814000
+	(r38360)	This count has been revised.   
+Revised count: 2,434 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013814200
+	(r38859)	This count has been revised.   
+Revised count: 2,613 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013814600
+	(r38860)	This count has been revised.   
+Revised count: 4,459 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+T1_POP$1400000US04013814900
+	(r38861)	This count has been revised.   
+Revised count: 3,061 Revision date: 10-10-2012
+
+For more information, see  2010 Census Count Question Resolution.
+
+  
+
+
+X Not applicable.
+
+Source: U.S. Census Bureau, 2010 Census.
+
+Summary File 1, Table PCT12.
+
