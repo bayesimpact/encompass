@@ -189,7 +189,9 @@ def _get_all_service_areas(features, urban_data=False):
             'county': county,
             'state': state,
             'zip_code': zip_code,
-            'location': postgis.to_polygon(geometry)
+            'location': postgis.to_polygon(geometry),
+            'state_fips': 'fake_state_fips',
+            'county_fips': 'fake_county_fips'
         }
 
         if urban_data:
