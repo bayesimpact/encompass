@@ -5,7 +5,6 @@ import { withStore } from '../../services/store'
 import { ErrorBar } from '../ErrorBar/ErrorBar'
 import { SuccessBar } from '../ErrorBar/ErrorBar'
 import { FilterBar } from '../FilterBar/FilterBar'
-import { FontLink } from '../FontLink/FontLink'
 import { Header } from '../Header/Header'
 import { LeftPane } from '../LeftPane/LeftPane'
 import { MapView } from '../MapView/MapView'
@@ -14,7 +13,6 @@ import './App.css'
 export let App = withStore('error', 'success')(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>
-      <FontLink />
       <Header />
       <FilterBar />
       <MapView />
