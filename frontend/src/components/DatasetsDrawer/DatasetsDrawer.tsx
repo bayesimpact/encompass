@@ -42,7 +42,6 @@ let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
-    {/*<h2 className='Secondary'>Choose a dataset to explore</h2>*/}
     <p>Welcome to the Encompass analysis tool built by <a href='http://bayesimpact.org'>Beacon Labs</a>. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
     <p>To send us feedback or ideas for new datasets, you can contact us <a href='mailto:data@bayesimpact.org?subject=Request a dataset'>here</a>.</p>
     <DatasetTilePicker
