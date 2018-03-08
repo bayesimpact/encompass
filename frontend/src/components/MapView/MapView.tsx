@@ -93,7 +93,6 @@ export let MapView = withStore(
       boundary += amountPerSlice
       if (i === slices - 1){
         // add remainder
-        // remainder++ // lint
       }
     }
 
@@ -106,8 +105,6 @@ export let MapView = withStore(
     }
   }
 
-  console.log(newFeatureCollections)
-
   return <div className='MapView'>
     <Map
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
@@ -116,7 +113,7 @@ export let MapView = withStore(
       onClick={() => removePopup(store)}
     >
       {pointGeoJson && <GeoJSONLayer
-        data={newFeatureCollections[1]}
+        data={newFeatureCollections[1] /*Try just using one of the new FeatureCollections.*/}
         circlePaint={representativePointCircleStyle}
         circleOnClick={store.set('selectedRepresentativePoint')}
       />}
