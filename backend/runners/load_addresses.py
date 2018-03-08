@@ -55,5 +55,4 @@ if __name__ == '__main__':
     try:
         load_csv(**arguments)
     except Exception as e:
-        print('An error occured.')
-        print(e)
+        print('An error occured uploading addresses.')

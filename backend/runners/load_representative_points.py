@@ -12,7 +12,6 @@ import geojson
 import pandas as pd
 
 
-FAKE_STATE = 'yafc'  # Yet another fake country.
 FAKE_ZIP_CODE = '00000'
 FAKE_COUNTY = 'county'
 
@@ -23,6 +22,18 @@ def _get_arguments():
         This script loads representative population point data from a specified file into PostGIS.
     """)
     parser.add_argument(
+        '-c', '--census_data',
+        help='Add census data to representative points.',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
+        '-u', '--urban_data',
+        help='Add urban data to representative points.',
+        default=False,
+        action='store_true'
+    )
+    parser.add_argument(
         '-f', '--filepath',
         help='GeoJSON filepath containing representative population point data.',
         required=True,
@@ -32,7 +43,7 @@ def _get_arguments():
         '-s', '--fake_state',
         help='Fake state name to use to fill in GeoJSON.',
         required=False,
-        default=FAKE_STATE,
+        default='',
         type=str
     )
     return parser.parse_args().__dict__
@@ -53,20 +64,23 @@ def _main(kwargs):
     with open(kwargs['filepath'], 'r') as f:
         json_features = geojson.load(f)['features']
 
-    for ft in json_features:
-        ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
-        ft['properties']['state'] = ft['properties'].get('state', None) or kwargs['fake_state']
-        ft['properties']['county'] = ft['properties'].get('county', None) or\
-            ft['properties']['state'] + FAKE_COUNTY
+    if kwargs['fake_state'] or FAKE_ZIP_CODE:
+        for ft in json_features:
+            ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
+            ft['properties']['state'] = ft['properties'].get('state', None) or kwargs['fake_state']
+            ft['properties']['county'] = (
+                ft['properties'].get('county', None) or
+                ft['properties']['state'] + '_' + FAKE_COUNTY
+            )
 
-    _insert_service_areas(json_features)
-    _insert_representative_population_points(json_features)
+    _insert_service_areas(json_features, urban_data=kwargs['urban_data'])
+    _insert_representative_population_points(json_features, census_data=kwargs['census_data'])
 
 
-def _insert_service_areas(json_features):
+def _insert_service_areas(json_features, urban_data=False):
     """Insert service areas into the database from a GeoJSON file."""
     print('Inserting service areas...')
-    data = _get_all_service_areas(json_features)
+    data = _get_all_service_areas(json_features, urban_data=urban_data)
     try:
         methods.core_insert(
             engine=connect.create_db_engine(),
@@ -78,10 +92,10 @@ def _insert_service_areas(json_features):
         print('Error inserting service areas: {}'.format(e))
 
 
-def _insert_representative_population_points(json_features):
+def _insert_representative_population_points(json_features, census_data=False):
     """Insert representative points into the database from a GeoJSON file."""
     print('Inserting representative points...')
-    data = [_transform_single_point(point) for point in json_features]
+    data = [_transform_single_point(point, census_data=census_data) for point in json_features]
     try:
         methods.core_insert(
             engine=connect.create_db_engine(),
@@ -94,9 +108,9 @@ def _insert_representative_population_points(json_features):
         print('Error inserting representative points: {}'.format(e))
 
 
-def _transform_single_point(point):
+def _transform_single_point(point, census_data=False):
     """Convert a single feature to the format expected by the database."""
-    return {
+    representative_point = {
         'latitude': point['geometry']['coordinates'][1],
         'longitude': point['geometry']['coordinates'][0],
         'location': postgis.to_point(
@@ -110,16 +124,20 @@ def _transform_single_point(point):
             state=point['properties']['state'].lower(),
             county=_sanitize_county_name_in_service_area_id(point['properties']['county']),
             zip=point['properties']['zip_code']
-        ),
-        # 'census_tract': '{statefp}{countyfp}{tractce}'.format(
-        #     statefp=point['properties']['statefp'],
-        #     countyfp=point['properties']['countyfp'],
-        #     tractce=point['properties']['tractce'],
-        # ),
+        )
     }
 
+    if census_data:
+        representative_point['census_tract'] = '{statefp}{countyfp}{tractce}'.format(
+            statefp=point['properties']['statefp'],
+            countyfp=point['properties']['countyfp'],
+            tractce=point['properties']['tractce'],
+        )
 
-def _get_all_service_areas(features):
+    return representative_point
+
+
+def _get_all_service_areas(features, urban_data=False):
     """
     Extract service area information from a list of JSON features.
 
@@ -134,10 +152,11 @@ def _get_all_service_areas(features):
             point['properties']['zip_code']
         )
         service_area_to_coords[service_area_id].append(point['geometry']['coordinates'])
-        # service_area_to_fips_codes[service_area_id] = {
-        #     'state_fips': point['properties']['statefp'],
-        #     'county_fips': point['properties']['countyfp'],
-        # }
+        if urban_data:
+            service_area_to_fips_codes[service_area_id] = {
+                'state_fips': point['properties']['statefp'],
+                'county_fips': point['properties']['countyfp'],
+            }
 
     service_area_to_bounding_box = {
         service_area: {
@@ -149,7 +168,8 @@ def _get_all_service_areas(features):
         for service_area, coords in service_area_to_coords.items()
     }
 
-    # urban_rural_designations = _get_urban_rural_code_map()
+    if urban_data:
+        urban_rural_designations = _get_urban_rural_code_map()
 
     service_areas = []
     for state, county, zip_code in service_area_to_bounding_box:
@@ -162,11 +182,7 @@ def _get_all_service_areas(features):
             (bbox['min_lon'], bbox['min_lat']),
         ]
 
-        # state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
-        # county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
-        # urban_rural_designation = urban_rural_designations.get((state_fips, county_fips), None)
-
-        service_areas.append({
+        service_area = {
             'service_area_id': '{state}_{county}_{zip}'.format(
                 state=state.lower(),
                 county=_sanitize_county_name_in_service_area_id(county),
@@ -176,10 +192,23 @@ def _get_all_service_areas(features):
             'state': state,
             'zip_code': zip_code,
             'location': postgis.to_polygon(geometry),
-            # 'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
-            # 'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
-            # 'nchs_urban_rural_code': urban_rural_designation,
-        })
+            'state_fips': 'fake_state_fips',
+            'county_fips': 'fake_county_fips'
+        }
+
+        if urban_data:
+            state_fips = service_area_to_fips_codes[(state, county, zip_code)]['state_fips']
+            county_fips = service_area_to_fips_codes[(state, county, zip_code)]['county_fips']
+            urban_rural_designation = urban_rural_designations.get((state_fips, county_fips), None)
+
+            additional_info = {
+                'state_fips': service_area_to_fips_codes[(state, county, zip_code)]['state_fips'],
+                'county_fips': service_area_to_fips_codes[(state, county, zip_code)]['county_fips'],
+                'nchs_urban_rural_code': urban_rural_designation
+            }
+            service_area.update(additional_info)
+
+        service_areas.append(service_area)
 
     return service_areas
 
@@ -245,5 +274,5 @@ if __name__ == '__main__':
     try:
         _main(arguments)
     except Exception as e:
-        print('An error occured')
-        print(e)
+        print('An error occured uploading the file.')
+        print(e[:1000])
