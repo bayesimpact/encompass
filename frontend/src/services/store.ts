@@ -30,6 +30,11 @@ type Actions = {
    */
   success: string | null
 
+  /**
+  * Control opening of the about page.
+  */
+  isAboutDialogOpen: boolean
+
   mapCenter: {
     lat: number
     lng: number
@@ -143,6 +148,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
+  isAboutDialogOpen: false,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
