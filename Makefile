@@ -19,29 +19,25 @@ initialize-local-db:
 rebuild:
 	docker-compose build --no-cache
 
-# Fetch data from S3 and load to Postgres.
-# State should be specified as a lowercase, two-letter abbreviation, e.g. 'ca'.
-# Example usage: make load_representative_points state='ca'
-S3_BUCKET='https://s3-us-west-1.amazonaws.com/network-adequacy/data-02-15-18/etl/output/'
-load_representative_points:
-	curl  --create-dirs -o 'data/representative_points.geojson' ${S3_BUCKET}$(state)'_representative_points.geojson'
-	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/representative_points.geojson'"
-	rm data/representative_points.geojson
-
-load_local_state:
-	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/sample/$(state).geojson' -s $(state)"
+load-local-state:
+	# Usage: make load-local-state state=ca filename=sample/los-angeles-points.geojson args="-c -u" (census_data and urban_data)
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' -s $(state) $(args)"
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d backend
 	# TODO - Figure out network issue to use docker instead.
 	cd frontend; yarn codegen
 	cd ..
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml stop backend
 
-normalize_population_totals:
+load-representative-points:
+	# Usage: make load-representative-point filename=california.geojson args="-c -u" (census_data and urban_data)
+	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' $(args)"
+
+normalize-population-totals:
 	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
 
 # Export representative points data and build a MapBox tileset.
 # Note: You may need to run `brew install tippecanoe`.
-create_tileset_from_representative_points:
+create-tileset-from-representative-points:
 	docker-compose run --no-deps backend bash -c "python runners/export_representative_points.py -o data/representative_points_from_db.geojson"
 	tippecanoe -o data/repr_pop_points.mbtiles -Z 7 -z 22 -r 2.5 -B 8.0 -f data/representative_points_from_db.geojson
 

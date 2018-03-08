@@ -65,11 +65,14 @@ def _main(kwargs):
     with open(kwargs['filepath'], 'r') as f:
         json_features = geojson.load(f)['features']
 
-    for ft in json_features:
-        ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
-        ft['properties']['state'] = ft['properties'].get('state', None) or kwargs['fake_state']
-        ft['properties']['county'] = ft['properties'].get('county', None) or\
-            ft['properties']['state'] + FAKE_COUNTY
+    if kwargs['fake_state'] or FAKE_COUNTY:
+        for ft in json_features:
+            ft['properties']['zip_code'] = ft['properties'].get('zip_code', None) or FAKE_ZIP_CODE
+            ft['properties']['state'] = ft['properties'].get('state', None) or kwargs['fake_state']
+            ft['properties']['county'] = (
+                ft['properties'].get('county', None) or
+                ft['properties']['state'] + '_' + FAKE_COUNTY
+            )
 
     _insert_service_areas(json_features, urban_data=kwargs['urban_data'])
     _insert_representative_population_points(json_features, census_data=kwargs['census_data'])
@@ -273,3 +276,4 @@ if __name__ == '__main__':
         _main(arguments)
     except Exception as e:
         print('An error occured uploading the file.')
+        print(e[:1000])
