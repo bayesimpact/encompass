@@ -2,6 +2,7 @@ import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import { withStore } from '../../services/store'
 import './FilterBar.css'
 
@@ -11,7 +12,14 @@ export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
       <span>Method</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
-        onChange={(_e, _i, value) => store.set('method')(value)}
+        onChange={(_e, _i, value) => {
+          ReactGA.event({
+            category: 'Adequacy',
+            action: 'Selected an adequacy type',
+            label: value
+          })
+          store.set('method')(value)
+        }}
         value={store.get('method')}
       >
         <MenuItem value='driving_time' primaryText='Driving Time' disabled={!store.get('allowDrivingTime')} />
