@@ -29,10 +29,12 @@ load_representative_points:
 	rm data/representative_points.geojson
 
 load_local_country:
-	# docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/sample/$(state).geojson' -s $(state)"
-	# docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d backend
-	docker-compose run frontend bash -c "yarn codegen"
-	# docker-compose -f docker-compose.yml -f docker-compose.override.db.yml down
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/sample/$(state).geojson' -s $(state)"
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d backend
+	# TODO - Figure out network issue to use docker instead.
+	cd frontend; yarn codegen
+	cd ..
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml stop backend
 
 normalize_population_totals:
 	docker-compose run backend bash -c "python runners/normalize_population_totals.py"

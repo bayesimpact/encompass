@@ -7,8 +7,10 @@ volumes:
 services:
 
     backend:
+      depends_on:
+        - db
       links:
-        # Link with the DB container as `db.local`
+        # Link with the DB container as `db.local`.
         - db:db.local
       volumes:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
@@ -18,10 +20,9 @@ services:
     db:
       image: mdillon/postgis
       ports:
-        # Expose port for convenient local access
+        # Expose port for convenient local access.
         - 5432:5432
       volumes:
-        - ./backend/init.sql:/tmp/init.sql
         - postgres-data:/var/lib/postgresql/data
       environment:
         POSTGRES_PASSWORD: example

@@ -12,9 +12,9 @@ import geojson
 import pandas as pd
 
 
+FAKE_STATE = 'yafc'  # Yet another fake country.
 FAKE_ZIP_CODE = '00000'
 FAKE_COUNTY = 'county'
-FAKE_STATE = 'yafc'  # Yet another fake country.
 
 
 def _get_arguments():
