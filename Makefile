@@ -13,7 +13,7 @@ local-db:
 initialize-local-db:
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/initialize_postgres.py"
 	echo "Performing load of initial Encompass data."
-	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'app/data/sample/los-angeles-points.geojson'"
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -u -f 'data/sample/los-angeles-points.geojson'"
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_addresses.py -f 'data/sample/mock-providers.csv'"
 
 rebuild:
