@@ -147,7 +147,7 @@ let store = withEffects(createStore<Actions>({
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
   mapZoom: DEFAULT_MAP_ZOOM,
-  method: 'driving_time',
+  method: 'haversine',
   providerIndex: 0,
   providers: [],
   representativePoints: [],
