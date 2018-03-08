@@ -12,7 +12,7 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
-const { APP_IS_PUBLIC } = process.env
+// const { APP_IS_PUBLIC } = process.env
 
 export function withEffects(store: Store) {
   /**
