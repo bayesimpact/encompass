@@ -9,11 +9,12 @@ local:
 
 local-db:
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d db
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up backend frontend
 
 initialize-local-db:
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/initialize_postgres.py"
 	echo "Performing load of initial Encompass data."
-	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -u -f 'data/sample/los-angeles-points.geojson'"
+	# docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -u -f 'data/sample/los-angeles-points.geojson'"
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_addresses.py -f 'data/sample/mock-providers.csv'"
 
 rebuild:
@@ -32,8 +33,7 @@ load-representative-points:
 	# Usage: make load-representative-point filename=california.geojson args="-c -u" (census_data and urban_data)
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' $(args)"
 
-normalize-population-totals:
-	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
+normalize-population-totals:	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
 
 # Export representative points data and build a MapBox tileset.
 # Note: You may need to run `brew install tippecanoe`.

@@ -290,11 +290,11 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(!APP_IS_PUBLIC)
+        store.set('allowDrivingTime')(false)
         store.set('method')('haversine')
       } else if (route === '/datasets') {
-        store.set('allowDrivingTime')(true)
-        store.set('method')('driving_time')
+        store.set('allowDrivingTime')(false)
+        store.set('method')('haversine')
       }
     })
   return store

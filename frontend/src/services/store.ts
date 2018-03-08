@@ -139,7 +139,7 @@ type Actions = {
  */
 let store = withEffects(createStore<Actions>({
   adequacies: {},
-  allowDrivingTime: true,
+  allowDrivingTime: false,
   counties: [],
   error: null,
   success: null,

@@ -10,4 +10,4 @@ export const ZIPS_BY_COUNTY_BY_STATE: Record<
   {
     [county: string]: { zip_codes: string[]; nhcs_code: number }
   }
-> = { colombia: { colombiacounty: { zip_codes: ['00000'], nhcs_code: NaN } }, tanzania: { tanzaniacounty: { zip_codes: ['00000'], nhcs_code: NaN } } }
+> = { cl: { cl_county: { zip_codes: ['00000'], nhcs_code: NaN } }, tz: { tz_county: { zip_codes: ['00000'], nhcs_code: NaN } } }

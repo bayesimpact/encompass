@@ -14,8 +14,14 @@ services:
         - db:db.local
       volumes:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
+      ports:
+        - 8082:8080
+
+    frontend:
+      ports:
+        - 8083:8081
       environment:
-        - POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy
+        - API_ROOT=http://localhost:8082
 
     db:
       image: mdillon/postgis
