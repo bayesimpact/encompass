@@ -62,7 +62,7 @@ jobs:
             - run:
                 name: Perform update over SSH
                 command: | # TODO: split this line up for readability using `bash -c`
-                    ssh ec2-user@$QA_DNS 'cd tds; docker-compose down; sudo rm .cache/*; git fetch origin; git checkout .; git checkout deploy-qa; git pull origin deploy-qa; docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend'
+                    ssh ec2-user@$QA_DNS 'cd tds; docker-compose down; git fetch origin; git checkout .; git checkout deploy-qa; git pull origin deploy-qa; docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend'
 
     deploy-demo:
         machine:
