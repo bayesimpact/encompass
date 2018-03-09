@@ -2,6 +2,7 @@ import { chain } from 'lodash'
 import { DropDownMenu } from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import { FilterMethod } from '../../constants/datatypes'
 
 type Props = {
@@ -18,7 +19,14 @@ let menuItems = chain(options).map(
 export let FilterMethodSelector: React.StatelessComponent<Props> = ({ className, onChange, value }) =>
   <DropDownMenu
     className={className ? className : undefined}
-    onChange={(_event, _index, value) => onChange(value)}
+    onChange={(_event, _index, value) => {
+      ReactGA.event({
+        category: 'Filter',
+        action: 'Selected a filter type',
+        label: value
+      })
+      onChange(value)
+    }}
     value={value}>
     {menuItems}
   </DropDownMenu >

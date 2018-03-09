@@ -46,7 +46,7 @@ backend-lint:
 backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
-BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=80 --cov-report term-missing
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=84 --cov-report term-missing
 backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
