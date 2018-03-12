@@ -1,3 +1,9 @@
+@import "../../index.css";
+
 .AboutLogoImg {
     height: 140px;
+}
+
+p {
+    font-size: var(--medium-font);
 }
