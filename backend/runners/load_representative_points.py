@@ -25,18 +25,6 @@ def _get_arguments():
         This script loads representative population point data from a specified file into PostGIS.
     """)
     parser.add_argument(
-        '-c', '--census_data',
-        help='Add census data to representative points.',
-        default=False,
-        action='store_true'
-    )
-    parser.add_argument(
-        '-u', '--urban_data',
-        help='Add urban data to representative points.',
-        default=False,
-        action='store_true'
-    )
-    parser.add_argument(
         '-f', '--filepath',
         help='GeoJSON filepath containing representative population point data.',
         required=True,
@@ -109,14 +97,14 @@ def _main(kwargs):
     if kwargs['fake_state']:
         json_features = _fake_data(json_features, fake_state=kwargs['fake_state'])
 
-    _insert_service_areas(json_features, urban_data=kwargs['urban_data'])
-    _insert_representative_population_points(json_features, census_data=kwargs['census_data'])
+    _insert_service_areas(json_features)
+    _insert_representative_population_points(json_features)
 
 
-def _insert_service_areas(json_features, urban_data=False):
+def _insert_service_areas(json_features):
     """Insert service areas into the database from a GeoJSON file."""
     print('Inserting service areas...')
-    data = _get_all_service_areas(json_features, urban_data=urban_data)
+    data = _get_all_service_areas(json_features)
     try:
         methods.core_insert(
             engine=connect.create_db_engine(),
@@ -128,10 +116,10 @@ def _insert_service_areas(json_features, urban_data=False):
         print('Error inserting service areas: {}'.format(str(e)[:1000]))
 
 
-def _insert_representative_population_points(json_features, census_data=False):
+def _insert_representative_population_points(json_features):
     """Insert representative points into the database from a GeoJSON file."""
     print('Inserting representative points...')
-    data = [_transform_single_point(point, census_data=census_data) for point in json_features]
+    data = [_transform_single_point(point) for point in json_features]
     try:
         methods.core_insert(
             engine=connect.create_db_engine(),
@@ -144,7 +132,7 @@ def _insert_representative_population_points(json_features, census_data=False):
         print('Error inserting representative points: {}'.format(str(e)[:1000]))
 
 
-def _transform_single_point(point, census_data=False):
+def _transform_single_point(point):
     """Convert a single feature to the format expected by the database."""
     representative_point = {
         'latitude': point['geometry']['coordinates'][1],
@@ -171,7 +159,7 @@ def _transform_single_point(point, census_data=False):
     return representative_point
 
 
-def _get_all_service_areas(features, urban_data=False):
+def _get_all_service_areas(features):
     """
     Extract service area information from a list of JSON features.
 
@@ -201,8 +189,7 @@ def _get_all_service_areas(features, urban_data=False):
         for service_area, coords in service_area_to_coords.items()
     }
 
-    if urban_data:
-        urban_rural_designations = _get_urban_rural_code_map()
+    urban_rural_designations = _get_urban_rural_code_map()
 
     service_areas = []
     for state, county, zip_code in service_area_to_bounding_box:

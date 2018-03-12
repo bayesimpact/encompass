@@ -26,7 +26,7 @@ export function withEffects(store: Store) {
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
-      let fake_demographic = { all: { All: 1 } }
+      let fake_demographic = { all: { All: 100.0 } }
       if (!equals(serviceAreas, store.get('serviceAreas'))) {
         return
       }
