@@ -11,7 +11,10 @@ import geojson
 
 import pandas as pd
 
-
+# Map of GeoJSON feature attributes in the form new_name: old_name.
+ATTRIBUTE_MAPPING = {
+    'county': 'name_2'
+}
 FAKE_ZIP_CODE = '00000'
 FAKE_COUNTY = 'county'
 
@@ -38,14 +41,22 @@ def _get_arguments():
 
 
 def _fake_zip(json_features, fake_zip=FAKE_ZIP_CODE):
-    """Fake ZIP."""
+    """Fake ZIP code."""
     for ft in json_features:
         ft['properties']['zip_code'] = fake_zip
     return json_features
 
 
-def _fake_data(json_features, fake_state):
-    """Fake ZIP, state, county, statefp, countyfp and tractce."""
+def _fake_data(json_features, fake_state, attribute_mapping=ATTRIBUTE_MAPPING):
+    """
+    Fake ZIP code, state, county, statefp, countyfp and tractce.
+
+    If all attributes specified in attribute_mapping are present in the features, these values
+    will be used for the new attributes. Otherwise, the constants at the top of the file are used.
+    """
+    if not json_features:
+        return json_features
+
     for ft in json_features:
         ft['properties']['zip_code'] = FAKE_ZIP_CODE or '00000'
         ft['properties']['state'] = fake_state
@@ -53,6 +64,13 @@ def _fake_data(json_features, fake_state):
         ft['properties']['statefp'] = ''
         ft['properties']['countyfp'] = ''
         ft['properties']['tractce'] = ''
+
+    # If every attribute in the mapping is present, set the new attribute equal to the value of
+    # the old attribute.
+    if all(attribute in json_features[0]['properties'] for attribute in attribute_mapping.values()):
+        for new_attribute, old_attribute in attribute_mapping.items():
+            for ft in json_features:
+                ft['properties'][new_attribute] = ft['properties'][old_attribute]
 
     return json_features
 
@@ -137,9 +155,6 @@ def _transform_single_point(point):
             tractce=point['properties']['tractce'],
         )
     }
-
-    representative_point
-
     return representative_point
 
 

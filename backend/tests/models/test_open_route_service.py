@@ -40,4 +40,4 @@ class TestOpenRouteDrivingTime():
             assert len(matrix_durations[0]) == 2
             assert matrix_durations[0][0] is not None
         else:
-            print('OpenRouteDrivingTime not fullly tested. No API key provided. $ORS_TOKEN.')
+            print('OpenRouteDrivingTime not fully tested. No API key provided. $ORS_TOKEN.')
