@@ -11,7 +11,7 @@ type Props = {
 export let AboutDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
-  let beaconLink = SecureLink('https://bayesimpact.org', 'Bayes Impact')
+  let bayesLink = SecureLink('https://bayesimpact.org', 'Bayes Impact')
   let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'here')
   let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'Github')
   let osrmLink = SecureLink('https://github.com/bayesimpact/encompass', 'OSRM')
@@ -27,7 +27,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
         <img className='AboutLogoImg' alt='bayes-logo' src='http://www.bayesimpact.org/images/logo_sq.png' />
       </div>
       <p>
-        Encompass is a geographic analysis tool built by {beaconLink}. The application processes {ghslLink} from the
+        Encompass is a geographic analysis tool built by {bayesLink}. The application processes {ghslLink} from the
         European Commission
         to approximate the location of people across the world. Encompass then uses a variety of open data sources and
         open-source technology,
