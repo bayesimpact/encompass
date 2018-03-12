@@ -50,4 +50,9 @@ def load_csv(filepath):
 
 
 if __name__ == '__main__':
-    load_csv(**_get_arguments())
+    arguments = _get_arguments()
+    print('Load providers from - %s' % arguments['filepath'])
+    try:
+        load_csv(**arguments)
+    except Exception as e:
+        print('An error occured uploading addresses.')
