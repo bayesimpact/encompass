@@ -24,10 +24,13 @@ export function TilePicker<T>() {
             className={'Tile' + (tile === this.props.value ? ' -Active' : '')}
             key={typeof tile.name === 'string' ? tile.name : tile.name.toString()}
             onClick={() => {
+              // We need to do a check here, because the tile for uploading a custom dataset doesn't have a stringy name attribute.
+              console.log(JSON.stringify(tile))
+              let eventLabel = typeof tile.name === 'string' ? tile.name : 'Analyze Your Own Data'
               ReactGA.event({
                 category: 'Dataset',
                 action: 'Selected a dataset',
-                label: tile.name.toString()
+                label: eventLabel
               })
               this.props.onChange(tile)
             }}
