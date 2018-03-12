@@ -16,6 +16,8 @@ services:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
       ports:
         - 8082:8080
+      environment:
+        - POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy
 
     frontend:
       ports:

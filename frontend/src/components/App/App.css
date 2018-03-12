@@ -15,7 +15,7 @@
 */
 
 body {
-  font: 400 13px/21px -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+  font: 400 var(--medium-font)/var(--medium-font-line) Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 }
 
 html, body, #App, .App {
@@ -26,7 +26,7 @@ html, body, #App, .App {
 h2 {
   font-size: var(--large-font);
   font-weight: var(--heavy-weight);
-  line-height: 48px;
+  line-height: var(--large-font-line);
   text-transform: uppercase;
 }
 
@@ -36,6 +36,7 @@ hr {
 
 p {
   padding: 12px 0;
+  font-size: var(--medium-font) !important;
 }
 
 /*

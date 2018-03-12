@@ -1,4 +1,4 @@
-import { chain, filter, keyBy, uniq } from 'lodash'
+import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
@@ -257,8 +257,15 @@ export function withEffects(store: Store) {
     .on('adequacies')
     .filter(Boolean)
     .subscribe(adequacies => {
-      const representativePoints = store.get('representativePoints')
-      store.set('pointGeoJson')(representativePointsToGeoJSON(adequacies)(representativePoints))
+      let representativePoints = store.get('representativePoints')
+      if (representativePoints === null) {
+        store.set('pointFeatureCollections')(null)
+      } else {
+        let chunkSize = Math.floor(representativePoints.length / 10)
+        store.set('pointFeatureCollections')(
+          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies)(rpChunk))
+        )
+      }
     })
 
   /**

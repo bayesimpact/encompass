@@ -17,23 +17,31 @@ initialize-local-db:
 	# docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -u -f 'data/sample/los-angeles-points.geojson'"
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_addresses.py -f 'data/sample/mock-providers.csv'"
 
+initialize-local-db:
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/initialize_postgres.py"
+	echo "Performing load of initial Encompass data."
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/sample/los-angeles-points.geojson'"
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_addresses.py -f 'data/sample/mock-providers.csv'"
+
 rebuild:
 	docker-compose build --no-cache
 
+# TODO - Figure out network issue to use docker instead for yarn.
 load-local-state:
-	# Usage: make load-local-state state=ca filename=sample/los-angeles-points.geojson args="-c -u" (census_data and urban_data)
-	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' -s $(state) $(args)"
+	# Usage 1: make load-local-state filename=sample/los-angeles-points.geojson
+	# Usage 2: make load-local-state filename=sample/random_state.geojson args="-s fake_state" # This wil force fake all census and urban data.
+	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' $(args)"
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml up -d backend
-	# TODO - Figure out network issue to use docker instead.
 	cd frontend; yarn codegen
 	cd ..
 	docker-compose -f docker-compose.yml -f docker-compose.override.db.yml stop backend
 
 load-representative-points:
-	# Usage: make load-representative-point filename=california.geojson args="-c -u" (census_data and urban_data)
+	# Usage: make load-representative-point filename=california.geojson
 	docker-compose run backend bash -c "python runners/load_representative_points.py -f 'data/$(filename)' $(args)"
 
-normalize-population-totals:	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
+normalize-population-totals:
+	docker-compose run backend bash -c "python runners/normalize_population_totals.py"
 
 # Export representative points data and build a MapBox tileset.
 # Note: You may need to run `brew install tippecanoe`.
@@ -45,7 +53,7 @@ create-tileset-from-representative-points:
 clear-cache:
 	rm -f .cache/*
 
-# Run the app in debug mode.
+# Run the backend in debug mode.
 flask-debug:
 	docker-compose run --service-ports backend bash -c "python main.py"
 
@@ -56,7 +64,7 @@ backend-lint:
 backend-test:
 	docker-compose run --no-deps backend pytest -s tests
 
-BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=80 --cov-report term-missing
+BACKEND_COVERAGE=pytest --cov=backend --cov-config .coveragerc --cov-fail-under=84 --cov-report term-missing
 backend-coverage:
 	docker-compose run --no-deps backend ${BACKEND_COVERAGE}
 
