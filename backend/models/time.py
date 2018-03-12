@@ -32,9 +32,9 @@ def _retry_if_result_none(result):
 class APIDrivingTime(Measurer):
     """Class for API driving time measurements."""
 
-    def __init__(self, api_key=None, early_exit_outer_radius=120.0 * 10**3):
+    def __init__(self, api_key=None, early_exit_outer_radius=120.0 * 10**3, *args, **kwargs):
         """Initialize the distance class with for an API measurer."""
-        self.api_key = api_key or ''
+        self.api_key = api_key
         self._haversine_measurer = distance.HaversineDistance()
         self.early_exit_outer_radius = early_exit_outer_radius
         # Some APIs only accept a maximum number of entries per call.
@@ -132,14 +132,12 @@ class OSRMDrivingTime(APIDrivingTime):
     Uses the `table` OSRM API endpoint.
     """
 
-    def __init__(self, api_url=None, early_exit_outer_radius=120.0 * 10**3):
+    def __init__(self, *args, **kwargs):
         """Initialize the distance class with the OSRM URL."""
         # FIXME: Once the API accepts distances, enable a `distance` mode.
         logger.debug('Initializing OSRM measurer.')
-        super().__init__()
-        self.api_url = api_url or os.getenv('OSRM_URL')
-        self._haversine_measurer = distance.HaversineDistance()
-        self.early_exit_outer_radius = early_exit_outer_radius
+        super(OSRMDrivingTime, self).__init__(*args, **kwargs)
+        self.api_url = kwargs.get('api_url', None) or os.getenv('OSRM_URL')
 
     # TODO - Abstract and merge with MapBox _get_matrix function.
     @retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
@@ -178,11 +176,11 @@ class OSRMDrivingTime(APIDrivingTime):
 class MapBoxDrivingTime(APIDrivingTime):
     """Class for MapBox driving time measurements."""
 
-    def __init__(self, api_key=None, early_exit_outer_radius=120.0 * 10**3):
+    def __init__(self, *args, **kwargs):
         """Initialize the distance class with a MapBox API key."""
-        self.api_key = api_key or os.getenv('MAPBOX_TOKEN')
-        self._haversine_measurer = distance.HaversineDistance()
-        self.early_exit_outer_radius = early_exit_outer_radius
+        logger.debug('Initializing MapBox measurer.')
+        super(MapBoxDrivingTime, self).__init__(*args, **kwargs)
+        self.api_key = self.api_key or os.getenv('MAPBOX_TOKEN')
         self.max_matrix_size = 25
 
     @retry(wait_fixed=500, stop_max_attempt_number=2)
@@ -227,10 +225,11 @@ class MapBoxDrivingTime(APIDrivingTime):
 class OpenRouteDrivingTime(APIDrivingTime):
     """Class for OpenRouteService driving time measurements."""
 
-    def __init__(self, api_key=None, early_exit_outer_radius=120.0 * 10**3):
+    def __init__(self, *args, **kwargs):
         """Initialize the distance class with an Open Routing Service API key."""
-        super().__init__()
-        self.api_key = api_key or os.getenv('ORS_TOKEN')
+        logger.debug('Initializing OpenRouting measurer.')
+        super(OpenRouteDrivingTime, self).__init__(*args, **kwargs)
+        self.api_key = self.api_key or os.getenv('ORS_TOKEN')
         self.client = openrouteservice.Client(key=self.api_key)
 
     @retry(wait_fixed=500, stop_max_attempt_number=2)
