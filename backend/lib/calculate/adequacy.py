@@ -37,8 +37,7 @@ def _find_closest_location(point, locations, measurer, exit_distance_in_meters=N
         )
     provider = {
         'id': point['id'],
-        # FIXME - Return real lists of closest providers.
-        'closest_providers': [1],
+        'closest_point': closest_provider,
         'to_closest_provider': closest_distance
     }
     return provider
@@ -125,6 +124,15 @@ def _get_locations_to_check_by_service_area(
     return locations_to_check_by_service_area
 
 
+def _add_closest_provider_id(adequacies_response, location_mapping):
+    for adequacy in adequacies_response:
+        point = adequacy.pop('closest_point')
+        adequacy['closest_providers'] = location_mapping[point]
+        adequacy['closest_location'] = {'latitude': point.latitude, 'longitude': point.longitude}
+
+    return adequacies_response
+
+
 @timed
 def calculate_adequacies(
     service_area_ids,
@@ -187,7 +195,7 @@ def calculate_adequacies(
 
     logger.debug('Starting {} executors for adequacy calculations...'.format(n_processors))
     with executor_type(processes=n_processors) as executor:
-        adequacies_response = executor.starmap(
+        adequacies = executor.starmap(
             func=_find_closest_location,
             iterable=zip(
                 points,
@@ -197,5 +205,6 @@ def calculate_adequacies(
             )
         )
 
+    adequacies_response = _add_closest_provider_id(adequacies, location_mapping)
     logger.debug('Returning adequacy results.')
     return list(adequacies_response)
