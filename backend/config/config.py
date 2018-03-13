@@ -117,7 +117,7 @@ CONFIG = {
         'haversine': {
             'adequacy_executor_type': multiprocessing.Pool,  # For CPU-bound tasks.
             'n_adequacy_processors': 8,
-            'exit_distance': 10.0 * ONE_MILE_IN_METERS
+            'exit_distance': 1.0 * ONE_MILE_IN_METERS
         },
         'osrm': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
