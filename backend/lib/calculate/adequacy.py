@@ -5,7 +5,7 @@ import logging
 
 from backend.config import config
 from backend.lib.database.postgres import connect, table_handling
-from backend.lib.database.tables import address, service_area
+from backend.lib.database.tables import service_area
 from backend.lib.fetch import representative_points
 from backend.lib.timer import timed
 from backend.lib.utils.datatypes import Point
@@ -60,17 +60,18 @@ def _get_locations_to_check_by_service_area(
     """
     locations_to_check_by_service_area = collections.defaultdict(list)
 
-    service_area_id_list = '(VALUES' + ', '.join([
-        "('{}')".format(_id) for _id in service_area_ids
-    ]) + ')'
-
+    # FIXME: Use psycopg2.extras.execute_values to insert these values.
     address_values = [
         '({idx}, ST_SetSRID(ST_Point({longitude}, {latitude}), 4326)::geography)'.format(
             idx=idx,
-            longitude=provider_address.longitude,
-            latitude=provider_address.latitude
+            longitude=float(provider_address.longitude),
+            latitude=float(provider_address.latitude)
         ) for idx, provider_address in enumerate(locations)
     ]
+
+    query_params = {
+        'service_area_id_list': tuple(service_area_ids),
+    }
 
     temp_table_name = table_handling.get_random_table_name(prefix='addr')
     create_temp_table_query = """
@@ -95,24 +96,22 @@ def _get_locations_to_check_by_service_area(
             ST_DWithin(areas.location, tmp.location, {radius}, FALSE)
         )
         WHERE 1=1
-            AND areas.service_area_id IN {service_area_id_list}
+            AND areas.service_area_id IN %(service_area_id_list)s
         ;
     """.format(
         temp_table_name=temp_table_name,
         service_areas=service_area.ServiceArea.__tablename__,
-        addresses=address.Address.__tablename__,
-        service_area_id_list=service_area_id_list,
         radius=radius_in_meters,
     )
 
-    query = """
+    full_query = """
         {create_temp_table_query}
         {gis_query}
     """.format(
         create_temp_table_query=create_temp_table_query,
         gis_query=gis_query
     )
-    query_results = (dict(row) for row in engine.execute(query).fetchall())
+    query_results = (dict(row) for row in engine.execute(full_query, query_params).fetchall())
 
     for row in query_results:
         locations_to_check_by_service_area[row['service_area_id']].append(
