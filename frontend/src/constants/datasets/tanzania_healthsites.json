@@ -54318,9 +54318,7 @@
             "name": "to Iyenze Kahama, to Iyenze Kahama"
         }
     ],
-    "serviceAreaIds": [
-        "tz_tz_county_00000"
-    ],
+    "serviceAreaIds": [],
     "hint": "tanzania_healthsites_io",
     "subtitle": "Tanzania - Healthsites.io"
 }
