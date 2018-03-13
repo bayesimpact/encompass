@@ -1,5 +1,5 @@
 """
-Methods to update USPS population totals to match census totals.
+Methods to update population totals to match census totals.
 
 NOTE: These methods require the census tables to exist and contain data.
 In particular, the data profile table DP05 from the ACS is used for population estimates.
@@ -25,20 +25,20 @@ POPULATION_UPDATE_QUERY_COUNTY_LEVEL = """
         FROM census_acs_dp_05
         GROUP BY 1
     ),
-    usps_population AS (
+    raw_population AS (
         SELECT
             LEFT(census_tract, 5) AS county
-            , SUM(population) AS usps_pop
+            , SUM(population) AS raw_pop
         FROM representative_points
         GROUP BY 1
     ),
-    census_to_usps_ratio AS (
+    census_to_raw_ratio AS (
         SELECT
             census.county AS county
-            , census_pop / usps_pop AS ratio
+            , census_pop / raw_pop AS ratio
         FROM census_population census
-        JOIN usps_population usps
-        ON census.county = usps.county
+        JOIN raw_population raw
+        ON census.county = raw.county
     )
     UPDATE representative_points AS rps
     SET population =
@@ -46,7 +46,7 @@ POPULATION_UPDATE_QUERY_COUNTY_LEVEL = """
             ratios.ratio * population
             , population
         )
-    FROM census_to_usps_ratio ratios
+    FROM census_to_raw_ratio ratios
     WHERE LEFT(census_tract, 5) = ratios.county
     ;
 """
