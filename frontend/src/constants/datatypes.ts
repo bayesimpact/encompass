@@ -41,8 +41,6 @@ export type Dataset = {
 
 export type Format = 'Percentage' | 'Number'
 
-export type DatasetCountySelection = 'Custom' | 'All' | null
-
 /**
  * TODO: Contribute this typing to react-mapbox-gl
  */

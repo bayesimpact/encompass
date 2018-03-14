@@ -1,12 +1,11 @@
 import { MenuItem, SelectField } from 'material-ui'
 import * as React from 'react'
-import { DatasetCountySelection } from '../../constants/datatypes'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
 
 export let AddDatasetServiceAreaSelector = withStore(
     'selectedState',
-    'addDatasetCountySelection'
+    'useCustomCountyUpload'
 )(({ store }) =>
     <div>
         <StateSelector
@@ -14,8 +13,8 @@ export let AddDatasetServiceAreaSelector = withStore(
             value={store.get('selectedState')}
         />
         <CountySelector
-            onChange={value => store.set('addDatasetCountySelection')(value)}
-            value={store.get('addDatasetCountySelection')}
+            onChange={value => store.set('useCustomCountyUpload')(value)}
+            value={store.get('useCustomCountyUpload')}
         />
     </div>
 )
@@ -26,8 +25,8 @@ function onStateChange(state: State, store: Store) {
 }
 
 type CountySelectorProps = {
-    onChange(value: DatasetCountySelection): void
-    value: DatasetCountySelection
+    onChange(value: boolean | null): void
+    value: boolean | null
 }
 
 let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange, value }) =>
@@ -36,8 +35,8 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
         value={value}
         hintText='Select Counties'
     >
-        <MenuItem key='Custom' value='Custom' primaryText='Custom' />
-        <MenuItem key='All' value='All' primaryText='All' />
+        <MenuItem key='Custom' value={true} primaryText='Custom' />
+        <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 
 AddDatasetServiceAreaSelector.displayName = 'AddDatasetServiceAreaSelector'

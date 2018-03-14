@@ -12,7 +12,7 @@ import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 
 import './AddDatasetDrawer.css'
 
-export let AddDatasetDrawer = withStore('selectedDataset', 'addDatasetCountySelection')(({ store}) =>
+export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store}) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
@@ -25,7 +25,7 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'addDatasetCountySele
       </ul>
     </span>
     <AddDatasetServiceAreaSelector />
-    {store.get('addDatasetCountySelection') === 'Custom' ? <ServiceAreasUploader /> : null}
+    {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
     <DownloadDatasetLink />
     <AnalyzerButton />

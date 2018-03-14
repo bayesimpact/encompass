@@ -230,7 +230,7 @@ export function withEffects(store: Store) {
     .subscribe(() => {
       store.set('counties')([])
       store.set('selectedCounties')(null)
-      store.set('addDatasetCountySelection')(null)
+      store.set('useCustomCountyUpload')(null)
     })
 
   /**
@@ -309,13 +309,13 @@ export function withEffects(store: Store) {
    * Select all states when "All" is selected in Add dataset DatasetCountySelection.
    */
   store
-    .on('addDatasetCountySelection')
-    .subscribe(selection => {
-      if (selection === 'All') {
+    .on('useCustomCountyUpload')
+    .subscribe(useCustomUpload => {
+      if (useCustomUpload) {
+        store.set('serviceAreas')([])
+      } else if (useCustomUpload === false) {
         store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
         store.set('uploadedServiceAreasFilename')(null)
-      } else if (selection === 'Custom') {
-        store.set('serviceAreas')([])
       }
     })
 
