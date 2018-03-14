@@ -46,8 +46,12 @@ function createDataset(store: Store) {
   let dataSet: Dataset = {
     dataSources: [
       store.get('uploadedServiceAreasFilename') || 'No Service Areas',
-      store.get('uploadedProvidersFilename') || 'No Providers'].join(', '),
-    description: 'Your own data',
+      store.get('uploadedProvidersFilename') || 'No Providers'
+    ].join(', '),
+    description: [
+      store.get('uploadedServiceAreasFilename') || 'No Service Areas',
+      store.get('uploadedProvidersFilename') || 'No Providers'
+    ].join(', '),
     state: store.get('selectedState'),
     name: 'Your Data',
     providers: store.get('providers'),
