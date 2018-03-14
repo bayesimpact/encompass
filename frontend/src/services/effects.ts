@@ -11,6 +11,7 @@ import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
+import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes';
 
 const { APP_IS_PUBLIC } = process.env
 
@@ -229,12 +230,13 @@ export function withEffects(store: Store) {
     .subscribe(() => {
       store.set('counties')([])
       store.set('selectedCounties')(null)
+      store.set('addDatasetCountySelection')(null)
     })
 
   /**
    * When the user adds representative points,
    * make sure that providers appear on top.
-   * TODO - Invetsigate less hacky method.
+   * TODO - Investigate less hacky method.
    */
   store
     .on('representativePoints')
@@ -302,6 +304,21 @@ export function withEffects(store: Store) {
         store.set('method')('driving_time')
       }
     })
+
+  /**
+   * Select all states when "All" is selected in Add dataset DatasetCountySelection.
+   */
+  store
+    .on('addDatasetCountySelection')
+    .subscribe(selection => {
+      if (selection === 'All') {
+        store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
+        store.set('uploadedServiceAreasFilename')(null)
+      } else if (selection === 'Custom') {
+        store.set('serviceAreas')([])
+      }
+    })
+
   return store
 }
 
@@ -345,3 +362,4 @@ function getAdequacyMode(
 
   return AdequacyMode.INADEQUATE
 }
+

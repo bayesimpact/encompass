@@ -5,13 +5,14 @@ import * as React from 'react'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
+import { AddDatasetServiceAreaSelector } from '../AddDatatsetServiceAreaSelector/AddDatasetServiceAreaSelector'
 import { BackLink } from '../Link/Link'
 import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 
 import './AddDatasetDrawer.css'
 
-export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
+export let AddDatasetDrawer = withStore('selectedDataset', 'addDatasetCountySelection')(({ store}) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
@@ -23,7 +24,8 @@ export let AddDatasetDrawer = withStore('selectedDataset')(({ }) =>
         <li>List of addresses for providers or services.</li>
       </ul>
     </span>
-    <ServiceAreasUploader />
+    <AddDatasetServiceAreaSelector />
+    {store.get('addDatasetCountySelection') === 'Custom' ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
     <DownloadDatasetLink />
     <AnalyzerButton />

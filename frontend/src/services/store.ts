@@ -2,7 +2,7 @@ import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
-import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route, DatasetCountySelection } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
@@ -31,9 +31,14 @@ type Actions = {
   success: string | null
 
   /**
-  * Control opening of the about page.
-  */
+   * Control opening of the about page.
+   */
   isAboutDialogOpen: boolean
+
+  /**
+   * Control selection of counties for add dataset drawer.
+   */
+  addDatasetCountySelection: DatasetCountySelection | null
 
   mapCenter: {
     lat: number
@@ -149,6 +154,7 @@ let store = withEffects(createStore<Actions>({
   error: null,
   success: null,
   isAboutDialogOpen: false,
+  addDatasetCountySelection: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
