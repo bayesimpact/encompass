@@ -84,9 +84,8 @@ function getHeadersForCensusCategories(method: Method) {
       getLegend(method, AdequacyMode.ADEQUATE_30),
       getLegend(method, AdequacyMode.ADEQUATE_60),
       getLegend(method, AdequacyMode.INADEQUATE)].map(
-        legend => snakeCase([_, group, legend].join('_').replace(
-          '<', 'lt').replace('>', 'gt')
-        )))))
+        legend => formatLegend([_, group, legend].join('_'))
+      ))))
 }
 
 function getDataForCensusCategories(serviceAreas: string[] | null, store: Store) {
@@ -94,4 +93,8 @@ function getDataForCensusCategories(serviceAreas: string[] | null, store: Store)
   return flattenDeep(categories.map(_ => CENSUS_MAPPING[_].map(
     group => summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)[group]))
   )
+}
+
+function formatLegend(string: string) {
+  return snakeCase(string.replace('<', 'lt').replace('>', 'gt').replace('-', ' to '))
 }
