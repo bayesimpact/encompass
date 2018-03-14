@@ -16,7 +16,7 @@ import './App.css'
  * Check to see if the client is mobile and display a warning if they are.
  */
 const DeviceDetect = require('react-device-detect')
-if(DeviceDetect.isMobile){
+if (DeviceDetect.isMobile){
   alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser to guarantee performance and usability.')
 }
 
