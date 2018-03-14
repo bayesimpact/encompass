@@ -4,6 +4,7 @@ import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
@@ -11,7 +12,6 @@ import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
-import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes';
 
 const { APP_IS_PUBLIC } = process.env
 
@@ -362,4 +362,3 @@ function getAdequacyMode(
 
   return AdequacyMode.INADEQUATE
 }
-

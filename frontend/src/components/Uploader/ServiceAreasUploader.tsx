@@ -12,10 +12,7 @@ import { CSVUploader } from '../CSVUploader/CSVUploader'
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreasUploader = withStore(
-  'uploadedServiceAreasFilename',
-  'addDatasetCountySelection'
-)(({ store }) =>
+export let ServiceAreasUploader = withStore('uploadedServiceAreasFilename')(({ store }) =>
   <div>
     <div className='Flex -PullLeft'>
       <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />

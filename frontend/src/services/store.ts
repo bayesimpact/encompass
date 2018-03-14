@@ -38,7 +38,7 @@ type Actions = {
   /**
    * Control selection of counties for add dataset drawer.
    */
-  addDatasetCountySelection: DatasetCountySelection | null
+  addDatasetCountySelection: DatasetCountySelection
 
   mapCenter: {
     lat: number
