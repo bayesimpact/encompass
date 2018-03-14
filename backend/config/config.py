@@ -139,6 +139,9 @@ CONFIG = {
         'enabled': True,
         'directory': '/app/cache/',
     },
+    'database': {
+        'prefix': ''
+    },
     'logging': {
         'version': 1,
         'disable_existing_loggers': True,

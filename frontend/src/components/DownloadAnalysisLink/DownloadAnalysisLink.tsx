@@ -36,16 +36,14 @@ function onClick(store: Store) {
       label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
     })
     let headers = [
-      'CountyName',
-      'ZipCode',
-      'SpecDesc',
-      getLegend(method, AdequacyMode.ADEQUATE_15),
-      getLegend(method, AdequacyMode.ADEQUATE_30),
-      getLegend(method, AdequacyMode.ADEQUATE_60),
-      getLegend(method, AdequacyMode.INADEQUATE),
-      'Min_' + method,
-      'Avg_' + method,
-      'Max_' + method
+      'county',
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_15)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_30)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_60)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
+      'min_' + method,
+      'avg_' + method,
+      'max_' + method
     ]
 
     headers.push.apply(headers, getHeadersForCensusCategories(method))
@@ -61,8 +59,6 @@ function onClick(store: Store) {
       }
       let dataRow = [
         representativePoint.county,
-        representativePoint.zip,
-        specialty,
         populationByAnalytics[0],
         populationByAnalytics[1],
         populationByAnalytics[2],

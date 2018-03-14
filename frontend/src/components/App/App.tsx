@@ -10,6 +10,16 @@ import { LeftPane } from '../LeftPane/LeftPane'
 import { MapView } from '../MapView/MapView'
 import './App.css'
 
+/**
+ * Typescript complains about implicit type when using import for this package.
+ *
+ * Check to see if the client is mobile and display a warning if they are.
+ */
+const DeviceDetect = require('react-device-detect')
+if(DeviceDetect.isMobile){
+  alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser to guarantee performance and usability.')
+}
+
 export let App = withStore('error', 'success')(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>

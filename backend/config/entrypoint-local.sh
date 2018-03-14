@@ -1,11 +1,18 @@
 #!/bin/bash
+MAX_ATTEMPT_NUM=10
+SLEEP_TIME=3
 
-# TODO - Replace by an actual ping to the DB.
-echo "Waiting for DB to become available..."
-GRACE_PERIOD=5
-if [[ -v DB_GRACE_PERIOD ]]; then
-    GRACE_PERIOD=${DB_GRACE_PERIOD}
+attempt_num=0
+until [ ${attempt_num} -ge ${MAX_ATTEMPT_NUM} ]
+do
+    pg_isready -d ${POSTGRES_URL} && break
+    attempt_num=$((attempt_num + 1))
+    sleep ${SLEEP_TIME}
+done
+
+if [ $attempt_num -eq ${MAX_ATTEMPT_NUM} ]
+then
+    exit 3
 fi
-sleep ${GRACE_PERIOD} # FIXME Wait for DB server to become available
 
 exec "$@"
