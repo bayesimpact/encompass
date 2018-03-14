@@ -31,7 +31,7 @@ else:
 # table name is used to disambiguate between shared column names.
 RP_COLUMNS = [
     'id',
-    'representative_points.census_tract',
+    representative_point.RepresentativePoint.__tablename__ + '.census_tract',
     'county',
     'latitude',
     'longitude',
@@ -63,7 +63,9 @@ def fetch_representative_points(
     if not service_area_ids:
         return []
 
-    id_list = '( {} )'.format(', '.join(["'%s'" % _id for _id in service_area_ids]))
+    query_params = {
+        'id_list': tuple(service_area_ids)
+    }
 
     if census_data:
         join_list = ' '.join(["""
@@ -77,7 +79,7 @@ def fetch_representative_points(
             SELECT {cols}
             FROM {table_name}
             {joins}
-            WHERE service_area_id IN {id_list}
+            WHERE service_area_id IN %(id_list)s
             ORDER BY id
             ;
         """.format(
@@ -85,24 +87,23 @@ def fetch_representative_points(
                 RP_COLUMNS + readable_columns_from_census_mapping(CENSUS_FIELDS_BY_CATEGORY)),
             table_name=representative_point.RepresentativePoint.__tablename__,
             joins=join_list,
-            id_list=id_list
         )
         logger.info('Fetching representative_points with census data.')
     else:
         select_query = """
             SELECT {cols}
             FROM {table_name}
-            WHERE service_area_id IN {id_list}
+            WHERE service_area_id IN %(id_list)s
             ORDER BY id
             ;
         """.format(
             cols=', '.join(RP_COLUMNS),
-            table_name=representative_point.RepresentativePoint.__tablename__,
-            id_list=id_list
+            table_name=representative_point.RepresentativePoint.__tablename__
         )
+
     return [
         representative_point.row_to_dict(row, census_mapping=CENSUS_FIELDS_BY_CATEGORY)
-        for row in engine.execute(select_query).fetchall()
+        for row in engine.execute(select_query, query_params).fetchall()
     ]
 
 
@@ -117,20 +118,22 @@ def minimal_fetch_representative_points(service_area_ids, engine=connect.create_
     if not service_area_ids:
         return []
 
-    id_list = '( {} )'.format(', '.join(["'%s'" % _id for _id in service_area_ids]))
+    query_params = {
+        'id_list': tuple(service_area_ids)
+    }
+
     select_query = """
         SELECT {cols}
         FROM {table_name}
-        WHERE service_area_id IN {id_list}
+        WHERE service_area_id IN %(id_list)s
         ORDER BY id
         ;
     """.format(
         cols=', '.join(MINIMAL_RP_COLUMNS),
         table_name=representative_point.RepresentativePoint.__tablename__,
-        id_list=id_list
     )
 
-    return [dict(row) for row in engine.execute(select_query).fetchall()]
+    return [dict(row) for row in engine.execute(select_query, query_params).fetchall()]
 
 
 def fetch_all_service_areas(engine=connect.create_db_engine()):

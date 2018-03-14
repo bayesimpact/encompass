@@ -60,7 +60,7 @@ type Actions = {
 
   /**
    * Representative points ("RP"), fetched and cached given a `serviceArea`. For
-   * each service area, we sample the real population (from USPS & census data).
+   * each service area, we sample the real population (from satellite & census data).
    */
   representativePoints: RepresentativePoint[]
 

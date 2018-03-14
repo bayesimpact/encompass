@@ -1,4 +1,5 @@
 """File holding the main service area table and mapping definitions."""
+from backend.config import config
 from backend.lib.database.postgres.base import Base
 
 from geoalchemy2 import Geography
@@ -9,7 +10,7 @@ from sqlalchemy import Column, DateTime, Integer, String, func
 class ServiceArea(Base):
     """Definition of the service_areas table."""
 
-    __tablename__ = 'service_areas'
+    __tablename__ = config.get('database.prefix') + 'service_areas'
     id = Column(Integer, primary_key=True, autoincrement=True)
     service_area_id = Column(String, unique=True, nullable=False, index=True)
     created_at = Column(DateTime, default=func.now())

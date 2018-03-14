@@ -38,11 +38,13 @@ def test_find_closest_location():
         measurer=get_measurer('haversine'),
         locations=locations,
     )
+
     expected = {
         'id': point['id'],
-        'closest_providers': [1],
-        'to_closest_provider': 0.0
+        'closest_point': Point(latitude=37.74753421600008, longitude=-122.2316317029999),
+        'to_closest_provider': 0
     }
+
     assert output == expected
 
 
@@ -50,7 +52,8 @@ def test_calculate_adequacies():
     measurer_name = 'haversine'
     locations = [
         {'id': 1, 'latitude': 33.77500830300005, 'longitude': -118.11176916399995},
-        {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
+        {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999},
+        {'id': 3, 'latitude': 33.77500830300005, 'longitude': -118.11176916399995}
     ]
     adequacies = adequacy.calculate_adequacies(
         service_area_ids=['ca_los_angeles_county_00000'],
@@ -59,6 +62,7 @@ def test_calculate_adequacies():
         engine=engine,
         radius_in_meters=1000
     )
+    assert adequacies[0]['closest_providers'] == [1, 3]
     assert adequacies is not None
 
 

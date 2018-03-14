@@ -4,6 +4,7 @@ import argparse
 import collections
 
 from backend.lib.database.postgres import connect, postgis
+from backend.lib.database.postgres import maintenance
 from backend.lib.database.postgres import methods
 from backend.lib.database.tables import representative_point, service_area
 
@@ -99,6 +100,8 @@ def _main(kwargs):
 
     _insert_service_areas(json_features)
     _insert_representative_population_points(json_features)
+    maintenance.vacuum()
+    maintenance.cluster()
 
 
 def _insert_service_areas(json_features):
