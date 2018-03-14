@@ -1,10 +1,11 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.6
 
-RUN apt-get -qq update
-RUN apt-get install -y \
+RUN apt-get -qq update && \
+    apt-get install -y \
     libgeos-dev \
     libspatialindex-dev \
     gdal-bin \
+    postgresql-client \
     man \
     unzip \
     --fix-missing \
@@ -25,4 +26,4 @@ CMD ["/usr/bin/supervisord"]
 EXPOSE 8080
 
 COPY requirements.txt ./requirements.txt
-RUN pip install -r ./requirements.txt
+RUN pip -q install -r ./requirements.txt

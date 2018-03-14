@@ -30,6 +30,11 @@ type Actions = {
    */
   success: string | null
 
+  /**
+  * Control opening of the about page.
+  */
+  isAboutDialogOpen: boolean
+
   mapCenter: {
     lat: number
     lng: number
@@ -55,7 +60,7 @@ type Actions = {
 
   /**
    * Representative points ("RP"), fetched and cached given a `serviceArea`. For
-   * each service area, we sample the real population (from USPS & census data).
+   * each service area, we sample the real population (from satellite & census data).
    */
   representativePoints: RepresentativePoint[]
 
@@ -129,9 +134,9 @@ type Actions = {
   uploadedServiceAreasFilename: string | null
 
   /**
-   * Keep the point geojson in the store so we don't have to keep rebuilding it.
+   * Keep the point FeatureCollections in the store so we don't have to keep rebuilding it.
    */
-  pointGeoJson: FeatureCollection<GeometryObject> | null
+  pointFeatureCollections: FeatureCollection<GeometryObject>[] | null
 }
 
 /**
@@ -143,6 +148,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
+  isAboutDialogOpen: false,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',
@@ -166,7 +172,7 @@ let store = withEffects(createStore<Actions>({
   uploadedProviders: [],
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null,
-  pointGeoJson: null
+  pointFeatureCollections: null
 }))
 
 export let withStore = connect(store)

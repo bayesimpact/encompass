@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import './TilePicker.css'
 
 export type Tile<T> = {
@@ -22,7 +23,16 @@ export function TilePicker<T>() {
           <li
             className={'Tile' + (tile === this.props.value ? ' -Active' : '')}
             key={typeof tile.name === 'string' ? tile.name : tile.name.toString()}
-            onClick={() => this.props.onChange(tile)}
+            onClick={() => {
+              // We need to do a check here, because the tile for uploading a custom dataset doesn't have a stringy name attribute.
+              let eventLabel = typeof tile.name === 'string' ? tile.name : 'Analyze Your Own Data'
+              ReactGA.event({
+                category: 'Dataset',
+                action: 'Selected a dataset',
+                label: eventLabel
+              })
+              this.props.onChange(tile)
+            }}
           >
             <h2 style={{ backgroundColor: tile.color }}>{tile.name}</h2>
             <p>{tile.description}</p>

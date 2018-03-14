@@ -92,7 +92,6 @@ export let RepresentativePointPopup: React.StatelessComponent<RepresentativePoin
         <tbody>
           {properties && <React.Fragment>
             <TableRow name='County' value={properties.county} />
-            <TableRow name='ZIP' value={properties.zip} />
             <TableRow name='Population' value={properties.population} />
           </React.Fragment>}
           <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />

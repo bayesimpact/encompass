@@ -11,7 +11,7 @@ class TestFetchRepresentativePoints():
     @staticmethod
     def test_fetch_representative_points_one_service_area():
         """Test fetch_representative_points."""
-        service_areas = ['ca_los_angeles_00000']
+        service_areas = ['ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
             service_areas, census_data=False, engine=engine
         )
@@ -20,7 +20,7 @@ class TestFetchRepresentativePoints():
     @staticmethod
     def test_fetch_representative_points_two_service_areas():
         """Test fetch_representative_points."""
-        service_areas = ['ca_los_angeles_00000', 'ca_los_angeles_00000']
+        service_areas = ['ca_los_angeles_county_00000', 'ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
             service_areas, census_data=False, engine=engine
         )
@@ -47,7 +47,7 @@ class TestFetchRepresentativePoints():
     @staticmethod
     def test_minimal_fetch_representative_points_one_service_area():
         """Test fetch_representative_points as used internally by the backend."""
-        service_areas = ['ca_los_angeles_00000']
+        service_areas = ['ca_los_angeles_county_00000']
         results = representative_points.minimal_fetch_representative_points(
             service_areas, engine=engine
         )

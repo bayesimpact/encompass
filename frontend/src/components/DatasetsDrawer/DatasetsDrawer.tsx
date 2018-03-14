@@ -5,6 +5,7 @@ import { DATASET_COLORS } from '../../constants/colors'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
+import { SecureLink } from '../../utils/link'
 import { Tile, TilePicker } from '../TilePicker/TilePicker'
 import './DatasetsDrawer.css'
 
@@ -31,7 +32,7 @@ let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
     description: _.subtitle,
     name: _.name
   })
-)
+  )
 )
 
 let tiles = [
@@ -42,13 +43,14 @@ let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
-    <h2 className='Secondary'>Choose a dataset to explore</h2>
+    <p>Welcome to the Encompass analysis tool built by {SecureLink('http://bayesimpact.org', 'Bayes Impact')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
+    <p>To send us feedback or ideas for new datasets, you can contact us {SecureLink('mailto:encompass@bayesimpact.org?subject=Request a dataset', 'here')}.</p>
     <DatasetTilePicker
       onChange={onChange(store)}
       tiles={tiles}
       value={tiles.find(_ => _.data === store.get('selectedDataset')) || null}
     />
-    <p className='Center LargeFont Muted'>Don't see the dataset you want? <a href='mailto:data@bayesimpact.org?subject=Request a dataset'>Email us</a>.</p>
+    <p className='Center LargeFont Muted'>Don't see the dataset you want? {SecureLink('mailto:encompass@bayesimpact.org?subject=Request a dataset', 'Email us')}.</p>
   </div>
 )
 

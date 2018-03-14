@@ -9,7 +9,7 @@ def check_sample_points_exist():
     with nonzero code to indicate that initial sample data population should proceed.
     """
     engine = connect.create_db_engine(echo=True)
-    service_areas = ['ca_los_angeles_00000']  # A service area from the base sample data.
+    service_areas = ['ca_los_angeles_county_00000']  # A service area from the base sample data.
     results = representative_points.fetch_representative_points(
         service_areas, census_data=False, engine=engine
     )

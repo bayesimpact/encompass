@@ -1,6 +1,6 @@
 """Configuration management."""
 import os
-import ujson as json
+import json
 import multiprocessing
 import multiprocessing.dummy
 
@@ -107,8 +107,6 @@ CONFIG = {
     'geocoding': True,
     'address_database': True,
     'geocoder': 'oxcoder',
-    'cache_adequacy_requests': True,
-    'cached_result_directory': '/app/cache/',
     'measurer': {
         'haversine': 'haversine',
         'driving_time': 'osrm'
@@ -136,6 +134,13 @@ CONFIG = {
             'n_adequacy_processors': 255,
             'exit_distance': 5.0 * ONE_MILE_IN_METERS
         }
+    },
+    'cache': {
+        'enabled': True,
+        'directory': '/app/cache/',
+    },
+    'database': {
+        'prefix': ''
     },
     'logging': {
         'version': 1,

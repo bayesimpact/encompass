@@ -14,4 +14,8 @@ export type PostAdequaciesResponse = {
    */
   to_closest_provider: number
   closest_providers: number[]
+  closest_location: {
+    latitude: number
+    longitude: number
+  }
 }[]

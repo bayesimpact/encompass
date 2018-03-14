@@ -31,6 +31,10 @@
   --medium-font: 14px;
   --small-font: 12px;
 
+  /* line-height */
+  --medium-font-line: 21px;
+  --large-font-line: 48px;
+
   /* weights */
   --medium-weight: 400;
   --heavy-weight: 600;

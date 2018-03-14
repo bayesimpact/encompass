@@ -1,3 +1,4 @@
+import { FeatureCollection, GeometryObject } from 'geojson'
 import * as MapboxGL from 'mapbox-gl'
 import * as React from 'react'
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl } from 'react-mapbox-gl'
@@ -67,7 +68,7 @@ const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
 const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
 
 export let MapView = withStore(
-  'pointGeoJson',
+  'pointFeatureCollections',
   'mapCenter',
   'providerIndex',
   'providers',
@@ -77,7 +78,7 @@ export let MapView = withStore(
   let providers = store.get('providers')
   let selectedRepresentativePoint = store.get('selectedRepresentativePoint')
   let selectedProvider = store.get('selectedProvider')
-  const pointGeoJson = store.get('pointGeoJson')
+  const pointFeatureCollections = store.get('pointFeatureCollections')
 
   return <div className='MapView'>
     <Map
@@ -86,11 +87,8 @@ export let MapView = withStore(
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onClick={() => removePopup(store)}
     >
-      {pointGeoJson && <GeoJSONLayer
-        data={pointGeoJson}
-        circlePaint={representativePointCircleStyle}
-        circleOnClick={store.set('selectedRepresentativePoint')}
-      />}
+      {pointFeatureCollections && pointFeatureCollections.map(pointGeoJson => getRepresentativePointLayer(pointGeoJson, store))}
+
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
@@ -105,4 +103,13 @@ export let MapView = withStore(
     <MapLegend />
   </div>
 })
+
 MapView.displayName = 'MapView'
+
+function getRepresentativePointLayer(pointGeoJSON: FeatureCollection<GeometryObject>, store: Store) {
+  return <GeoJSONLayer
+    data={pointGeoJSON}
+    circlePaint={representativePointCircleStyle}
+    circleOnClick={store.set('selectedRepresentativePoint')}
+  />
+}
