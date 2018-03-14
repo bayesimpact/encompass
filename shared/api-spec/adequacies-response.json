@@ -17,10 +17,18 @@
         "items": {
           "type": "integer"
         }
-      }
+      },
+      "closest_location":{
+          "properties": {
+            "latitude": {"type": "number"},
+            "longitude": {"type": "number"}
+          },
+          "additionalProperties": false,
+          "required": ["latitude", "longitude"]
+        }
     },
     "additionalProperties": false,
-    "required": ["id", "to_closest_provider", "closest_providers"]
+    "required": ["id", "to_closest_provider", "closest_providers", "closest_location"]
   },
   "additionalProperties": false
 }
