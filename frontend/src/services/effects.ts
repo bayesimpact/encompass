@@ -188,8 +188,6 @@ export function withEffects(store: Store) {
         return selectedCounties.includes(parseSerializedServiceArea(sA).county)
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Name') {
-      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
@@ -197,7 +195,7 @@ export function withEffects(store: Store) {
    * Filter counties by urban/rural if the countyTypeSelector is in use.
    */
   store.on('selectedCountyType').subscribe(selectedCountyType => {
-    if (selectedCountyType !== null) {
+    if (selectedCountyType === 'Urban' || selectedCountyType === 'Rural') {
       let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
         let { state, county } = parseSerializedServiceArea(sA)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
@@ -205,7 +203,7 @@ export function withEffects(store: Store) {
         return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Type') {
+    } else if (selectedCountyType === 'All') {
       store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
@@ -214,10 +212,14 @@ export function withEffects(store: Store) {
    * If the user selects a new selector method, re-select all service areas.
    * And reset selectors to 'All Counties'.
    */
-  store.on('selectedFilterMethod').subscribe(_ => {
-    if (store.set('selectedServiceAreas') !== null) {
-      store.set('selectedServiceAreas')(null)
+  store.on('selectedFilterMethod').subscribe(selectedFilterMethod => {
+    if (selectedFilterMethod === 'County Type') {
       store.set('selectedCountyType')(null)
+    }
+    if (selectedFilterMethod === 'All') {
+      store.set('selectedServiceAreas')(null)
+    }
+    if (selectedFilterMethod === 'County Name') {
       store.set('selectedCounties')(null)
     }
   })
