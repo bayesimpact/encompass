@@ -20,9 +20,10 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
       To analyze the accessibility of your own set of providers, facilities, or social services, you
       will need to upload two separate CSV files:
       <ul>
-        <li>List of service areas (County and/or ZIP columns).</li>
-        <li>List of addresses for providers or services.</li>
+        <li>list of service areas (county names)</li>
+        <li>list of locations for providers or services (latitude and longitude provided in separate columns)</li>
       </ul>
+      For simplicity, this analysis will only produce results using the Haversine method. To run your own drive-time analysis, visit our Github page to learn how or contact us.
     </span>
     <AddDatasetServiceAreaSelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
