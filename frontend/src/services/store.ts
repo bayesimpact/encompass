@@ -31,9 +31,14 @@ type Actions = {
   success: string | null
 
   /**
-  * Control opening of the about page.
-  */
+   * Control opening of the about page.
+   */
   isAboutDialogOpen: boolean
+
+  /**
+   * Control selection of counties for add dataset drawer.
+   */
+  useCustomCountyUpload: boolean | null
 
   mapCenter: {
     lat: number
@@ -149,6 +154,7 @@ let store = withEffects(createStore<Actions>({
   error: null,
   success: null,
   isAboutDialogOpen: false,
+  useCustomCountyUpload: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
   mapCursor: '',

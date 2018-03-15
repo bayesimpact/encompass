@@ -1,34 +1,21 @@
 import { chain, flatten } from 'lodash'
 import * as React from 'react'
 import { State } from '../../constants/states'
-import { COUNTIES_BY_ZIP, SERVICE_AREAS_BY_STATE } from '../../constants/zipCodes'
+import { COUNTIES_BY_ZIP } from '../../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodesByCountyByState'
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
-import { SelectAllServiceAreas } from '../SelectAllServiceAreas/SelectAllServiceAreas'
-import { StateSelector } from '../Selectors/StateSelector'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ServiceAreasUploader = withStore(
-  'counties',
-  'selectedState',
-  'serviceAreas',
-  'uploadedServiceAreasFilename'
-)(({ store }) =>
+export let ServiceAreasUploader = withStore('uploadedServiceAreasFilename')(({ store }) =>
   <div>
-    <StateSelector
-      onChange={state => onStateChange(state, store)}
-      value={store.get('selectedState')}
-    />
     <div className='Flex -PullLeft'>
       <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
-      <span className='Ellipsis Muted SmallFont'> or </span>
-      <SelectAllServiceAreas onClickSelect={selectAll(store)} />
       <span className='Ellipsis Muted SmallFont'>
         {store.get('uploadedServiceAreasFilename')}
       </span>
@@ -38,13 +25,6 @@ export let ServiceAreasUploader = withStore(
 )
 
 ServiceAreasUploader.displayName = 'ServiceAreasUploader'
-
-function selectAll(store: Store) {
-  return () => {
-    store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
-    store.set('uploadedServiceAreasFilename')(store.get('selectedState').toUpperCase())
-  }
-}
 
 function onFileSelected(store: Store) {
   return async (file: File) => {
@@ -59,11 +39,6 @@ function onFileSelected(store: Store) {
     // TODO - Handle .extensions of different lengths.
     store.set('uploadedServiceAreasFilename')(file.name.slice(0, -4))
   }
-}
-
-function onStateChange(state: State, store: Store) {
-  store.set('selectedState')(state)
-  store.set('uploadedServiceAreasFilename')('')
 }
 
 function onClearInputs(store: Store) {

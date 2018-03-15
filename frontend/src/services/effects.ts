@@ -4,6 +4,7 @@ import { Observable } from 'rx'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
@@ -229,12 +230,13 @@ export function withEffects(store: Store) {
     .subscribe(() => {
       store.set('counties')([])
       store.set('selectedCounties')(null)
+      store.set('useCustomCountyUpload')(null)
     })
 
   /**
    * When the user adds representative points,
    * make sure that providers appear on top.
-   * TODO - Invetsigate less hacky method.
+   * TODO - Investigate less hacky method.
    */
   store
     .on('representativePoints')
@@ -302,6 +304,21 @@ export function withEffects(store: Store) {
         store.set('method')('driving_time')
       }
     })
+
+  /**
+   * Select all states when "All" is selected in Add dataset DatasetCountySelection.
+   */
+  store
+    .on('useCustomCountyUpload')
+    .subscribe(useCustomUpload => {
+      if (useCustomUpload) {
+        store.set('serviceAreas')([])
+      } else if (useCustomUpload === false) {
+        store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
+        store.set('uploadedServiceAreasFilename')(null)
+      }
+    })
+
   return store
 }
 
