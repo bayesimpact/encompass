@@ -5,8 +5,8 @@ import * as React from 'react'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
-import { AddDatasetServiceAreaSelector } from '../AddDatatsetServiceAreaSelector/AddDatasetServiceAreaSelector'
 import { BackLink } from '../Link/Link'
+import { StateCountySelector } from '../StateCountySelector/StateCountySelector'
 import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 
@@ -25,7 +25,7 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
       </ul>
       For simplicity, this analysis will only produce results using the Haversine method. To run your own drive-time analysis, visit our Github page to learn how or contact us.
     </span>
-    <AddDatasetServiceAreaSelector />
+    <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
     <DownloadDatasetLink />

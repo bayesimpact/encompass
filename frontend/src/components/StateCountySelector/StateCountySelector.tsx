@@ -3,7 +3,7 @@ import * as React from 'react'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
 
-export let AddDatasetServiceAreaSelector = withStore(
+export let StateCountySelector = withStore(
     'selectedState',
     'useCustomCountyUpload'
 )(({ store }) =>
@@ -39,7 +39,7 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
         <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 
-AddDatasetServiceAreaSelector.displayName = 'AddDatasetServiceAreaSelector'
+StateCountySelector.displayName = 'StateCountySelector'
 
 type StateSelectorProps = {
     onChange(value: State): void
