@@ -10,6 +10,7 @@ module "stack" {
   db_id = "demo"
   instance_name_tag = "demo"
   db_password = "${var.db_password}"
+  ssl_certificate_arn = "arn:aws:acm:us-west-2:951168128976:certificate/8e85a5c7-4540-4fd5-b4e2-913fc085243a"
 }
 
 # Backend definition can't have interpolation, so unfortunately this does need to be
