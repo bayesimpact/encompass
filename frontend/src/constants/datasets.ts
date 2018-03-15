@@ -8,8 +8,7 @@ export let DATASETS: Dataset[] = [
   inferServiceAreaIds(require('./datasets/FL_HCSD_and_Look-Alike_FL.json')),
   inferServiceAreaIds(require('./datasets/FL_fl_endocrinologists.json')),
   inferServiceAreaIds(require('./datasets/TX_HCSD_and_Look-Alike_TX.json')),
-  inferServiceAreaIds(require('./datasets/TX_texas_abortion_clinics_address_mar2017.json')),
-  inferServiceAreaIds(require('./datasets/demo-colorado.json'))
+  inferServiceAreaIds(require('./datasets/TX_texas_abortion_clinics_address_mar2017.json'))
 ]
 
 function inferServiceAreaIds(dataset: Dataset) {
