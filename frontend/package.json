@@ -26,6 +26,7 @@
     "papaparse": "^4.3.7",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.0",
+    "react-device-detect": "^0.1.0",
     "react-ga": "^2.4.1",
     "react-mapbox-gl": "^2.8.0",
     "undux": "^3.2.1"

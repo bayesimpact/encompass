@@ -13,6 +13,13 @@ declare module 'rmfr' {
   export = rmfr
 }
 
+declare module 'react-device-detect' {
+  let detect: {
+    isMobile: boolean
+  }
+  export = detect
+}
+
 /**
  * Globals
  */
