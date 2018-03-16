@@ -3,3 +3,7 @@
 .AddDatasetDrawer .MediumWeightMuted {
     display: block;
   }
+
+.ExplainerText ul {
+  padding-left: 20px;
+}

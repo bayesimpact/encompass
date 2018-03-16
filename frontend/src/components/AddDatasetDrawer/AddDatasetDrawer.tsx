@@ -12,19 +12,21 @@ import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 
 import './AddDatasetDrawer.css'
 
-export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store}) =>
+export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
-    <span className='MediumWeight Muted'>
-      To analyze the accessibility of your own set of providers, facilities, or social services, you
-      will need to upload two separate CSV files:
-      <ul>
-        <li>list of service areas (county names)</li>
-        <li>list of locations for providers or services (latitude and longitude provided in separate columns)</li>
-      </ul>
-      For simplicity, this analysis will only produce results using the Haversine method. To run your own drive-time analysis, visit our Github page to learn how or contact us.
+    <div className='ExplainerText'>
+      <span className='MediumWeight'>
+        To analyze the accessibility of your own set of providers, facilities, or social services, you
+        will need to upload two separate CSV files:
+        <ul>
+          <li>List of service areas (county names)</li>
+          <li>List of locations for providers or services (latitude and longitude provided in separate columns)</li>
+        </ul>
+        For simplicity, this analysis will only produce results using the Haversine method. To run your own drive-time analysis, visit our Github page to learn how or contact us.
     </span>
+    </div>
     <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
