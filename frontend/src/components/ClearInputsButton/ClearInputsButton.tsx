@@ -12,5 +12,6 @@ export let ClearInputsButton: React.StatelessComponent<Props> = ({ className, on
     className={'ClearInputsButton Button' + (className ? ` ${className}` : '') + (small ? ' -Small -Subtle' : '')}
     containerElement='label'
     label='Clear'
+    fullWidth={false}
     onClick={onClearInputs} />
 ClearInputsButton.displayName = 'ClearInputsButton'

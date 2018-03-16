@@ -8,19 +8,18 @@ import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/cs
 import { serializeServiceArea } from '../../utils/serializers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
+import './Uploader.css'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
 export let ServiceAreasUploader = withStore('uploadedServiceAreasFilename')(({ store }) =>
-  <div>
-    <div className='Flex -PullLeft'>
-      <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
-      <span className='Ellipsis Muted SmallFont'>
-        {store.get('uploadedServiceAreasFilename')}
-      </span>
-      {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
-    </div>
+  <div className='Flex Uploader'>
+    <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
+    <span className='Ellipsis Muted SmallFont'>
+      {store.get('uploadedServiceAreasFilename')}
+    </span>
+    {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
   </div>
 )
 
