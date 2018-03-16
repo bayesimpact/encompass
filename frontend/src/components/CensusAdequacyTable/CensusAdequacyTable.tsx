@@ -7,7 +7,7 @@ import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
-import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
+import { representativePointsFromServiceAreas, summaryStatisticsByCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
@@ -44,7 +44,8 @@ export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ ser
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
-  let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
+  let populationByAdequacyByGroup = summaryStatisticsByCensus(
+    censusCategory, representativePointsFromServiceAreas(serviceAreas, store), store)
   let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>

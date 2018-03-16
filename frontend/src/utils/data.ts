@@ -2,7 +2,7 @@ import { chain, keyBy } from 'lodash'
 import { CENSUS_MAPPING } from '../constants/census'
 import { Adequacies, Adequacy, AdequacyMode, CensusGroup, PopulationByAdequacy, RepresentativePoint } from '../constants/datatypes'
 import { Store } from '../services/store'
-import { populationByCensus, totalPopulation } from './analytics'
+import { quickSumByCensus, totalPopulation } from './analytics'
 
 export function adequaciesFromServiceArea(
   serviceAreas: string[],
@@ -23,13 +23,12 @@ export function representativePointsFromServiceAreas(
     .filter(_ => _.serviceAreaId in hash)
 }
 
-export function summaryStatisticsByServiceArea(
-  serviceAreas: string[],
+export function summaryStatisticsTotal(
+  rps: Lazy<RepresentativePoint[]>,
   store: Store
 ) {
   let adequacies = store.get('adequacies')
-  let rps = representativePointsFromServiceAreas(serviceAreas, store)
-  return summaryStatistics(rps, adequacies)
+  return summaryStatisticsCounter(adequacies, rps)
 }
 
 function countByAdequacy(
@@ -41,36 +40,35 @@ function countByAdequacy(
   if (censusGroup === undefined) {
     return totalPopulation(filteredRps)
   }
-  return populationByCensus(censusGroup)(filteredRps)
+  return quickSumByCensus(censusGroup, filteredRps)
 }
 
 export interface StatisticsByGroup {
   [censusGroup: string]: PopulationByAdequacy
 }
 /**
-* summaryStatisticsByServiceAreaAndCensus returns a mapping of
+* summaryStatisticsByCensus returns a mapping of
 * census group to summaryStatitics for this group.
 */
 
-export function summaryStatisticsByServiceAreaAndCensus(
-  serviceAreas: string[],
+export function summaryStatisticsByCensus(
   censusCategory: string,
+  rps: Lazy<RepresentativePoint[]>,
   store: Store
 ) {
   let adequacies = store.get('adequacies')
-  let rps = representativePointsFromServiceAreas(serviceAreas, store)
   let censusCategoryGroups = CENSUS_MAPPING[censusCategory]
   let statisticsByGroup: StatisticsByGroup = {}
   censusCategoryGroups.forEach(censusGroup => {
-    statisticsByGroup[censusGroup] = summaryStatistics(rps, adequacies, { censusCategory, censusGroup })
+    statisticsByGroup[censusGroup] = summaryStatisticsCounter(adequacies, rps, { censusCategory, censusGroup })
   })
-  statisticsByGroup['Total'] = summaryStatistics(rps, adequacies)
+  statisticsByGroup['Total'] = summaryStatisticsCounter(adequacies, rps)
   return statisticsByGroup
 }
 
-export function summaryStatistics(
-  representativePoints: Lazy<RepresentativePoint[]>,
+export function summaryStatisticsCounter(
   adequacies: Adequacies,
+  representativePoints: Lazy<RepresentativePoint[]>,
   censusGroup?: CensusGroup
 ): PopulationByAdequacy {
   let populationByAdequacy = [

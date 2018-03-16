@@ -7,7 +7,7 @@ import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
-import { summaryStatisticsByServiceArea } from '../../utils/data'
+import { representativePointsFromServiceAreas, summaryStatisticsTotal } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
@@ -35,7 +35,7 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
     </div>
   }
 
-  let populationByAdequacy = summaryStatisticsByServiceArea(serviceAreas, store)
+  let populationByAdequacy = summaryStatisticsTotal(representativePointsFromServiceAreas(serviceAreas, store), store)
 
   let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let method = store.get('method')

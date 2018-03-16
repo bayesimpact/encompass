@@ -42,6 +42,14 @@ export let minMeasure = min<Adequacy>(_ => _.toClosestProvider)
 
 export let totalPopulation = sum<RepresentativePoint>(_ => _.population)
 
+function censusPopulation(censusGroup: CensusGroup, rp: RepresentativePoint) {
+  return rp.population * 0.01 * rp.demographics[censusGroup.censusCategory][censusGroup.censusGroup] || 0
+}
+
+export function quickSumByCensus(censusGroup: CensusGroup, rps: Lazy<RepresentativePoint[]>) {
+  return rps.reduce((pv, cv) => pv + censusPopulation(censusGroup, cv), 0).value()
+}
+
 export function populationByCensus(censusGroup: CensusGroup) {
   return sum<RepresentativePoint>(
     _ => _.population * 0.01 * _.demographics[censusGroup.censusCategory][censusGroup.censusGroup] || 0

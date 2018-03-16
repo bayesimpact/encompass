@@ -4,7 +4,7 @@ import { tail } from 'lodash'
 import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { withStore } from '../../services/store'
-import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
+import { representativePointsFromServiceAreas, summaryStatisticsByCensus } from '../../utils/data'
 import { CensusDataChart } from '../CensusDataChart/CensusDataChart'
 
 type Props = {
@@ -22,7 +22,8 @@ export let CensusAdequacyCharts = withStore('adequacies', 'method')<Props>(({ se
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
-  let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
+  let populationByAdequacyByGroup = summaryStatisticsByCensus(
+    censusCategory, representativePointsFromServiceAreas(serviceAreas, store), store)
   let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>

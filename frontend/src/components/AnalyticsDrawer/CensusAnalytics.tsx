@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
-import { summaryStatisticsByServiceArea } from '../../utils/data'
+import { representativePointsFromServiceAreas, summaryStatisticsTotal } from '../../utils/data'
 import { formatNumber } from '../../utils/formatters'
 import { CensusAdequacyCharts } from '../CensusAdequacyCharts/CensusAdequacyCharts'
 import { CensusAdequacyTable } from '../CensusAdequacyTable/CensusAdequacyTable'
@@ -20,7 +20,7 @@ export let CensusAnalytics = withStore(
 
   let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')
-  let populationByAdequacy = summaryStatisticsByServiceArea(selectedServiceAreas, store)
+  let populationByAdequacy = summaryStatisticsTotal(representativePointsFromServiceAreas(selectedServiceAreas, store), store)
   let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let totalProviders = store.get('providers').length
 
@@ -44,7 +44,7 @@ export let CensusAnalytics = withStore(
         <td className='NumericTableCell'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
-    <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory}/>
+    <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
     <div className='DownloadLink'>
       <DownloadAnalysisLink />
     </div>
