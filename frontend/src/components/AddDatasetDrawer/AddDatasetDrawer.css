@@ -7,3 +7,9 @@
 .ExplainerText ul {
   padding-left: 20px;
 }
+
+.AnalyzeButton {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}

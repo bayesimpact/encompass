@@ -9,7 +9,6 @@ import { BackLink } from '../Link/Link'
 import { StateCountySelector } from '../StateCountySelector/StateCountySelector'
 import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
-
 import './AddDatasetDrawer.css'
 
 export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
@@ -30,13 +29,15 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
     <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
-    <DownloadDatasetLink />
-    <AnalyzerButton />
+    <div className='AnalyzeButton'>
+      <DownloadDatasetLink />
+      <AnalyzerButton />
+    </div>
   </div >
 )
 
 let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div className='Flex -Center'>
+  <div>
     <RaisedButton
       className={'Button -Primary'}
       containerElement='label'
@@ -79,13 +80,15 @@ function Analyze(store: Store) {
 }
 
 let DownloadDatasetLink = withStore()(({ store }) =>
-  <FlatButton
-    className='DownloadDatasetLink Button -Primary'
-    icon={<DownloadIcon />}
-    label='Save JSON'
-    labelPosition='before'
-    onClick={onClick(store)}
-  />
+  <div>
+    <FlatButton
+      className='DownloadDatasetLink Button -Primary'
+      icon={<DownloadIcon />}
+      label='Save JSON'
+      labelPosition='before'
+      onClick={onClick(store)}
+    />
+  </div>
 )
 
 function onClick(store: Store) {
