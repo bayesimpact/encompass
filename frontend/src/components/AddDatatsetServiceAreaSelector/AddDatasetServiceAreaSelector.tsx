@@ -1,0 +1,59 @@
+import { MenuItem, SelectField } from 'material-ui'
+import * as React from 'react'
+import { State, STATES } from '../../constants/states'
+import { Store, withStore } from '../../services/store'
+
+export let AddDatasetServiceAreaSelector = withStore(
+    'selectedState',
+    'useCustomCountyUpload'
+)(({ store }) =>
+    <div>
+        <StateSelector
+            onChange={state => onStateChange(state, store)}
+            value={store.get('selectedState')}
+        />
+        <CountySelector
+            onChange={value => store.set('useCustomCountyUpload')(value)}
+            value={store.get('useCustomCountyUpload')}
+        />
+    </div>
+)
+
+function onStateChange(state: State, store: Store) {
+    store.set('selectedState')(state)
+    store.set('uploadedServiceAreasFilename')(null)
+}
+
+type CountySelectorProps = {
+    onChange(value: boolean | null): void
+    value: boolean | null
+}
+
+let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange, value }) =>
+    <SelectField
+        onChange={(_e, _i, value) => onChange(value)}
+        value={value}
+        hintText='Select Counties'
+    >
+        <MenuItem key='Custom' value={true} primaryText='Custom' />
+        <MenuItem key='All' value={false} primaryText='All' />
+    </SelectField>
+
+AddDatasetServiceAreaSelector.displayName = 'AddDatasetServiceAreaSelector'
+
+type StateSelectorProps = {
+    onChange(value: State): void
+    value: string
+  }
+
+let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ onChange, value }) =>
+    <SelectField
+      onChange={(_e, _i, value) => onChange(value)}
+      value={value}
+    >
+      {STATES.map(_ =>
+        <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
+      )}
+    </SelectField>
+
+  StateSelector.displayName = 'StateSelector'

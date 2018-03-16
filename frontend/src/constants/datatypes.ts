@@ -26,7 +26,7 @@ export type CensusGroup = {
   censusGroup: string
 }
 
-export type CountyType = 'Rural' | 'Urban'
+export type CountyType = 'All' | 'Rural' | 'Urban'
 
 export type Dataset = {
   dataSources: string,

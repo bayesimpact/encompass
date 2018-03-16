@@ -7010,7 +7010,14 @@ react-chartjs-2@^2.7.0:
     lodash "^4.17.4"
     prop-types "^15.5.8"
 
-react-dom@^16.1.1:
+react-device-detect@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-0.1.0.tgz#91f249fb1034a3fdab86666f3babc73f8288c438"
+  dependencies:
+    react "^16.0.0"
+    react-dom "^16.0.0"
+
+react-dom@^16.0.0, react-dom@^16.1.1:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -7054,7 +7061,7 @@ react-transition-group@^1.2.1:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-"react@^15.6.2 || ^16.0", react@^16.1.1:
+"react@^15.6.2 || ^16.0", react@^16.0.0, react@^16.1.1:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
