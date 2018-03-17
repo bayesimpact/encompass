@@ -14,7 +14,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   let bayesLink = SecureLink('https://bayesimpact.org', 'Bayes Impact')
   let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
   let ghslLink = SecureLink('http://ghsl.jrc.ec.europa.eu/ghs_pop.php', 'satellite data')
-  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'Github')
+  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
   let osrmLink = SecureLink('http://project-osrm.org/', 'OSRM')
   let usCensusLink = SecureLink('https://www.census.gov/', 'U.S. Census data')
 
