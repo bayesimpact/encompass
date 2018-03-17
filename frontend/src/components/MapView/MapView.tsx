@@ -84,6 +84,7 @@ export let MapView = withStore(
     <Map
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
+      zoom={store.get('mapZoom')}
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onClick={() => removePopup(store)}
     >

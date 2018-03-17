@@ -49,7 +49,7 @@ type Actions = {
 
   mapCursor: string
 
-  mapZoom: number
+  mapZoom: number[] | null
 
   method: Method
 
