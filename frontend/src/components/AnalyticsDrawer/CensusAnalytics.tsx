@@ -29,7 +29,7 @@ export let CensusAnalytics = withStore(
       <CircularProgress
         size={150}
         thickness={8}
-        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]}
+        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0]}
       />
     </div>
   }
@@ -44,7 +44,7 @@ export let CensusAnalytics = withStore(
         <td className='NumericTableCell'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
-    <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory}/>
+    <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
     <div className='DownloadLink'>
       <DownloadAnalysisLink />
     </div>

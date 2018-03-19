@@ -26,7 +26,7 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
           <li>List of service areas (county names)</li>
           <li>List of locations for providers or services (latitude and longitude provided in separate columns)</li>
         </ul>
-        For simplicity, this analysis will only produce results using the Haversine method. To run your own drive-time analysis, visit our {githubLink} page to learn how or contact us.
+        For simplicity, this analysis will only produce results using straight-line distance. To run your own drive-time analysis, visit our {githubLink} page to learn how or contact us.
     </span>
     </div>
     <StateCountySelector />

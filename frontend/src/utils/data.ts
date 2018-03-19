@@ -74,9 +74,9 @@ export function summaryStatistics(
   censusGroup?: CensusGroup
 ): PopulationByAdequacy {
   let populationByAdequacy = [
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_15, censusGroup),
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_30, censusGroup),
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_60, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_0, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_1, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_2, censusGroup),
     countByAdequacy(adequacies, representativePoints, AdequacyMode.INADEQUATE, censusGroup)
   ]
   return populationByAdequacy

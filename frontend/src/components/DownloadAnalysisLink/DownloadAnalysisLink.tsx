@@ -40,9 +40,9 @@ function onClick(store: Store) {
     })
     let headers = [
       'county',
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_15)),
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_30)),
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_60)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_1)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_2)),
       'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
       'min_' + method,
       'avg_' + method,
@@ -82,9 +82,9 @@ function onClick(store: Store) {
 function getHeadersForCensusCategories(method: Method, censusCategories: string[]) {
   return flattenDeep(censusCategories.map(_ => CENSUS_MAPPING[_].map(
     group => [
-      getLegend(method, AdequacyMode.ADEQUATE_15),
-      getLegend(method, AdequacyMode.ADEQUATE_30),
-      getLegend(method, AdequacyMode.ADEQUATE_60),
+      getLegend(method, AdequacyMode.ADEQUATE_0),
+      getLegend(method, AdequacyMode.ADEQUATE_1),
+      getLegend(method, AdequacyMode.ADEQUATE_2),
       getLegend(method, AdequacyMode.INADEQUATE)].map(
         legend => formatLegend([_, group, legend].join('_'))
       ))))
