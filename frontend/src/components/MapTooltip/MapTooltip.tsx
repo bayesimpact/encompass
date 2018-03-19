@@ -68,8 +68,7 @@ export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, p
           <TableRow name='Specialty' value={properties.specialty} />
           <TableRow name='Health Center Type' value={properties.center_type} />
         </React.Fragment>}
-        <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
-        <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+        <TableRow name='Coordinates' value={formatCoordinate(lngLat.lat) + ', ' + formatCoordinate(lngLat.lng)} />
       </tbody>
     </table>
     <div className='controls Flex -Center'>
@@ -94,8 +93,7 @@ export let RepresentativePointPopup: React.StatelessComponent<RepresentativePoin
             <TableRow name='County' value={properties.county} />
             <TableRow name='Population' value={properties.population} />
           </React.Fragment>}
-          <TableRow name='Lat' value={formatCoordinate(lngLat.lat)} />
-          <TableRow name='Lng' value={formatCoordinate(lngLat.lng)} />
+          <TableRow name='Coordinates' value={formatCoordinate(lngLat.lat) + ', ' + formatCoordinate(lngLat.lng)} />
         </tbody>
       </table>
     </MapTooltip>

@@ -18,7 +18,7 @@ type Props = {
 }
 
 export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measurementMethod, censusGroups, populationByAdequacyByGroup }) => {
-    let adequacyModes = [AdequacyMode.ADEQUATE_15, AdequacyMode.ADEQUATE_30, AdequacyMode.ADEQUATE_60, AdequacyMode.INADEQUATE]
+    let adequacyModes = [AdequacyMode.ADEQUATE_0, AdequacyMode.ADEQUATE_1, AdequacyMode.ADEQUATE_2, AdequacyMode.INADEQUATE]
     let datasets = adequacyModes.map((mode, idx) => {
         return {
             backgroundColor: ADEQUACY_COLORS[mode],

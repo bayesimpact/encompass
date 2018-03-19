@@ -29,6 +29,9 @@ DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 function onClick(store: Store) {
   let method = store.get('method')
   const selectedDataset = store.get('selectedDataset')
+  // Temporarily use selected Census category only.
+  // let censusCategories = Object.keys(CENSUS_MAPPING).sort()
+  let censusCategories = [store.get('selectedCensusCategory')]
   return () => {
     ReactGA.event({
       category: 'Analysis',
@@ -37,16 +40,16 @@ function onClick(store: Store) {
     })
     let headers = [
       'county',
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_15)),
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_30)),
-      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_60)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_1)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_2)),
       'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
       'min_' + method,
       'avg_' + method,
       'max_' + method
     ]
 
-    headers.push.apply(headers, getHeadersForCensusCategories(method))
+    headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
     let serviceAreas = store.get('serviceAreas')
     let data = serviceAreas.map(_ => {
@@ -67,7 +70,7 @@ function onClick(store: Store) {
         averageMeasure(adequacies),
         maxMeasure(adequacies)
       ]
-      dataRow.push.apply(dataRow, getDataForCensusCategories([_], store))
+      dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
       return dataRow
     })
     let csv = generateCSV(headers, data)
@@ -76,22 +79,23 @@ function onClick(store: Store) {
   }
 }
 
-function getHeadersForCensusCategories(method: Method) {
-  let categories = Object.keys(CENSUS_MAPPING).sort()
-  return flattenDeep(categories.map(_ => CENSUS_MAPPING[_].map(
+function getHeadersForCensusCategories(method: Method, censusCategories: string[]) {
+  return flattenDeep(censusCategories.map(_ => CENSUS_MAPPING[_].map(
     group => [
-      getLegend(method, AdequacyMode.ADEQUATE_15),
-      getLegend(method, AdequacyMode.ADEQUATE_30),
-      getLegend(method, AdequacyMode.ADEQUATE_60),
+      getLegend(method, AdequacyMode.ADEQUATE_0),
+      getLegend(method, AdequacyMode.ADEQUATE_1),
+      getLegend(method, AdequacyMode.ADEQUATE_2),
       getLegend(method, AdequacyMode.INADEQUATE)].map(
         legend => formatLegend([_, group, legend].join('_'))
       ))))
 }
 
-function getDataForCensusCategories(serviceAreas: string[] | null, store: Store) {
-  let categories = Object.keys(CENSUS_MAPPING).sort()
-  return flattenDeep(categories.map(_ => CENSUS_MAPPING[_].map(
-    group => summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)[group]))
+function getDataForCensusCategories(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
+  return flattenDeep(
+    censusCategories.map(_ => {
+      let summary = summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)
+      return CENSUS_MAPPING[_].map(group => summary[group])
+    })
   )
 }
 

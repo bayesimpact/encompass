@@ -3,7 +3,7 @@
 ## Install git repo
 
 ```bash
-git clone git@github.com:bayesimpact/tds.git
+git clone git@github.com:bayesimpact/encompass.git
 ```
 
 ## Backend

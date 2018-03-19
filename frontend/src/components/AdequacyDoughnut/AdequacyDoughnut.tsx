@@ -30,7 +30,7 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
       <CircularProgress
         size={150}
         thickness={8}
-        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]}
+        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0]}
       />
     </div>
   }
@@ -44,17 +44,17 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
     <Doughnut
       data={{
         labels: [
-          getLegend(method, AdequacyMode.ADEQUATE_15),
-          getLegend(method, AdequacyMode.ADEQUATE_30),
-          getLegend(method, AdequacyMode.ADEQUATE_60),
+          getLegend(method, AdequacyMode.ADEQUATE_0),
+          getLegend(method, AdequacyMode.ADEQUATE_1),
+          getLegend(method, AdequacyMode.ADEQUATE_2),
           getLegend(method, AdequacyMode.INADEQUATE)
         ],
         datasets: [{
           data: populationByAdequacy,
           backgroundColor: [
-            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15],
-            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30],
-            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_1],
+            ADEQUACY_COLORS[AdequacyMode.ADEQUATE_2],
             ADEQUACY_COLORS[AdequacyMode.INADEQUATE]
           ]
         }]
@@ -95,9 +95,9 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
         <th>Population (%)</th>
         <th>Population (#)</th>
       </tr>
-      {adequacyRow(populationByAdequacy[0], totalPopulation, method, AdequacyMode.ADEQUATE_15)}
-      {adequacyRow(populationByAdequacy[1], totalPopulation, method, AdequacyMode.ADEQUATE_30)}
-      {adequacyRow(populationByAdequacy[2], totalPopulation, method, AdequacyMode.ADEQUATE_60)}
+      {adequacyRow(populationByAdequacy[0], totalPopulation, method, AdequacyMode.ADEQUATE_0)}
+      {adequacyRow(populationByAdequacy[1], totalPopulation, method, AdequacyMode.ADEQUATE_1)}
+      {adequacyRow(populationByAdequacy[2], totalPopulation, method, AdequacyMode.ADEQUATE_2)}
       {adequacyRow(populationByAdequacy[3], totalPopulation, method, AdequacyMode.INADEQUATE)}
     </StatsBox>
   </div>

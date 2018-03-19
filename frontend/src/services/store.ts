@@ -7,6 +7,8 @@ import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
 
+const { ENV } = process.env
+
 type Actions = {
 
   adequacies: Adequacies
@@ -49,7 +51,7 @@ type Actions = {
 
   mapCursor: string
 
-  mapZoom: number
+  mapZoom: number[] | null
 
   method: Method
 
@@ -153,7 +155,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
-  isAboutDialogOpen: false,
+  isAboutDialogOpen: (ENV === 'PRD'),
   useCustomCountyUpload: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,

@@ -13,7 +13,7 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
-const { APP_IS_PUBLIC } = process.env
+const { ENV } = process.env
 
 export function withEffects(store: Store) {
   /**
@@ -188,8 +188,6 @@ export function withEffects(store: Store) {
         return selectedCounties.includes(parseSerializedServiceArea(sA).county)
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Name') {
-      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
@@ -197,7 +195,7 @@ export function withEffects(store: Store) {
    * Filter counties by urban/rural if the countyTypeSelector is in use.
    */
   store.on('selectedCountyType').subscribe(selectedCountyType => {
-    if (selectedCountyType !== null) {
+    if (selectedCountyType === 'Urban' || selectedCountyType === 'Rural') {
       let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
         let { state, county } = parseSerializedServiceArea(sA)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
@@ -205,7 +203,7 @@ export function withEffects(store: Store) {
         return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Type') {
+    } else if (selectedCountyType === 'All') {
       store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
@@ -214,10 +212,14 @@ export function withEffects(store: Store) {
    * If the user selects a new selector method, re-select all service areas.
    * And reset selectors to 'All Counties'.
    */
-  store.on('selectedFilterMethod').subscribe(_ => {
-    if (store.set('selectedServiceAreas') !== null) {
-      store.set('selectedServiceAreas')(null)
+  store.on('selectedFilterMethod').subscribe(selectedFilterMethod => {
+    if (selectedFilterMethod === 'County Type') {
       store.set('selectedCountyType')(null)
+    }
+    if (selectedFilterMethod === 'All') {
+      store.set('selectedServiceAreas')(null)
+    }
+    if (selectedFilterMethod === 'County Name') {
       store.set('selectedCounties')(null)
     }
   })
@@ -297,7 +299,7 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(!APP_IS_PUBLIC)
+        store.set('allowDrivingTime')(ENV !== 'PRD')
         store.set('method')('haversine')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(true)
@@ -337,26 +339,26 @@ function getAdequacyMode(
   }
 
   if (method === 'haversine') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 15) {
-      return AdequacyMode.ADEQUATE_15
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 10) {
+      return AdequacyMode.ADEQUATE_0
+    }
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 20) {
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
-      return AdequacyMode.ADEQUATE_30
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 60) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
     }
   }
 
   if (method === 'driving_time') {
-    if (adequacy.to_closest_provider <= 15) {
-      return AdequacyMode.ADEQUATE_15
-    }
     if (adequacy.to_closest_provider <= 30) {
-      return AdequacyMode.ADEQUATE_30
+      return AdequacyMode.ADEQUATE_0
+    }
+    if (adequacy.to_closest_provider <= 45) {
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider <= 60) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
     }
   }
 

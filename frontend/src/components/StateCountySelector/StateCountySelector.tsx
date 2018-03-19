@@ -1,9 +1,12 @@
-import { MenuItem, SelectField } from 'material-ui'
+import MenuItem from 'material-ui/MenuItem'
+import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
 
-export let AddDatasetServiceAreaSelector = withStore(
+const { ENV } = process.env
+
+export let StateCountySelector = withStore(
     'selectedState',
     'useCustomCountyUpload'
 )(({ store }) =>
@@ -33,27 +36,35 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
     <SelectField
         onChange={(_e, _i, value) => onChange(value)}
         value={value}
-        hintText='Select Counties'
+        floatingLabelText='Counties'
+        hintText='Select a county'
+        floatingLabelFixed={true}
+        autoWidth={false}
+        style={{ width: 150, paddingLeft: 10 }}
     >
-        <MenuItem key='Custom' value={true} primaryText='Custom' />
+        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(ENV !== 'PRD')} />
         <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 
-AddDatasetServiceAreaSelector.displayName = 'AddDatasetServiceAreaSelector'
+StateCountySelector.displayName = 'StateCountySelector'
 
 type StateSelectorProps = {
     onChange(value: State): void
     value: string
-  }
+}
 
 let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ onChange, value }) =>
     <SelectField
-      onChange={(_e, _i, value) => onChange(value)}
-      value={value}
+        onChange={(_e, _i, value) => onChange(value)}
+        value={value}
+        floatingLabelText='State'
+        floatingLabelFixed={true}
+        autoWidth={false}
+        style={{ width: 200 }}
     >
-      {STATES.map(_ =>
-        <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
-      )}
+        {STATES.map(_ =>
+            <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
+        )}
     </SelectField>
 
-  StateSelector.displayName = 'StateSelector'
+StateSelector.displayName = 'StateSelector'
