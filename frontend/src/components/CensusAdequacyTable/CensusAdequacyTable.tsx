@@ -11,7 +11,6 @@ import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
-import './CensusAdequacyTable.css'
 
 type Props = {
   serviceAreas: string[],
