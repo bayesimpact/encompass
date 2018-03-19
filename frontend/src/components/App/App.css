@@ -40,8 +40,8 @@ p {
 }
 
 a {
-  color: #3f51b5 !important;
-  text-decoration: underline !important;
+  color: var(--secondary);
+  text-decoration: underline;
 }
 
 /*
