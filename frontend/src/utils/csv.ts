@@ -131,6 +131,6 @@ export class ParseError {
     public message: string
   ) { }
   toString() {
-    return `CSV Parse Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}`
+    return `CSV Parse Error at row ${this.rowIndex} for field ${this.column.aliases[0]}: ${this.message}`
   }
 }
