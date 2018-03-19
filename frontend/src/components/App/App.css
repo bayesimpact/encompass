@@ -170,3 +170,7 @@ p {
 .ListItem.-Compact > div {
   top: 3px !important;
 }
+
+.TableNumber {
+  text-align: right;
+}

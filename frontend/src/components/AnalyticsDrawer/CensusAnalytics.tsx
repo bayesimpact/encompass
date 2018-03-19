@@ -40,8 +40,8 @@ export let CensusAnalytics = withStore(
         <th>Providers</th>
       </tr>
       <tr>
-        <td>{formatNumber(totalPopulation)}</td>
-        <td>{formatNumber(totalProviders)}</td>
+        <td className='TableNumber'>{formatNumber(totalPopulation)}</td>
+        <td className='TableNumber'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
     <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory}/>
