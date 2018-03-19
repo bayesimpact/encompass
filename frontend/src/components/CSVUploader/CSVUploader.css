@@ -6,7 +6,8 @@
 }
 
 .CSVUploader {
-  margin: auto;
+  width: 190px;
+  text-align: left !important;
 }
 
 .CSVUploader .Button {

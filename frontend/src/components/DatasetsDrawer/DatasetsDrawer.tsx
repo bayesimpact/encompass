@@ -44,13 +44,12 @@ let DatasetTilePicker = TilePicker<Dataset>()
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
     <p>Welcome to the Encompass analysis tool built by {SecureLink('http://bayesimpact.org', 'Bayes Impact')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
-    <p>To send us feedback or ideas for new datasets, you can contact us {SecureLink('mailto:encompass@bayesimpact.org?subject=Request a dataset', 'here')}.</p>
     <DatasetTilePicker
       onChange={onChange(store)}
       tiles={tiles}
       value={tiles.find(_ => _.data === store.get('selectedDataset')) || null}
     />
-    <p className='Center LargeFont Muted'>Don't see the dataset you want? {SecureLink('mailto:encompass@bayesimpact.org?subject=Request a dataset', 'Email us')}.</p>
+    <p className='Center LargeFont Muted'>Don't see the dataset you want? To send us feedback or ideas for new datasets, email us at {SecureLink('mailto:encompass@bayesimpact.org?subject=Request a dataset', 'encompass@bayesimpact.org')}.</p>
   </div>
 )
 

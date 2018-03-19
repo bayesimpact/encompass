@@ -39,6 +39,11 @@ p {
   font-size: var(--medium-font) !important;
 }
 
+a {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
 /*
   Utilities
 */
@@ -169,4 +174,8 @@ p {
 /* list item checkbox */
 .ListItem.-Compact > div {
   top: 3px !important;
+}
+
+.NumericTableCell {
+  text-align: right;
 }

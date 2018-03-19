@@ -1,7 +1,9 @@
+@import "../../index.css";
+
 .DatasetsDrawer .TilePicker {
   margin: 20px 0;
 }
 
 .DatasetsDrawer a {
-  text-decoration: none;
+  color: var(--secondary);
 }

@@ -12,11 +12,11 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
   let bayesLink = SecureLink('https://bayesimpact.org', 'Bayes Impact')
-  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'here')
+  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
   let ghslLink = SecureLink('http://ghsl.jrc.ec.europa.eu/ghs_pop.php', 'satellite data')
-  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'Github')
-  let osrmLink = SecureLink('https://github.com/bayesimpact/encompass', 'OSRM')
-  let usCensusLink = SecureLink('https://github.com/bayesimpact/encompass', 'U.S. Census data')
+  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
+  let osrmLink = SecureLink('http://project-osrm.org/', 'OSRM')
+  let usCensusLink = SecureLink('https://www.census.gov/', 'U.S. Census data')
 
   return <Dialog
     autoScrollBodyContent={true}

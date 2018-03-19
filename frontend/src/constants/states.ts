@@ -9,7 +9,7 @@ export const STATES = [
   { shortName: 'ca', longName: 'California' },
   { shortName: 'co', longName: 'Colorado' },
   { shortName: 'ct', longName: 'Connecticut' },
-  { shortName: 'de', longName: 'Delware' },
+  { shortName: 'de', longName: 'Delaware' },
   { shortName: 'dc', longName: 'District of Columbia' },
   { shortName: 'fl', longName: 'Florida' },
   { shortName: 'ga', longName: 'Georgia' },

@@ -339,26 +339,26 @@ function getAdequacyMode(
   }
 
   if (method === 'haversine') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 15) {
-      return AdequacyMode.ADEQUATE_15
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 10) {
+      return AdequacyMode.ADEQUATE_0
+    }
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 20) {
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
-      return AdequacyMode.ADEQUATE_30
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 60) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
     }
   }
 
   if (method === 'driving_time') {
-    if (adequacy.to_closest_provider <= 15) {
-      return AdequacyMode.ADEQUATE_15
-    }
     if (adequacy.to_closest_provider <= 30) {
-      return AdequacyMode.ADEQUATE_30
+      return AdequacyMode.ADEQUATE_0
+    }
+    if (adequacy.to_closest_provider <= 45) {
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider <= 60) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
     }
   }
 

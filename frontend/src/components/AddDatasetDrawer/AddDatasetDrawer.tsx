@@ -5,35 +5,42 @@ import * as React from 'react'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
-import { AddDatasetServiceAreaSelector } from '../AddDatatsetServiceAreaSelector/AddDatasetServiceAreaSelector'
+import { SecureLink } from '../../utils/link'
 import { BackLink } from '../Link/Link'
+import { StateCountySelector } from '../StateCountySelector/StateCountySelector'
 import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
-
 import './AddDatasetDrawer.css'
 
-export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store}) =>
+let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
+
+export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
   <div className='AddDatasetDrawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
-    <span className='MediumWeight Muted'>
-      To analyze the accessibility of your own set of providers, facilities, or social services, you
-      will need to upload two separate CSV files:
-      <ul>
-        <li>List of service areas (County and/or ZIP columns).</li>
-        <li>List of addresses for providers or services.</li>
-      </ul>
+    <div className='ExplainerText'>
+      <span className='MediumWeight'>
+        To analyze the accessibility of your own set of providers, facilities, or social services, you
+        will need to upload two separate CSV files:
+        <ul>
+          <li>List of service areas (county names)</li>
+          <li>List of locations for providers or services (latitude and longitude provided in separate columns)</li>
+        </ul>
+        For simplicity, this analysis will only produce results using straight-line distance. To run your own drive-time analysis, visit our {githubLink} page to learn how or contact us.
     </span>
-    <AddDatasetServiceAreaSelector />
+    </div>
+    <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
-    <DownloadDatasetLink />
-    <AnalyzerButton />
+    <div className='AnalyzeButton'>
+      <DownloadDatasetLink />
+      <AnalyzerButton />
+    </div>
   </div >
 )
 
 let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div className='Flex -Center'>
+  <div>
     <RaisedButton
       className={'Button -Primary'}
       containerElement='label'
@@ -76,13 +83,15 @@ function Analyze(store: Store) {
 }
 
 let DownloadDatasetLink = withStore()(({ store }) =>
-  <FlatButton
-    className='DownloadDatasetLink Button -Primary'
-    icon={<DownloadIcon />}
-    label='Save JSON'
-    labelPosition='before'
-    onClick={onClick(store)}
-  />
+  <div>
+    <FlatButton
+      className='DownloadDatasetLink Button -Primary'
+      icon={<DownloadIcon />}
+      label='Save JSON'
+      labelPosition='before'
+      onClick={onClick(store)}
+    />
+  </div>
 )
 
 function onClick(store: Store) {
