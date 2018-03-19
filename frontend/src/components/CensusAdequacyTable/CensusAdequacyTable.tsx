@@ -11,6 +11,7 @@ import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
+import './CensusAdequacyTable.css'
 
 type Props = {
   serviceAreas: string[],
@@ -73,9 +74,9 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {
-            return (<td>{formatPercentage(100 * _ / totalPopulation)}</td>)
+            return (<td className='TableNumber'>{formatPercentage(100 * _ / totalPopulation)}</td>)
           } else {
-            return (<td>{formatNumber(_)}</td>)
+            return (<td className='TableNumber'>{formatNumber(_)}</td>)
           }
         })
       }
