@@ -171,6 +171,6 @@ p {
   top: 3px !important;
 }
 
-.TableNumber {
+.NumericTableCell {
   text-align: right;
 }

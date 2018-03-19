@@ -73,9 +73,9 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {
-            return (<td className='TableNumber'>{formatPercentage(100 * _ / totalPopulation)}</td>)
+            return (<td className='NumericTableCell'>{formatPercentage(100 * _ / totalPopulation)}</td>)
           } else {
-            return (<td className='TableNumber'>{formatNumber(_)}</td>)
+            return (<td className='NumericTableCell'>{formatNumber(_)}</td>)
           }
         })
       }
