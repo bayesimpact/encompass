@@ -175,3 +175,7 @@ a {
 .ListItem.-Compact > div {
   top: 3px !important;
 }
+
+.NumericTableCell {
+  text-align: right;
+}
