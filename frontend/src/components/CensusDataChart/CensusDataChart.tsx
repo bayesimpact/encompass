@@ -24,7 +24,7 @@ const numberBarWidth = 12
 const barPadding = 8
 const yLabelWidth = 140
 const legendFontSize = 14
-const labelFontSize = 11
+const labelFontSize = 12
 
 Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif'
 Chart.defaults.global.defaultFontSize = labelFontSize
@@ -63,7 +63,8 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                 scaleLabel: {
                     display: true,
                     labelString: xLabel,
-                    fontSize: legendFontSize
+                    fontSize: legendFontSize,
+                    fontStyle: 'bold'
                 },
                 ticks: {
                     callback: formatxAxisLabels
@@ -75,7 +76,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                     scaleInstance.width = yLabelWidth // sets the width to 100px
                 },
                 ticks: {
-                    labelOffset: -5
+                    labelOffset: -7
                 }
             }]
         },
@@ -87,7 +88,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             labels: {
                 padding: 20,
                 boxWidth: 20,
-                fontSize: legendFontSize
+                fontSize: labelFontSize
             }
         }
     }
