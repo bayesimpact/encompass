@@ -69,12 +69,11 @@ module.exports = {
       favicon: path.join(__dirname, 'src/images/favicon.png')
     }),
     new webpack.DefinePlugin({
+      'process.env.ENV': JSON.stringify(process.env.ENV),
+      'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
       'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       'process.env.SHOULD_SHOW_CSV_UPLOADER': JSON.stringify(process.env.SHOULD_SHOW_CSV_UPLOADER),
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.TITLE_SUFFIX': JSON.stringify(process.env.TITLE_SUFFIX),
-      'process.env.APP_IS_PUBLIC': JSON.stringify(process.env.APP_IS_PUBLIC),
       'process.env.GA_ID': JSON.stringify(process.env.GA_ID)
     })
   ]

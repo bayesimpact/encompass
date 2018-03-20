@@ -147,7 +147,7 @@ a {
 }
 
 .Button.-Primary path {
-  fill: var(--primary) !important;
+  fill: var(--secondary) !important;
 }
 
 .Button.-Small > div > span {
