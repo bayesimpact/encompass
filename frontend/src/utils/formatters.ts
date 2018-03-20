@@ -36,6 +36,20 @@ export function formatNumber(n: number) {
 }
 
 /**
+ * Formats numbers with 'K' for thousands, 'M' for millions for axis labels.
+ */
+export function formatAxisNumber(n: number) {
+  if (n >= 1000000) {
+      return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'
+  }
+  if (n >= 1000) {
+      return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
+  }
+  return n
+}
+
+
+/**
  * Formats percentage number for display in the UI.
  */
 export function formatPercentage(n: number, decimal?: number) {

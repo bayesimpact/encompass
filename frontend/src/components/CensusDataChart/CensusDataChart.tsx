@@ -7,7 +7,7 @@ import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StatisticsByGroup } from '../../utils/data'
-import { formatNumber, formatPercentage } from '../../utils/formatters'
+import { formatAxisNumber, formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
@@ -37,7 +37,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         return `${label}: ${formatNumber(Number(tooltipItem.xLabel))}`
     }
 
-    let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatNumber(value)}` }
+    let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatAxisNumber(value)}` }
     let xAxisHeight = 40
     let legendHeight = 45
     let percentBarWidth = 32
