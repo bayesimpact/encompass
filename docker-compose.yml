@@ -41,11 +41,12 @@ services:
         - ./frontend/src:/usr/src/app/src:rw
         - ./frontend/public:/usr/src/app/public:rw
         - ./shared/:/usr/src/shared:rw
+        - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       build:
         context: ./frontend
         dockerfile: Dockerfile
       ports:
-        - 80:8081
+        - 80:80
         - 8081:8081
       env_file:
         - .env
