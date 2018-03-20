@@ -42,7 +42,7 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
         autoWidth={false}
         style={{ width: 150, paddingLeft: 10 }}
     >
-        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(ENV !== 'PRD')} />
+        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(ENV === 'PRD')} />
         <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 
