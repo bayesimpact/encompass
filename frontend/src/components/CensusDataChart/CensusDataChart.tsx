@@ -82,7 +82,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             callbacks: { label: formatTooltipLabel }
         },
         legend: {
-            display: true,
+            display: false,
             labels: {
                 padding: 20,
                 boxWidth: 20,
