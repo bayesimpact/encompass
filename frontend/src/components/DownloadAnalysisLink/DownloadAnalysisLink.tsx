@@ -4,16 +4,14 @@ import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
 import { CENSUS_MAPPING } from '../../constants/census'
-import { AdequacyMode, Method } from '../../constants/datatypes'
+import { AdequacyMode, Method, RepresentativePoint } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
-import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea, summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
+import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByCensus, summaryStatisticsTotal } from '../../utils/data'
 import { download } from '../../utils/download'
 import { snakeCase } from '../../utils/string'
 import { getLegend } from '../MapLegend/MapLegend'
-
-import './DownloadAnalysisLink.css'
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
@@ -53,9 +51,10 @@ function onClick(store: Store) {
 
     let serviceAreas = store.get('serviceAreas')
     let data = serviceAreas.map(_ => {
-      let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
+      let representativePoints = representativePointsFromServiceAreas([_], store)
+      let representativePoint = representativePoints.value()[0]
       let adequacies = adequaciesFromServiceArea([_], store)
-      let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
+      let populationByAnalytics = summaryStatisticsTotal(representativePoints, store)
       let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
       if (specialty == null) {
         specialty = '-'
@@ -70,7 +69,7 @@ function onClick(store: Store) {
         averageMeasure(adequacies),
         maxMeasure(adequacies)
       ]
-      dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
+      dataRow.push.apply(dataRow, getDataForCensusCategories(representativePoints, censusCategories, store))
       return dataRow
     })
     let csv = generateCSV(headers, data)
@@ -90,10 +89,10 @@ function getHeadersForCensusCategories(method: Method, censusCategories: string[
       ))))
 }
 
-function getDataForCensusCategories(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
+function getDataForCensusCategories(rps: Lazy<RepresentativePoint[]>, censusCategories: string[], store: Store) {
   return flattenDeep(
     censusCategories.map(_ => {
-      let summary = summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)
+      let summary = summaryStatisticsByCensus(_, rps, store)
       return CENSUS_MAPPING[_].map(group => summary[group])
     })
   )
