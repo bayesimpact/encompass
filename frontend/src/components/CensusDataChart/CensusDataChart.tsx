@@ -34,6 +34,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
     let adequacyModes = [AdequacyMode.ADEQUATE_0, AdequacyMode.ADEQUATE_1, AdequacyMode.ADEQUATE_2, AdequacyMode.INADEQUATE]
     let datasets = adequacyModes.map((mode, idx) => {
         return {
+            borderWidth: 0,
             backgroundColor: ADEQUACY_COLORS[mode],
             label: getLegend(measurementMethod, mode),
             data: censusGroups.map(_ => populationByAdequacyByGroup[_][idx])
