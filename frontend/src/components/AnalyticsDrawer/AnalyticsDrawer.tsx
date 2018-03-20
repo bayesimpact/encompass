@@ -31,9 +31,9 @@ export let AnalyticsDrawer = withStore(
       </div>
       <div className='Selectors'>
         <SelectorBlock />
-        <div className='CensusAnalytics'>
-          <CensusAnalytics />
-        </div>
+      </div>
+      <div className='CensusAnalytics'>
+        <CensusAnalytics />
       </div>
       <div className='Description'>
         <h4 className='HeavyWeight Muted'>Data Sources</h4>

@@ -4,4 +4,9 @@
 
 .CensusAnalytics .DownloadLink {
   height: 36px;
+  padding-top: 10px;
+}
+
+.CensusAnalytics .CensusDataChart {
+  padding-bottom: 10px;
 }

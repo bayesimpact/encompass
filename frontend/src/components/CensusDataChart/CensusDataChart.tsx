@@ -23,7 +23,7 @@ const percentBarWidth = 32
 const numberBarWidth = 12
 const barPadding = 8
 const yLabelWidth = 140
-const legendFontSize = 12
+const legendFontSize = 14
 const labelFontSize = 11
 
 Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif'
@@ -97,6 +97,11 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             yAxes: [{
                 stacked: true,
                 barThickness: percentBarWidth
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    fontSize: legendFontSize
+                }
             }]
         },
         plugins: {
@@ -107,7 +112,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         }
     }
     return (
-        <div style={{ height: `${chartHeight}px`, position: 'relative' }}>
+        <div className='CensusDataChart' style={{ height: `${chartHeight}px`, position: 'relative' }}>
             <HorizontalBar
                 data={{
                     labels: censusGroups.map(group => formatLabel(group, 22)),
