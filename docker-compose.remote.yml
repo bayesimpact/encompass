@@ -9,4 +9,3 @@ services:
     command: ["yarn run start:prod"]
     ports:
       - 80:80
-      - 8081:8081
