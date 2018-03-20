@@ -37,40 +37,64 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         return `${label}: ${formatNumber(Number(tooltipItem.xLabel))}`
     }
 
-    let formatxAxisLabels = (value: any) => {return percent ? `${formatPercentage(value, 0)}` : `${formatNumber(value)}`}
+    let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatNumber(value)}` }
+    let xAxisHeight = 40
+    let legendHeight = 45
+    let percentBarWidth = 32
+    let numberBarWidth = 12
+    let barPadding = 8
+
+    let chartHeight: number = percent ? censusGroups.length * (percentBarWidth + barPadding) + legendHeight + xAxisHeight :
+        censusGroups.length * ((numberBarWidth * 4) + barPadding) + xAxisHeight
 
     let options = {
+        maintainAspectRatio: false,
         scales: {
             xAxes: [{
                 scaleLabel: { display: true, labelString: xLabel },
                 ticks: {
                     callback: formatxAxisLabels
                 }
+            }],
+            yAxes: [{
+                barThickness: numberBarWidth
             }]
         },
         tooltips: {
-            callbacks: {label: formatTooltipLabel}
+            callbacks: { label: formatTooltipLabel }
+        },
+        legend: {
+            display: false,
+            labels: {
+                padding: 20,
+                boxWidth: 20
+            }
         }
     }
 
     let percentOptions = {
-            scales: {
-                yAxes: [{
-                    stacked: true
-                }]
-            },
-            plugins: {
-                stacked100: { enable: true }
-            }
+        scales: {
+            yAxes: [{
+                stacked: true,
+                barThickness: percentBarWidth
+            }]
+        },
+        plugins: {
+            stacked100: { enable: true }
+        },
+        legend: {
+            display: true
         }
-
+    }
     return (
-        <HorizontalBar
-            data={{
-                labels: censusGroups,
-                datasets
-            }}
-            options={percent ? merge(options, percentOptions) : options}
-        />
+        <div style={{ height: `${chartHeight}px`, position: 'relative' }}>
+            <HorizontalBar
+                data={{
+                    labels: censusGroups,
+                    datasets
+                }}
+                options={percent ? merge(options, percentOptions) : options}
+            />
+        </div>
     )
 }
