@@ -5,7 +5,6 @@ ENV MAPBOX_TOKEN "$MAPBOX_TOKEN"
 # Set up nginx to proxy requests.
 # Should probably switch to express since we are in a node container anyway.
 RUN apt-get update; apt-get -y install nginx
-RUN service nginx start
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
