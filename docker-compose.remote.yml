@@ -6,7 +6,7 @@ services:
       # Mount the nginx configuration.
       - ./frontend/remote/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       # Mount the entrypoint.
-      - ./frontend/remote/entrypoing.sh:/tmp/entrypoint.sh
+      - ./frontend/remote/entrypoint.sh:/tmp/entrypoint.sh
     entrypoint: ["/tmp/entrypoint.sh"]
     command: ["yarn run start:prod"]
     ports:
