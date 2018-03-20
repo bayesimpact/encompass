@@ -1,7 +1,7 @@
 {
     "dataSources": "<a href=\"https://fundtexaschoice.org/index.php/about/\" target=\"_blank\">Fund Texas Choice</a>, Feb 2018.",
-    "description": "The passing of Texas House Bill 2 closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics in and around Texas.",
-    "subtitle": "Explore how maps can illuminate policy impacts",
+    "description": "The passing of <a href=\"https://rewire.news/legislative-tracker/law/texas-omnibus-abortion-bill-hb-2-2013/\" target=\"_blank\">Texas House Bill 2</a> closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics in and around Texas.",
+    "subtitle": "Abortion clinics remaining after Texas HB2",
     "state": "tx",
     "name": "Abortion Clinics in Texas",
     "providers": [

@@ -23,7 +23,7 @@ export let CensusAdequacyCharts = withStore('adequacies', 'method')<Props>(({ se
 
   // Calculate summaryStatistics for each group.
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
-  let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
+  let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
     <CensusDataChart

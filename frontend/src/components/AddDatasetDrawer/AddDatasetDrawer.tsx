@@ -14,6 +14,7 @@ import './AddDatasetDrawer.css'
 
 const { ENV } = process.env
 const githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
+const contactUsLink = SecureLink('mailto:encompass@bayesimpact.org?subject=Driving%Time%20Analysis', 'contact us')
 
 export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
   <div className='AddDatasetDrawer'>
@@ -21,14 +22,13 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
     <h2 className='Secondary'>Upload your data to explore</h2>
     <div className='ExplainerText'>
       <span className='MediumWeight'>
-        To analyze the accessibility of your own set of providers, facilities, or social services, you
-        will need to upload two separate CSV files:
+        To analyze the accessibility of your own set of providers, facilities, or social services:
         <ul>
-          <li>List of service areas (county names)</li>
-          <li>List of locations for providers or services (latitude and longitude provided in separate columns)</li>
+          <li>Isolate the population you want to analyze by selecting a state</li>
+          <li>Upload a CSV of locations representing providers or services. The header row must define "latitude" and "longitude" columns (and an optional "name" column).</li>
         </ul>
-        For simplicity, this analysis will only produce results using straight-line distance. To run your own drive-time analysis, visit our {githubLink} page to learn how or contact us.
-    </span>
+        For simplicity, this analysis will only produce results using straight-line distance. To run your own analysis using driving times, visit our {githubLink} page or {contactUsLink} to learn how.
+      </span>
     </div>
     <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}

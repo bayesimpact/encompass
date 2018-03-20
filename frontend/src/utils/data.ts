@@ -64,7 +64,7 @@ export function summaryStatisticsByServiceAreaAndCensus(
   censusCategoryGroups.forEach(censusGroup => {
     statisticsByGroup[censusGroup] = summaryStatistics(rps, adequacies, { censusCategory, censusGroup })
   })
-  statisticsByGroup['Total'] = summaryStatistics(rps, adequacies)
+  statisticsByGroup['Total Population'] = summaryStatistics(rps, adequacies)
   return statisticsByGroup
 }
 
