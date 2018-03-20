@@ -43,7 +43,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
       </p>
       <p>
         This is an open source project. You can follow our progress and contribute on {githubLink}. To send us feedback
-        or ideas for new datasets, you can contact us {emailLink}.
+        or ideas for new datasets, you can contact us at {emailLink}.
       </p>
     </div>
   </Dialog>

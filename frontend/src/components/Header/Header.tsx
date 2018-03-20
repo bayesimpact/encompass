@@ -8,7 +8,7 @@ import { SecureLink } from '../../utils/link'
 import { AboutDialog } from '../AboutDialog/AboutDialog'
 import './Header.css'
 
-let title = 'Encompass' + (process.env.TITLE_SUFFIX ? ' - ' + process.env.TITLE_SUFFIX : '')
+let title = 'Encompass' + (process.env.ENV !== 'PRD' ? ' - ' + process.env.ENV : '')
 
 export let Header = withStore('isAboutDialogOpen')(({ store }) =>
   < AppBar

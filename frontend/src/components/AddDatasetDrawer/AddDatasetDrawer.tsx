@@ -12,7 +12,8 @@ import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 import './AddDatasetDrawer.css'
 
-let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
+const { ENV } = process.env
+const githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
 
 export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
   <div className='AddDatasetDrawer'>
@@ -32,8 +33,8 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
     <StateCountySelector />
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
-    <div className='AnalyzeButton'>
-      <DownloadDatasetLink />
+    <div className='AnalyzeButton -Center'>
+      {(ENV !== 'PRD') ? <DownloadDatasetLink /> : null}
       <AnalyzerButton />
     </div>
   </div >

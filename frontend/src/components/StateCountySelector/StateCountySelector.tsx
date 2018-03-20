@@ -4,6 +4,8 @@ import * as React from 'react'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
 
+const { ENV } = process.env
+
 export let StateCountySelector = withStore(
     'selectedState',
     'useCustomCountyUpload'
@@ -38,9 +40,9 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
         hintText='Select a county'
         floatingLabelFixed={true}
         autoWidth={false}
-        style={{width: 150, paddingLeft: 10}}
+        style={{ width: 150, paddingLeft: 10 }}
     >
-        <MenuItem key='Custom' value={true} primaryText='Custom' />
+        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(ENV !== 'PRD')} />
         <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 
@@ -49,20 +51,20 @@ StateCountySelector.displayName = 'StateCountySelector'
 type StateSelectorProps = {
     onChange(value: State): void
     value: string
-  }
+}
 
 let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ onChange, value }) =>
     <SelectField
-      onChange={(_e, _i, value) => onChange(value)}
-      value={value}
-      floatingLabelText='State'
-      floatingLabelFixed={true}
-      autoWidth={false}
-      style={{width: 200}}
+        onChange={(_e, _i, value) => onChange(value)}
+        value={value}
+        floatingLabelText='State'
+        floatingLabelFixed={true}
+        autoWidth={false}
+        style={{ width: 200 }}
     >
-      {STATES.map(_ =>
-        <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
-      )}
+        {STATES.map(_ =>
+            <MenuItem key={_.shortName} value={_.shortName} primaryText={_.longName} />
+        )}
     </SelectField>
 
-  StateSelector.displayName = 'StateSelector'
+StateSelector.displayName = 'StateSelector'

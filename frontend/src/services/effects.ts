@@ -13,7 +13,7 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
-const { APP_IS_PUBLIC } = process.env
+const { ENV } = process.env
 
 export function withEffects(store: Store) {
   /**
@@ -299,7 +299,7 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(!APP_IS_PUBLIC)
+        store.set('allowDrivingTime')(ENV !== 'PRD')
         store.set('method')('haversine')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(true)

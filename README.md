@@ -25,7 +25,7 @@ In this project's root folder, add a file called `.env` with the following info 
 MAPBOX_TOKEN=???
 POSTGRES_URL=???
 API_ROOT=http://localhost:8080
-TITLE_SUFFIX=LOCAL
+ENV=LOCAL
 IS_AWS=FALSE
 ```
 
