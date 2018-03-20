@@ -1,4 +1,4 @@
-import { ChartTooltipItem } from 'chart.js'
+import { Chart, ChartTooltipItem } from 'chart.js'
 import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
 import { merge } from 'lodash'
@@ -7,7 +7,7 @@ import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { StatisticsByGroup } from '../../utils/data'
-import { formatAxisNumber, formatNumber, formatPercentage } from '../../utils/formatters'
+import { formatAxisNumber, formatLabel, formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
@@ -17,7 +17,20 @@ type Props = {
     populationByAdequacyByGroup: StatisticsByGroup
 }
 
+const xAxisHeight = 40
+const legendHeight = 45
+const percentBarWidth = 32
+const numberBarWidth = 12
+const barPadding = 8
+const yLabelWidth = 140
+const legendFontSize = 12
+const labelFontSize = 11
+
+Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif'
+Chart.defaults.global.defaultFontSize = labelFontSize
+
 export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measurementMethod, censusGroups, populationByAdequacyByGroup }) => {
+
     let adequacyModes = [AdequacyMode.ADEQUATE_0, AdequacyMode.ADEQUATE_1, AdequacyMode.ADEQUATE_2, AdequacyMode.INADEQUATE]
     let datasets = adequacyModes.map((mode, idx) => {
         return {
@@ -38,11 +51,6 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
     }
 
     let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatAxisNumber(value)}` }
-    let xAxisHeight = 40
-    let legendHeight = 45
-    let percentBarWidth = 32
-    let numberBarWidth = 12
-    let barPadding = 8
 
     let chartHeight: number = percent ? censusGroups.length * (percentBarWidth + barPadding) + legendHeight + xAxisHeight :
         censusGroups.length * ((numberBarWidth * 4) + barPadding) + xAxisHeight
@@ -51,23 +59,34 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
-                scaleLabel: { display: true, labelString: xLabel },
+                scaleLabel: {
+                    display: true,
+                    labelString: xLabel,
+                    fontSize: legendFontSize
+                },
                 ticks: {
                     callback: formatxAxisLabels
                 }
             }],
             yAxes: [{
-                barThickness: numberBarWidth
+                barThickness: numberBarWidth,
+                afterFit: (scaleInstance: any) => {
+                    scaleInstance.width = yLabelWidth // sets the width to 100px
+                },
+                ticks: {
+                    labelOffset: -5
+                }
             }]
         },
         tooltips: {
             callbacks: { label: formatTooltipLabel }
         },
         legend: {
-            display: false,
+            display: true,
             labels: {
                 padding: 20,
-                boxWidth: 20
+                boxWidth: 20,
+                fontSize: legendFontSize
             }
         }
     }
@@ -90,7 +109,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         <div style={{ height: `${chartHeight}px`, position: 'relative' }}>
             <HorizontalBar
                 data={{
-                    labels: censusGroups,
+                    labels: censusGroups.map(group => formatLabel(group, 22)),
                     datasets
                 }}
                 options={percent ? merge(options, percentOptions) : options}

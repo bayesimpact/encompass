@@ -40,14 +40,13 @@ export function formatNumber(n: number) {
  */
 export function formatAxisNumber(n: number) {
   if (n >= 1000000) {
-      return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'
+    return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'
   }
   if (n >= 1000) {
-      return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
+    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
   }
   return n
 }
-
 
 /**
  * Formats percentage number for display in the UI.
@@ -62,6 +61,45 @@ export function formatPercentage(n: number, decimal?: number) {
 export function formatServiceArea(serializedServiceArea: string) {
   let { county, zip } = parseSerializedServiceArea(serializedServiceArea)
   return `${capitalizeWords(county)} / ${zip}`
+}
+/**
+ * Converts long string into array of shorter strings, with given maximum width.
+ */
+export function formatLabel(str: string, maxwidth: number) {
+  let sections: string[] = []
+  let words = str.split(' ')
+  let temp = ''
+
+  words.forEach(function (item, index) {
+    if (temp.length > 0) {
+      let concat = temp + ' ' + item
+
+      if (concat.length > maxwidth) {
+        sections.push(temp)
+        temp = ''
+      } else {
+        if (index === (words.length - 1)) {
+          sections.push(concat)
+          return
+        } else {
+          temp = concat
+          return
+        }
+      }
+    }
+
+    if (index === (words.length - 1)) {
+      sections.push(item)
+      return
+    }
+
+    if (item.length < maxwidth) {
+      temp = item
+    } else {
+      sections.push(item)
+    }
+  })
+  return sections
 }
 
 /**
