@@ -25,7 +25,7 @@ export let CensusAnalytics = withStore(
   let totalProviders = store.get('providers').length
 
   if (isEmpty(store.get('adequacies'))) {
-    return <div className='CensusAdequacyCharts Flex -Center'>
+    return <div className='CircularProgress Flex -Center'>
       <CircularProgress
         size={150}
         thickness={8}

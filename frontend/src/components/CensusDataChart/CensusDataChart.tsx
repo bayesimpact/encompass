@@ -64,7 +64,8 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                     display: true,
                     labelString: xLabel,
                     fontSize: legendFontSize,
-                    fontStyle: 'bold'
+                    fontStyle: 'bold',
+                    fontColor: 'rgba(0, 0, 0, 0.87)' // Default Material-UI opacity.
                 },
                 ticks: {
                     callback: formatxAxisLabels
