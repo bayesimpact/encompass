@@ -1,7 +1,7 @@
 {
-    "dataSources": "<a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018; <a href=\"https://www.kff.org/other/state-indicator/total-population/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D\" target=\"_blank\">Kaiser Family Foundation</a>, 2016.",
-    "description": "Texas has the highest uninsured rate in the U.S. at 15%, representing 4.2 million people. Health Centers are federally funded, community-based and patient-directed organizations that serve populations with limited access to health care, including low-income populations, and the uninsured. Read more about Health Centers <a href=\"https://www.bphc.hrsa.gov/about/what-is-a-health-center/index.html\" target=\"_blank\">here</a>. Use this map to explore how accessible these centers are for target populations.",
-    "subtitle": "HCSDs heavily support vulnerable populations",
+    "description": "Texas has the highest uninsured rate in the U.S. at 15%, representing 4.2 million people (<a href=\"https://www.kff.org/other/state-indicator/total-population/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D\" target=\"_blank\">Kaiser Family Foundation</a>, 2016). Health centers are federally funded, community-based and patient-directed organizations that serve populations with limited access to health care, including low-income populations and the uninsured. Read more about health centers <a href=\"https://www.bphc.hrsa.gov/about/what-is-a-health-center/index.html\" target=\"_blank\">here</a>. Use this map to explore how accessible these centers are for target populations.",
+    "subtitle": "Federally funded clinics that serve vulnerable populations",
+    "dataSources": "Provider Data: <a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018.",
     "state": "tx",
     "name": "Health Centers in Texas",
     "providers": [

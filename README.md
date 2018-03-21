@@ -40,7 +40,7 @@ To use with an AWS RDS instance, additional environment variables `AWS_ACCESS_KE
 In your terminal, run:
 
 ```sh
-docker-compose -f docker-compose.yml -f docker-compose.local.yml up backend frontend
+docker-compose -f docker-compose.yml -f docker-compose.remote.yml up backend frontend
 ```
 
 ## Local Development
@@ -55,7 +55,7 @@ Four docker containers are available for development:
 ### Backend
 
 ```sh
-docker-compose -f docker-compose.yml -f docker-compose.local.yml up backend
+docker-compose -f docker-compose.yml -f docker-compose.remote.yml up backend
 ```
 
 - The API will then be accessible at [localhost:8080](http://localhost:8080)
@@ -71,7 +71,7 @@ docker-compose -f docker-compose.yml -f docker-compose.local.yml up backend
 ### Frontend
 
 ```sh
-docker-compose -f docker-compose.yml -f docker-compose.local.yml up frontend
+docker-compose -f docker-compose.yml -f docker-compose.remote.yml up frontend
 ```
 
 See [frontend/README.md](frontend/README.md) for more documentation.

@@ -11,7 +11,7 @@ import './DatasetsDrawer.css'
 
 export const UPLOAD_NEW_DATASET_TILE: Tile<Dataset> = {
   color: '#237900',
-  description: 'Upload a list of addresses for providers, facilities, or social services',
+  description: 'Analyze your own dataset of providers, facilities, or services',
   data: {
     dataSources: '',
     description: '',
@@ -43,7 +43,7 @@ let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
   <div className='DatasetsDrawer'>
-    <p>Welcome to the Encompass analysis tool built by {SecureLink('http://bayesimpact.org', 'Bayes Impact')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
+    <p>Welcome to Encompass, a geographic analysis tool built by {SecureLink('http://bayesimpact.org', 'Bayes Impact')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
     <DatasetTilePicker
       onChange={onChange(store)}
       tiles={tiles}

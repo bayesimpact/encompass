@@ -24,14 +24,13 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
     onClick={onClick(store)}
   />
 )
+
 DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
 function onClick(store: Store) {
   let method = store.get('method')
   const selectedDataset = store.get('selectedDataset')
-  // Temporarily use selected Census category only.
-  // let censusCategories = Object.keys(CENSUS_MAPPING).sort()
-  let censusCategories = [store.get('selectedCensusCategory')]
+  let censusCategories = Object.keys(CENSUS_MAPPING).sort()
   return () => {
     ReactGA.event({
       category: 'Analysis',
@@ -52,6 +51,9 @@ function onClick(store: Store) {
     headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
     let serviceAreas = store.get('serviceAreas')
+    if (serviceAreas.length > 100) {
+      alert('There are many service areas in this state! Preparing the file may take a minute or two...')
+    }
     let data = serviceAreas.map(_ => {
       let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
       let adequacies = adequaciesFromServiceArea([_], store)

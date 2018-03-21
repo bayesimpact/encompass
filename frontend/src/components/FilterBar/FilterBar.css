@@ -17,7 +17,7 @@
 
 /* So filter bar doesn't suddenly resize when user changes dropdown */
 .FilterBar .Filter.-FixedWidthBig {
-  width: 220px;
+  width: 222px;
 }
 
 /* So filter bar doesn't suddenly resize when user changes dropdown */
