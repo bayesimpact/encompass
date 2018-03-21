@@ -55,11 +55,11 @@ let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
 function createDataset(store: Store) {
   let dataSet: Dataset = {
     dataSources: [
-      store.get('uploadedServiceAreasFilename') || 'No Service Areas',
+      store.get('uploadedServiceAreasFilename') || store.get('selectedState').toUpperCase(),
       store.get('uploadedProvidersFilename') || 'No Providers'
     ].join(', '),
     description: [
-      store.get('uploadedServiceAreasFilename') || 'No Service Areas',
+      store.get('uploadedServiceAreasFilename') || store.get('selectedState').toUpperCase(),
       store.get('uploadedProvidersFilename') || 'No Providers'
     ].join(', '),
     state: store.get('selectedState'),
