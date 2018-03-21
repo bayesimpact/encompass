@@ -14,13 +14,13 @@ This is an open-source project. We invite researchers, developers and the public
 __[Launch Encompass](https://encompass.bayesimpact.org)__
 
 ## Data and Resources
-Encompass is an open-source project, and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions. 
+Encompass is an open-source project, and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions.
 
-__Population__: Encompass uses [satellite data](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) from the European Commission to approximate the location of people across the world. [GHS POP](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) dataset combines human settlement satellite imagery, and census datasets to approximate the population into a grid of 250m resolution. Read more about the methodology and limitations of this dataset [here](http://ghsl.jrc.ec.europa.eu/data.php#GHSLBasics).
+__Population__: Encompass uses [satellite data](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) from the European Commission to approximate the location of people across the world. [GHS POP](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) dataset combines human settlement satellite imagery and census datasets to approximate the population into a grid of 250m resolution. Read more about the methodology and limitations of this dataset [here](http://ghsl.jrc.ec.europa.eu/data.php#GHSLBasics).
 
-__Mapping__: [Mapbox](https://www.mapbox.com/) is an open source mapping platform for custom designed maps. We use Mapbox for our base map. 
+__Mapping__: [Mapbox](https://www.mapbox.com/) is an open source mapping platform for custom designed maps. We use Mapbox for our base map.
 
-__Routing__: We use [Open Source Routing Machine](http://project-osrm.org/) (OSRM) to calculate the driving times between critical social services and the people they are meant to serve. We have conducted extensive analysis to ensure the accuracy and reliability of OSRM’s performance for this use case. 
+__Routing__: We use [Open Source Routing Machine](http://project-osrm.org/) (OSRM) to calculate the driving times between critical social services and the people they are meant to serve. We have conducted extensive analysis to ensure the accuracy and reliability of OSRM’s performance for this use case. Other API-based routing systems (e.g., Mapbox or Google) can be used as well, but may impose usage fees and rate limitations.
 
 __Demographics__: Encompass uses the 2012-2016 [American Community Survey (ACS) 5-year Estimates](https://www.census.gov/programs-surveys/acs/news/data-releases/2016/release.html#par_textimage_700933727) to extract relevant demographic information.
 
