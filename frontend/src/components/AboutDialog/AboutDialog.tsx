@@ -24,7 +24,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
     onRequestClose={onCloseClick}>
     <div>
       <div className='Flex -Center'>
-        <img className='AboutLogoImg' alt='bayes-logo' src='http://www.bayesimpact.org/images/logo_sq.png' />
+        <img className='AboutLogoImg' alt='bayes-logo' src='https://www.bayesimpact.org/images/logo_sq.png' />
       </div>
       <p>
         Encompass is a geographic analysis tool built by {bayesLink}. The application uses {ghslLink} to
