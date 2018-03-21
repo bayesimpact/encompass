@@ -4,7 +4,7 @@ services:
   frontend:
     volumes:
       # Mount the nginx configuration.
-      - ./frontend/remote/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+      - ./frontend/remote/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:rw
       # Mount the entrypoint.
       - ./frontend/remote/entrypoint.sh:/tmp/entrypoint.sh
     entrypoint: ["/tmp/entrypoint.sh"]
