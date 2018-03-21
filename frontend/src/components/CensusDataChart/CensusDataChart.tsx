@@ -17,17 +17,20 @@ type Props = {
     populationByAdequacyByGroup: StatisticsByGroup
 }
 
+// Dimensions for determining chart height.
+const percentChartBarWidth = 32
+const numberChartBarWidth = 12
 const xAxisHeight = 40
 const legendHeight = 45
-const percentBarWidth = 32
-const numberBarWidth = 12
 const barPadding = 8
+
+// Font sizes and dimensions for chart labels.
 const yLabelWidth = 140
-const legendFontSize = 14
-const labelFontSize = 12
+const titleFontSize = 14
+const defaultFontSize = 12
 
 Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif'
-Chart.defaults.global.defaultFontSize = labelFontSize
+Chart.defaults.global.defaultFontSize = defaultFontSize
 
 export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measurementMethod, censusGroups, populationByAdequacyByGroup }) => {
 
@@ -53,8 +56,8 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
 
     let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatLargeNumberWithUnit(value)}` }
 
-    let chartHeight: number = percent ? censusGroups.length * (percentBarWidth + barPadding) + legendHeight + xAxisHeight :
-        censusGroups.length * ((numberBarWidth * 4) + barPadding) + xAxisHeight
+    let chartHeight: number = percent ? censusGroups.length * (percentChartBarWidth + barPadding) + legendHeight + xAxisHeight :
+        censusGroups.length * ((numberChartBarWidth * 4) + barPadding) + xAxisHeight
 
     let options = {
         maintainAspectRatio: false,
@@ -63,7 +66,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                 scaleLabel: {
                     display: true,
                     labelString: xLabel,
-                    fontSize: legendFontSize,
+                    fontSize: titleFontSize,
                     fontStyle: 'bold',
                     fontColor: 'rgba(0, 0, 0, 0.87)' // Default Material-UI opacity.
                 },
@@ -72,9 +75,9 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
                 }
             }],
             yAxes: [{
-                barThickness: numberBarWidth,
+                barThickness: numberChartBarWidth,
                 afterFit: (scaleInstance: any) => {
-                    scaleInstance.width = yLabelWidth // sets the width to 100px
+                    scaleInstance.width = yLabelWidth
                 },
                 ticks: {
                     labelOffset: -7
@@ -88,8 +91,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             display: false,
             labels: {
                 padding: 20,
-                boxWidth: 20,
-                fontSize: labelFontSize
+                boxWidth: 20
             }
         }
     }
@@ -98,11 +100,11 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
         scales: {
             yAxes: [{
                 stacked: true,
-                barThickness: percentBarWidth
+                barThickness: percentChartBarWidth
             }],
             xAxes: [{
                 scaleLabel: {
-                    fontSize: legendFontSize
+                    fontSize: titleFontSize
                 }
             }]
         },
