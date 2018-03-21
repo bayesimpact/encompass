@@ -19,7 +19,7 @@
 }
 
 .StatsBox td {
-  font-size: var(--mediumlarge-font);
+  font-size: var(--mediumlarge-font-size);
 }
 
 .StatsBox th {

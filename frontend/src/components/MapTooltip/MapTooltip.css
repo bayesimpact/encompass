@@ -14,7 +14,7 @@
 }
 
 .MapTooltip table {
-  font-size: var(--medium-font);
+  font-size: var(--medium-font-size);
   color: var(--text);
 }
 
@@ -27,7 +27,7 @@
 }
 
 .MapTooltip .controls  {
-   font-size: var(--medium-font);
+   font-size: var(--medium-font-size);
    color: var(--text);
  }
 
