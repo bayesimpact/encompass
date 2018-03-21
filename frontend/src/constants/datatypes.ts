@@ -48,7 +48,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_time' | 'haversine'
+export type Method = 'driving_time' | 'straight_line'
 
 export type PopulationByAdequacy = number[]
 

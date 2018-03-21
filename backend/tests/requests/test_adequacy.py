@@ -38,7 +38,7 @@ class TestAdequacyRequest(LiveServerTestCase):
     def test_adequacy_request(self):
         """Test adequacy requests in a simple case."""
         request_adequacy = {
-            'method': 'haversine',
+            'method': 'straight_line',
             'providers': [
                 {'id': 1, 'latitude': 37.74753421600008, 'longitude': -122.2316317029999},
                 {'id': 2, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
@@ -76,7 +76,7 @@ class TestAdequacyRequest(LiveServerTestCase):
     def test_adequacy_request_missing_providers(self):
         """Test adequacy requests without providers raise an error."""
         request_adequacy = {
-            'method': 'haversine',
+            'method': 'straight_line',
             'service_area_ids': ['ca_los_angeles_90001']
         }
 
@@ -130,7 +130,7 @@ class TestAdequacyRequest(LiveServerTestCase):
     def test_adequacy_request_no_providers_no_service_areas(self):
         """Test adequacy requests with neither providers nor service areas."""
         request_adequacy = {
-            'method': 'haversine',
+            'method': 'straight_line',
             'providers': [],
             'service_area_ids': []
         }
