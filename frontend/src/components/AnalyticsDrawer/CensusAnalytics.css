@@ -4,4 +4,13 @@
 
 .CensusAnalytics .DownloadLink {
   height: 36px;
+  padding-top: 10px;
+}
+
+.CensusAnalytics .CircularProgress {
+  padding-bottom: 20px;
+}
+
+.CensusAnalytics .CensusDataChart {
+  padding-bottom: 10px;
 }
