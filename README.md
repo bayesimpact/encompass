@@ -7,9 +7,11 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/encompass)
 
 ## Introduction
-Encompass is an analytics and mapping tool that enables policymakers, researchers, and consumer advocates to analyze how accessibility to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged communities. Existing tools used to map systems at this scale are prohibitively expensive, require a lot of manual data processing, and are too coarse in their analysis methods. We set out to build a solution that eliminates those barriers.
+Encompass is an analytics and mapping tool built by [Bayes Impact](http://bayesimpact.org) that enables policymakers, researchers, and consumer advocates to analyze how accessibility to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged communities. Existing tools used to map systems at this scale are prohibitively expensive, require a lot of manual data processing, and are too coarse in their analysis methods. We set out to build a solution that eliminates those barriers.
 
 This is an open-source project. We invite researchers, developers and the public to contribute to our project. See below for details.
+
+__[Launch Encompass](https://encompass.bayesimpact.org)__
 
 ## Data and Resources
 Encompass is [open-source](https://github.com/bayesimpact/encompass), and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions. 
