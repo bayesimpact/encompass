@@ -51,14 +51,6 @@ When the shape of an API endpoint changes, or when available service areas chang
 yarn test
 ```
 
-## Remote Environment Overrides (SSL)
-To enforce HTTPS on remote environments (by redirecting HTTP requests) you can use the remote override docker-compose file. This will run an Nginx server inside the frontend container to act as reverse proxy, which uses the `ROOT_DOMAIN` environment variable to determine where to redirect to.
-
-Sample usage:
-```bash
-docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d frontend backend
-```
-
 ## License
 
 Apache2

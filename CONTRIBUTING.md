@@ -36,7 +36,7 @@ To use with an AWS RDS instance, additional environment variables `AWS_ACCESS_KE
 In your terminal, run:
 
 ```sh
-docker-compose up backend frontend
+docker-compose -f docker-compose.yml -f docker-compose.local.yml up backend frontend
 ```
 
 ## Local Development
@@ -69,7 +69,7 @@ docker-compose up backend
 ### Frontend
 
 ```sh
-docker-compose up frontend
+docker-compose -f docker-compose.yml -f docker-compose.local.yml up frontend
 ```
 
 See [frontend/README.md](frontend/README.md) for more documentation.
@@ -97,3 +97,11 @@ Sample [Terraform](terraform.io) configuration is provided in the [/terraform di
 Sample [CircleCI](circleci.com) configuration is provided in the [/.circleci directory](/.circleci). The default configurations are setup to run all tests and coverage on any branch, and to update remote environments on specific branches. You can modify this configuration to match your own remote environment schema.
 
 To use these CircleCI jobs for deployment, you'll need to set up keys in CircleCI to allow SSH access to your application servers. You'll also need to set the relevant environment variables up containing the DNS names for your application servers.
+
+### Remote Environment Overrides (SSL)
+To enforce HTTPS on remote environments (by redirecting HTTP requests) you can use the remote override docker-compose file. This will run an Nginx server inside the frontend container to act as reverse proxy, which uses the `ROOT_DOMAIN` environment variable to determine where to redirect to.
+
+Sample usage:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d frontend backend
+```
