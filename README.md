@@ -14,7 +14,7 @@ This is an open-source project. We invite researchers, developers and the public
 __[Launch Encompass](https://encompass.bayesimpact.org)__
 
 ## Data and Resources
-Encompass is [open-source](https://github.com/bayesimpact/encompass), and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions. 
+Encompass is an open-source project, and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions. 
 
 __Population__: Encompass uses [satellite data](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) from the European Commission to approximate the location of people across the world. [GHS POP](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) dataset combines human settlement satellite imagery, and census datasets to approximate the population into a grid of 250m resolution. Read more about the methodology and limitations of this dataset [here](http://ghsl.jrc.ec.europa.eu/data.php#GHSLBasics).
 
@@ -27,4 +27,4 @@ __Demographics__: Encompass uses the 2012-2016 [American Community Survey (ACS) 
 ## How to contribute
 __Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@bayesimpact.org](mailto:encmpass@bayesimpact.org).
 
-__Developers__: We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please visit the [Encompass github page](https://github.com/bayesimpact/encompass), and read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
+__Developers__: We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
