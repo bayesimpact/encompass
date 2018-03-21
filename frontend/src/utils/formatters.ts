@@ -38,7 +38,7 @@ export function formatNumber(n: number) {
 /**
  * Formats numbers with 'K' for thousands, 'M' for millions for axis labels.
  */
-export function formatAxisNumber(n: number) {
+export function formatLargeNumberWithUnit(n: number) {
   if (n >= 1000000) {
     return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'
   }
@@ -66,6 +66,7 @@ export function formatServiceArea(serializedServiceArea: string) {
  * Converts long string into array of shorter strings, with given maximum width.
  */
 export function formatLabel(str: string, maxwidth: number) {
+  // TODO: Use lodash to shorten this function.
   let sections: string[] = []
   let words = str.split(' ')
   let temp = ''
