@@ -1,0 +1,6 @@
+version: "2"
+
+services:
+  frontend:
+    ports:
+      - 80:8081
