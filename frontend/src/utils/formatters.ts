@@ -63,9 +63,9 @@ export function formatServiceArea(serializedServiceArea: string) {
   return `${capitalizeWords(county)} / ${zip}`
 }
 /**
- * Converts long string into array of shorter strings, with given maximum width.
+ * Converts long string into array of shorter strings, with given maximum number of characters.
  */
-export function formatLabel(str: string, maxwidth: number) {
+export function formatLabel(str: string, maxChars: number) {
   // TODO: Use lodash to shorten this function.
   let sections: string[] = []
   let words = str.split(' ')
@@ -75,7 +75,7 @@ export function formatLabel(str: string, maxwidth: number) {
     if (temp.length > 0) {
       let concat = temp + ' ' + item
 
-      if (concat.length > maxwidth) {
+      if (concat.length > maxChars) {
         sections.push(temp)
         temp = ''
       } else {
@@ -94,7 +94,7 @@ export function formatLabel(str: string, maxwidth: number) {
       return
     }
 
-    if (item.length < maxwidth) {
+    if (item.length < maxChars) {
       temp = item
     } else {
       sections.push(item)
