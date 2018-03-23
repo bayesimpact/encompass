@@ -1,99 +1,30 @@
-# Encompass [![Build Status][build]](https://circleci.com/gh/bayesimpact/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+# Encompass
+
+[![Build Status][build]](https://circleci.com/gh/bayesimpact/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/encompass.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/encompass)
 
-> Explore Healthcare network adequacies and population distance to services.
+## Introduction
+Encompass is an analytics and mapping tool built by [Bayes Impact](http://bayesimpact.org) that enables policymakers, researchers, and consumer advocates to analyze how accessibility to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged communities. Existing tools used to map systems at this scale are prohibitively expensive, require a lot of manual data processing, and are too coarse in their analysis methods. We set out to build a solution that eliminates those barriers.
 
-## Usage
+This is an open-source project. We invite researchers, developers and the public to contribute to our project. See below for details.
 
-### 0. Clone this repository
-```bash
-git clone git@github.com:bayesimpact/encompass.git
-```
+__[Launch Encompass](https://encompass.bayesimpact.org)__
 
-### 1. Install Docker
+## Data and Resources
+Encompass is an open-source project, and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions.
 
-Download and install Docker Community Edition ([link](https://store.docker.com/search?offering=community&type=edition)).
+__Population__: Encompass uses [satellite data](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) from the European Commission to approximate the location of people across the world. [GHS POP](http://ghsl.jrc.ec.europa.eu/ghs_pop.php) dataset combines human settlement satellite imagery and census datasets to approximate the population into a grid of 250m resolution. Read more about the methodology and limitations of this dataset [here](http://ghsl.jrc.ec.europa.eu/data.php#GHSLBasics).
 
-### 2. Setup environment variables
+__Mapping__: [Mapbox](https://www.mapbox.com/) is an open source mapping platform for custom designed maps. We use Mapbox for our base map.
 
-In this project's root folder, add a file called `.env` with the following info (replacing `???` with real values):
+__Routing__: We use [Open Source Routing Machine](http://project-osrm.org/) (OSRM) to calculate the driving times between critical social services and the people they are meant to serve. We have conducted extensive analysis to ensure the accuracy and reliability of OSRM’s performance for this use case. Other API-based routing systems (e.g., Mapbox or Google) can be used as well, but may impose usage fees and rate limitations.
 
-```sh
-MAPBOX_TOKEN=???
-POSTGRES_URL=???
-API_ROOT=http://localhost:8080
-ENV=LOCAL
-IS_AWS=FALSE
-```
+__Demographics__: Encompass uses the 2012-2016 [American Community Survey (ACS) 5-year Estimates](https://www.census.gov/programs-surveys/acs/news/data-releases/2016/release.html#par_textimage_700933727) to extract relevant demographic information.
 
-* `MAPBOX_TOKEN`: API key provided by [Mapbox](mapbox.com) for mapping.
-(https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
-* `POSTGRES_URL`: URL for database to use for the application. This might be `localhost` for development.
+## How to contribute
+__Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@bayesimpact.org](mailto:encmpass@bayesimpact.org).
 
-To use with an AWS RDS instance, additional environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` are Required for AWS CLI. In addition, `IS_AWS` should be set to `TRUE`. This is to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
-
-### 3. Run the app
-
-In your terminal, run:
-
-```sh
-docker-compose up backend frontend
-```
-
-## Local Development
-
-Four docker containers are available for development:
-
-- [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
-- [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
-- [Explorer](explorer/Dockerfile): A container running jupyter notebook for easy exploration and model testing.
-- DB: A container running a Postgres server with the relevant extensions.
-
-### Backend
-
-```sh
-docker-compose up backend
-```
-
-- The API will then be accessible at [localhost:8080](http://localhost:8080)
-- It provides the following REST routes (we document each route with its corresponding [JSON-Schema](https://spacetelescope.github.io/understanding-json-schema/) definitions):
-
-| Method  | Route                               | Request schema  | Response schema | Description           |
-|---------|-------------------------------------|-----------------|-----------------|-----------------------|
-| GET     | /api/available-service-areas/       | (none)          | [Schema](shared/api-spec/available-service-areas-response.json) | Fetches and returns all available service areas |
-| POST    | /api/providers/                     | [Schema](shared/api-spec/providers-request.json) | [Schema](shared/api-spec/providers-response.json) | Geocodes, saves to the database, and returns (or, reads from the database if already defined) the given providers |
-| POST    | /api/representative_points/         | [Schema](shared/api-spec/representative-points-request.json) | [Schema](shared/api-spec/representative-points-response.json) | Computes representative points for the given service areas |
-| POST    | /api/adequacies/                    | [Schema](shared/api-spec/adequacies-request.json) | [Schema](shared/api-spec/adequacies-response.json) | Computes adequacies for the given service areas against the given providers |
-
-### Frontend
-
-```sh
-docker-compose up frontend
-```
-
-See [frontend/README.md](frontend/README.md) for more documentation.
-
-### DB
-```bash
-docker-compose up db
-```
-
-This container will allow you to run a fully functioning local system with a `POSTGRES_URL` at `db.local`.
-
-The database will be initialized but won't contain any data. There is some sample data for Rhode Island population included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
-```bash
-python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
-```
-
-### Deploy
-To pull the latest version and re-spin the dockers, simply run `make deploy` in the main directory.
-
-## 4. Remote Deployment
-Sample [Terraform](terraform.io) configuration is provided in the [/terraform directory](/terraform). Further information is available [here](/terraform/README.md).
-
-Sample [CircleCI](circleci.com) configuration is provided in the [/.circleci directory](/.circleci). The default configurations are setup to run all tests and coverage on any branch, and to update remote environments on specific branches. You can modify this configuration to match your own remote environment schema.
-
-To use these CircleCI jobs for deployment, you'll need to set up keys in CircleCI to allow SSH access to your application servers. You'll also need to set the relevant environment variables up containing the DNS names for your application servers.
+__Developers__: We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.

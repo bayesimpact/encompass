@@ -108,7 +108,7 @@ CONFIG = {
     'address_database': True,
     'geocoder': 'oxcoder',
     'measurer': {
-        'haversine': 'haversine',
+        'straight_line': 'haversine',
         'driving_time': 'osrm'
     },
     'census_data': True,

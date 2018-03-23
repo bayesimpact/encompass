@@ -69,7 +69,8 @@ jobs:
                         git checkout .
                         git checkout deploy-qa
                         git pull origin deploy-qa
-                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend
+                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend;
+                        docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d backend frontend
                     '
 
     deploy-demo:
@@ -87,7 +88,8 @@ jobs:
                         git checkout .
                         git checkout deploy-demo
                         git pull origin deploy-demo
-                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend
+                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend;
+                        docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d backend frontend
                     '
 
 workflows:

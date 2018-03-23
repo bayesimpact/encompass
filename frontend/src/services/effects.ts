@@ -300,7 +300,7 @@ export function withEffects(store: Store) {
     .subscribe(route => {
       if (route === '/add-data') {
         store.set('allowDrivingTime')(ENV !== 'PRD')
-        store.set('method')('haversine')
+        store.set('method')('straight_line')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(true)
         store.set('method')('driving_time')
@@ -338,7 +338,7 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'haversine') {
+  if (method === 'straight_line') {
     if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 10) {
       return AdequacyMode.ADEQUATE_0
     }

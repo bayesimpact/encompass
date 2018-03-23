@@ -11,7 +11,7 @@ export interface PostAdequaciesRequest {
   /**
    * Method used to calculate times and distances
    */
-  method: 'driving_time' | 'haversine'
+  method: 'driving_time' | 'straight_line'
   providers: {
     /**
      * An arbitrary ID that is locally unique within this request

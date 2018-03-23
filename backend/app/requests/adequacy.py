@@ -82,7 +82,7 @@ def adequacy_request(app, flask_request, engine):
         logger.warning(
             'Could not find measurer method {}. Defaulting to haversine.'.format(request['method'])
         )
-        measurer_name = config.get('measurer')['haversine']
+        measurer_name = config.get('measurer')['straight_line']
 
     # Exit early if there is no data.
     if not (provider_locations and service_area_ids):
