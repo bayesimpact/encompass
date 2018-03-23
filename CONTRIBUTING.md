@@ -1,5 +1,5 @@
 # Contributing
-We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read the following instruction to start contributing to this project.
+We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read the following instructions to start contributing to this project.
 
 
 ## Installation
@@ -45,8 +45,8 @@ Three docker containers are available for development:
 
 - [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
 - [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
-- [Explorer](explorer/Dockerfile): A container running jupyter notebook for easy exploration and model testing.
-- DB: A container running a Postgres server with the relevant extensions.
+- [Explorer](explorer/Dockerfile): A container running Jupyter notebooks for easy exploration and model testing.
+- DB: A container running a Postgres server with the relevant GIS extensions.
 
 ### Backend
 
@@ -83,13 +83,13 @@ docker-compose up db
 
 This container will allow you to run a fully functioning local system with a `POSTGRES_URL` at `db.local`.
 
-The database will be initialized but won't contain any data. There is some sample data for Rhode Island population included in this repository in the `data` directory as well as a script to load the data into the database. With the DB container running, on the `backend` container, run:
+The database will be initialized but won't contain any data. There is some sample data for Los Angeles county included in this repository in the `data/sample` directory as well as a script to initialize the database and load the sample data. Simply run:
 ```bash
-python runners/load_representative_points.py -f data/rhode-island/ri_representative_points.geojson
+make initialize-local-db
 ```
 
 ### Deploy
-To pull the latest version and re-spin the dockers, simply run `make deploy` in the main directory.
+To pull the latest version and refresh the dockers, simply run `make deploy` in the main directory.
 
 ### Remote Deployment
 Sample [Terraform](terraform.io) configuration is provided in the [/terraform directory](/terraform). Further information is available [here](/terraform/README.md).

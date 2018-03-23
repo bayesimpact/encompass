@@ -3,9 +3,9 @@
 ## Install and run locally
 
 ```
-docker-compose run backend
+docker-compose up backend
 ```
-The API then becomes available at [http://localhost:8081]()
+The API then becomes available at [http://localhost:8080]()
 
 ## Stack & Libraries
 The backend of the app uses Flask, uWSGI and Nginx to serve the API.

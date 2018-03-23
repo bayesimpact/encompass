@@ -30,6 +30,6 @@
 }
 
 .popup-table {
-  font-size: var(--medium-font);
+  font-size: var(--medium-font-size);
   color: rgba(255, 255, 255, 0.8);
 }

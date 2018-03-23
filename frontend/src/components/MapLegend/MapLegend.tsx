@@ -28,7 +28,7 @@ export let MapLegend = withStore('method')(({ store }) =>
 
 export function getLegend(method: Method, standard: AdequacyMode) {
   switch (method) {
-    case 'haversine':
+    case 'straight_line':
       switch (standard) {
         case AdequacyMode.ADEQUATE_0: return '< 10 miles'
         case AdequacyMode.ADEQUATE_1: return '< 20 miles'
