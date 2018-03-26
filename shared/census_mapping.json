@@ -2,27 +2,27 @@
   "age": {
     "aggregated_ages.zero_to_eighteen_percent": {
       "joined_column_name": "zero_to_eighteen",
-      "human_readable_name": "0-18 Years"
+      "human_readable_name": "0-18 Yrs"
     },
     "aggregated_ages.nineteen_to_twenty_five_percent": {
       "joined_column_name": "nineteen_to_twenty_five",
-      "human_readable_name": "19-25 Years"
+      "human_readable_name": "19-25 Yrs"
     },
     "aggregated_ages.twenty_six_to_thirty_four_percent": {
       "joined_column_name": "twenty_six_to_thirty_four",
-      "human_readable_name": "26-34 Years"
+      "human_readable_name": "26-34 Yrs"
     },
     "aggregated_ages.thirty_five_to_fifty_four_percent": {
       "joined_column_name": "thirty_five_to_fifty_four",
-      "human_readable_name": "35-54 Years"
+      "human_readable_name": "35-54 Yrs"
     },
     "aggregated_ages.fifty_five_to_sixty_four_percent": {
       "joined_column_name": "fifty_five_to_sixty_four",
-      "human_readable_name": "55-64 Years"
+      "human_readable_name": "55-64 Yrs"
     },
     "aggregated_ages.sixty_five_plus_percent": {
       "joined_column_name": "sixty_five_plus",
-      "human_readable_name": "65+ Years"
+      "human_readable_name": "65+ Yrs"
     }
   },
   "sex": {
