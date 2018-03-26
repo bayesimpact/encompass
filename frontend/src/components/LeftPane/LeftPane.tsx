@@ -1,5 +1,5 @@
 import { map } from 'lodash'
-import Drawer from 'material-ui/Drawer'
+import Drawer from 'material-ui-next/Drawer'
 import * as React from 'react'
 import { withStore } from '../../services/store'
 import { AddDatasetDrawer } from '../AddDatasetDrawer/AddDatasetDrawer'
@@ -14,12 +14,12 @@ let drawers = {
 }
 
 export let LeftPane = withStore('route')(({ store }) =>
-  <div className={'LeftPane' + (store.get('route') === '/' ? '' : ' -isOpen')}>
+  <React.Fragment>
     {map(drawers, (Component, route) =>
-      <Drawer className='LeftPaneContent' key={route} open={route === store.get('route')} width='40%'>
+      <Drawer className='LeftPaneContent' elevation={100} key={route} open={route === store.get('route')}>
         <Component />
       </Drawer>
     )}
-  </div>
+  </React.Fragment>
 )
 LeftPane.displayName = 'LeftPane'
