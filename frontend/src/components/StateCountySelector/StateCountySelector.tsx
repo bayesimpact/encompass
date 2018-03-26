@@ -1,10 +1,9 @@
 import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
-
-const { ENV } = process.env
 
 export let StateCountySelector = withStore(
     'selectedState',
@@ -42,7 +41,7 @@ let CountySelector: React.StatelessComponent<CountySelectorProps> = ({ onChange,
         autoWidth={false}
         style={{ width: 150, paddingLeft: 10 }}
     >
-        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(ENV === 'PRD')} />
+        <MenuItem key='Custom' value={true} primaryText='Custom' disabled={(!CONFIG.dataset.enable_custom_service_area_upload)} />
         <MenuItem key='All' value={false} primaryText='All' />
     </SelectField>
 

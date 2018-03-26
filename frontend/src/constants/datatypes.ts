@@ -26,6 +26,22 @@ export type CensusGroup = {
   censusGroup: string
 }
 
+export type Config = {
+  show_about_dialog_on_start: boolean
+  title_suffix: string
+  enable_geocoding: boolean
+  limit_upload_file_size: boolean
+  api: {
+    [key: string]: string | boolean
+  }
+  analysis: {
+    [key: string]: boolean
+  }
+  dataset: {
+    [key: string]: boolean
+  }
+}
+
 export type CountyType = 'All' | 'Rural' | 'Urban'
 
 export type Dataset = {

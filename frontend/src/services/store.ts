@@ -1,13 +1,12 @@
 import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
+import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
 import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
-
-const { ENV } = process.env
 
 type Actions = {
 
@@ -155,7 +154,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
-  isAboutDialogOpen: (ENV === 'PRD'),
+  isAboutDialogOpen: CONFIG.show_about_dialog_on_start,
   useCustomCountyUpload: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,

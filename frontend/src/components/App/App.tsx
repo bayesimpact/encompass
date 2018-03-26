@@ -16,7 +16,7 @@ import './App.css'
  *
  * Check to see if the client is mobile and display a warning if they are.
  */
-if (isMobile){
+if (isMobile) {
   alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.')
 }
 
