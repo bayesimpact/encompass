@@ -1,7 +1,7 @@
 """
 Handle requests to the service_areas endpoint.
 
-The /api/available-service-areas/ enpoint returns all available service areas.
+The /api/available-service-areas/ endpoint returns all available service areas.
 """
 from backend.lib.fetch import representative_points
 import logging

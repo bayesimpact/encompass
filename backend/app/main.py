@@ -3,7 +3,7 @@ import logging
 import os
 from logging.config import dictConfig
 
-from backend.app.requests import adequacy, providers, representative_points, service_areas
+from backend.app.requests import adequacy, census, providers, representative_points, service_areas
 from backend.config import config
 from backend.lib.database.postgres import connect
 from backend.lib.timer import timed
@@ -33,6 +33,21 @@ def fetch_service_areas():
     logger.debug('Return service areas.')
     response = service_areas.service_areas_request(app, flask.request, engine)
     return flask.jsonify(response)
+
+
+@timed
+@app.route('/api/census-data-by-service-area/', methods=['POST'])
+def fetch_service_area_census_data():
+    """Fetch and return census information for the specified service areas."""
+    logger.debug('Return census information for the specified service areas.')
+    if not config.get('include_census_data'):
+        return flask.Response(
+            response='501: Census data is not enabled in the configuration file.',
+            status=501
+        )
+    else:
+        response = census.census_info_by_service_area_request(app, flask.request, engine)
+        return flask.jsonify(response)
 
 
 @timed
