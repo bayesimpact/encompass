@@ -50,7 +50,7 @@ export type Dataset = {
   description: string
   name: string
   subtitle: string
-  hint: string
+  hint?: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }
