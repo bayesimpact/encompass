@@ -66,11 +66,11 @@
     }
   },
   "insurance": {
-    "census_acs_dp_03.hc03_vc132": {
+    "census_acs_dp_03.hc03_vc131 / 100.0 * census_acs_dp_03.hc03_vc132": {
       "joined_column_name": "private_health_insurance",
       "human_readable_name": "Private Health Insurance"
     },
-    "census_acs_dp_03.hc03_vc133": {
+    "census_acs_dp_03.hc03_vc131 / 100.0 * census_acs_dp_03.hc03_vc133": {
       "joined_column_name": "public_health_insurance",
       "human_readable_name": "Public Health Insurance"
     },
