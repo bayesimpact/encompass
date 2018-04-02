@@ -14,10 +14,6 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getCensusData, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
-// type CensusCategory = {
-//   [k: string]: CensusCategoryInfo
-// }
-
 export function withEffects(store: Store) {
   /**
    * Update representative points when serviceAreas change.
