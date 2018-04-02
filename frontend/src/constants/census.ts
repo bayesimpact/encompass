@@ -11,12 +11,12 @@ export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
 export const CENSUS_MAPPING: censusMapping = {
   age: [
-    '0-18 Years',
-    '19-25 Years',
-    '26-34 Years',
-    '35-54 Years',
-    '55-64 Years',
-    '65+ Years'
+    '0-18 years',
+    '19-25 years',
+    '26-34 years',
+    '35-54 years',
+    '55-64 years',
+    '65+ years'
   ],
   sex: ['Male', 'Female'],
   race: [
