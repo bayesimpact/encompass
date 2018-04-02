@@ -3,37 +3,19 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "Response shape for POST /api/census-data-by-service-area/",
   "definitions": {
-    "bucket": {
-      "items": {
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "values": {
-            "type": "array",
-            "items": {
-            "type": "number"
-            }
-          }
-        },
-        "additionalProperties": false,
-        "required": ["name", "values"]
-      },
-      "type": "array"
+    "census_category_info": {
+        "items": {
+          "type": "object",
+          "additionalProperties": {"type" : "number"}
+      }
     }
   },
-  "type": "array",
+  "type": "object",
+  "additionalProperties": {
     "items": {
-      "properties": {
-        "buckets": {
-          "$ref": "#/definitions/bucket"
-        },
-        "category": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false,
-      "required": ["buckets", "category"]
-    },
-  "additionalProperties": false
+    "type": "object",
+    "additionalProperties": {
+      "$ref": "#/definitions/census_category_info"
+    }
+  }}
 }

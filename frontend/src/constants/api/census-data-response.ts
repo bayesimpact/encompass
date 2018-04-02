@@ -4,14 +4,13 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Bucket = {
-  name: string
-  values: number[]
+export type CensusCategoryInfo = {
+  [k: string]: number
 }[]
+
 /**
  * Response shape for POST /api/census-data-by-service-area/
  */
 export type PostCensusDataResponse = {
-  buckets: Bucket
-  category: string
+  [k: string]: CensusCategoryInfo
 }[]
