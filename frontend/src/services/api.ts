@@ -2,6 +2,7 @@ import { memoize } from 'lodash'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
+import { PostCensusDataResponse } from '../constants/api/census-data-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
@@ -58,4 +59,14 @@ export let getRepresentativePoints = memoize(
 export let getAdequacies = memoize(
   (params: PostAdequaciesRequest) => POST('/api/adequacies/')<PostAdequaciesResponse>(params),
   (params: PostAdequaciesRequest) => `${params.method}-${params.providers.join(',')}-${params.service_area_ids.join(',')}`
+)
+
+//
+// POST /api/census-data-by-service-area/
+//
+
+export let getCensusData = memoize(
+  (params: PostRepresentativePointsRequest) =>
+    POST('/api/census-data-by-service-area/')<PostCensusDataResponse>(params),
+  (params: PostRepresentativePointsRequest) => params.service_area_ids.join(',')
 )

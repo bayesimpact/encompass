@@ -15,7 +15,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) > 1000
 
@@ -24,7 +24,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_county_00000', 'ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) > 1000
 
@@ -33,7 +33,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = []
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) == 0
 
@@ -42,7 +42,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['not_valid']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) == 0
 

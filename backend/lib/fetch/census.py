@@ -22,7 +22,7 @@ def fetch_census_info_by_service_area(service_area_ids, engine):
     # Fetch all points for the given service areas.
     all_points = representative_points.fetch_representative_points(
         service_area_ids=service_area_ids,
-        census_data=True,
+        include_census_data=True,
         engine=engine
     )
 
