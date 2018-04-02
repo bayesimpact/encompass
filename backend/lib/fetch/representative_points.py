@@ -52,7 +52,7 @@ MINIMAL_RP_COLUMNS = [
 @timed
 def fetch_representative_points(
     service_area_ids,
-    census_data,
+    census_data=False,
     engine=connect.create_db_engine()
 ):
     """
@@ -67,7 +67,6 @@ def fetch_representative_points(
         'id_list': tuple(service_area_ids)
     }
 
-    census_data = False
     if census_data:
         join_list = ' '.join(["""
             LEFT JOIN {table}
