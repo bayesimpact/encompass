@@ -29,6 +29,7 @@ export function withEffects(store: Store) {
       // Get census information at the service area level.
       let censusData = await getCensusData({ service_area_ids: serviceAreas }) // Issue with census-data-response?
 
+      console.log(censusData)
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
