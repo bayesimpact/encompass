@@ -3,7 +3,6 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
-import { CensusCategoryInfo, PostCensusDataResponse } from '../constants/api/census-data-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
@@ -15,9 +14,9 @@ import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getCensusData, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
 
-type CensusCategory = {
-  [k: string]: CensusCategoryInfo
-}
+// type CensusCategory = {
+//   [k: string]: CensusCategoryInfo
+// }
 
 export function withEffects(store: Store) {
   /**
@@ -27,9 +26,9 @@ export function withEffects(store: Store) {
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
       let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
-      let censusData = await getCensusData({ service_area_ids: serviceAreas }) as PostCensusDataResponse // Issue with census-data-response?
-      console.log(censusData)
-      console.log(censusData['ms_adams_county_00000'])
+      // Get census information at the service area level.
+      let censusData = await getCensusData({ service_area_ids: serviceAreas }) // Issue with census-data-response?
+
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
@@ -44,7 +43,7 @@ export function withEffects(store: Store) {
           ..._,
           population: _.population,
           serviceAreaId: _.service_area_id,
-          demographics: censusData[_.service_area_id] as CensusCategory
+          demographics: censusData[_.service_area_id]
         }))
       )
     })

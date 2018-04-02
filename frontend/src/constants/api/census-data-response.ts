@@ -6,11 +6,19 @@
 
 export type CensusCategoryInfo = {
   [k: string]: number
-}[]
+}
 
 /**
  * Response shape for POST /api/census-data-by-service-area/
  */
-export type PostCensusDataResponse = {
-  [k: string]: CensusCategoryInfo
-}[]
+export interface PostCensusDataResponse {
+  [k: string]: {
+    [k: string]: CensusCategoryInfo
+  }
+}
+
+let test: PostCensusDataResponse = {
+  ms: { age: { group: 80 }, lol: { group: 80 } }
+}
+
+console.log(test)
