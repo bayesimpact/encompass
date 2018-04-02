@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
+import { CONFIG } from '../../config/config'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { AdequacyMode, Dataset, Method } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
@@ -16,7 +17,7 @@ import { getLegend } from '../MapLegend/MapLegend'
 import './DownloadAnalysisLink.css'
 
 const useStaticCsvs: boolean = process.env.ENV === 'PRD'
-const staticCsvRootUrl: string = 'https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/'
+const staticCsvRootUrl: string = CONFIG.staticAssets.analysisResultsRootUrl
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
