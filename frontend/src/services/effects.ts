@@ -22,7 +22,8 @@ export function withEffects(store: Store) {
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
       let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
-
+      let censusData = await getRepresentativePoints({ service_area_ids: serviceAreas })
+      console.log(censusData)
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
