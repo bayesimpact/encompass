@@ -2,6 +2,7 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { Dataset } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
@@ -12,7 +13,6 @@ import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 import './AddDatasetDrawer.css'
 
-const { ENV } = process.env
 const githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
 const contactUsLink = SecureLink('mailto:encompass@bayesimpact.org?subject=Driving%Time%20Analysis', 'contact us')
 
@@ -34,7 +34,7 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
     {store.get('useCustomCountyUpload') ? <ServiceAreasUploader /> : null}
     <ProvidersUploader />
     <div className='AnalyzeButton -Center'>
-      {(ENV !== 'PRD') ? <DownloadDatasetLink /> : null}
+      {(CONFIG.dataset.enable_save_as_json) ? <DownloadDatasetLink /> : null}
       <AnalyzerButton />
     </div>
   </div >
@@ -66,7 +66,6 @@ function createDataset(store: Store) {
     name: 'Your Data',
     providers: store.get('providers'),
     serviceAreaIds: store.get('serviceAreas'),
-    hint: '',
     subtitle: ''
   }
   return dataSet

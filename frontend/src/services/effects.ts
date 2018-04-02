@@ -1,6 +1,7 @@
 import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
+import { CONFIG } from '../config/config'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
@@ -12,8 +13,6 @@ import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
-
-const { ENV } = process.env
 
 export function withEffects(store: Store) {
   /**
@@ -299,7 +298,7 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(ENV !== 'PRD')
+        store.set('allowDrivingTime')(CONFIG.analysis.allow_driving_time)
         store.set('method')('straight_line')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(true)

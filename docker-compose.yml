@@ -40,10 +40,11 @@ services:
       volumes:
         - ./frontend/src:/usr/src/app/src:rw
         - ./frontend/public:/usr/src/app/public:rw
-        - ./shared/:/usr/src/shared:rw
+        - ./shared:/usr/src/app/src/shared:ro
+        - ./shared:/usr/src/shared:ro
       build:
-        context: ./frontend
-        dockerfile: Dockerfile
+        context: .
+        dockerfile: ./frontend/Dockerfile
       ports:
         - 8081:8081
       env_file:

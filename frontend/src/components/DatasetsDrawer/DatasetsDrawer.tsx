@@ -1,6 +1,7 @@
 import { memoize } from 'lodash'
 // import Add from 'material-ui/svg-icons/content/add-circle'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { DATASET_COLORS } from '../../constants/colors'
 import { DATASETS } from '../../constants/datasets'
 import { Dataset } from '../../constants/datatypes'
@@ -37,7 +38,7 @@ let toTiles = memoize((datasets: Dataset[]): Tile<Dataset>[] =>
 
 let tiles = [
   ...toTiles(DATASETS),
-  ...(process.env.SHOULD_SHOW_CSV_UPLOADER ? [UPLOAD_NEW_DATASET_TILE] : [])
+  ...(CONFIG.dataset.enable_upload_your_own ? [UPLOAD_NEW_DATASET_TILE] : [])
 ]
 let DatasetTilePicker = TilePicker<Dataset>()
 

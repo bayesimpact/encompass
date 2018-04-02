@@ -191,7 +191,7 @@ def calculate_adequacies(
     measurer_config = config.get('measurer_config')[measurer_name]
     executor_type = measurer_config['adequacy_executor_type']
     n_processors = measurer_config['n_adequacy_processors']
-    exit_distance = measurer_config['exit_distance']
+    exit_distance = measurer_config['exit_distance_in_miles'] * ONE_MILE_IN_METERS
 
     logger.debug('Starting {} executors for adequacy calculations...'.format(n_processors))
     with executor_type(processes=n_processors) as executor:

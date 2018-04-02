@@ -4,8 +4,7 @@ import json
 import multiprocessing
 import multiprocessing.dummy
 
-ONE_MILE_IN_METERS = 1609.344
-ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
+from backend.lib.utils import config_utils
 
 _CONFIG = None
 
@@ -103,73 +102,34 @@ def _load_config(path=None):
 
 
 # TODO: Set global and Sentry log level independently.
+# This file should only contain non serializable entities.
+# And the path to the shared config.
 CONFIG = {
-    'geocoding': True,
-    'address_database': True,
-    'geocoder': 'oxcoder',
-    'measurer': {
-        'straight_line': 'haversine',
-        'driving_time': 'osrm'
-    },
-    'census_data': True,
-    'census_mapping_json': '/app/shared/census_mapping.json',
+    'config_file': '/app/shared/config.json',
     'measurer_config': {
         'haversine': {
             'adequacy_executor_type': multiprocessing.Pool,  # For CPU-bound tasks.
-            'n_adequacy_processors': 8,
-            'exit_distance': 10.0 * ONE_MILE_IN_METERS
         },
         'osrm': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
-            'n_adequacy_processors': 255,
-            'exit_distance': 5.0 * ONE_MILE_IN_METERS
         },
         'open_route_service_driving': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
-            'n_adequacy_processors': 255,
-            'exit_distance': 5.0 * ONE_MILE_IN_METERS
         },
         'mapbox': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
-            'n_adequacy_processors': 255,
-            'exit_distance': 5.0 * ONE_MILE_IN_METERS
         }
     },
-    'cache': {
-        'enabled': True,
-        'directory': '/app/cache/',
-    },
-    'database': {
-        'prefix': ''
-    },
     'logging': {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'formatters': {
-            'console': {
-                'format': '[%(asctime)s][%(levelname)s] %(name)s '
-                          '%(filename)s:%(funcName)s:%(lineno)d | %(message)s',
-                'datefmt': '%H:%M:%S',
-            },
-        },
         'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'console'
-            },
             'sentry': {
-                'level': 'INFO',
-                'class': 'raven.handlers.logging.SentryHandler',
                 'dsn': os.environ.get('SENTRY_DSN', None),
             }
-        },
-        'loggers': {
-            'backend': {
-                'handlers': ['console', 'sentry'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
         }
     }
 }
+
+CONFIG = config_utils.nested_update(
+    CONFIG,
+    json.load(open(CONFIG['config_file']))
+)

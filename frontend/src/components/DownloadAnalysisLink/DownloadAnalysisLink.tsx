@@ -128,5 +128,5 @@ function getDataForCensusCategories(serviceAreas: string[] | null, censusCategor
 }
 
 function formatLegend(string: string) {
-  return snakeCase(string.replace('<', 'lt').replace('>', 'gt').replace('-', ' to '))
+  return snakeCase(string.replace('<', 'lt').replace('>', 'gt').replace('-', ' to ').replace('+', ' plus ').replace('Years', 'yrs'))
 }

@@ -1,0 +1,81 @@
+{
+    "enable_geocoding": true,
+    "include_census_data": true,
+    "_backend": "Configuration used by the backend.",
+    "use_address_cache": true,
+    "geocoder": "oxcoder",
+    "measurer": {
+        "straight_line": "haversine",
+        "driving_time": "osrm"
+    },
+    "census_mapping_json": "/app/shared/census_mapping.json",
+    "measurer_config": {
+        "haversine": {
+            "n_adequacy_processors": 8,
+            "exit_distance_in_miles": 10.0
+        },
+        "osrm": {
+            "n_adequacy_processors": 255,
+            "exit_distance_in_miles": 5.0
+        },
+        "open_route_service_driving": {
+            "n_adequacy_processors": 255,
+            "exit_distance_in_miles": 5.0
+        },
+        "mapbox": {
+            "n_adequacy_processors": 255,
+            "exit_distance_in_miles": 5.0
+        }
+    },
+    "cache": {
+        "enabled": true,
+        "directory": "/app/cache/"
+    },
+    "database": {
+        "prefix": ""
+    },
+    "logging": {
+        "version": 1,
+        "disable_existing_loggers": true,
+        "formatters": {
+            "console": {
+                "format": "[%(asctime)s][%(levelname)s] %(name)s %(filename)s:%(funcName)s:%(lineno)d | %(message)s",
+                "datefmt": "%H:%M:%S"
+            }
+        },
+        "handlers": {
+            "console": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler",
+                "formatter": "console"
+            },
+            "sentry": {
+                "level": "INFO",
+                "class": "raven.handlers.logging.SentryHandler"
+            }
+        },
+        "loggers": {
+            "backend": {
+                "handlers": ["console", "sentry"],
+                "level": "DEBUG",
+                "propagate": true
+            }
+        }
+    },
+    "_frontend": "Configuration used by the frontend.",
+    "show_about_dialog_on_start": false,
+    "api": {
+        "backend_root": "http://localhost:8080"
+    },
+    "title_suffix": "",
+    "limit_upload_file_size": false,
+    "dataset": {
+        "enable_custom_service_area_upload": false,
+        "enable_save_as_json": true,
+        "enable_upload_your_own": true
+    },
+    "analysis": {
+        "_comment": "Only applies for custom datasets.",
+        "allow_driving_time": true
+    }
+}
