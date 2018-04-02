@@ -24,3 +24,13 @@ export type PostRepresentativePointsResponse = {
   service_area_id: string
   zip: string
 }[]
+
+export type StaticRepresentativePointsResponse = {
+  id: number
+  lat: number
+  lng: number
+  population: number
+  service_area_id: string
+  county: string
+  zip: string
+}[]

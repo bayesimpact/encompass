@@ -1,11 +1,12 @@
-import { memoize } from 'lodash'
+import { memoize, kebabCase } from 'lodash'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
-import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
+import { PostRepresentativePointsResponse, StaticRepresentativePointsResponse } from '../constants/api/representative-points-response'
+import {Dataset, Method} from "../constants/datatypes";
 
 const API_ROOT = CONFIG.api.backend_root
 
@@ -59,3 +60,34 @@ export let getAdequacies = memoize(
   (params: PostAdequaciesRequest) => POST('/api/adequacies/')<PostAdequaciesResponse>(params),
   (params: PostAdequaciesRequest) => `${params.method}-${params.providers.join(',')}-${params.service_area_ids.join(',')}`
 )
+
+export async function getStaticRPs(selectedDataset: Dataset | null){
+    const res = await fetch(getStaticRPUrl(selectedDataset))
+    const body = await res.json()
+    return <StaticRepresentativePointsResponse> body
+}
+
+export async function getStaticAdequacies(selectedDataset: Dataset | null, method: Method){
+    const res = await fetch(getStaticAdequacyUrl(selectedDataset, method))
+    const body = await res.json()
+    return <PostAdequaciesResponse> body
+}
+
+function getStaticRPUrl(selectedDataset: Dataset | null): string {
+    const rootUrl = 'https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-points/'
+    if (!selectedDataset){
+        throw new Error('No dataset selected.')
+    }
+    const datasetString = kebabCase(selectedDataset.name)
+    return `${rootUrl}${datasetString}.json`
+}
+
+function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
+    const rootUrl = 'https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-adequacies/'
+    if (!selectedDataset){
+        throw new Error('No dataset selected.')
+    }
+    const datasetString = kebabCase(selectedDataset.name)
+    const methodString = kebabCase(method.toString())
+    return `${rootUrl}${datasetString}-${methodString}.json`
+}

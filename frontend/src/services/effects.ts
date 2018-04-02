@@ -4,14 +4,17 @@ import { Observable } from 'rx'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { AdequacyMode, GeocodedProvider, Method, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
-import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
+import {
+    getStaticAdequacies, getStaticRPs, isPostGeocodeSuccessResponse,
+    postGeocode
+} from './api'
 import { Store } from './store'
 
 export function withEffects(store: Store) {
@@ -21,7 +24,8 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
-      let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+      // let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+      const points = await getStaticRPs(store.get('selectedDataset'))
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -102,12 +106,12 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null) {
-    if (dataset === null) {
-      return ''
-    }
-    return dataset['hint']
-  }
+  // function safeDatasetHint(dataset: Dataset | null) {
+  //   if (dataset === null) {
+  //     return ''
+  //   }
+  //   return dataset['hint']
+  // }
 
   /**
    * Fetch adequacies when providers, representative points, or method change
@@ -144,12 +148,13 @@ export function withEffects(store: Store) {
       //
       // TODO: Do this more elegantly to avoid the double-computation.
       let [adequacies, points] = await Promise.all([
-        getAdequacies({
-          method,
-          providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
-          service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
-        }),
+        // getAdequacies({
+        //   method,
+        //   providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
+        //   service_area_ids: serviceAreas,
+        //   dataset_hint: safeDatasetHint(store.get('selectedDataset'))
+        // }),
+        getStaticAdequacies(store.get('selectedDataset'), store.get('method')),
         representativePoints
       ])
 
