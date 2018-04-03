@@ -21,7 +21,7 @@ CENSUS_TABLES = [
     'census_acs_dp_05'
 ]
 
-if config.get('include_census_data'):
+if config.get('is_census_data_available'):
     CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
 else:
     CENSUS_FIELDS_BY_CATEGORY = {}
@@ -67,6 +67,9 @@ def fetch_representative_points(
         'id_list': tuple(service_area_ids)
     }
 
+    # Set census mapping.
+    census_mapping = CENSUS_FIELDS_BY_CATEGORY if census_data else {}
+
     if census_data:
         join_list = ' '.join(["""
             LEFT JOIN {table}
@@ -102,7 +105,7 @@ def fetch_representative_points(
         )
 
     return [
-        representative_point.row_to_dict(row, census_mapping=CENSUS_FIELDS_BY_CATEGORY)
+        representative_point.row_to_dict(row, census_mapping=census_mapping)
         for row in engine.execute(select_query, query_params).fetchall()
     ]
 

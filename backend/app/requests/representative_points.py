@@ -51,11 +51,15 @@ def representative_points_request(app, flask_request, engine):
     try:
         request_json = flask_request.get_json(force=True)
         service_area_ids = request_json['service_area_ids']
+        # Only send census data if requested AND available.
+        census_data = (
+            request_json.get('census_data', False) and config.get('is_census_data_available')
+        )
     except (json.JSONDecodeError, KeyError):
         raise InvalidFormat(message='Invalid JSON format.')
     representative_point_response = construct_representative_point_response(
         service_area_ids=service_area_ids,
-        census_data=config.get('include_census_data'),
+        census_data=census_data,
         engine=engine
     )
     logger.debug('Returning %d representative points.', len(representative_point_response))

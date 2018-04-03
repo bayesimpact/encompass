@@ -10,6 +10,10 @@
       "items": {
         "type": "string"
       }
+    },
+    "census_data": {
+      "description": "Defines if frontend requests census data at the representative point level.",
+      "type": "boolean"
     }
   },
   "additionalProperties": false,
