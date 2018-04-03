@@ -53,7 +53,7 @@ def representative_points_request(app, flask_request, engine):
         service_area_ids = request_json['service_area_ids']
         census_data = request_json.get(
             'census_data',
-            config.get('include_census_data')
+            False
         )
     except (json.JSONDecodeError, KeyError):
         raise InvalidFormat(message='Invalid JSON format.')
