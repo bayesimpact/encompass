@@ -5,6 +5,7 @@ export let DATASETS: Dataset[] = [
   // FIXME: Programatically read in datasets.
   // tslint:disable:no-var-requires
   inferServiceAreaIds(require('./datasets/MS_HCSD_and_Look-Alike_MS.json')),
+  inferServiceAreaIds(require('./datasets/WA-838-providers-2018-04-03.json')),
   inferServiceAreaIds(require('./datasets/FL_HCSD_and_Look-Alike_FL.json')),
   inferServiceAreaIds(require('./datasets/FL_fl_endocrinologists.json')),
   inferServiceAreaIds(require('./datasets/TX_HCSD_and_Look-Alike_TX.json')),
