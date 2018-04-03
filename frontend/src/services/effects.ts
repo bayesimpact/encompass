@@ -21,7 +21,13 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
-      let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+
+      if (serviceAreas.length === 0) {
+        return
+      }
+
+      let points = await getRepresentativePoints({ service_area_ids: serviceAreas, census_data: false })
+
       // Get census information at the service area level.
       let censusData = await getCensusData({ service_area_ids: serviceAreas }) // Issue with census-data-response?
 
