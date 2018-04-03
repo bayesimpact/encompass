@@ -2,7 +2,7 @@
     "dataSources": "Vericred Network Data, Robert Wood Johnson Foundation",
     "description": "2017 Ambetter PCPs, Individual Market",
     "state": "wa",
-    "name": "Your Data",
+    "name": "Washington Dataset",
     "providers": [
         {
             "address": "8980 161st Ave NE Ste 400, REDMOND, WA 98052",
