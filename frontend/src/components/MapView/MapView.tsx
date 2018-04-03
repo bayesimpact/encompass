@@ -39,11 +39,11 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     type: 'exponential',
     // stops are [{zoom, population}, radius] pairs.
     stops: [
-      [{zoom: 0, value: 1}, 0.5],
-      [{zoom: 8, value: 1}, 1.6],
-      [{zoom: 8, value: 100}, 3.2],
-      [{zoom: 8, value: 1000}, 4.8],
-      [{zoom: 8, value: 10000}, 8.0]
+      [{ zoom: 0, value: 1 }, 0.5],
+      [{ zoom: 8, value: 1 }, 1.6],
+      [{ zoom: 8, value: 100 }, 3.2],
+      [{ zoom: 8, value: 1000 }, 4.8],
+      [{ zoom: 8, value: 10000 }, 8.0]
     ]
   }
 }
@@ -100,12 +100,13 @@ export let MapView = withStore(
 
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
+        before='airport-label'
         circlePaint={providerCircleStyle}
         // Set the selected representative point to null to avoid creating two pop-ups.
         circleOnClick={_ => {
           store.set('selectedRepresentativePoint')(null)
-          store.set('selectedProvider')(_)}
-        }
+          store.set('selectedProvider')(_)
+        }}
       />}
       {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
       {selectedProvider && <ProviderPopup point={selectedProvider} />}
@@ -122,6 +123,7 @@ MapView.displayName = 'MapView'
 function getRepresentativePointLayer(pointGeoJSON: FeatureCollection<GeometryObject>, store: Store) {
   return <GeoJSONLayer
     data={pointGeoJSON}
+    before='airport-label'
     circlePaint={representativePointCircleStyle}
     circleOnClick={store.set('selectedRepresentativePoint')}
   />
