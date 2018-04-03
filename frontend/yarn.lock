@@ -1760,9 +1760,9 @@ chartjs-color@^2.1.0:
     chartjs-color-string "^0.5.0"
     color-convert "^0.5.3"
 
-chartjs-plugin-stacked100@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/chartjs-plugin-stacked100/-/chartjs-plugin-stacked100-0.4.4.tgz#f107d1c575fbe619f9255c4f131725a09bccf531"
+chartjs-plugin-stacked100@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-stacked100/-/chartjs-plugin-stacked100-0.4.5.tgz#36efa86e90a743d743f8d615dd6f9fb9b3135414"
   dependencies:
     chart.js "^2.4.0"
 
