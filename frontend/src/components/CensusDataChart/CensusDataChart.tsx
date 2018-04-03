@@ -109,7 +109,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
             }]
         },
         plugins: {
-            stacked100: { enable: true }
+            stacked100: { enable: true, replaceTooltipLabel: false }
         },
         legend: {
             display: true

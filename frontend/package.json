@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "chart.piecelabel.js": "^0.8.2",
-    "chartjs-plugin-stacked100": "^0.4.4",
+    "chartjs-plugin-stacked100": "^0.4.5",
     "esri-extent": "^1.1.3",
     "mui-icons": "^1.2.1",
     "papaparse": "^4.3.7",
