@@ -52,7 +52,7 @@ MINIMAL_RP_COLUMNS = [
 @timed
 def fetch_representative_points(
     service_area_ids,
-    census_data=False,
+    census_data,
     engine=connect.create_db_engine()
 ):
     """

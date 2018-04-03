@@ -2,7 +2,6 @@
     "enable_geocoding": true,
     "include_census_data": true,
     "_backend": "Configuration used by the backend.",
-    "include_census_data_for_representative_points": false,
     "use_address_cache": true,
     "geocoder": "oxcoder",
     "measurer": {
