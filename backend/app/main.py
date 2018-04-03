@@ -40,7 +40,7 @@ def fetch_service_areas():
 def fetch_service_area_census_data():
     """Fetch and return census information for the specified service areas."""
     logger.debug('Return census information for the specified service areas.')
-    if not config.get('include_census_data'):
+    if not config.get('is_census_data_available'):
         return flask.Response(
             response='501: Census data is not enabled in the configuration file.',
             status=501

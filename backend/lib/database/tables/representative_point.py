@@ -50,7 +50,7 @@ def prepare_demographics_dict_from_row(row_dict, census_mapping):
     }
 
 
-def row_to_dict(rp_row, census_mapping=None):
+def row_to_dict(rp_row, census_mapping={}):
     """
     Transform a representative point row to a dictionary.
 
@@ -80,6 +80,7 @@ def row_to_dict(rp_row, census_mapping=None):
         'service_area_id': rp_row['service_area_id'],
         'zip': rp_row['zip_code']
     }
+    # TODO - Find a nicer way to handle this case.
     if census_mapping:
         rp_dict['demographics'] = prepare_demographics_dict_from_row(
             row_dict=rp_row,
