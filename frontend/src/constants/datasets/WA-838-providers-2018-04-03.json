@@ -3,6 +3,7 @@
     "description": "2017 Ambetter PCPs, Individual Market",
     "state": "wa",
     "name": "Washington Dataset",
+    "hint": "wa_providers",
     "providers": [
         {
             "address": "8980 161st Ave NE Ste 400, REDMOND, WA 98052",
