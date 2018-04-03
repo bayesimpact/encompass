@@ -43,7 +43,6 @@ def test_representative_point_to_dict():
         'population': 200,
         'zip': 'zip_code',
         'service_area_id': 'service_area_id',
-        'demographics': {},
     }
 
     output_dict = representative_point.row_to_dict(rp_row)
