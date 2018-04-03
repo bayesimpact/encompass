@@ -14,7 +14,7 @@ export interface PostRepresentativePointsRequest {
    */
   service_area_ids: string[]
   /**
-   * Defines if frontend requests census_data at the representative point level.
+   * Defines if frontend requests census data at the representative point level.
    */
   census_data?: boolean
 }
