@@ -70,7 +70,7 @@
     "title_suffix": "",
     "limit_upload_file_size": false,
     "dataset": {
-        "enable_custom_service_area_upload": false,
+        "enable_custom_service_area_upload": true,
         "enable_save_as_json": true,
         "enable_upload_your_own": true
     },
