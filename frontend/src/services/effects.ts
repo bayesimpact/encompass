@@ -23,7 +23,7 @@ export function withEffects(store: Store) {
     .subscribe(async serviceAreas => {
 
       if (serviceAreas.length === 0) {
-        return
+        store.set('representativePoints')([])
       }
 
       let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
