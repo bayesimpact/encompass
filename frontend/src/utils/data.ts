@@ -64,7 +64,7 @@ export function summaryStatisticsByServiceAreaAndCensus(
   censusCategoryGroups.forEach(censusGroup => {
     statisticsByGroup[censusGroup] = summaryStatistics(rps, adequacies, { censusCategory, censusGroup })
   })
-  statisticsByGroup['Total'] = summaryStatistics(rps, adequacies)
+  statisticsByGroup['Total Population'] = summaryStatistics(rps, adequacies)
   return statisticsByGroup
 }
 
@@ -74,9 +74,9 @@ export function summaryStatistics(
   censusGroup?: CensusGroup
 ): PopulationByAdequacy {
   let populationByAdequacy = [
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_15, censusGroup),
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_30, censusGroup),
-    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_60, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_0, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_1, censusGroup),
+    countByAdequacy(adequacies, representativePoints, AdequacyMode.ADEQUATE_2, censusGroup),
     countByAdequacy(adequacies, representativePoints, AdequacyMode.INADEQUATE, censusGroup)
   ]
   return populationByAdequacy

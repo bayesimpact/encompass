@@ -25,9 +25,9 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     property: 'adequacyMode',
     type: 'categorical',
     stops: [
-      [AdequacyMode.ADEQUATE_15, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]],
-      [AdequacyMode.ADEQUATE_30, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_30]],
-      [AdequacyMode.ADEQUATE_60, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_60]],
+      [AdequacyMode.ADEQUATE_0, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0]],
+      [AdequacyMode.ADEQUATE_1, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_1]],
+      [AdequacyMode.ADEQUATE_2, ADEQUACY_COLORS[AdequacyMode.ADEQUATE_2]],
       [AdequacyMode.INADEQUATE, ADEQUACY_COLORS[AdequacyMode.INADEQUATE]],
       [AdequacyMode.OUT_OF_SCOPE, ADEQUACY_COLORS[AdequacyMode.OUT_OF_SCOPE]],
       ['undefined', '#8eacbb']
@@ -37,12 +37,13 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
   'circle-radius': {
     property: 'population',
     type: 'exponential',
-    // stops are [population, point radius] pairs.
+    // stops are [{zoom, population}, radius] pairs.
     stops: [
-      [1, 1.6],
-      [100, 3.2],
-      [1000, 4.8],
-      [10000, 9.6]
+      [{zoom: 0, value: 1}, 0.5],
+      [{zoom: 8, value: 1}, 1.6],
+      [{zoom: 8, value: 100}, 3.2],
+      [{zoom: 8, value: 1000}, 4.8],
+      [{zoom: 8, value: 10000}, 8.0]
     ]
   }
 }
@@ -55,7 +56,14 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
 const providerCircleStyle: MapboxGL.CirclePaint = {
   'circle-color': '#000',
   'circle-opacity': 0.6,
-  'circle-radius': 5
+  'circle-radius': {
+    base: 1,
+    // stops are [zoom, radius] pairs.
+    stops: [
+      [0, 0.1],
+      [7, 5.0]
+    ]
+  }
 }
 
 function removePopup(store: Store) {
@@ -84,6 +92,7 @@ export let MapView = withStore(
     <Map
       style='mapbox://styles/bayesimpact/cj8qeq6cpajqc2ts1xfw8rf2q'
       center={store.get('mapCenter')}
+      zoom={store.get('mapZoom')}
       onRender={(map: MapboxGL.Map) => store.get('map') || store.set('map')(map)}
       onClick={() => removePopup(store)}
     >
@@ -92,7 +101,11 @@ export let MapView = withStore(
       {providers.length && <GeoJSONLayer
         data={providersToGeoJSON(providers)}
         circlePaint={providerCircleStyle}
-        circleOnClick={store.set('selectedProvider')}
+        // Set the selected representative point to null to avoid creating two pop-ups.
+        circleOnClick={_ => {
+          store.set('selectedRepresentativePoint')(null)
+          store.set('selectedProvider')(_)}
+        }
       />}
       {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
       {selectedProvider && <ProviderPopup point={selectedProvider} />}

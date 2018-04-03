@@ -21,7 +21,7 @@ CENSUS_TABLES = [
     'census_acs_dp_05'
 ]
 
-if config.get('census_data'):
+if config.get('include_census_data'):
     CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
 else:
     CENSUS_FIELDS_BY_CATEGORY = {}

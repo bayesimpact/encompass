@@ -9,7 +9,7 @@ import './FilterBar.css'
 export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
   return <Paper className='FilterBar' zDepth={1}>
     <div className='Filter -FixedWidthBig'>
-      <span>Method</span>
+      <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
         onChange={(_e, _i, value) => {
@@ -23,7 +23,7 @@ export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
         value={store.get('method')}
       >
         <MenuItem value='driving_time' primaryText='Driving Time' disabled={!store.get('allowDrivingTime')} />
-        <MenuItem value='haversine' primaryText='Haversine Distance' />
+        <MenuItem value='straight_line' primaryText='Straight-line Distance' />
       </DropDownMenu>
     </div>
   </Paper>

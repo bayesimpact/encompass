@@ -1,7 +1,7 @@
 {
-    "dataSources": "<a href=\"https://fundtexaschoice.org/index.php/about/\" target=\"_blank\">Fund Texas Choice</a>, Feb 2018.",
-    "description": "The passing of Texas House Bill 2 closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics.",
-    "subtitle": "Explore how maps can illuminate policy impacts",
+    "subtitle": "Abortion clinics remaining after Texas HB2",
+    "dataSources": "Provider Data: <a href=\"https://fundtexaschoice.org/index.php/about/\" target=\"_blank\">Fund Texas Choice</a>, Feb 2018.",
+    "description": "The passing of <a href=\"https://rewire.news/legislative-tracker/law/texas-omnibus-abortion-bill-hb-2-2013/\" target=\"_blank\">Texas House Bill 2</a> closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics in and around Texas.",
     "state": "tx",
     "name": "Abortion Clinics in Texas",
     "providers": [
@@ -139,6 +139,110 @@
             "lng": -98.581715,
             "languages": [],
             "name": "Planned Parenthood, South Texas",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "701 San Mateo NE, Albuquerque, NM 87108",
+            "lat": 35.08388889,
+            "lng": -106.58638889,
+            "languages": [],
+            "name": "Planned Parenthood, Surgical Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "2301 Yale Blvd SE, Albuquerque, NM 87106",
+            "lat": 35.055517,
+            "lng": -106.622135,
+            "languages": [],
+            "name": "University of New Mexico Center for Reproductive Health",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "522 Lomas Blvd. NE, Albuquerque, NM 87102",
+            "lat": 35.089677,
+            "lng": -106.639148,
+            "languages": [],
+            "name": "Southwestern Women's Options",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "730 Saint Michaels Drive #4B, Santa Fe, NM 87505",
+            "lat": 35.659339,
+            "lng": -105.961294,
+            "languages": [],
+            "name": "Planned Parenthood, Santa Fe Health Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "5107 East Kellogg Drive South, Wichita, KS 67218",
+            "lat": 37.679112,
+            "lng": -97.292205,
+            "languages": [],
+            "name": "South Wind Women's Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "1240 S.W. 44th St., Oklahoma City, OK 73109",
+            "lat": 35.420696,
+            "lng": -97.538846,
+            "languages": [],
+            "name": "Trust Women South Wind Women's Center, Oklahoma City",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "2453 Wilcox Drive, Norman, OK 73069",
+            "lat": 35.206206,
+            "lng": -97.478709,
+            "languages": [],
+            "name": "Abortion Surgery Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "6136 E. 32nd Place, Tulsa, OK 74135",
+            "lat": 36.116430,
+            "lng": -95.906711,
+            "languages": [],
+            "name": "Reproductive Services",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "210 Kings HWY, Shreveport, LA 71104",
+            "lat": 32.481817,
+            "lng": -93.734403,
+            "languages": [],
+            "name": "Hope Medical Group for Women",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "1505 Doctors Drive, Bossier City, Louisiana 71111",
+            "lat": 32.533081,
+            "lng": -93.709751,
+            "languages": [],
+            "name": "Bossier City Medical Suite",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "3044 Ridgelake Drive, Metarie, LA 70002",
+            "lat": 30.006589,
+            "lng": -90.153504,
+            "languages": [],
+            "name": "Causeway Medical Clinic",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "2701 General Pershing St., New Orleans, LA",
+            "lat": 29.937464,
+            "lng": -90.101896,
+            "languages": [],
+            "name": "Women's Health Care Center",
+            "specialty": "Abortion Clinic"
+        },
+        {
+            "address": "1130 Alpine Ave., Boulder, CO 80304",
+            "lat": 40.025486,
+            "lng": -105.283232,
+            "languages": [],
+            "name": "Boulder Abortion Clinic",
             "specialty": "Abortion Clinic"
         }
     ],

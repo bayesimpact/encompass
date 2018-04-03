@@ -1,4 +1,5 @@
 import { memoize } from 'lodash'
+import { CONFIG } from '../config/config'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
@@ -6,7 +7,7 @@ import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-re
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 
-const { API_ROOT } = process.env
+const API_ROOT = CONFIG.api.backend_root
 
 let request = (method: 'GET' | 'POST') =>
   (url: string) =>

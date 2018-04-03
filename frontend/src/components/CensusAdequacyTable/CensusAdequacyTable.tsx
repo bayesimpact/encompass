@@ -35,7 +35,7 @@ export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ ser
       <CircularProgress
         size={150}
         thickness={8}
-        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_15]}
+        color={ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0]}
       />
     </div>
   }
@@ -45,15 +45,15 @@ export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ ser
 
   // Calculate summaryStatistics for each group.
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
-  let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
+  let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
     <StatsBox className='HighLevelStats' withBorders withFixedColumns>
       <tr>
         <th style={firstColumnStyle}>Group</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_15)}</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_30)}</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_60)}</th>
+        <th>{getLegend(method, AdequacyMode.ADEQUATE_0)}</th>
+        <th>{getLegend(method, AdequacyMode.ADEQUATE_1)}</th>
+        <th>{getLegend(method, AdequacyMode.ADEQUATE_2)}</th>
         <th>{getLegend(method, AdequacyMode.INADEQUATE)}</th>
       </tr>
       {
@@ -73,9 +73,9 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {
-            return (<td>{formatPercentage(100 * _ / totalPopulation)}</td>)
+            return (<td className='NumericTableCell'>{formatPercentage(100 * _ / totalPopulation)}</td>)
           } else {
-            return (<td>{formatNumber(_)}</td>)
+            return (<td className='NumericTableCell'>{formatNumber(_)}</td>)
           }
         })
       }

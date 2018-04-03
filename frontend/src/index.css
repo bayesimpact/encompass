@@ -25,11 +25,14 @@
   --analytics-title-width: 85px;
 
   /* fonts */
-  --giant-font: 22px;
-  --large-font: 16px;
-  --mediumlarge-font: 15px;
-  --medium-font: 14px;
-  --small-font: 12px;
+  --font: 400 var(--medium-font-size)/var(--medium-font-line) Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+  
+  /* font-size */
+  --giant-font-size: 22px;
+  --large-font-size: 16px;
+  --mediumlarge-font-size: 15px;
+  --medium-font-size: 14px;
+  --small-font-size: 12px;
 
   /* line-height */
   --medium-font-line: 21px;

@@ -15,7 +15,7 @@
 */
 
 body {
-  font: 400 var(--medium-font)/var(--medium-font-line) Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+  font: 400 var(--medium-font-size)/var(--medium-font-line) Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
 }
 
 html, body, #App, .App {
@@ -24,7 +24,7 @@ html, body, #App, .App {
 }
 
 h2 {
-  font-size: var(--large-font);
+  font-size: var(--large-font-size);
   font-weight: var(--heavy-weight);
   line-height: var(--large-font-line);
   text-transform: uppercase;
@@ -36,7 +36,12 @@ hr {
 
 p {
   padding: 12px 0;
-  font-size: var(--medium-font) !important;
+  font-size: var(--medium-font-size) !important;
+}
+
+a {
+  color: var(--secondary);
+  text-decoration: underline;
 }
 
 /*
@@ -102,19 +107,19 @@ p {
 }
 
 .SmallFont {
-  font-size: var(--small-font);
+  font-size: var(--small-font-size);
 }
 
 .MediumFont {
-  font-size: var(--medium-font);
+  font-size: var(--medium-font-size);
 }
 
 .MediumLargeFont {
-  font-size: var(--mediumlarge-font);
+  font-size: var(--mediumlarge-font-size);
 }
 
 .LargeFont {
-  font-size: var(--large-font);
+  font-size: var(--large-font-size);
 }
 
 .Uppercase {
@@ -142,11 +147,11 @@ p {
 }
 
 .Button.-Primary path {
-  fill: var(--primary) !important;
+  fill: var(--secondary) !important;
 }
 
 .Button.-Small > div > span {
-  font-size: var(--small-font) !important;
+  font-size: var(--small-font-size) !important;
 }
 
 .Button.-Subtle {
@@ -169,4 +174,8 @@ p {
 /* list item checkbox */
 .ListItem.-Compact > div {
   top: 3px !important;
+}
+
+.NumericTableCell {
+  text-align: right;
 }

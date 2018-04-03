@@ -6,21 +6,21 @@ import { ZIPS_BY_COUNTY_BY_STATE } from '../../constants/zipCodesByCountyByState
 import { Store, withStore } from '../../services/store'
 import { ColumnDefinition, isEmpty, ParseError, parseRows } from '../../utils/csv'
 import { serializeServiceArea } from '../../utils/serializers'
+import { capitalizeWords } from '../../utils/string'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
+import './Uploader.css'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
 export let ServiceAreasUploader = withStore('uploadedServiceAreasFilename')(({ store }) =>
-  <div>
-    <div className='Flex -PullLeft'>
-      <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
-      <span className='Ellipsis Muted SmallFont'>
-        {store.get('uploadedServiceAreasFilename')}
-      </span>
-      {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
-    </div>
+  <div className='Flex Uploader'>
+    <CSVUploader label='Upload Service Areas' onUpload={onFileSelected(store)} />
+    <span className='Ellipsis Muted SmallFont'>
+      {store.get('uploadedServiceAreasFilename')}
+    </span>
+    {store.get('uploadedServiceAreasFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
   </div>
 )
 
@@ -60,15 +60,17 @@ function getCounties(serviceAreas: [string, string][]): string[] {
  * Aliases are compared to column names as lowerCase()
  */
 const COLUMNS = [
-  { aliases: ['CountyName', 'County Name', 'County'] },
+  { aliases: ['CountyName', 'County Name', 'County'], required: true },
   { aliases: ['ZipCode', 'Zip Code', 'Zip'] }
 ]
 
 let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, zip], rowIndex, { state }) => {
 
+  // Note - we currently use '00000' as a placeholder in all counties.
+  zip = '00000'
   // Validate that zip exists
   if (zip && !(zip in COUNTIES_BY_ZIP)) {
-    return new ParseError(rowIndex, 1, COLUMNS[1], `We don't support the zip code "${zip}" yet. Reach out to us at health@bayesimpact.org`)
+    return new ParseError(rowIndex, 1, COLUMNS[1], `ZIP code "${zip}" is not supported yet.`)
   }
 
   // We infer missing zips and counties, so one zip might map to
@@ -80,14 +82,14 @@ let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, 
   let badCounty = pairs.value().find(([county]) => Object.keys(ZIPS_BY_COUNTY_BY_STATE[state]).indexOf(county!) <= -1)
 
   if (badCounty) {
-    return new ParseError(rowIndex, 0, COLUMNS[0], `We don't support county "${badCounty[0]}" yet. Reach out to us at health@bayesimpact.org.`)
+    return new ParseError(rowIndex, 0, COLUMNS[0], `County "${badCounty[0]}" is not supported in ${capitalizeWords(state)} yet.`)
   }
 
   // Validate that zip code is in county
   // TODO: consider pre-hashing zips for O(1) lookup
   let badZip = pairs.value().find(([county, zip]) => !ZIPS_BY_COUNTY_BY_STATE[state][county].zip_codes.includes(zip))
   if (badZip) {
-    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain ZIP code "${badZip[1]}"`)
+    return new ParseError(rowIndex, 1, COLUMNS[1], `County "${badZip[0]}" does not contain ZIP code "${badZip[1]}."`)
   }
 
   return pairs
@@ -97,7 +99,7 @@ let parse = parseRows<[string, string][], { state: State }>(COLUMNS, (([county, 
 
 function validateHeaders(columns: ColumnDefinition[], fields: string[]) {
   if (isEmpty(fields[0]) && isEmpty(fields[1])) {
-    return [new ParseError(0, 0, columns[0], `Your CSV must define the columns "CountyName" and/or "ZipCode"`)]
+    return [new ParseError(0, 0, columns[0], `Your CSV must define the column "CountyName".`)]
   }
   return []
 }

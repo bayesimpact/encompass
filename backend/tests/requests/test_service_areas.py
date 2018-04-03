@@ -1,4 +1,4 @@
-"""Test service area requests for Time-Distance API."""
+"""Test service area requests for the Encompass API."""
 from backend.app.requests import service_areas
 from backend.lib.database.postgres import connect
 

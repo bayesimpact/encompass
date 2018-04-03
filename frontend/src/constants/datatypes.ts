@@ -14,9 +14,9 @@ export type Adequacy = {
 }
 
 export enum AdequacyMode {
-  ADEQUATE_15 = 'ADEQUATE_15',
-  ADEQUATE_30 = 'ADEQUATE_30',
-  ADEQUATE_60 = 'ADEQUATE_60',
+  ADEQUATE_0 = 'ADEQUATE_0',
+  ADEQUATE_1 = 'ADEQUATE_1',
+  ADEQUATE_2 = 'ADEQUATE_2',
   INADEQUATE = 'INADEQUATE',
   OUT_OF_SCOPE = 'OUT_OF_SCOPE'
 }
@@ -26,7 +26,23 @@ export type CensusGroup = {
   censusGroup: string
 }
 
-export type CountyType = 'Rural' | 'Urban'
+export type Config = {
+  show_about_dialog_on_start: boolean
+  title_suffix: string
+  enable_geocoding: boolean
+  limit_upload_file_size: boolean
+  api: {
+    [key: string]: string | boolean
+  }
+  analysis: {
+    [key: string]: boolean
+  }
+  dataset: {
+    [key: string]: boolean
+  }
+}
+
+export type CountyType = 'All' | 'Rural' | 'Urban'
 
 export type Dataset = {
   dataSources: string,
@@ -34,7 +50,7 @@ export type Dataset = {
   description: string
   name: string
   subtitle: string
-  hint: string
+  hint?: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }
@@ -48,7 +64,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_time' | 'haversine'
+export type Method = 'driving_time' | 'straight_line'
 
 export type PopulationByAdequacy = number[]
 

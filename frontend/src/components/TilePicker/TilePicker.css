@@ -32,7 +32,7 @@
   background: #666;
   color: #fff;
   line-height: 24px;
-  font-size: var(--giant-font);
+  font-size: var(--giant-font-size);
   font-weight: var(--medium-weight);
   padding: 80px 10px 10px;
   text-transform: none;
@@ -40,7 +40,7 @@
 }
 
 .Tile p {
-  font-size: var(--medium-font);
+  font-size: var(--medium-font-size);
   padding: 10px;
 }
 

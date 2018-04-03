@@ -1,23 +1,23 @@
 
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { Store, withStore } from '../../services/store'
-import { parseRows } from '../../utils/csv'
+import { ParseError, parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/formatters'
 import { maybeParseFloat } from '../../utils/numbers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
+import './Uploader.css'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
 export let ProvidersUploader = withStore('uploadedProvidersFilename')(({ store }) =>
-  <div className='Flex -PullLeft'>
+  <div className='Flex Uploader'>
     <CSVUploader label='Upload Providers' onUpload={onFileSelected(store)} />
-    <div className='Ellipsis Muted SmallFont'>{
-      store.get('uploadedProvidersFilename')
-        ? `Uploaded ${store.get('uploadedProvidersFilename')}`
-        : ''
-    }</div>
+    <span className='Ellipsis Muted SmallFont'>
+      {store.get('uploadedProvidersFilename')}
+    </span>
     {store.get('uploadedProvidersFilename') && <ClearInputsButton onClearInputs={onClearInputs(store)} />}
   </div>
 )
@@ -50,13 +50,13 @@ function onClearInputs(store: Store) {
  * Aliases are compared to column names as lowerCase()
  */
 const COLUMNS = [
-  { aliases: ['Address'], required: true },
-  { aliases: ['City'], required: true },
-  { aliases: ['State'], required: true },
-  { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'], required: true },
+  { aliases: ['Address'] },
+  { aliases: ['City'] },
+  { aliases: ['State'] },
+  { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'] },
   { aliases: ['Health Center Type'] },
-  { aliases: ['Latitude'] },
-  { aliases: ['Longitude'] },
+  { aliases: ['Latitude', 'lat'] },
+  { aliases: ['Longitude', 'long', 'lng'] },
   { aliases: ['NPI'] },
   { aliases: ['First Name'] },
   { aliases: ['Last Name'] },
@@ -68,12 +68,24 @@ const COLUMNS = [
 ]
 
 let parse = parseRows(COLUMNS, ([address, city, state, zip, center_type,
-  latitude, longitude, npi, firstname, lastname, name, language1, language2, language3, specialty]) => {
-  let finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
+  latitude, longitude, npi, firstname, lastname, name, language1, language2, language3, specialty], rowIndex) => {
+  let finalAddress = address
+  if (address && city && state && zip) {
+    finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
+  }
+
+  if (!CONFIG.enable_geocoding && !(latitude && longitude)) {
+    return new ParseError(rowIndex, 5, COLUMNS[5], `Missing latitude or longitude.`)
+  }
+
+  if (!address && !(latitude && longitude)) {
+    return new ParseError(rowIndex, 0, COLUMNS[0], `Missing address or coordinates.`)
+  }
+
   let languages = [language1, language2, language3].filter(Boolean) as string[]
   let finalName = [firstname, lastname, name].filter(Boolean).join(' ') as string
   return {
-    address: finalAddress,
+    address: finalAddress || 'Coordinates',
     lat: maybeParseFloat(latitude),
     lng: maybeParseFloat(longitude),
     languages,

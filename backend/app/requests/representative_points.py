@@ -55,7 +55,7 @@ def representative_points_request(app, flask_request, engine):
         raise InvalidFormat(message='Invalid JSON format.')
     representative_point_response = construct_representative_point_response(
         service_area_ids=service_area_ids,
-        census_data=config.get('census_data'),
+        census_data=config.get('include_census_data'),
         engine=engine
     )
     logger.debug('Returning %d representative points.', len(representative_point_response))
@@ -64,6 +64,7 @@ def representative_points_request(app, flask_request, engine):
 
 @cache(hint_fields=('service_area_ids', 'census_data'))
 def construct_representative_point_response(service_area_ids, census_data, engine):
+    """Construct responses for /api/representative_points requests."""
     return representative_points.fetch_representative_points(
         service_area_ids=service_area_ids,
         census_data=census_data,

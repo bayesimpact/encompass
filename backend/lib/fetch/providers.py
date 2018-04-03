@@ -10,7 +10,7 @@ from backend.lib.timer import timed
 from sqlalchemy.orm import sessionmaker
 
 # Use values from configuration if they exist.
-GEOCODING = config.get('geocoding')
+GEOCODING = config.get('enable_geocoding')
 GEOCODER = config.get('geocoder')
 
 
@@ -89,7 +89,7 @@ def geocode_providers(
         len(addresses), len(provider_addresses))
     )
 
-    if config.get('address_database'):
+    if config.get('use_address_cache'):
         existing_addresses = {
             result.address: {
                 'latitude': result.latitude,
@@ -111,7 +111,7 @@ def geocode_providers(
             addresses=addresses_to_geocode,
             geocoder_name=geocoder_name,
             engine=engine,
-            add_to_db=config.get('address_database'))
+            add_to_db=config.get('use_address_cache'))
         logger.debug('{} addresses geocoded.'.format(len(geocoded_addresses)))
         if geocoded_addresses:
             existing_addresses.update({
