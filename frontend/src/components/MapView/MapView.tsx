@@ -17,7 +17,9 @@ if (!MAPBOX_TOKEN) {
 }
 
 let Map = ReactMapboxGl({
-  accessToken: MAPBOX_TOKEN
+  accessToken: MAPBOX_TOKEN,
+  touchZoomRotate: false,
+  dragRotate: false
 })
 
 const representativePointCircleStyle: MapboxGL.CirclePaint = {
@@ -39,11 +41,11 @@ const representativePointCircleStyle: MapboxGL.CirclePaint = {
     type: 'exponential',
     // stops are [{zoom, population}, radius] pairs.
     stops: [
-      [{zoom: 0, value: 1}, 0.5],
-      [{zoom: 8, value: 1}, 1.6],
-      [{zoom: 8, value: 100}, 3.2],
-      [{zoom: 8, value: 1000}, 4.8],
-      [{zoom: 8, value: 10000}, 8.0]
+      [{ zoom: 0, value: 1 }, 0.5],
+      [{ zoom: 8, value: 1 }, 1.6],
+      [{ zoom: 8, value: 100 }, 3.2],
+      [{ zoom: 8, value: 1000 }, 4.8],
+      [{ zoom: 8, value: 10000 }, 8.0]
     ]
   }
 }
@@ -104,7 +106,8 @@ export let MapView = withStore(
         // Set the selected representative point to null to avoid creating two pop-ups.
         circleOnClick={_ => {
           store.set('selectedRepresentativePoint')(null)
-          store.set('selectedProvider')(_)}
+          store.set('selectedProvider')(_)
+        }
         }
       />}
       {selectedRepresentativePoint && <RepresentativePointPopup point={selectedRepresentativePoint} />}
