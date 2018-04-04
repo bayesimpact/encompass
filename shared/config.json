@@ -63,19 +63,19 @@
         }
     },
     "_frontend": "Configuration used by the frontend.",
-    "show_about_dialog_on_start": false,
+    "show_about_dialog_on_start": true,
     "api": {
         "backend_root": "http://localhost:8080"
     },
-    "title_suffix": "",
+    "title_suffix": "QA",
     "limit_upload_file_size": false,
     "dataset": {
         "enable_custom_service_area_upload": false,
-        "enable_save_as_json": true,
+        "enable_save_as_json": false,
         "enable_upload_your_own": true
     },
     "analysis": {
         "_comment": "Only applies for custom datasets.",
-        "allow_driving_time": true
+        "allow_driving_time": false
     }
 }
