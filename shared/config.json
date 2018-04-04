@@ -1,12 +1,13 @@
 {
-    "geocoding": true,
-    "address_database": true,
+    "enable_geocoding": true,
+    "is_census_data_available": true,
+    "_backend": "Configuration used by the backend.",
+    "use_address_cache": true,
     "geocoder": "oxcoder",
     "measurer": {
         "straight_line": "haversine",
         "driving_time": "osrm"
     },
-    "census_data": true,
     "census_mapping_json": "/app/shared/census_mapping.json",
     "measurer_config": {
         "haversine": {
@@ -60,5 +61,21 @@
                 "propagate": true
             }
         }
+    },
+    "_frontend": "Configuration used by the frontend.",
+    "show_about_dialog_on_start": true,
+    "api": {
+        "backend_root": "http://localhost:8080"
+    },
+    "title_suffix": "QA",
+    "limit_upload_file_size": false,
+    "dataset": {
+        "enable_custom_service_area_upload": false,
+        "enable_save_as_json": false,
+        "enable_upload_your_own": true
+    },
+    "analysis": {
+        "_comment": "Only applies for custom datasets.",
+        "allow_driving_time": false
     }
 }

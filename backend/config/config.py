@@ -102,6 +102,8 @@ def _load_config(path=None):
 
 
 # TODO: Set global and Sentry log level independently.
+# This file should only contain non serializable entities.
+# And the path to the shared config.
 CONFIG = {
     'config_file': '/app/shared/config.json',
     'measurer_config': {

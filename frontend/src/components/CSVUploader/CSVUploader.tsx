@@ -1,8 +1,7 @@
 import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import './CSVUploader.css'
-
-const { ENV } = process.env
 
 type Props = {
   className?: string,
@@ -22,7 +21,7 @@ export let CSVUploader: React.StatelessComponent<Props> = ({ label, onUpload }) 
         onChange={e => {
           if (e.target.files) {
             const fileSize = e.target.files[0].size / 1024 / 1024 // in MB
-            if (ENV === 'PRD' && fileSize > 15) {
+            if (CONFIG.limit_upload_file_size && fileSize > 15) {
               alert('File size exceeds 15 MB. Please try a smaller file.')
             } else {
               onUpload(e.target.files[0])

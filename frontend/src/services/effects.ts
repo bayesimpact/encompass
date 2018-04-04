@@ -1,6 +1,7 @@
 import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
+import { CONFIG } from '../config/config'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
@@ -10,10 +11,8 @@ import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
-import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
+import { getAdequacies, getCensusData, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
 import { Store } from './store'
-
-const { ENV } = process.env
 
 export function withEffects(store: Store) {
   /**
@@ -22,7 +21,15 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
+
+      if (serviceAreas.length === 0) {
+        store.set('representativePoints')([])
+      }
+
       let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+
+      // Get census information at the service area level.
+      let censusData = await getCensusData({ service_area_ids: serviceAreas })
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -37,7 +44,8 @@ export function withEffects(store: Store) {
         points.map(_ => ({
           ..._,
           population: _.population,
-          serviceAreaId: _.service_area_id
+          serviceAreaId: _.service_area_id,
+          demographics: censusData[_.service_area_id]
         }))
       )
     })
@@ -299,7 +307,7 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(ENV !== 'PRD')
+        store.set('allowDrivingTime')(CONFIG.analysis.allow_driving_time)
         store.set('method')('straight_line')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(true)

@@ -1,5 +1,6 @@
 
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { Store, withStore } from '../../services/store'
 import { ParseError, parseRows } from '../../utils/csv'
 import { normalizeZip } from '../../utils/formatters'
@@ -7,9 +8,6 @@ import { maybeParseFloat } from '../../utils/numbers'
 import { ClearInputsButton } from '../ClearInputsButton/ClearInputsButton'
 import { CSVUploader } from '../CSVUploader/CSVUploader'
 import './Uploader.css'
-
-// const { ENV } = process.env
-let ENV = 'PRD'
 
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
@@ -76,7 +74,7 @@ let parse = parseRows(COLUMNS, ([address, city, state, zip, center_type,
     finalAddress = `${address}, ${city}, ${state} ${normalizeZip(zip!)}`
   }
 
-  if (ENV === 'PRD' && !(latitude && longitude)) {
+  if (!CONFIG.enable_geocoding && !(latitude && longitude)) {
     return new ParseError(rowIndex, 5, COLUMNS[5], `Missing latitude or longitude.`)
   }
 

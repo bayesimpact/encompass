@@ -21,7 +21,7 @@ CENSUS_TABLES = [
     'census_acs_dp_05'
 ]
 
-if config.get('census_data'):
+if config.get('is_census_data_available'):
     CENSUS_FIELDS_BY_CATEGORY = json.load(open(config.get('census_mapping_json')))
 else:
     CENSUS_FIELDS_BY_CATEGORY = {}
@@ -52,7 +52,7 @@ MINIMAL_RP_COLUMNS = [
 @timed
 def fetch_representative_points(
     service_area_ids,
-    census_data,
+    include_census_data,
     engine=connect.create_db_engine()
 ):
     """
@@ -67,7 +67,10 @@ def fetch_representative_points(
         'id_list': tuple(service_area_ids)
     }
 
-    if census_data:
+    # Set census mapping.
+    census_mapping = CENSUS_FIELDS_BY_CATEGORY if include_census_data else {}
+
+    if include_census_data:
         join_list = ' '.join(["""
             LEFT JOIN {table}
             ON (representative_points.census_tract = {table}.census_tract)
@@ -102,7 +105,7 @@ def fetch_representative_points(
         )
 
     return [
-        representative_point.row_to_dict(row, census_mapping=CENSUS_FIELDS_BY_CATEGORY)
+        representative_point.row_to_dict(row, census_mapping=census_mapping)
         for row in engine.execute(select_query, query_params).fetchall()
     ]
 
