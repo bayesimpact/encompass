@@ -6,7 +6,7 @@
   "properties": {
     "method": {
       "description": "Method used to calculate times and distances",
-      "enum": ["driving_time", "haversine"]
+      "enum": ["driving_time", "straight_line"]
     },
     "providers": {
       "type": "array",

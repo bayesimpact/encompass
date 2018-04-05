@@ -10,16 +10,9 @@
             "type": "string"
           },
           "values": {
-            "items": [{
-                "type": "number"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "items": {
+            "type": "number"
+          },
             "type": "array"
           }
         },

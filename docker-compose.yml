@@ -12,7 +12,7 @@ services:
         dockerfile: Dockerfile
       volumes:
         # App files and config
-        - ./backend/config/uwsgi.ini:/app/uwsgi.ini:ro
+        - ./backend/config/uwsgi.ini:/etc/uwsgi/uwsgi.ini:ro
         - ./backend/config/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
         - ./backend/app/main.py:/app/main.py:ro
         # Cache

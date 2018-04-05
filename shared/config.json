@@ -1,6 +1,6 @@
 {
     "enable_geocoding": true,
-    "include_census_data": true,
+    "is_census_data_available": true,
     "_backend": "Configuration used by the backend.",
     "use_address_cache": true,
     "geocoder": "oxcoder",
@@ -77,5 +77,9 @@
     "analysis": {
         "_comment": "Only applies for custom datasets.",
         "allow_driving_time": true
+    },
+    "staticAssets": {
+        "useStaticCsvs": true,
+        "analysisResultsRootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/"
     }
 }

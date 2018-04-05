@@ -2,6 +2,7 @@ import { memoize, kebabCase } from 'lodash'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
+import { PostCensusDataResponse } from '../constants/api/census-data-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
@@ -91,3 +92,13 @@ function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): 
     const methodString = kebabCase(method.toString())
     return `${rootUrl}${datasetString}-${methodString}.json`
 }
+
+//
+// POST /api/census-data-by-service-area/
+//
+
+export let getCensusData = memoize(
+  (params: PostRepresentativePointsRequest) =>
+    POST('/api/census-data-by-service-area/')<PostCensusDataResponse>(params),
+  (params: PostRepresentativePointsRequest) => params.service_area_ids.join(',')
+)

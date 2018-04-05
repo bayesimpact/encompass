@@ -6,7 +6,7 @@
 
 export type Bucket = {
   name: string
-  values: [number, number, number]
+  values: number[]
 }[]
 /**
  * Response shape for POST /api/representative_points/

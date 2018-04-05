@@ -38,7 +38,7 @@ class TestRepresentativePointsRequest(LiveServerTestCase):
 
         mock_fetch.return_value = fetch_representative_points(
             service_area_ids=request_service_areas['service_area_ids'],
-            census_data=False,
+            include_census_data=False,
             engine=engine
         )
 
