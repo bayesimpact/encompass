@@ -79,6 +79,7 @@
         "allow_driving_time": true
     },
     "staticAssets": {
+        "useStaticCsvs": true,
         "analysisResultsRootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/"
     }
 }

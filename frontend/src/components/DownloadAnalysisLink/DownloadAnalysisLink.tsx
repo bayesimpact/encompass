@@ -16,7 +16,7 @@ import { getLegend } from '../MapLegend/MapLegend'
 
 import './DownloadAnalysisLink.css'
 
-const useStaticCsvs: boolean = process.env.ENV === 'PRD'
+const useStaticCsvs: boolean = CONFIG.staticAssets.useStaticCsvs
 const staticCsvRootUrl: string = CONFIG.staticAssets.analysisResultsRootUrl
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>

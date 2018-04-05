@@ -41,7 +41,8 @@ export type Config = {
     [key: string]: boolean
   }
   staticAssets: {
-    [key: string]: string
+    useStaticCsvs: boolean,
+    analysisResultsRootUrl: string
   }
 }
 
