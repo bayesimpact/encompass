@@ -11,14 +11,10 @@ import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
-<<<<<<< HEAD
 import {
     getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
     postGeocode
 } from './api'
-=======
-import { getAdequacies, getCensusData, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
->>>>>>> 5bf2d3551c9e6121c56b1a75190aa5456018ce69
 import { Store } from './store'
 
 export function withEffects(store: Store) {
