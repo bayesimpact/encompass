@@ -49,50 +49,57 @@ function onClick(store: Store) {
       window.open(staticCsvUrl)
     }
   } else { // Otherwise, generate the CSV.
-    let censusCategories = Object.keys(CENSUS_MAPPING).sort()
-    return () => {
-      let headers = [
-        'county',
-        'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
-        'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_1)),
-        'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_2)),
-        'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
-        'min_' + method,
-        'avg_' + method,
-        'max_' + method
-      ]
+    buildCsvFromData(method, store)
+  }
+}
 
-      headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
+/**
+ * Build an analysis CSV for download from the census data.
+ */
+function buildCsvFromData(method: Method, store: Store) {
+  let censusCategories = Object.keys(CENSUS_MAPPING).sort()
+  return () => {
+    let headers = [
+      'county',
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_1)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_2)),
+      'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
+      'min_' + method,
+      'avg_' + method,
+      'max_' + method
+    ]
 
-      let serviceAreas = store.get('serviceAreas')
-      if (serviceAreas.length > 100) {
-        alert('There are many service areas in this state! Preparing the file may take a minute or two...')
-      }
-      let data = serviceAreas.map(_ => {
-        let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
-        let adequacies = adequaciesFromServiceArea([_], store)
-        let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
-        let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
-        if (specialty == null) {
-          specialty = '-'
-        }
-        let dataRow = [
-          representativePoint.county,
-          populationByAnalytics[0],
-          populationByAnalytics[1],
-          populationByAnalytics[2],
-          populationByAnalytics[3],
-          minMeasure(adequacies),
-          averageMeasure(adequacies),
-          maxMeasure(adequacies)
-        ]
-        dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
-        return dataRow
-      })
-      let csv = generateCSV(headers, data)
-      // Sample filename: encompass-analysis-haversine-2018-03-06.csv
-      download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
+    headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
+
+    let serviceAreas = store.get('serviceAreas')
+    if (serviceAreas.length > 100) {
+      alert('There are many service areas in this state! Preparing the file may take a minute or two...')
     }
+    let data = serviceAreas.map(_ => {
+      let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
+      let adequacies = adequaciesFromServiceArea([_], store)
+      let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
+      let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
+      if (specialty == null) {
+        specialty = '-'
+      }
+      let dataRow = [
+        representativePoint.county,
+        populationByAnalytics[0],
+        populationByAnalytics[1],
+        populationByAnalytics[2],
+        populationByAnalytics[3],
+        minMeasure(adequacies),
+        averageMeasure(adequacies),
+        maxMeasure(adequacies)
+      ]
+      dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
+      return dataRow
+    })
+    let csv = generateCSV(headers, data)
+    // Sample filename: encompass-analysis-haversine-2018-03-06.csv
+    download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
   }
 }
 
