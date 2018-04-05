@@ -29,7 +29,7 @@ export function withEffects(store: Store) {
       let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
 
       // Get census information at the service area level.
-      let censusData = await getCensusData({ service_area_ids: serviceAreas })
+      let censusData = CONFIG.is_census_data_available ? await getCensusData({ service_area_ids: serviceAreas }) : {}
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,

@@ -1,5 +1,6 @@
 
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { FilterMethod } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { CensusCategorySelector } from './CensusCategorySelector'
@@ -13,14 +14,14 @@ import { ServiceAreaSelector } from './ServiceAreaSelector'
 export let SelectorBlock = withStore()(({ store }) => {
     return (
         <div className='Selectors'>
-            <div className='SelectorRow'>
+            {CONFIG.is_census_data_available ? <div className='SelectorRow'>
                 <h4 className='HeavyWeight Muted'>Demographic</h4>
                 <CensusCategorySelector
                     className='Menu'
                     onChange={store.set('selectedCensusCategory')}
                     value={store.get('selectedCensusCategory')}
                 />
-            </div>
+            </div > : null}
             <div className='SelectorRow'>
                 <h4 className='HeavyWeight Muted'>Filter By</h4>
                 <FilterMethodSelector

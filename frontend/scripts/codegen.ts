@@ -115,6 +115,7 @@ function genCensusMapping(object: object) {
 * This file was automatically generated.
 * DO NOT MODIFY IT BY HAND. Instead, run "yarn codegen" to regenerate it.
 */
+import { CONFIG } from '../config/config'
 
 type censusMapping = {
   [category: string]: string[]
@@ -122,7 +123,11 @@ type censusMapping = {
 
 export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
-export const CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
+export let CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
+
+if (!CONFIG.is_census_data_available) {
+  CENSUS_MAPPING = { unvailable: [] }
+}
 `
 }
 
