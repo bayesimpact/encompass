@@ -13,7 +13,7 @@ import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 <<<<<<< HEAD
 import {
-    getStaticAdequacies, getStaticRPs, isPostGeocodeSuccessResponse,
+    getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
     postGeocode
 } from './api'
 =======
@@ -28,11 +28,13 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
-      // let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
-      const points = await getStaticRPs(store.get('selectedDataset'))
+      const selectedDataset = store.get('selectedDataset')
+
+      // Get represenative points.
+      const points = await getStaticRPs(selectedDataset)
 
       // Get census information at the service area level.
-      let censusData = await getCensusData({ service_area_ids: serviceAreas })
+      const censusData = await getStaticDemographics(selectedDataset)
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,

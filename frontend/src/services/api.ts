@@ -74,8 +74,14 @@ export async function getStaticAdequacies(selectedDataset: Dataset | null, metho
     return <PostAdequaciesResponse> body
 }
 
+export async function getStaticDemographics(selectedDataset: Dataset | null){
+    const res = await fetch(getStaticDemographicsUrl(selectedDataset))
+    const body = await res.json()
+    return <PostCensusDataResponse> body
+}
+
 function getStaticRPUrl(selectedDataset: Dataset | null): string {
-    const rootUrl = 'https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-points/'
+    const rootUrl = CONFIG.staticAssets.representativePoints.rootUrl
     if (!selectedDataset){
         throw new Error('No dataset selected.')
     }
@@ -84,13 +90,22 @@ function getStaticRPUrl(selectedDataset: Dataset | null): string {
 }
 
 function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
-    const rootUrl = 'https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-adequacies/'
+    const rootUrl = CONFIG.staticAssets.adequacies.rootUrl
     if (!selectedDataset){
         throw new Error('No dataset selected.')
     }
     const datasetString = kebabCase(selectedDataset.name)
     const methodString = kebabCase(method.toString())
     return `${rootUrl}${datasetString}-${methodString}.json`
+}
+
+function getStaticDemographicsUrl(selectedDataset: Dataset | null){
+    const rootUrl = CONFIG.staticAssets.demographics.rootUrl
+    if (!selectedDataset){
+        throw new Error('No dataset selected.')
+    }
+    const datasetString = kebabCase(selectedDataset.name)
+    return `${rootUrl}${datasetString}.json`
 }
 
 //

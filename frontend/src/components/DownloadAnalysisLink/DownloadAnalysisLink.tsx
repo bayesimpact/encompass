@@ -16,8 +16,8 @@ import { getLegend } from '../MapLegend/MapLegend'
 
 import './DownloadAnalysisLink.css'
 
-const useStaticCsvs: boolean = CONFIG.staticAssets.useStaticCsvs
-const staticCsvRootUrl: string = CONFIG.staticAssets.analysisResultsRootUrl
+const useStaticCsvs: boolean = CONFIG.staticAssets.csv.useStaticCsvs
+const staticCsvRootUrl: string = CONFIG.staticAssets.csv.analysisResultsRootUrl
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
