@@ -82,7 +82,7 @@
   "income": {
     "census_acs_dp_03.hc03_vc75 + census_acs_dp_03.hc03_vc76": {
       "joined_column_name": "lte_14999",
-      "human_readable_name": "< $15k"
+      "human_readable_name": "$0 - $15k"
     },
     "census_acs_dp_03.hc03_vc77 + census_acs_dp_03.hc03_vc78 + census_acs_dp_03.hc03_vc79": {
       "joined_column_name": "_15000_to_49999",
@@ -102,7 +102,7 @@
     },
     "census_acs_dp_03.hc03_vc84": {
       "joined_column_name": "gte_200000",
-      "human_readable_name": "> $200k"
+      "human_readable_name": "$200k+"
     }
   }
 }

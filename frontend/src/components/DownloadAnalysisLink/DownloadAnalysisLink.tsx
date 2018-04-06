@@ -1,10 +1,11 @@
-import { flattenDeep } from 'lodash'
+import { flattenDeep, kebabCase } from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
+import { CONFIG } from '../../config/config'
 import { CENSUS_MAPPING } from '../../constants/census'
-import { AdequacyMode, Method } from '../../constants/datatypes'
+import { AdequacyMode, Dataset, Method } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
@@ -14,6 +15,9 @@ import { snakeCase } from '../../utils/string'
 import { getLegend } from '../MapLegend/MapLegend'
 
 import './DownloadAnalysisLink.css'
+
+const useStaticCsvs: boolean = CONFIG.staticAssets.useStaticCsvs
+const staticCsvRootUrl: string = CONFIG.staticAssets.analysisResultsRootUrl
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
@@ -28,15 +32,33 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
 DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
 function onClick(store: Store) {
-  let method = store.get('method')
+  // Get which dataset/method to produce CSV for.
+  const method = store.get('method')
   const selectedDataset = store.get('selectedDataset')
+
+  // Send GA event.
+  ReactGA.event({
+    category: 'Analysis',
+    action: 'Downloaded analysis results',
+    label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
+  })
+
+  if (useStaticCsvs){ // If in production, use the cached static CSVs.
+    return () => {
+      const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
+      window.open(staticCsvUrl)
+    }
+  } else { // Otherwise, generate the CSV.
+    buildCsvFromData(method, store)
+  }
+}
+
+/**
+ * Build an analysis CSV for download from the census data.
+ */
+function buildCsvFromData(method: Method, store: Store) {
   let censusCategories = Object.keys(CENSUS_MAPPING).sort()
   return () => {
-    ReactGA.event({
-      category: 'Analysis',
-      action: 'Downloaded analysis results',
-      label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
-    })
     let headers = [
       'county',
       'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
@@ -79,6 +101,18 @@ function onClick(store: Store) {
     // Sample filename: encompass-analysis-haversine-2018-03-06.csv
     download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
   }
+}
+
+/**
+ * Build URL for static CSV for selected dataset and adequacy measure.
+ */
+function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
+  if (!selectedDataset){
+    return
+  }
+  const datasetString = kebabCase(selectedDataset.name)
+  const methodString = kebabCase(method.toString())
+  return `${staticCsvRootUrl}${datasetString}-${methodString}.csv`
 }
 
 function getHeadersForCensusCategories(method: Method, censusCategories: string[]) {
