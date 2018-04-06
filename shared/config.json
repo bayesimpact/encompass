@@ -76,6 +76,9 @@
     },
     "analysis": {
         "_comment": "Only applies for custom datasets.",
-        "allow_driving_time": false
+        "allow_driving_time": false,
+    "staticAssets": {
+        "useStaticCsvs": true,
+        "analysisResultsRootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/"
     }
 }

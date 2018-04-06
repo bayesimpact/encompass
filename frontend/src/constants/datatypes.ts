@@ -40,6 +40,10 @@ export type Config = {
   dataset: {
     [key: string]: boolean
   }
+  staticAssets: {
+    useStaticCsvs: boolean,
+    analysisResultsRootUrl: string
+  }
 }
 
 export type CountyType = 'All' | 'Rural' | 'Urban'
