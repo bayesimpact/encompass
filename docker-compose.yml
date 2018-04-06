@@ -51,30 +51,30 @@ services:
         - .env
 
     osrm:
-        build:
-          context: ./osrm
-          dockerfile: Dockerfile
-        image: osrm
-        volumes:
-          - ./data/:/opt/data/:rw
-          - ./osrm:/osrm/:ro
-        command: sh -c "/osrm/initialize.py"
-        ports:
-          - 80:5000
+      build:
+        context: ./osrm
+        dockerfile: Dockerfile
+      image: osrm
+      volumes:
+        - ./data/:/opt/data/:rw
+        - ./osrm:/osrm/:ro
+      command: sh -c "/osrm/initialize.py"
+      ports:
+        - 80:5000
 
     explorer:
-        build:
-          context: .
-          dockerfile: ./explorer/Dockerfile
-        volumes:
-          - ./backend:/usr/local/lib/python3.6/site-packages/backend:ro
-          - ./explorer:/home/jovyan/work:rw
-          - ./data/:/home/jovyan/work/data/:rw
-
-        command: bash -c "start-notebook.sh --NotebookApp.token=''"
-        env_file:
-          - .env
-        ports:
-          - 8888:8888
-        environment:
-          - PYTHONPATH=/home/jovyan/work
+      build:
+        context: .
+        dockerfile: ./explorer/Dockerfile
+      volumes:
+        - ./backend:/home/jovyan/work/backend:ro
+        - ./shared:/app/shared:ro
+        - ./explorer:/home/jovyan/work:rw
+        - ./data/:/home/jovyan/work/data/:rw
+      env_file:
+        - .env
+      command: bash -c "start-notebook.sh --NotebookApp.token=''"
+      ports:
+        - 8888:8888
+      environment:
+        - PYTHONPATH=/home/jovyan/work
