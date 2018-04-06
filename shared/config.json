@@ -81,16 +81,16 @@
     "staticAssets": {
         "csv": {
             "useStaticCsvs": true,
-            "analysisResultsRootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/"
+            "analysisResultsRootUrl": "https://d3qtklqrtque1g.cloudfront.net/results-csv/"
         },
         "representativePoints": {
-            "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-points/"
+            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-points/"
         },
         "adequacies": {
-            "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-adequacies/"
+            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-adequacies/"
         },
         "demographics": {
-            "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/basic-demographics/"
+            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-demographics/"
         }
     }
 }
