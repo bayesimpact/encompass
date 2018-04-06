@@ -35,12 +35,12 @@ export let CENSUS_MAPPING: censusMapping = {
     'No Health Insurance'
   ],
   income: [
-    '< $15k',
+    '$0 - $15k',
     '$15k - $50k',
     '$50k - $100k',
     '$100k - $150k',
     '$150k - $200k',
-    '> $200k'
+    '$200k+'
   ]
 }
 
