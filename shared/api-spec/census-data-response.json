@@ -1,0 +1,21 @@
+{
+  "title": "PostCensusDataResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response shape for POST /api/census-data-by-service-area/",
+  "definitions": {
+    "census_category_info": {
+        "items": {
+          "type": "object",
+          "additionalProperties": {"type" : "number"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": {
+    "items": {
+    "type": "object",
+    "additionalProperties": {
+      "$ref": "#/definitions/census_category_info"
+    }
+  }}
+}

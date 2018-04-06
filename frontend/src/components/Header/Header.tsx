@@ -3,12 +3,13 @@ import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { withStore } from '../../services/store'
 import { SecureLink } from '../../utils/link'
 import { AboutDialog } from '../AboutDialog/AboutDialog'
 import './Header.css'
 
-let title = 'Encompass' + (process.env.ENV !== 'PRD' ? ' - ' + process.env.ENV : '')
+let title = 'Encompass' + CONFIG.title_suffix
 
 export let Header = withStore('isAboutDialogOpen')(({ store }) =>
   < AppBar

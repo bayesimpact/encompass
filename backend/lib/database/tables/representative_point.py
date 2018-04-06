@@ -70,7 +70,7 @@ def row_to_dict(rp_row, census_mapping={}):
       demographics?: {'age': {'under_5': 2.0}},
     }
     """
-    return {
+    rp_dict = {
         'id': rp_row['id'],
         'census_tract': rp_row['census_tract'],
         'county': rp_row['county'],
@@ -78,9 +78,12 @@ def row_to_dict(rp_row, census_mapping={}):
         'lng': rp_row['longitude'],
         'population': rp_row['population'],
         'service_area_id': rp_row['service_area_id'],
-        'zip': rp_row['zip_code'],
-        'demographics': prepare_demographics_dict_from_row(
+        'zip': rp_row['zip_code']
+    }
+    # TODO - Find a nicer way to handle this case.
+    if census_mapping:
+        rp_dict['demographics'] = prepare_demographics_dict_from_row(
             row_dict=rp_row,
             census_mapping=census_mapping
         )
-    }
+    return rp_dict

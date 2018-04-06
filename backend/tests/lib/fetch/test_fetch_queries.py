@@ -1,6 +1,8 @@
 """Test fetch queries."""
 from backend.lib.database.postgres import connect
-from backend.lib.fetch import providers, representative_points
+from backend.lib.fetch import census, providers, representative_points
+
+import mock
 
 engine = connect.create_db_engine()
 
@@ -13,7 +15,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) > 1000
 
@@ -22,7 +24,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['ca_los_angeles_county_00000', 'ca_los_angeles_county_00000']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) > 1000
 
@@ -31,7 +33,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = []
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) == 0
 
@@ -40,7 +42,7 @@ class TestFetchRepresentativePoints():
         """Test fetch_representative_points."""
         service_areas = ['not_valid']
         results = representative_points.fetch_representative_points(
-            service_areas, census_data=False, engine=engine
+            service_areas, include_census_data=False, engine=engine
         )
         assert len(results) == 0
 
@@ -114,3 +116,70 @@ class TestFetchServiceAreas():
         """Test fetch_all_service_areas."""
         results = representative_points.fetch_all_service_areas(engine=engine)
         assert len(results) > 0
+
+
+class TestFetchCensus(object):
+    """Test fetching of census data for service areas."""
+
+    def setup(self):
+        """Initialize a mock representative point dictionary with census data."""
+        self.mock_point = {
+            'id': 17323,
+            'service_area_id': 'ca_los_angeles_county_00000',
+            'lat': 74.38732,
+            'lng': -122.323331,
+            'county': 'Los Angeles',
+            'population': 2000,
+            'zip': '94105',
+            'census_tract': 304,
+            'demographics': {
+                'age': {
+                    '0-18 Years': 24.0,
+                    '19-25 Years': 9.0,
+                    '26-34 Years': 14.0,
+                    '35-54 Years': 30.0,
+                    '55-64 Years': 10.0,
+                    '65+ Years': 10.0
+                },
+                'income': {
+                    '$100k - $150k': 17.0,
+                    '$150k - $200k': 9.0,
+                    '$15k - $50k': 24.0,
+                    '$50k - $100k': 26.0,
+                    '< $15k': 8.0,
+                    '> $200k': 13.0
+                },
+                'insurance': {
+                    'No Health Insurance': 8.0,
+                    'Private Health Insurance': 71.0,
+                    'Public Health Insurance': 29.0
+                },
+                'race': {
+                    'American Indian & Alaska Native': 0.0,
+                    'Asian': 28.0,
+                    'Black': 11.0,
+                    'Hispanic or Latino (any race)': 22.0,
+                    'Multiracial or Other': 4.0,
+                    'Native Hawaiian & other Pacific Islander': 0.0,
+                    'White': 31.0
+                },
+                'sex': {
+                    'Female': 51.0, 'Male': 48.0
+                }
+            }
+        }
+
+    @mock.patch('backend.lib.fetch.representative_points.fetch_representative_points')
+    def test_fetch_census_info_by_service_area(self, mock_fetch_rps):
+        """Test fetch_census_info_by_service_area."""
+        mock_fetch_rps.return_value = [self.mock_point] * 10
+        output = census.fetch_census_info_by_service_area(['ca_los_angeles_county_00000'], engine)
+        assert output['ca_los_angeles_county_00000'] == self.mock_point['demographics']
+
+    @staticmethod
+    @mock.patch('backend.lib.fetch.representative_points.fetch_representative_points')
+    def test_fetch_census_info_by_service_area_missing_service_area(mock_fetch_rps):
+        """Test fetch_census_info_by_service_area for a non-existent service area."""
+        mock_fetch_rps.return_value = []
+        output = census.fetch_census_info_by_service_area(['i_am_not_a_valid_service_area'], engine)
+        assert output == {}
