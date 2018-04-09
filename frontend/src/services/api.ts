@@ -6,7 +6,8 @@ import { PostCensusDataResponse } from '../constants/api/census-data-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
-import { PostRepresentativePointsResponse, StaticRepresentativePointsResponse } from '../constants/api/representative-points-response'
+import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
+import { StaticRepresentativePointsResponse } from '../constants/api/static-representative-points-response'
 import {Dataset, Method} from "../constants/datatypes";
 
 const API_ROOT = CONFIG.api.backend_root

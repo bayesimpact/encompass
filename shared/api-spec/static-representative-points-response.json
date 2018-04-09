@@ -1,0 +1,34 @@
+{
+  "title": "StaticRepresentativePointsResponse",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Dummy 'response' shape for static representative points",
+  "type": "array",
+  "items": {
+    "properties": {
+      "county": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "lat": {
+        "type": "number"
+      },
+      "lng": {
+        "type": "number"
+      },
+      "population": {
+        "type": "integer"
+      },
+      "service_area_id": {
+        "type": "string"
+      },
+      "zip": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": ["census_tract", "county", "id", "lat", "lng", "population", "service_area_id", "zip"]
+  },
+  "additionalProperties": false
+}

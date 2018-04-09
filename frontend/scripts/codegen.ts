@@ -78,6 +78,7 @@ async function codegenAPITypes() {
   await mkdir('src/constants/api/')
   console.info('  Created folder src/constants/api/')
 
+  // TODO compile from schema for every file in this subdir, without explicitly listing here.
   await Promise.all([
     compileJSONSchema('adequacies-request'),
     compileJSONSchema('adequacies-response'),
@@ -86,7 +87,8 @@ async function codegenAPITypes() {
     compileJSONSchema('geocode-request'),
     compileJSONSchema('geocode-response'),
     compileJSONSchema('representative-points-request'),
-    compileJSONSchema('representative-points-response')
+    compileJSONSchema('representative-points-response'),
+    compileJSONSchema('static-representative-points-response')
   ])
   console.info('  Compiled 7 JSON-Schemas to src/constants/api')
 }
