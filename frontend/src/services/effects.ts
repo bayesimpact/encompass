@@ -12,7 +12,7 @@ import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import {
-    getAdequacies, getRepresentativePoints,
+    getAdequacies, getCensusData, getRepresentativePoints,
     getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
     postGeocode
 } from './api'
@@ -21,7 +21,7 @@ import { Store } from './store'
 /**
  * Determine whether or not to use the static behaviours or the dynamic ones.
  */
-const appIsStatic = CONFIG.staticAssets.isAppStatic
+const appIsStatic = CONFIG.staticAssets.appIsStatic
 
 export function withEffects(store: Store) {
   /**
@@ -120,12 +120,12 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  // function safeDatasetHint(dataset: Dataset | null) {
-  //   if (dataset === null) {
-  //     return ''
-  //   }
-  //   return dataset['hint']
-  // }
+  function safeDatasetHint(dataset: Dataset | null) {
+    if (dataset === null) {
+      return ''
+    }
+    return dataset['hint']
+  }
 
   /**
    * Fetch adequacies when providers, representative points, or method change
