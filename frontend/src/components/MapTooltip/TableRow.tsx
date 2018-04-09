@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { capitalizeWords } from '../../utils/string'
 
 type Props = {
   name: string
@@ -6,11 +7,11 @@ type Props = {
 }
 
 export let TableRow: React.StatelessComponent<Props> = ({ name, value }) => {
-  if (value === null || value === undefined) {
+  if (!value) {
     return null
   }
   return <tr>
-    <td>{name}</td>
+    <td>{capitalizeWords(name)}</td>
     <td>{value}</td>
   </tr>
 }

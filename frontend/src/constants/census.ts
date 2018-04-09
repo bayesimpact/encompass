@@ -2,6 +2,7 @@
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND. Instead, run "yarn codegen" to regenerate it.
  */
+import { CONFIG } from '../config/config'
 
 type censusMapping = {
   [category: string]: string[]
@@ -9,7 +10,7 @@ type censusMapping = {
 
 export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
-export const CENSUS_MAPPING: censusMapping = {
+export let CENSUS_MAPPING: censusMapping = {
   age: [
     '0-18 years',
     '19-25 years',
@@ -34,11 +35,15 @@ export const CENSUS_MAPPING: censusMapping = {
     'No Health Insurance'
   ],
   income: [
-    '< $15k',
+    '$0 - $15k',
     '$15k - $50k',
     '$50k - $100k',
     '$100k - $150k',
     '$150k - $200k',
-    '> $200k'
+    '$200k+'
   ]
+}
+
+if (!CONFIG.is_census_data_available) {
+  CENSUS_MAPPING = { unvailable: [] }
 }

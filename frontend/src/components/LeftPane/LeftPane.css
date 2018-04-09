@@ -1,12 +1,5 @@
 @import "../../index.css";
 
-.LeftPane {
-  position: fixed;
-    bottom: 0;
-    left: 0;
-    top: 64px;
-  width: calc(var(--leftpane-width) + 30px); /* leftpane-width + room for box shadow */
-}
 
 .LeftPane hr {
   margin: 0 -20px;
@@ -16,24 +9,22 @@
   line-height: 68px;
 }
 
-.LeftPaneContent {
-  overflow: hidden;
+.LeftPane {
+  overflow: visible;
+  width: calc(var(--leftpane-width)) !important;
+  min-width: var(--min-leftpane-width) !important;
   position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    top: 0;
+    top: 64px !important;
 }
 
 /* silly inline styles... */
-.LeftPaneContent > div {
+.LeftPane > div {
   padding: 20px;
   position: absolute !important;
-}
-
-.LeftPane .DownloadAnalysisLink {
-  position: absolute !important; /* override material-ui inline style */
-    right: 20px;
+  width: calc(100%-40px) !important;
 }
 
 .LeftPane .DownloadDatasetLink {

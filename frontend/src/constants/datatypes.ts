@@ -27,10 +27,11 @@ export type CensusGroup = {
 }
 
 export type Config = {
+  enable_geocoding: boolean
+  is_census_data_available: boolean
+  limit_upload_file_size: boolean
   show_about_dialog_on_start: boolean
   title_suffix: string
-  enable_geocoding: boolean
-  limit_upload_file_size: boolean
   api: {
     [key: string]: string | boolean
   }
@@ -41,6 +42,7 @@ export type Config = {
     [key: string]: boolean
   }
   staticAssets: {
+    appIsStatic: boolean,
     csv: {
       useStaticCsvs: boolean,
       analysisResultsRootUrl: string
@@ -85,13 +87,7 @@ export type PopulationByAdequacy = number[]
 
 export type Provider = {
   address: string
-  lat?: number
-  lng?: number
-  languages: string[]
-  npi?: string
-  name?: string
-  specialty?: string
-  center_type?: string
+  [K: string]: number | string | string[] | undefined
 }
 
 export type GeocodedProvider = Provider & {
@@ -115,6 +111,7 @@ export type RepresentativePoint = {
   demographics?: any
   serviceAreaId: string
   zip: string
+  // [K: string]: number | string | string[]
 }
 
 export type FilterMethod = 'All' | 'County Name' | 'County Type'

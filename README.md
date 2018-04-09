@@ -13,6 +13,8 @@ This is an open-source project. We invite researchers, developers and the public
 
 __[Launch Encompass](https://encompass.bayesimpact.org)__
 
+![alt text](data/images/encompass_texas.png)
+
 ## Data and Resources
 Encompass is an open-source project, and is built entirely on open source platforms and datasets. By committing to an open-source philosophy, we want to demonstrate how technology can empower stakeholders to create more equitable solutions.
 
@@ -27,4 +29,4 @@ __Demographics__: Encompass uses the 2012-2016 [American Community Survey (ACS) 
 ## How to contribute
 __Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@bayesimpact.org](mailto:encmpass@bayesimpact.org).
 
-__Developers__: We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
+__Developers__: We want to invite the developer community to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
