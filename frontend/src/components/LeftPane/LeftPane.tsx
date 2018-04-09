@@ -14,7 +14,7 @@ let drawers = {
 }
 
 export let LeftPane = withStore('route')(({ store }) =>
-  <React.Fragment>
+  <>
     {map(drawers, (Component, route) =>
       <Drawer
         className='LeftPane'
@@ -22,9 +22,9 @@ export let LeftPane = withStore('route')(({ store }) =>
         key={route}
         open={route === store.get('route')}
       >
-        <Component/>
+        <Component />
       </Drawer>
     )}
-  </React.Fragment>
+  </>
 )
 LeftPane.displayName = 'LeftPane'
