@@ -8,7 +8,7 @@ import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-re
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 import { StaticRepresentativePointsResponse } from '../constants/api/static-representative-points-response'
-import {Dataset, Method} from "../constants/datatypes";
+import { Dataset, Method } from "../constants/datatypes";
 
 const API_ROOT = CONFIG.api.backend_root
 
