@@ -9,8 +9,8 @@
   line-height: 68px;
 }
 
-.LeftPaneContent {
-  overflow: hidden;
+.LeftPane {
+  overflow: visible;
   width: calc(var(--leftpane-width)) !important;
   min-width: var(--min-leftpane-width) !important;
   position: absolute;
@@ -21,7 +21,7 @@
 }
 
 /* silly inline styles... */
-.LeftPaneContent > * {
+.LeftPane > div {
   padding: 20px;
   position: absolute !important;
   width: calc(100%-40px) !important;

@@ -16,8 +16,13 @@ let drawers = {
 export let LeftPane = withStore('route')(({ store }) =>
   <React.Fragment>
     {map(drawers, (Component, route) =>
-      <Drawer className='LeftPaneContent' elevation={100} key={route} open={route === store.get('route')}>
-        <Component />
+      <Drawer
+        className='LeftPane'
+        elevation={6}
+        key={route}
+        open={route === store.get('route')}
+      >
+        <Component/>
       </Drawer>
     )}
   </React.Fragment>
