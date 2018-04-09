@@ -20,6 +20,13 @@ export function formatCoordinate(n: number) {
 }
 
 /**
+ * Formats coordinates for display in the UI.
+ */
+export function formatGMapsCoordinates(lat: number, lng: number) {
+  return 'https://www.google.com/maps/?q=' + lat + ',' + lng
+}
+
+/**
  * Formats numbers for display in the UI.
  */
 export function formatNumber(n: number) {

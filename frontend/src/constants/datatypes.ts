@@ -75,13 +75,7 @@ export type PopulationByAdequacy = number[]
 
 export type Provider = {
   address: string
-  lat?: number
-  lng?: number
-  languages: string[]
-  npi?: string
-  name?: string
-  specialty?: string
-  center_type?: string
+  [K: string]: number | string | string[] | undefined
 }
 
 export type GeocodedProvider = Provider & {
@@ -105,6 +99,7 @@ export type RepresentativePoint = {
   demographics?: any
   serviceAreaId: string
   zip: string
+  // [K: string]: number | string | string[]
 }
 
 export type FilterMethod = 'All' | 'County Name' | 'County Type'

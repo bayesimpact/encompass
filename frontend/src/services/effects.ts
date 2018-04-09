@@ -273,7 +273,7 @@ export function withEffects(store: Store) {
       } else {
         let chunkSize = Math.floor(representativePoints.length / 10)
         store.set('pointFeatureCollections')(
-          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies)(rpChunk))
+          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies, store.get('method'))(rpChunk))
         )
       }
     })
