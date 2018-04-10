@@ -81,31 +81,34 @@ export async function getStaticDemographics(selectedDataset: Dataset | null){
 }
 
 function getStaticRPUrl(selectedDataset: Dataset | null): string {
-    const rootUrl = CONFIG.staticAssets.representativePoints.rootUrl
+    const rootUrl = CONFIG.staticAssets.rootUrl
+    const path = CONFIG.staticAssets.representativePoints.path
     if (!selectedDataset){
         throw new Error('No dataset selected.')
     }
     const datasetString = kebabCase(selectedDataset.name)
-    return `${rootUrl}${datasetString}.json`
+    return `${rootUrl}${path}${datasetString}.json`
 }
 
 function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
-    const rootUrl = CONFIG.staticAssets.adequacies.rootUrl
+    const rootUrl = CONFIG.staticAssets.rootUrl
+    const path = CONFIG.staticAssets.adequacies.path
     if (!selectedDataset){
         throw new Error('No dataset selected.')
     }
     const datasetString = kebabCase(selectedDataset.name)
     const methodString = kebabCase(method.toString())
-    return `${rootUrl}${datasetString}-${methodString}.json`
+    return `${rootUrl}${path}${datasetString}-${methodString}.json`
 }
 
 function getStaticDemographicsUrl(selectedDataset: Dataset | null){
-    const rootUrl = CONFIG.staticAssets.demographics.rootUrl
+    const rootUrl = CONFIG.staticAssets.rootUrl
+    const path = CONFIG.staticAssets.demographics.path
     if (!selectedDataset){
         throw new Error('No dataset selected.')
     }
     const datasetString = kebabCase(selectedDataset.name)
-    return `${rootUrl}${datasetString}.json`
+    return `${rootUrl}${path}${datasetString}.json`
 }
 
 //

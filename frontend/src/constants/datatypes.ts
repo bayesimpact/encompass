@@ -43,18 +43,19 @@ export type Config = {
   }
   staticAssets: {
     appIsStatic: boolean,
+    rootUrl: string
     csv: {
-      useStaticCsvs: boolean,
-      analysisResultsRootUrl: string
+        useStaticCsvs: boolean,
+        path: string
     }
     representativePoints: {
-      rootUrl: string
+      path: string
     }
     adequacies: {
-      rootUrl: string
+      path: string
     }
     demographics: {
-      rootUrl: string
+      path: string
     }
   }
 }

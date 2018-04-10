@@ -79,19 +79,20 @@
         "allow_driving_time": true
     },
     "staticAssets": {
-        "appIsStatic": false,
+        "appIsStatic": true,
+        "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
         "csv": {
             "useStaticCsvs": true,
-            "analysisResultsRootUrl": "https://d3qtklqrtque1g.cloudfront.net/results-csv/"
+            "path": "results-csv/"
         },
         "representativePoints": {
-            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-points/"
+            "path": "basic-points/"
         },
         "adequacies": {
-            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-adequacies/"
+            "path": "basic-adequacies/"
         },
         "demographics": {
-            "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/basic-demographics/"
+            "path": "basic-demographics/"
         }
     }
 }
