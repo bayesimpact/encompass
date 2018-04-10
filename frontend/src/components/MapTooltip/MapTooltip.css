@@ -22,6 +22,10 @@
   padding: 0 10px;
 }
 
+.MapTooltip a {
+  color: var(--text);
+}
+
 .MapTooltip tr :first-child {
   font-weight: var(--heavy-weight);
 }

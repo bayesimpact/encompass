@@ -9,7 +9,7 @@ import { Store, withStore } from '../../services/store'
 import './MapTooltip.css'
 import { TableRow } from './TableRow'
 
-const providerPointTooltipExclusion: string[] = []
+const providerPointTooltipExclusion: string[] = ['lat', 'lng']
 const representativePointTooltipExclusion: string[] = ['adequacyMode', 'demographics', 'zip', 'service_area_id']
 
 type MapTooltipProps = {

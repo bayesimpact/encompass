@@ -1,6 +1,7 @@
 import * as extent from 'esri-extent'
 import { pickBy } from 'lodash'
 import { Adequacies, GeocodedProvider, Method, RepresentativePoint } from '../constants/datatypes'
+import { formatGMapsCoordinates } from '../utils/formatters'
 
 /** TODO: Memoize */
 export let providersToGeoJSON = toGeoJSON(providerToFeature)
@@ -22,6 +23,7 @@ function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) 
 function providerToFeature(
   point: GeocodedProvider
 ): GeoJSON.Feature<GeoJSON.Point> {
+  point['googleMaps'] = formatGMapsCoordinates(point.lat, point.lng)
   return {
     type: 'Feature',
     properties: pickBy(point), // Delete empty properties.
@@ -40,7 +42,8 @@ export function representativePointToFeature(adequacies: Adequacies, method: Met
       county: point.county,
       adequacyMode: adequacyModeToString(adequacies, point.id),
       closestProviderDistance: toClosestProviderToString(adequacies, method, point.id),
-      population: Math.round(point.population)
+      population: Math.round(point.population),
+      googleMaps: formatGMapsCoordinates(point.lat, point.lng)
     },
     geometry: {
       type: 'Point',
