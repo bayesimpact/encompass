@@ -11,10 +11,10 @@ export let TableRow: React.StatelessComponent<Props> = ({ name, value }) => {
   if (!value) {
     return null
   }
-  if (value.toString().includes('http')) {
+  if (value.toString().includes('https://www.google.com/maps')) {
     return <tr>
       <td>{capitalizeWords(name)}</td>
-      <td>{SecureLink(value, 'Direct Link')}</td>
+      <td>{SecureLink(value, 'View on Google Maps')}</td>
     </tr>
   }
   return <tr>

@@ -20,10 +20,17 @@ export function formatCoordinate(n: number) {
 }
 
 /**
- * Formats coordinates for display in the UI.
+ * Formats coordinates as a link to Google Maps.
  */
 export function formatGMapsCoordinates(lat: number, lng: number) {
   return `https://www.google.com/maps/?q=${lat},${lng}`
+}
+
+/**
+ * Formats coordinates as a link to Google Maps Directions.
+ */
+export function formatGMapsDirection(start_lat: number, start_lng: number, end_lat: number, end_lng: number) {
+  return `https://www.google.com/maps/dir/${start_lat},${start_lng}/${end_lat},${end_lng}`
 }
 
 /**
