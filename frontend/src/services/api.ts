@@ -7,7 +7,6 @@ import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
-import { StaticRepresentativePointsResponse } from '../constants/api/static-representative-points-response'
 import { Dataset, Method } from "../constants/datatypes";
 
 const API_ROOT = CONFIG.api.backend_root
@@ -66,7 +65,7 @@ export let getAdequacies = memoize(
 export async function getStaticRPs(selectedDataset: Dataset | null){
     const res = await fetch(getStaticRPUrl(selectedDataset))
     const body = await res.json()
-    return <StaticRepresentativePointsResponse> body
+    return <PostRepresentativePointsResponse> body
 }
 
 export async function getStaticAdequacies(selectedDataset: Dataset | null, method: Method){

@@ -87,8 +87,7 @@ async function codegenAPITypes() {
     compileJSONSchema('geocode-request'),
     compileJSONSchema('geocode-response'),
     compileJSONSchema('representative-points-request'),
-    compileJSONSchema('representative-points-response'),
-    compileJSONSchema('static-representative-points-response')
+    compileJSONSchema('representative-points-response')
   ])
   console.info('  Compiled 7 JSON-Schemas to src/constants/api')
 }
