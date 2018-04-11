@@ -32,6 +32,11 @@ export function withEffects(store: Store) {
     .subscribe(async serviceAreas => {
       const selectedDataset = store.get('selectedDataset')
 
+      // Clear the points when unselecting a dataset.
+      if (serviceAreas.length === 0) {
+        store.set('representativePoints')([])
+      }
+
       // Get representative points.
       const points = appIsStatic ? await getStaticRPs(selectedDataset) :
         await getRepresentativePoints({ service_area_ids: serviceAreas })
