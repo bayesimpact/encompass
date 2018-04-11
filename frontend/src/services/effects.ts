@@ -19,7 +19,7 @@ import {
 import { Store } from './store'
 
 /**
- * Determine whether or not to use the static behaviours or the dynamic ones.
+ * Determine whether to use the static behaviours or the dynamic ones.
  */
 const appIsStatic = CONFIG.staticAssets.appIsStatic
 
