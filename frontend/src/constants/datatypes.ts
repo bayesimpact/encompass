@@ -42,8 +42,21 @@ export type Config = {
     [key: string]: boolean
   }
   staticAssets: {
-    useStaticCsvs: boolean,
-    analysisResultsRootUrl: string
+    appIsStatic: boolean,
+    rootUrl: string
+    csv: {
+        useStaticCsvs: boolean,
+        path: string
+    }
+    representativePoints: {
+      path: string
+    }
+    adequacies: {
+      path: string
+    }
+    demographics: {
+      path: string
+    }
   }
 }
 

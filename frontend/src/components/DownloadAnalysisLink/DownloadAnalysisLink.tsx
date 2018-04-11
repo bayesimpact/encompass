@@ -16,8 +16,9 @@ import { getLegend } from '../MapLegend/MapLegend'
 
 import './DownloadAnalysisLink.css'
 
-const useStaticCsvs: boolean = CONFIG.staticAssets.useStaticCsvs
-const staticCsvRootUrl: string = CONFIG.staticAssets.analysisResultsRootUrl
+const useStaticCsvs: boolean = CONFIG.staticAssets.csv.useStaticCsvs
+const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
+const staticCsvPath: string = CONFIG.staticAssets.csv.path
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
@@ -108,7 +109,7 @@ function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
   }
   const datasetString = kebabCase(selectedDataset.name)
   const methodString = kebabCase(method.toString())
-  return `${staticCsvRootUrl}${datasetString}-${methodString}.csv`
+  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
 }
 
 function getHeadersForCensusCategories(method: Method, censusCategories: string[]) {
