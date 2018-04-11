@@ -79,7 +79,23 @@
         "allow_driving_time": true
     },
     "staticAssets": {
-        "useStaticCsvs": true,
-        "analysisResultsRootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/results-csv/"
+        "appIsStatic": true,
+        "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
+        "csv": {
+            "useStaticCsvs": true,
+            "path": "results-csv/"
+        },
+        "representativePoints": {
+            "path": "basic-points/",
+            "_comment": "Filename scheme: dataset name in kebab-case. Example: abortion-clinics-in-texas.json"
+        },
+        "adequacies": {
+            "path": "basic-adequacies/",
+            "_comment": "Filename scheme: dataset name and adequacy method in kebab-case. Example: abortion-clinics-in-texas-driving-time.json"
+        },
+        "demographics": {
+            "path": "basic-demographics/",
+            "_comment": "Filename scheme: dataset name in kebab-case. Example: abortion-clinics-in-texas.json"
+        }
     }
 }
