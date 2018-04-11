@@ -43,7 +43,7 @@ export function representativePointToFeature(adequacies: Adequacies, method: Met
       population: Math.round(point.population),
       location: formatGMapsCoordinates(point.lat, point.lng),
       adequacyMode: adequacyModeToString(adequacies, point.id),
-      closestProviderDistance: toClosestProviderToString(adequacies, method, point.id),
+      closestProvider: toClosestProviderToString(adequacies, method, point.id),
       routeToProvider: toClosestProviderDirection(adequacies, point.id, point.lat, point.lng)
     },
     geometry: {

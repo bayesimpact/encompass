@@ -27,25 +27,77 @@ def _retry_if_result_none(result):
     return result is None
 
 
+def _represent_point_as_str(point):
+    """Represent a point dictionary in the format (longitude,latitude)."""
+    return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
+
+
+@retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
+def _get_matrix_http(
+        source_points, destination_points, api_url='', access_token='', max_matrix_size=None):
+    """
+    Retrieve a time matrix from the matrix API using HTTP requests.
+
+    Results in the matrix are returned in seconds for time and meters for distances.
+    Expects points as (latitude, longitude) named tuples to be consistent with other functions.
+    """
+    logger.debug('_get_matrix from {} to {} points'.format(
+        source_points[0],
+        len(destination_points)
+    ))
+    request_url = api_url + '{points}'
+    all_points = source_points + destination_points
+    if max_matrix_size and len(all_points) > max_matrix_size:
+        raise RuntimeError(
+            'This matrix API only accepts {} locations.'.format(max_matrix_size)
+        )
+    coordinates = ';'.join([_represent_point_as_str(point) for point in all_points])
+
+    params = {
+        'sources': ';'.join([str(i) for i, _ in enumerate(source_points)]),
+        'destinations': ';'.join(
+            [str(len(source_points) + i) for i, _ in enumerate(destination_points)]
+        )
+    }
+
+    if access_token:
+        params['access_token'] = access_token
+
+    response = requests.get(
+        url=request_url.format(points=coordinates),
+        params=params
+    )
+
+    try:
+        response.raise_for_status()
+    except requests.HTTPError:
+        return None
+    content = response.json()
+    return content['durations']
+
+
 # TODO - Abstract as APIMeasurer.
-# TODO - Better handling of api_url and api_key.
-class APIDrivingTime(Measurer):
+# TODO - Better handling of api_url and access_token.
+class APITime(Measurer):
     """Class for API driving time measurements."""
 
-    def __init__(self, api_key=None, early_exit_outer_radius=120.0 * 10**3, *args, **kwargs):
+    def __init__(
+            self, access_token='', api_url='',
+            early_exit_outer_radius=120.0 * 10**3,
+            *args, **kwargs):
         """Initialize the distance class with for an API measurer."""
-        self.api_key = api_key
+        self.access_token = access_token
+        self.api_url = api_url
         self._haversine_measurer = distance.HaversineDistance()
         self.early_exit_outer_radius = early_exit_outer_radius
         # Some APIs only accept a maximum number of entries per call.
         self.max_matrix_size = None
 
-    @retry(wait_fixed=500, stop_max_attempt_number=2)
     def _get_matrix(self, source_points, destination_points):
         """
         Retrieve a time matrix from the matrix API.
 
-        Results in the matrix are returned in seconds.
+        Results in the matrix are returned in seconds for time and meters for distances.
         Expects points as (latitude, longitude) named tuples to be consistent with other functions.
         """
         raise NotImplementedError
@@ -119,13 +171,8 @@ class APIDrivingTime(Measurer):
         )
         return float(min_measurement) / 60.0, point_list[min_idx]
 
-    @staticmethod
-    def _represent_point_as_str(point):
-        """Represent a point dictionary in the format (longitude,latitude)."""
-        return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
 
-
-class OSRMDrivingTime(APIDrivingTime):
+class OSRMDrivingTime(APITime):
     """
     Class for OSRM driving time measurements.
 
@@ -137,53 +184,30 @@ class OSRMDrivingTime(APIDrivingTime):
         # FIXME: Once the API accepts distances, enable a `distance` mode.
         logger.debug('Initializing OSRM measurer.')
         super(OSRMDrivingTime, self).__init__(*args, **kwargs)
-        self.api_url = kwargs.get('api_url', None) or os.getenv('OSRM_URL')
+        osrm_url = kwargs.get('api_url', None) or os.getenv('OSRM_URL')
+        self.api_url = '{base_url}/{api_string}'.format(
+            base_url=osrm_url, api_string='table/v1/car/')
 
-    # TODO - Abstract and merge with MapBox _get_matrix function.
-    @retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
     def _get_matrix(self, source_points, destination_points):
-        """
-        Retrieve a time matrix using the OSRM API.
-
-        Time is expressed in seconds.
-        """
-        all_points = source_points + destination_points
-        coordinates = ';'.join([self._represent_point_as_str(point) for point in all_points])
-
-        url = '{base_url}/{api_string}'.format(
-            base_url=self.api_url,
-            api_string='table/v1/car/{coords}'.format(coords=coordinates)
+        return _get_matrix_http(
+            source_points=source_points,
+            destination_points=destination_points,
+            api_url=self.api_url
         )
 
-        params = {
-            'sources': 0,
-            'destinations': ';'.join(
-                [str(1 + i) for i, _ in enumerate(destination_points)]
-            )
-        }
-        response = requests.get(url, params=params)
 
-        try:
-            response.raise_for_status()
-        except requests.HTTPError:
-            return None
-        content = response.json()
-
-        if content['code'] == 'Ok' and content['durations']:
-            return content['durations']
-
-
-class MapBoxDrivingTime(APIDrivingTime):
+class MapBoxDrivingTime(APITime):
     """Class for MapBox driving time measurements."""
 
     def __init__(self, *args, **kwargs):
-        """Initialize the distance class with a MapBox API key."""
+        """Initialize the distance class with a MapBox API access token."""
         logger.debug('Initializing MapBox measurer.')
         super(MapBoxDrivingTime, self).__init__(*args, **kwargs)
-        self.api_key = self.api_key or os.getenv('MAPBOX_TOKEN')
+        self.access_token = self.access_token or os.getenv('MAPBOX_TOKEN')
+        self.api_url = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/'
+        # The MapBox API accepts 25 points max as input.
         self.max_matrix_size = 25
 
-    @retry(wait_fixed=500, stop_max_attempt_number=2)
     @rate_limited(1, 1.0)  # 1 per second - period=1, every=1.0.
     def _get_matrix(self, source_points, destination_points):
         """
@@ -194,43 +218,54 @@ class MapBoxDrivingTime(APIDrivingTime):
          - MapBox API requires a list of lon,lat;lon,lat points.
          - The MapBox API accepts 25 points max as input.
         """
-        logger.debug('_get_matrix from {} to {} points'.format(
-            source_points[0],
-            len(destination_points)
-        ))
-        request_url = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{points}'
-        all_points = source_points + destination_points
-        if len(all_points) > self.max_matrix_size:
-            raise RuntimeError('Mapbox matrix API only accepts 25 locations.')
-        coordinates = ';'.join([self._represent_point_as_str(point) for point in all_points])
-
-        params = {
-            'sources': ';'.join([str(i) for i, _ in enumerate(source_points)]),
-            'destinations': ';'.join(
-                [str(len(source_points) + i) for i, _ in enumerate(destination_points)]
-            ),
-            'access_token': self.api_key
-        }
-
-        response = requests.get(
-            url=request_url.format(points=coordinates),
-            params=params
+        return _get_matrix_http(
+            source_points=source_points,
+            destination_points=destination_points,
+            api_url=self.api_url,
+            access_token=self.access_token,
+            max_matrix_size=self.max_matrix_size
         )
 
-        response.raise_for_status()
-        content = response.json()
-        return content['durations']
+
+class MapBoxWalkingTime(APITime):
+    """Class for MapBox walking time measurements."""
+    def __init__(self, *args, **kwargs):
+        """Initialize the distance class with a MapBox API access token."""
+        logger.debug('Initializing MapBox measurer.')
+        super(MapBoxWalkingTime, self).__init__(*args, **kwargs)
+        self.access_token = self.access_token or os.getenv('MAPBOX_TOKEN')
+        self.api_url = 'https://api.mapbox.com/directions-matrix/v1/mapbox/walking/'
+        # The MapBox API accepts 25 points max as input.
+        self.max_matrix_size = 25
+
+    @rate_limited(1, 1.0)  # 1 per second - period=1, every=1.0.
+    def _get_matrix(self, source_points, destination_points):
+        """
+        Retrieve a time matrix using the MapBox API.
+
+        Time is expressed in seconds.
+        NOTES:
+         - MapBox API requires a list of lon,lat;lon,lat points.
+         - The MapBox API accepts 25 points max as input.
+        """
+        return _get_matrix_http(
+            source_points=source_points,
+            destination_points=destination_points,
+            api_url=self.api_url,
+            access_token=self.access_token,
+            max_matrix_size=self.max_matrix_size
+        )
 
 
-class OpenRouteDrivingTime(APIDrivingTime):
+class OpenRouteDrivingTime(APITime):
     """Class for OpenRouteService driving time measurements."""
 
     def __init__(self, *args, **kwargs):
         """Initialize the distance class with an Open Routing Service API key."""
         logger.debug('Initializing OpenRouting measurer.')
         super(OpenRouteDrivingTime, self).__init__(*args, **kwargs)
-        self.api_key = self.api_key or os.getenv('ORS_TOKEN')
-        self.client = openrouteservice.Client(key=self.api_key)
+        self.access_token = self.access_token or os.getenv('ORS_TOKEN')
+        self.client = openrouteservice.Client(key=self.access_token)
 
     @retry(wait_fixed=500, stop_max_attempt_number=2)
     @rate_limited(40, 60.0)  # 40 per minute - period=40, every=60.0.
