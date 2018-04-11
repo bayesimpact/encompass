@@ -86,13 +86,16 @@
             "path": "results-csv/"
         },
         "representativePoints": {
-            "path": "basic-points/"
+            "path": "basic-points/",
+            "_comment": "Filename scheme: dataset name in kebab-case. Example: abortion-clinics-in-texas.json"
         },
         "adequacies": {
-            "path": "basic-adequacies/"
+            "path": "basic-adequacies/",
+            "_comment": "Filename scheme: dataset name and adequacy method in kebab-case. Example: abortion-clinics-in-texas-driving-time.json"
         },
         "demographics": {
-            "path": "basic-demographics/"
+            "path": "basic-demographics/",
+            "_comment": "Filename scheme: dataset name in kebab-case. Example: abortion-clinics-in-texas.json"
         }
     }
 }
