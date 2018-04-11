@@ -356,6 +356,10 @@ function getAdequacyMode(
     if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
       return AdequacyMode.ADEQUATE_2
     }
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES > 30) {
+      return AdequacyMode.INADEQUATE
+    }
+    return AdequacyMode.OUT_OF_SCOPE
   }
 
   if (method === 'driving_time') {
@@ -368,7 +372,9 @@ function getAdequacyMode(
     if (adequacy.to_closest_provider <= 60) {
       return AdequacyMode.ADEQUATE_2
     }
+    if (adequacy.to_closest_provider > 60) {
+      return AdequacyMode.INADEQUATE
+    }
   }
-
-  return AdequacyMode.INADEQUATE
+  return AdequacyMode.OUT_OF_SCOPE
 }
