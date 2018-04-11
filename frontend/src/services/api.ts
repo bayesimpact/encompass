@@ -1,4 +1,4 @@
-import { memoize, kebabCase } from 'lodash'
+import { kebabCase, memoize } from 'lodash'
 import { CONFIG } from '../config/config'
 import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
@@ -7,7 +7,7 @@ import { PostGeocodeRequest } from '../constants/api/geocode-request'
 import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
-import { Dataset, Method } from "../constants/datatypes";
+import { Dataset, Method } from '../constants/datatypes'
 
 const API_ROOT = CONFIG.api.backend_root
 
@@ -65,19 +65,19 @@ export let getAdequacies = memoize(
 export async function getStaticRPs(selectedDataset: Dataset | null){
     const res = await fetch(getStaticRPUrl(selectedDataset))
     const body = await res.json()
-    return <PostRepresentativePointsResponse> body
+    return body as PostRepresentativePointsResponse
 }
 
 export async function getStaticAdequacies(selectedDataset: Dataset | null, method: Method){
     const res = await fetch(getStaticAdequacyUrl(selectedDataset, method))
     const body = await res.json()
-    return <PostAdequaciesResponse> body
+    return body as PostAdequaciesResponse
 }
 
 export async function getStaticDemographics(selectedDataset: Dataset | null){
     const res = await fetch(getStaticDemographicsUrl(selectedDataset))
     const body = await res.json()
-    return <PostCensusDataResponse> body
+    return body as PostCensusDataResponse
 }
 
 function getStaticRPUrl(selectedDataset: Dataset | null): string {
