@@ -79,7 +79,7 @@
         "allow_driving_time": true
     },
     "staticAssets": {
-        "appIsStatic": true,
+        "appIsStatic": false,
         "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
         "csv": {
             "useStaticCsvs": true,
