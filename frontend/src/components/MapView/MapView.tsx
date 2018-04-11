@@ -10,7 +10,7 @@ import { MapLegend } from '../MapLegend/MapLegend'
 import { ProviderPopup, RepresentativePointPopup } from '../MapTooltip/MapTooltip'
 import './MapView.css'
 
-const { MAPBOX_TOKEN } = process.env
+const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN
 
 if (!MAPBOX_TOKEN) {
   throw 'Please define MAPBOX_TOKEN env var'
