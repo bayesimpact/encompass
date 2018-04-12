@@ -36,25 +36,20 @@ logger = logging.getLogger(__name__)
 def _measure_one_to_many(point, locations, measurer):
     """Measure the distance from the input point to all locations."""
     point_coords = Point(latitude=point['latitude'], longitude=point['longitude'])
+    supply_locations = [
+        Point(latitude=location['latitude'], longitude=location['longitude'])
+        for location in locations
+    ]
     distance_matrix = measurer._get_matrix(
         source_points=[point_coords],
-        destination_points=locations
+        destination_points=supply_locations
     )
     return {
         'id': point['id'],
         'locations': locations,
+        'location_ids': [location['id'] for location in locations],
         'measurements': distance_matrix[0],
     }
-
-
-def _add_provider_ids(measurements_by_point, location_to_id_map):
-    """Add provider IDs to a _measure_one_to_many response object using a location to ID map."""
-    for response in measurements_by_point:
-        response['location_ids'] = [
-            location_to_id_map[location]
-            for location in response['locations']
-        ]
-    return measurements_by_point
 
 
 def calculate_measurement_matrix(
@@ -69,18 +64,10 @@ def calculate_measurement_matrix(
     The measurement between point i and location j in the cell with row i, column j.
     """
     # TODO: Share introduction of this function with calculate.adequacy.
-    location_to_id_map = collections.defaultdict(list)
-    for j, location in enumerate(locations):
-        # TODO - Permanently fix this on the frontend side.
-        location.pop('id')
-        location_to_id_map[Point(**location)].append(j)
-
-    locations = list(location_to_id_map.keys())
     points = representative_points.minimal_fetch_representative_points(
         service_area_ids=service_area_ids,
         engine=engine
     )
-
     logger.debug('{} pairwise distances to calculate.'.format(len(locations) * len(points)))
 
     measurer = get_measurer(measurer_name)
@@ -99,12 +86,9 @@ def calculate_measurement_matrix(
             )
         )
 
-    measurements_by_point = _add_provider_ids(
-        measurements_by_point=measurements_by_point,
-        location_to_id_map=location_to_id_map
+    measurement_matrix = np.full(
+        shape=(len(points), len(locations)), fill_value=float('inf')
     )
-
-    measurement_matrix = np.full(shape=(len(points), len(locations)), fill_value=float('inf'))
     for i, response in enumerate(measurements_by_point):
         for j, distance in zip(response['location_ids'], response['measurements']):
             measurement_matrix[i][j] = distance
