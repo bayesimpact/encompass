@@ -43,6 +43,7 @@ RP_COLUMNS = [
 # A minimal list of representative point columns. Used by the backend during adequacy calculation.
 MINIMAL_RP_COLUMNS = [
     'id',
+    'population',
     'latitude',
     'longitude',
     'service_area_id',

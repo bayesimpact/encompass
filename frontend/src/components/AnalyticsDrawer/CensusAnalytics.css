@@ -7,6 +7,11 @@
   padding-top: 10px;
 }
 
+.CensusAnalytics .DownloadAnalysisLink {
+  position: absolute !important; /* override material-ui inline style */
+    right: 20px;
+}
+
 .CensusAnalytics .CircularProgress {
   padding-bottom: 20px;
 }

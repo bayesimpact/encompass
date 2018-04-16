@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { SecureLink } from '../../utils/link'
+import { capitalizeWords } from '../../utils/string'
 
 type Props = {
   name: string
@@ -6,11 +8,17 @@ type Props = {
 }
 
 export let TableRow: React.StatelessComponent<Props> = ({ name, value }) => {
-  if (value === null || value === undefined) {
+  if (!value) {
     return null
   }
+  if (value.toString().includes('https://www.google.com/maps')) {
+    return <tr>
+      <td>{capitalizeWords(name)}</td>
+      <td>{SecureLink(value, 'View on Google Maps')}</td>
+    </tr>
+  }
   return <tr>
-    <td>{name}</td>
+    <td>{capitalizeWords(name)}</td>
     <td>{value}</td>
   </tr>
 }

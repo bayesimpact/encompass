@@ -6,9 +6,11 @@ import * as React from 'react'
 import { Popup } from 'react-mapbox-gl'
 import { GeoJSONEventData } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
-import { formatCoordinate } from '../../utils/formatters'
 import './MapTooltip.css'
 import { TableRow } from './TableRow'
+
+const providerPointTooltipExclusion: string[] = ['lat', 'lng']
+const representativePointTooltipExclusion: string[] = ['adequacyMode', 'demographics', 'zip', 'service_area_id']
 
 type MapTooltipProps = {
   coordinates: LngLat
@@ -61,14 +63,11 @@ export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, p
   return <MapTooltip coordinates={lngLat}>
     <table>
       <tbody>
-        {properties && <React.Fragment>
-          <TableRow name='Name' value={properties.name} />
-          <TableRow name='NPI' value={properties.npi} />
-          <TableRow name='Address' value={properties.address} />
-          <TableRow name='Specialty' value={properties.specialty} />
-          <TableRow name='Health Center Type' value={properties.center_type} />
-        </React.Fragment>}
-        <TableRow name='Coordinates' value={formatCoordinate(lngLat.lat) + ', ' + formatCoordinate(lngLat.lng)} />
+        {properties &&
+          <>
+            {Object.keys(properties).map((key: string) => providerPointTooltipExclusion.includes(key) ? null : <TableRow name={key.toString()} value={properties === null ? null : properties[key]} key={key} />)}
+          </>
+        }
       </tbody>
     </table>
     <div className='controls Flex -Center'>
@@ -89,11 +88,11 @@ export let RepresentativePointPopup: React.StatelessComponent<RepresentativePoin
     return <MapTooltip coordinates={lngLat}>
       <table>
         <tbody>
-          {properties && <React.Fragment>
-            <TableRow name='County' value={properties.county} />
-            <TableRow name='Population' value={properties.population} />
-          </React.Fragment>}
-          <TableRow name='Coordinates' value={formatCoordinate(lngLat.lat) + ', ' + formatCoordinate(lngLat.lng)} />
+          {properties &&
+            <>
+              {Object.keys(properties).map((key: string) => representativePointTooltipExclusion.includes(key) ? null : <TableRow name={key.toString()} value={properties === null ? null : properties[key]} key={key} />)}
+            </>
+          }
         </tbody>
       </table>
     </MapTooltip>

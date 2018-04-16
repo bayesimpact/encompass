@@ -79,18 +79,6 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
     />
     <StatsBox className='HighLevelStats' withBorders>
       <tr>
-        <th>Service Areas</th>
-        <th>Population</th>
-        <th>Providers</th>
-      </tr>
-      <tr>
-        <td>{serviceAreas.length.toLocaleString()}</td>
-        <td>{totalPopulation.toLocaleString()}</td>
-        <td>{store.get('providers').length.toLocaleString()}</td>
-      </tr>
-    </StatsBox>
-    <StatsBox className='HighLevelStats' withBorders>
-      <tr>
         <th>Access</th>
         <th>Population (%)</th>
         <th>Population (#)</th>

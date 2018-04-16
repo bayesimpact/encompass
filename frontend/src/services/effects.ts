@@ -11,8 +11,17 @@ import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
-import { getAdequacies, getCensusData, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
+import {
+    getAdequacies, getCensusData, getRepresentativePoints,
+    getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
+    postGeocode
+} from './api'
 import { Store } from './store'
+
+/**
+ * Determine whether to use the static behaviours or the dynamic ones.
+ */
+const appIsStatic = CONFIG.staticAssets.appIsStatic
 
 export function withEffects(store: Store) {
   /**
@@ -21,15 +30,20 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
+      const selectedDataset = store.get('selectedDataset')
 
+      // Clear the points when unselecting a dataset.
       if (serviceAreas.length === 0) {
         store.set('representativePoints')([])
       }
 
-      let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+      // Get representative points.
+      const points = appIsStatic ? await getStaticRPs(selectedDataset) :
+        await getRepresentativePoints({ service_area_ids: serviceAreas })
 
       // Get census information at the service area level.
-      let censusData = await getCensusData({ service_area_ids: serviceAreas })
+      const censusData = CONFIG.is_census_data_available ? appIsStatic ? await getStaticDemographics(selectedDataset) :
+        await getCensusData({ service_area_ids: serviceAreas }) : {}
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -152,15 +166,14 @@ export function withEffects(store: Store) {
       // To avoid an inconsistent state, we fetch the latest representative points here.
       //
       // TODO: Do this more elegantly to avoid the double-computation.
-      let [adequacies, points] = await Promise.all([
-        getAdequacies({
-          method,
-          providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
-          service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
-        }),
-        representativePoints
-      ])
+      const adequacies = appIsStatic ? await getStaticAdequacies(store.get('selectedDataset'), store.get('method')) :
+        await getAdequacies({
+            method,
+            providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
+            service_area_ids: serviceAreas,
+            dataset_hint: safeDatasetHint(store.get('selectedDataset'))
+        })
+      const points = representativePoints
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -273,7 +286,7 @@ export function withEffects(store: Store) {
       } else {
         let chunkSize = Math.floor(representativePoints.length / 10)
         store.set('pointFeatureCollections')(
-          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies)(rpChunk))
+          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies, store.get('method'))(rpChunk))
         )
       }
     })
@@ -356,6 +369,10 @@ function getAdequacyMode(
     if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
       return AdequacyMode.ADEQUATE_2
     }
+    if (adequacy.to_closest_provider * ONE_METER_IN_MILES > 30) {
+      return AdequacyMode.INADEQUATE
+    }
+    return AdequacyMode.OUT_OF_SCOPE
   }
 
   if (method === 'driving_time') {
@@ -368,7 +385,9 @@ function getAdequacyMode(
     if (adequacy.to_closest_provider <= 60) {
       return AdequacyMode.ADEQUATE_2
     }
+    if (adequacy.to_closest_provider > 60) {
+      return AdequacyMode.INADEQUATE
+    }
   }
-
-  return AdequacyMode.INADEQUATE
+  return AdequacyMode.OUT_OF_SCOPE
 }

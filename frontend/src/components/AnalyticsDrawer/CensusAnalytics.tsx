@@ -45,7 +45,7 @@ export let CensusAnalytics = withStore(
       </tr>
     </StatsBox>
     <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
-    <div className='DownloadLink'>
+    < div className='DownloadLink'>
       <DownloadAnalysisLink />
     </div>
     <CensusAdequacyCharts serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
