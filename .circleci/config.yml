@@ -60,17 +60,36 @@ jobs:
         steps:
             - run:
                 name: Perform update over SSH
-                command: | # TODO: split this line up for readability using `bash -c`
-                    ssh ec2-user@$QA_DNS 'cd tds; docker-compose down; sudo rm .cache/*; git fetch origin; git checkout .; git checkout deploy-qa; git pull origin deploy-qa; docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend'
-
+                command: |
+                    ssh ec2-user@$QA_DNS '
+                        cd tds
+                        docker-compose down
+                        # sudo rm .cache/*
+                        git fetch origin
+                        git checkout .
+                        git checkout deploy-qa
+                        git pull origin deploy-qa
+                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend;
+                        docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d backend frontend
+                    '
     deploy-demo:
         machine:
             docker_layer_caching: true
         steps:
             - run:
                 name: Perform update over SSH
-                command: | # TODO: split this line up for readability using `bash -c`
-                    ssh ec2-user@$DEMO_DNS 'cd tds; docker-compose down; sudo rm .cache/*; git fetch origin; git checkout .; git checkout deploy-demo; git pull origin deploy-demo; docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend; docker-compose up -d backend frontend'
+                command: |
+                    ssh ec2-user@$DEMO_DNS '
+                        cd tds
+                        docker-compose down
+                        # sudo rm .cache/*
+                        git fetch origin
+                        git checkout .
+                        git checkout deploy-demo
+                        git pull origin deploy-demo
+                        docker-compose -f docker-compose.yml -f docker-compose.override.db.yml build --no-cache backend frontend;
+                        docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d backend frontend
+                    '
 
 workflows:
     version: 2

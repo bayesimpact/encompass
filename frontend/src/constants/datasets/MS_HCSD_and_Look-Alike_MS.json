@@ -1,9 +1,7 @@
 {
-    "dataSources": [
-        "<a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018; <a href=\"https://www.kff.org/other/state-indicator/total-population/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D\" target=\"_blank\">Kaiser Family Foundation</a>, 2016."
-    ],
-    "description": "Mississippi has one of the highest uninsured rates in the U.S. at 12%, representing about 350,000 people. Health Centers are federally funded, community-based and patient-directed organizations that serve populations with limited access to health care, including low-income populations, and the uninsured. Read more about Health Centers <a href=\"https://www.bphc.hrsa.gov/about/what-is-a-health-center/index.html\" target=\"_blank\">here</a>. Use this map to explore how accessible these centers are for target populations.",
-    "subtitle": "HCSDs heavily support vulnerable populations",
+    "description": "Mississippi has one of the highest uninsured rates in the U.S. at 12%, representing about 350,000 people (<a href=\"https://www.kff.org/other/state-indicator/total-population/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D\" target=\"_blank\">Kaiser Family Foundation</a>, 2016). Health centers are federally funded, community-based and patient-directed organizations that serve populations with limited access to health care, including low-income populations and the uninsured. Read more about health centers <a href=\"https://www.bphc.hrsa.gov/about/what-is-a-health-center/index.html\" target=\"_blank\">here</a>. Use this map to explore how accessible these centers are for target populations.",
+    "subtitle": "Federally funded clinics that serve vulnerable populations",
+    "dataSources": "Provider Data: <a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018.",
     "state": "ms",
     "name": "Health Centers in Mississippi",
     "providers": [
@@ -11,7 +9,6 @@
             "address": "102 S Martin Luther King Jr Dr, Indianola, MS 38751",
             "lat": 33.45603884,
             "lng": -90.63234665,
-            "languages": [],
             "name": "Indianola Satellite",
             "center_type": "Service Delivery Site"
         },
@@ -19,7 +16,6 @@
             "address": "110 E Washington St, Moorhead, MS 38761",
             "lat": 33.45016187,
             "lng": -90.50639666,
-            "languages": [],
             "name": "DELTA HEALTH CENTER SATELLITE",
             "center_type": "Service Delivery Site"
         },
@@ -27,7 +23,6 @@
             "address": "102 Blackmur Dr, Water Valley, MS 38965",
             "lat": 34.15018962,
             "lng": -89.63151944,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. -- Water Valley",
             "center_type": "Service Delivery Site"
         },
@@ -35,7 +30,6 @@
             "address": "3439 Vaughan Rd, Vaughan, MS 39179",
             "lat": 32.85061026,
             "lng": -90.02877129,
-            "languages": [],
             "name": "LINWOOD ELEMENTARY SCHOOL",
             "center_type": "Service Delivery Site"
         },
@@ -43,7 +37,6 @@
             "address": "1825 Dr Martin Luther King Jr Dr, Yazoo City, MS 39194",
             "lat": 32.87882152,
             "lng": -90.41119686,
-            "languages": [],
             "name": "YAZOO CITY HIGH SCHOOL",
             "center_type": "Service Delivery Site"
         },
@@ -51,7 +44,6 @@
             "address": "215 E Fifth St, Yazoo City, MS 39194",
             "lat": 32.85661296,
             "lng": -90.40920602,
-            "languages": [],
             "name": "WOOLFOLK ELEM SCHOOL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -59,7 +51,6 @@
             "address": "10340 Highway 433 W, Bentonia, MS 39040",
             "lat": 32.64074293,
             "lng": -90.4036797,
-            "languages": [],
             "name": "Bentonia Gibbs Elementary Schools",
             "center_type": "Service Delivery Site"
         },
@@ -67,7 +58,6 @@
             "address": "110 N Jerry Clower Blvd, Yazoo City, MS 39194",
             "lat": 32.84059297,
             "lng": -90.38696514,
-            "languages": [],
             "name": "G.A. CARMICHAEL FHC-YAZOO CITY",
             "center_type": "Service Delivery Site"
         },
@@ -75,7 +65,6 @@
             "address": "6789 Highway 49 E, Yazoo City, MS 39194",
             "lat": 32.93490533,
             "lng": -90.37185879,
-            "languages": [],
             "name": "YAZOO COUNTY HIGH SCHOOL",
             "center_type": "Service Delivery Site"
         },
@@ -83,7 +72,6 @@
             "address": "1547 Jerry Clower Blvd, Yazoo City, MS 39194",
             "lat": 32.8648667,
             "lng": -90.39384549,
-            "languages": [],
             "name": "G.A. CARMICHAEL FAMILY HLTH CTR",
             "center_type": "Service Delivery Site"
         },
@@ -91,7 +79,6 @@
             "address": "1835 School Dr, Yazoo City, MS 39194",
             "lat": 32.87499733,
             "lng": -90.41530453,
-            "languages": [],
             "name": "MCCOY ELEMENTARY SCHOOL",
             "center_type": "Service Delivery Site"
         },
@@ -99,7 +86,6 @@
             "address": "622 E Fourth St, Yazoo City, MS 39194",
             "lat": 32.85340392,
             "lng": -90.40444389,
-            "languages": [],
             "name": "Webster Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -107,7 +93,6 @@
             "address": "3502 W Northside Dr, Jackson, MS 39213",
             "lat": 32.35604546,
             "lng": -90.23412295,
-            "languages": [],
             "name": "Jackson-Hinds Medical Mobile Unit 3",
             "center_type": "Service Delivery Site"
         },
@@ -115,7 +100,6 @@
             "address": "235 W Beasley St, Terry, MS 39170",
             "lat": 32.0934047,
             "lng": -90.29979346,
-            "languages": [],
             "name": "Terry High School-based Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -123,7 +107,6 @@
             "address": "1134 Winter St, Jackson, MS 39204",
             "lat": 32.29097794,
             "lng": -90.2051178,
-            "languages": [],
             "name": "CENTRAL MISSISSIPPI HEALTH SERVICES, INC.",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -131,7 +114,6 @@
             "address": "6608 Highway 27, Utica, MS 39175",
             "lat": 32.19730679,
             "lng": -90.64800533,
-            "languages": [],
             "name": "JACKSON HINDS COMP HEALTH CENTER UTICA-WIC Warehouse",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -139,7 +121,6 @@
             "address": "5429 Robinson Road Ext, Jackson, MS 39204",
             "lat": 32.27707808,
             "lng": -90.26041502,
-            "languages": [],
             "name": "CENTRAL MISSISSIPPI HLTH SERVICE",
             "center_type": "Service Delivery Site"
         },
@@ -147,7 +128,6 @@
             "address": "145 Raymond Rd, Jackson, MS 39204",
             "lat": 32.28283906,
             "lng": -90.21062405,
-            "languages": [],
             "name": "Jackson-Hinds Comprehensive Health Center South Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -155,7 +135,6 @@
             "address": "260 Highway 18, Utica, MS 39175",
             "lat": 32.10395785,
             "lng": -90.61533218,
-            "languages": [],
             "name": "UTICA ELEMENTARY SCHOOL",
             "center_type": "Service Delivery Site"
         },
@@ -163,7 +142,6 @@
             "address": "129 White Oak St, Utica, MS 39175",
             "lat": 32.10853195,
             "lng": -90.62274493,
-            "languages": [],
             "name": "Jackson-Hinds Utica Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -171,7 +149,6 @@
             "address": "866 Medical Plz, Jackson, MS 39204",
             "lat": 32.28169427,
             "lng": -90.21735901,
-            "languages": [],
             "name": "JACKSON HINDS COMP HEALTH CENTER - Administration/Billing",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -179,7 +156,6 @@
             "address": "3502 W Northside Dr, Jackson, MS 39213",
             "lat": 32.35604546,
             "lng": -90.23412295,
-            "languages": [],
             "name": "Jackson-Hinds Medical/Dental Mobile Unit 2",
             "center_type": "Service Delivery Site"
         },
@@ -187,7 +163,6 @@
             "address": "1655 Whiting Rd, Jackson, MS 39209",
             "lat": 32.30042315,
             "lng": -90.26588631,
-            "languages": [],
             "name": "JACKSON-HINDS VAN WINKLE ELEM SCHOOLBASE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -195,7 +170,6 @@
             "address": "3930 Skyview Dr, Jackson, MS 39213",
             "lat": 32.34671411,
             "lng": -90.22007377,
-            "languages": [],
             "name": "Commonwealth Apartment Complex",
             "center_type": "Service Delivery Site"
         },
@@ -203,7 +177,6 @@
             "address": "9700 W Highway 20, Bolton, MS 39041",
             "lat": 32.36245203,
             "lng": -90.49429451,
-            "languages": [],
             "name": "BOLTON-EDWARDS ELEM/MIDDLE SBC",
             "center_type": "Service Delivery Site"
         },
@@ -211,7 +184,6 @@
             "address": "1716 Isable St, Jackson, MS 39204",
             "lat": 32.29213996,
             "lng": -90.21848125,
-            "languages": [],
             "name": "JACKSON-HINDS-ISABLE ELEMENTARY SCHOOL SBHC",
             "center_type": "Service Delivery Site"
         },
@@ -219,7 +191,6 @@
             "address": "2009 Byram Bulldog Blvd, Terry, MS 39170",
             "lat": 32.19049651,
             "lng": -90.31340298,
-            "languages": [],
             "name": "Byram Middle School-based Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -227,7 +198,6 @@
             "address": "3502 W Northside Dr, Jackson, MS 39213",
             "lat": 32.35604546,
             "lng": -90.23412295,
-            "languages": [],
             "name": "JACKSON HINDS CHC MOBILE CLINIC 1",
             "center_type": "Service Delivery Site"
         },
@@ -235,7 +205,6 @@
             "address": "7255 Gary Rd, Byram, MS 39272",
             "lat": 32.18628258,
             "lng": -90.29676044,
-            "languages": [],
             "name": "Gary Road Intermediate School",
             "center_type": "Service Delivery Site"
         },
@@ -243,7 +212,6 @@
             "address": "350 W Woodrow Wilson Ave, Jackson, MS 39213",
             "lat": 32.32691545,
             "lng": -90.19577397,
-            "languages": [],
             "name": "Jackson-Hinds Comprehensive Health Center at the Jackson Medical Mall",
             "center_type": "Service Delivery Site"
         },
@@ -251,7 +219,6 @@
             "address": "2185 Fortune St, Jackson, MS 39204",
             "lat": 32.2903265,
             "lng": -90.21864157,
-            "languages": [],
             "name": "JACKSON-HINDS JIM HILL HIGH SCHOOL SBHC",
             "center_type": "Service Delivery Site"
         },
@@ -259,7 +226,6 @@
             "address": "3502 W Northside Dr, Jackson, MS 39213",
             "lat": 32.35604546,
             "lng": -90.23412295,
-            "languages": [],
             "name": "CENTRAL MS CIVIC IMPROVEMENT ASSOC., INC.D/B/A JACKSON-HINDS COMPREHENSIVE HEATLH CENTER MAIN SITE",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -267,7 +233,6 @@
             "address": "1860 Chadwick Dr Ste 254, Jackson, MS 39204",
             "lat": 32.2869565,
             "lng": -90.25603289,
-            "languages": [],
             "name": "Jackson Hinds Central Mississippi Medical Center Site",
             "center_type": "Service Delivery Site"
         },
@@ -275,7 +240,6 @@
             "address": "7241 Gary Rd, Byram, MS 39272",
             "lat": 32.18881003,
             "lng": -90.29675086,
-            "languages": [],
             "name": "Gary Road Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -283,7 +247,6 @@
             "address": "415 Claiborne Ave, Jackson, MS 39209",
             "lat": 32.31422961,
             "lng": -90.222645,
-            "languages": [],
             "name": "Pecan Park Elementary School-Based Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -291,7 +254,6 @@
             "address": "S Magnolia St, Edwards, MS 39066",
             "lat": 32.33185298,
             "lng": -90.60510502,
-            "languages": [],
             "name": "Jackson-HInds Comprehensive Health Center Edwards Site",
             "center_type": "Service Delivery Site"
         },
@@ -299,7 +261,6 @@
             "address": "386 Raymond Rd, Jackson, MS 39204",
             "lat": 32.28303351,
             "lng": -90.21749091,
-            "languages": [],
             "name": "The Village Apartment Complex",
             "center_type": "Service Delivery Site"
         },
@@ -307,7 +268,6 @@
             "address": "33795 Highway 12 W, Durant, MS 39063",
             "lat": 33.08980791,
             "lng": -89.86500601,
-            "languages": [],
             "name": "DURANT CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -315,7 +275,6 @@
             "address": "300 Yazoo St, Lexington, MS 39095",
             "lat": 33.10897321,
             "lng": -90.05284406,
-            "languages": [],
             "name": "Lexington Pediatric Complex",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -323,7 +282,6 @@
             "address": "17280 Highway 17, Lexington, MS 39095",
             "lat": 33.10438081,
             "lng": -90.05353963,
-            "languages": [],
             "name": "DR ARENIA C. MALLORY CHC, INC.",
             "center_type": "Service Delivery Site"
         },
@@ -331,7 +289,6 @@
             "address": "96 Rockport Rd, Lexington, MS 39095",
             "lat": 33.14056073,
             "lng": -90.06551721,
-            "languages": [],
             "name": "Mallory Community Health Center School Based Clinics - William Dean Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -339,7 +296,6 @@
             "address": "9715 Highway 12, Tchula, MS 39169",
             "lat": 33.11808512,
             "lng": -90.26551828,
-            "languages": [],
             "name": "TCHULA CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -347,7 +303,6 @@
             "address": "116 N Hayden St, Belzoni, MS 39038",
             "lat": 33.17691735,
             "lng": -90.48885054,
-            "languages": [],
             "name": "HAYDEN STREET SATELLITE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -355,7 +310,6 @@
             "address": "115 Court St, Mayersville, MS 39113",
             "lat": 32.90214779,
             "lng": -91.05296282,
-            "languages": [],
             "name": "Mayersville Satellite",
             "center_type": "Service Delivery Site"
         },
@@ -363,7 +317,6 @@
             "address": "1732 Commerce St, Grenada, MS 38901",
             "lat": 33.76510431,
             "lng": -89.80889506,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc.--Grenada",
             "center_type": "Service Delivery Site"
         },
@@ -371,7 +324,6 @@
             "address": "1102 Telegraph St, Grenada, MS 38901",
             "lat": 33.78209078,
             "lng": -89.81635587,
-            "languages": [],
             "name": "Family Health Care Clinic, Grenada--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -379,7 +331,6 @@
             "address": "1100 Rosa Fort St, Tunica, MS 38676",
             "lat": 34.70238121,
             "lng": -90.37510712,
-            "languages": [],
             "name": "AARON E HENRY - TUNICA SCHOOL BASED CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -387,7 +338,6 @@
             "address": "1820 Peabody St, Tunica, MS 38676",
             "lat": 34.67880552,
             "lng": -90.37762183,
-            "languages": [],
             "name": "AARON E. HENRY - TUNICA CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -395,7 +345,6 @@
             "address": "216 Highway 51 N, Batesville, MS 38606",
             "lat": 34.31603728,
             "lng": -89.94332197,
-            "languages": [],
             "name": "AARON E. HENRY - BATESVILLE AMBULATORY CARE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -403,7 +352,6 @@
             "address": "20400 Highway 61, Rolling Fork, MS 39159",
             "lat": 32.90946657,
             "lng": -90.87000666,
-            "languages": [],
             "name": "Rolling Fork Satellite",
             "center_type": "Service Delivery Site"
         },
@@ -411,7 +359,6 @@
             "address": "1362 Martin Luther King Dr, Marks, MS 38646",
             "lat": 34.24163441,
             "lng": -90.27756639,
-            "languages": [],
             "name": "Aaron E Henry - Quitman School Base Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -419,7 +366,6 @@
             "address": "123 N Front St, Winona, MS 38967",
             "lat": 33.4824246,
             "lng": -89.72765137,
-            "languages": [],
             "name": "Family Health Care Clinics, Inc. --Winona",
             "center_type": "Service Delivery Site"
         },
@@ -427,7 +373,6 @@
             "address": "620 Carrollton St, Duck Hill, MS 38925",
             "lat": 33.63051992,
             "lng": -89.7193106,
-            "languages": [],
             "name": "Family Health Care Clinic, Duckhill--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -435,7 +380,6 @@
             "address": "201 E Washington St, Greenwood, MS 38930",
             "lat": 33.52005011,
             "lng": -90.17986926,
-            "languages": [],
             "name": "Greenwood Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -443,7 +387,6 @@
             "address": "199 Rimmer St, Walnut Grove, MS 39189",
             "lat": 32.59559286,
             "lng": -89.46221291,
-            "languages": [],
             "name": "WALNUT GROVE MEDICAL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -451,7 +394,6 @@
             "address": "1668 W Peace St, Canton, MS 39046",
             "lat": 32.60319343,
             "lng": -90.07714525,
-            "languages": [],
             "name": "G. A. CARMICHAEL FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -459,7 +401,6 @@
             "address": "500 W County Line Rd, Tougaloo, MS 39174",
             "lat": 32.40041111,
             "lng": -90.15762027,
-            "languages": [],
             "name": "CENTRAL MS HLTH SVS - TOUGALOO",
             "center_type": "Service Delivery Site"
         },
@@ -467,7 +408,6 @@
             "address": "500 W County Line Rd, Tougaloo, MS 39174",
             "lat": 32.40041111,
             "lng": -90.15762027,
-            "languages": [],
             "name": "JACKSON-HINDS TOUGALOO CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -475,7 +415,6 @@
             "address": "529 Mace St, Canton, MS 39046",
             "lat": 32.62095835,
             "lng": -90.04871144,
-            "languages": [],
             "name": "NICHOLS SCHOOL HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -483,7 +422,6 @@
             "address": "740 E Academy St, Canton, MS 39046",
             "lat": 32.61005549,
             "lng": -90.01715353,
-            "languages": [],
             "name": "CANTON ELEMENTARY SCHOOL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -491,7 +429,6 @@
             "address": "634 Finney Rd, Canton, MS 39046",
             "lat": 32.62320329,
             "lng": -89.99187239,
-            "languages": [],
             "name": "CANTON HIGH SCHOOL HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -499,7 +436,6 @@
             "address": "276 Nissan Pkwy Bldg C, Canton, MS 39046",
             "lat": 32.58777759,
             "lng": -90.08062654,
-            "languages": [],
             "name": "Mallory CHC - Women's Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -507,7 +443,6 @@
             "address": "2277 Main St, Fayette, MS 39069",
             "lat": 31.72243493,
             "lng": -91.05871993,
-            "languages": [],
             "name": "JEFFERSON CNTY HIGH SCHOOL CLINI",
             "center_type": "Service Delivery Site"
         },
@@ -515,7 +450,6 @@
             "address": "430 Highway 33, Fayette, MS 39069",
             "lat": 31.69931611,
             "lng": -91.07564111,
-            "languages": [],
             "name": "JEFFERSON CNTY MID SCHOOL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -523,7 +457,6 @@
             "address": "405 Main St, Fayette, MS 39069",
             "lat": 31.70325388,
             "lng": -91.07452409,
-            "languages": [],
             "name": "Jefferson Comprehensive Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -531,7 +464,6 @@
             "address": "2045 Highway 61 N, Port Gibson, MS 39150",
             "lat": 31.97711793,
             "lng": -90.97739589,
-            "languages": [],
             "name": "CLAIBORNE COUNTY FAMILY HEALTH CENTER",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -539,7 +471,6 @@
             "address": "880 Anthony St, Port Gibson, MS 39150",
             "lat": 31.9710824,
             "lng": -90.99795159,
-            "languages": [],
             "name": "CCFHC-A.W. WATSON SBH",
             "center_type": "Service Delivery Site"
         },
@@ -547,7 +478,6 @@
             "address": "548 Rosemary Rd, Cleveland, MS 38732",
             "lat": 33.76220077,
             "lng": -90.72834759,
-            "languages": [],
             "name": "Delta Health Center Searcy Medical Center Satellite",
             "center_type": "Service Delivery Site"
         },
@@ -555,7 +485,6 @@
             "address": "702 Ml King Dr, Mound Bayou, MS 38762",
             "lat": 33.87958369,
             "lng": -90.7261623,
-            "languages": [],
             "name": "DELTA HEALTH CENTER, INC.",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -563,7 +492,6 @@
             "address": "800 Ohio Ave, Clarksdale, MS 38614",
             "lat": 34.2034081,
             "lng": -90.55004452,
-            "languages": [],
             "name": "Mobile Medical Unit #3",
             "center_type": "Service Delivery Site"
         },
@@ -571,7 +499,6 @@
             "address": "800 Ohio Ave, Clarksdale, MS 38614",
             "lat": 34.2034081,
             "lng": -90.55004452,
-            "languages": [],
             "name": "AARON E. HENRY - CLARKSDALE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -579,7 +506,6 @@
             "address": "510 Highway 322, Clarksdale, MS 38614",
             "lat": 34.18952041,
             "lng": -90.59577176,
-            "languages": [],
             "name": "AARON E. HENRY COMMUNITY HEALTH SERVICES CENTER, INC.",
             "center_type": "Administrative"
         },
@@ -587,7 +513,6 @@
             "address": "1555 Lee Dr, Clarksdale, MS 38614",
             "lat": 34.19833142,
             "lng": -90.60637422,
-            "languages": [],
             "name": "Aaron E henry - Coahoma County School Base Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -595,7 +520,6 @@
             "address": "510 Highway 322, Clarksdale, MS 38614",
             "lat": 34.18952041,
             "lng": -90.59577176,
-            "languages": [],
             "name": "AARON E. HENRY - MOBILE MEDICAL UNIT #1 (Old)",
             "center_type": "Service Delivery Site"
         },
@@ -603,7 +527,6 @@
             "address": "550 Caldwell Dr, Hazlehurst, MS 39083",
             "lat": 31.87172237,
             "lng": -90.3977269,
-            "languages": [],
             "name": "Copiah Comprehensive Health Complex",
             "center_type": "Service Delivery Site"
         },
@@ -611,7 +534,6 @@
             "address": "S 4th St, Mount Olive, MS 39119",
             "lat": 31.76002342,
             "lng": -89.65677531,
-            "languages": [],
             "name": "Mt. Olive Attendance Center",
             "center_type": "Service Delivery Site"
         },
@@ -619,7 +541,6 @@
             "address": "1208 S Dogwood Ave, Collins, MS 39428",
             "lat": 31.63835533,
             "lng": -89.54791064,
-            "languages": [],
             "name": "Collins High School",
             "center_type": "Service Delivery Site"
         },
@@ -627,7 +548,6 @@
             "address": "824 Hopewell Rd, Collins, MS 39428",
             "lat": 31.72012388,
             "lng": -89.47144709,
-            "languages": [],
             "name": "Hopewell Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -635,7 +555,6 @@
             "address": "200 W Main St Bldg 3, Seminary, MS 39479",
             "lat": 31.56171916,
             "lng": -89.49859565,
-            "languages": [],
             "name": "Seminary High School",
             "center_type": "Service Delivery Site"
         },
@@ -643,7 +562,6 @@
             "address": "401 N Dogwood Ave, Collins, MS 39428",
             "lat": 31.64683213,
             "lng": -89.56050881,
-            "languages": [],
             "name": "Collins Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -651,7 +569,6 @@
             "address": "200 W Main St Bldg 2, Seminary, MS 39479",
             "lat": 31.56171916,
             "lng": -89.49859565,
-            "languages": [],
             "name": "Seminary Middle School",
             "center_type": "Service Delivery Site"
         },
@@ -659,7 +576,6 @@
             "address": "200 W Main St, Seminary, MS 39479",
             "lat": 31.56171916,
             "lng": -89.49859565,
-            "languages": [],
             "name": "Seminary Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -667,7 +583,6 @@
             "address": "100 Highway 535, Seminary, MS 39479",
             "lat": 31.56184518,
             "lng": -89.49252663,
-            "languages": [],
             "name": "SEMINARY FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -675,7 +590,6 @@
             "address": "104 Carver Dr, Collins, MS 39428",
             "lat": 31.64611852,
             "lng": -89.56556856,
-            "languages": [],
             "name": "Carver Middle School",
             "center_type": "Service Delivery Site"
         },
@@ -683,7 +597,6 @@
             "address": "102 W Freedom Dr, Liberty, MS 39645",
             "lat": 31.16300529,
             "lng": -90.79469647,
-            "languages": [],
             "name": "AMITE COUNTY MEDICAL SERVICES, INC.",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -691,7 +604,6 @@
             "address": "102 W Freedom Dr, Liberty, MS 39645",
             "lat": 31.16300529,
             "lng": -90.79469647,
-            "languages": [],
             "name": "ACMS Mobile Dental Unit",
             "center_type": "Service Delivery Site"
         },
@@ -699,7 +611,6 @@
             "address": "102 W Freedom Dr, Liberty, MS 39645",
             "lat": 31.16300529,
             "lng": -90.79469647,
-            "languages": [],
             "name": "ACMS Mobile Medical/Dental Unit 2",
             "center_type": "Service Delivery Site"
         },
@@ -707,7 +618,6 @@
             "address": "102 W Freedom Dr, Liberty, MS 39645",
             "lat": 31.16300529,
             "lng": -90.79469647,
-            "languages": [],
             "name": "LIBERTY DENTAL SERVICES",
             "center_type": "Service Delivery Site"
         },
@@ -715,7 +625,6 @@
             "address": "101 Cottage Home Dr, Natchez, MS 39120",
             "lat": 31.57650333,
             "lng": -91.35350479,
-            "languages": [],
             "name": "Morgantown Middle School",
             "center_type": "Service Delivery Site"
         },
@@ -723,7 +632,6 @@
             "address": "145 Homochitto St, Natchez, MS 39120",
             "lat": 31.54588204,
             "lng": -91.39804619,
-            "languages": [],
             "name": "ADAMS COUNTY FAMILY HLTH CTR",
             "center_type": "Service Delivery Site"
         },
@@ -731,7 +639,6 @@
             "address": "170 Sgt Prentiss Dr, Natchez, MS 39120",
             "lat": 31.54230873,
             "lng": -91.37633455,
-            "languages": [],
             "name": "Gilmer McLaurin Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -739,7 +646,6 @@
             "address": "910 Second St, Prentiss, MS 39474",
             "lat": 31.59956624,
             "lng": -89.86509326,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc., --Prentiss",
             "center_type": "Service Delivery Site"
         },
@@ -747,7 +653,6 @@
             "address": "J E Johnson Rd, Prentiss, MS 39474",
             "lat": 31.58737204,
             "lng": -89.85673452,
-            "languages": [],
             "name": "Family Health Care Clinic, Prentiss--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -755,7 +660,6 @@
             "address": "927 Kemper St, Scooba, MS 39358",
             "lat": 32.83089856,
             "lng": -88.47524976,
-            "languages": [],
             "name": "Scooba Family Medical Center",
             "center_type": "Service Delivery Site"
         },
@@ -763,7 +667,6 @@
             "address": "201 Birch St, De Kalb, MS 39328",
             "lat": 32.7806403,
             "lng": -88.67786604,
-            "languages": [],
             "name": "KEMPER FAMILY MEDICAL CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -771,7 +674,6 @@
             "address": "2701 Davis St, Meridian, MS 39301",
             "lat": 32.3623537,
             "lng": -88.70578513,
-            "languages": [],
             "name": "GREATER MERIDIAN HEALTH CLINIC, INC.",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -779,7 +681,6 @@
             "address": "4000 10th St Bldg A, Meridian, MS 39307",
             "lat": 32.36716815,
             "lng": -88.71859607,
-            "languages": [],
             "name": "GMHC, INC. / MPSD West End/TJ Harris Community School Based Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -787,7 +688,6 @@
             "address": "2701 Davis St, Meridian, MS 39301",
             "lat": 32.3623537,
             "lng": -88.70578513,
-            "languages": [],
             "name": "GMHC Mobile Access Unit",
             "center_type": "Service Delivery Site"
         },
@@ -795,7 +695,6 @@
             "address": "430 W Broad St, Monticello, MS 39654",
             "lat": 31.55530488,
             "lng": -90.111413,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --MONTICELLO",
             "center_type": "Service Delivery Site"
         },
@@ -803,7 +702,6 @@
             "address": "202 Jefferson St, Newhebron, MS 39140",
             "lat": 31.73040697,
             "lng": -89.98014969,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc., --New Hebron",
             "center_type": "Service Delivery Site"
         },
@@ -811,7 +709,6 @@
             "address": "309 N Pine Ave, Heidelberg, MS 39439",
             "lat": 31.89848858,
             "lng": -89.00333622,
-            "languages": [],
             "name": "JASPER MEDICAL/DENTAL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -819,7 +716,6 @@
             "address": "290 Highway 51 N, Brookhaven, MS 39601",
             "lat": 31.58533725,
             "lng": -90.45658955,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Brookhaven",
             "center_type": "Service Delivery Site"
         },
@@ -827,7 +723,6 @@
             "address": "2506 Highway 51 SE, Bogue Chitto, MS 39629",
             "lat": 31.4295284,
             "lng": -90.46111484,
-            "languages": [],
             "name": "Family Health Care Clinic, Bogue Chitto--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -835,7 +730,6 @@
             "address": "10330 Road 375, Philadelphia, MS 39350",
             "lat": 32.75857774,
             "lng": -89.14378972,
-            "languages": [],
             "name": "PHILADELPHIA HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -843,7 +737,6 @@
             "address": "9431 Eastside Drive Ext Ste E, Newton, MS 39345",
             "lat": 32.35759739,
             "lng": -89.12865362,
-            "languages": [],
             "name": "Newton Health Care",
             "center_type": "Service Delivery Site"
         },
@@ -851,7 +744,6 @@
             "address": "67 Mulberry St, Shuqualak, MS 39361",
             "lat": 32.97943766,
             "lng": -88.56914328,
-            "languages": [],
             "name": "SHUQUALAK/NOXUBEE HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -859,7 +751,6 @@
             "address": "105 Felix Long St, Starkville, MS 39759",
             "lat": 33.46156634,
             "lng": -88.81830965,
-            "languages": [],
             "name": "OKTIBBEHA FAMILY MEDICAL CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -867,7 +758,6 @@
             "address": "1307 Airport Rd N, Flowood, MS 39232",
             "lat": 32.33040065,
             "lng": -90.09121396,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc.- - Flowood",
             "center_type": "Service Delivery Site"
         },
@@ -875,7 +765,6 @@
             "address": "1551 W Government St, Brandon, MS 39042",
             "lat": 32.28360736,
             "lng": -90.0216806,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Brandon",
             "center_type": "Service Delivery Site"
         },
@@ -883,7 +772,6 @@
             "address": "5096 US Hwy 49 South, Piney Woods, MS 39148",
             "lat": 32.06306,
             "lng": -89.99342999,
-            "languages": [],
             "name": "Family Health Care Clinic, Piney Woods--School",
             "center_type": "Service Delivery Site"
         },
@@ -891,7 +779,6 @@
             "address": "1205 Second St, Pelahatchie, MS 39145",
             "lat": 32.31583269,
             "lng": -89.7900677,
-            "languages": [],
             "name": "Family Health Care Clinic --Pelahatchie",
             "center_type": "Service Delivery Site"
         },
@@ -899,7 +786,6 @@
             "address": "4635 Highway 80 E, Pearl, MS 39208",
             "lat": 32.28354613,
             "lng": -90.0653101,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --PEARL",
             "center_type": "Service Delivery Site"
         },
@@ -907,7 +793,6 @@
             "address": "MS-487, Walnut Grove, MS 39189",
             "lat": 32.573637,
             "lng": -89.33495624,
-            "languages": [],
             "name": "SEBASTOPOL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -915,7 +800,6 @@
             "address": "1490 HWY 487, Sebastopol, MS 39359",
             "lat": 32.566569,
             "lng": -89.34311149,
-            "languages": [],
             "name": "EAST CENTRAL MISSISSIPPI HEALTH CARE",
             "center_type": "Administrative"
         },
@@ -923,7 +807,6 @@
             "address": "592 Schoolhouse Rd, Pinola, MS 39149",
             "lat": 31.87683675,
             "lng": -89.96126446,
-            "languages": [],
             "name": "Family Health Care Clinic, Pinola--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -931,7 +814,6 @@
             "address": "820 Johnson Lockhart Dr NE, Magee, MS 39111",
             "lat": 31.88306614,
             "lng": -89.72416178,
-            "languages": [],
             "name": "Family Health Care Clinic, Magee--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -939,7 +821,6 @@
             "address": "401 Main St N, Mendenhall, MS 39114",
             "lat": 31.96320728,
             "lng": -89.86939914,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --MENDENHALL",
             "center_type": "Service Delivery Site"
         },
@@ -947,7 +828,6 @@
             "address": "213 CR-10, Taylorsville, MS 39168",
             "lat": 31.84836387,
             "lng": -89.39347643,
-            "languages": [],
             "name": "Family Health Care Clinic, Taylorville1--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -955,7 +835,6 @@
             "address": "531 Highway 28 E, Taylorsville, MS 39168",
             "lat": 31.82887984,
             "lng": -89.41937928,
-            "languages": [],
             "name": "Family Health Center Taylorsville",
             "center_type": "Service Delivery Site"
         },
@@ -963,7 +842,6 @@
             "address": "226 Whiteoak Ave, Raleigh, MS 39153",
             "lat": 32.03904461,
             "lng": -89.53256188,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Raleigh",
             "center_type": "Service Delivery Site"
         },
@@ -971,7 +849,6 @@
             "address": "125 School Rd, Mize, MS 39116",
             "lat": 31.86119484,
             "lng": -89.55226768,
-            "languages": [],
             "name": "Family Health Care Clinic, Mize--School",
             "center_type": "Service Delivery Site"
         },
@@ -979,7 +856,6 @@
             "address": "445 Main St E, Meadville, MS 39653",
             "lat": 31.47262604,
             "lng": -90.89419936,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Meadville",
             "center_type": "Service Delivery Site"
         },
@@ -987,7 +863,6 @@
             "address": "262 Pine St N, Bude, MS 39630",
             "lat": 31.46414346,
             "lng": -90.84223799,
-            "languages": [],
             "name": "Family Health Care Clinic --Bude Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -995,7 +870,6 @@
             "address": "514 A-B East Woodrow Wilson, Jackson, MS 39216",
             "lat": 32.3359353,
             "lng": -90.17631999,
-            "languages": [],
             "name": "Jackson-Hinds Comprehensive Health Center Woodrow Wilson Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1003,7 +877,6 @@
             "address": "427 J R Lynch St, Jackson, MS 39203",
             "lat": 32.29757146,
             "lng": -90.19320751,
-            "languages": [],
             "name": "JACKSON-HINDS ETHEL JAMES IVORY HOMELESS CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1011,7 +884,6 @@
             "address": "1495 US Highway 61 S, Woodville, MS 39669",
             "lat": 31.11913969,
             "lng": -91.28542655,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Woodville",
             "center_type": "Service Delivery Site"
         },
@@ -1019,7 +891,6 @@
             "address": "1823 Highway 24 W, Woodville, MS 39669",
             "lat": 31.11411094,
             "lng": -91.31502308,
-            "languages": [],
             "name": "Family Health Care Clinic, Woodville--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1027,7 +898,6 @@
             "address": "130 E Lexie Rd, Tylertown, MS 39667",
             "lat": 31.07024477,
             "lng": -90.15979599,
-            "languages": [],
             "name": "Family Health Care Clinic, Tylertown--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1035,7 +905,6 @@
             "address": "113 Enochs St, Tylertown, MS 39667",
             "lat": 31.11361876,
             "lng": -90.14266263,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc. --Tylertown",
             "center_type": "Service Delivery Site"
         },
@@ -1043,7 +912,6 @@
             "address": "225 Saint Paul Rd, Tylertown, MS 39667",
             "lat": 31.17163516,
             "lng": -90.20856267,
-            "languages": [],
             "name": "Family Health Care Clinic, Tylertown--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1051,7 +919,6 @@
             "address": "300 Rawls Dr Ste 1300, Mccomb, MS 39648",
             "lat": 31.25121252,
             "lng": -90.47104787,
-            "languages": [],
             "name": "Pike County Medical Services",
             "center_type": "Service Delivery Site"
         },
@@ -1059,7 +926,6 @@
             "address": "256 Main St, State Line, MS 39362",
             "lat": 31.43862711,
             "lng": -88.47626883,
-            "languages": [],
             "name": "State Line Medical Center",
             "center_type": "Service Delivery Site"
         },
@@ -1067,7 +933,6 @@
             "address": "713 Lomax Ave, Waynesboro, MS 39367",
             "lat": 31.67758341,
             "lng": -88.64076495,
-            "languages": [],
             "name": "Family Health Center, Inc.",
             "center_type": "Service Delivery Site"
         },
@@ -1075,7 +940,6 @@
             "address": "4770 Amoco Dr, Moss Point, MS 39563",
             "lat": 30.43691696,
             "lng": -88.53025651,
-            "languages": [],
             "name": "MOSS POINT HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1083,7 +947,6 @@
             "address": "10828 Highway 57, Vancleave, MS 39565",
             "lat": 30.50048616,
             "lng": -88.70355112,
-            "languages": [],
             "name": "VANCLEAVE HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1091,7 +954,6 @@
             "address": "4630 Magnolia St, Moss Point, MS 39563",
             "lat": 30.40749932,
             "lng": -88.54637608,
-            "languages": [],
             "name": "Magnolia School Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1099,7 +961,6 @@
             "address": "4913 Weems St, Moss Point, MS 39563",
             "lat": 30.41319744,
             "lng": -88.54935582,
-            "languages": [],
             "name": "Moss Point High Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -1107,7 +968,6 @@
             "address": "1614 Williams Dr, Leakesville, MS 39451",
             "lat": 31.14889109,
             "lng": -88.56850643,
-            "languages": [],
             "name": "Leakesville Dental Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1115,7 +975,6 @@
             "address": "620 Main St, Leakesville, MS 39451",
             "lat": 31.15666164,
             "lng": -88.5558081,
-            "languages": [],
             "name": "Schoool Health Services-Leakesville Jr High Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1123,7 +982,6 @@
             "address": "300 Shows St, Mc Lain, MS 39456",
             "lat": 31.1113234,
             "lng": -88.82816608,
-            "languages": [],
             "name": "School Health Services-McLain Attendance Center Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1131,7 +989,6 @@
             "address": "4336 High School Rd, Leakesville, MS 39451",
             "lat": 31.14086332,
             "lng": -88.60113591,
-            "languages": [],
             "name": "School Health Services-Greene County High School Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1139,7 +996,6 @@
             "address": "1616 Williams Dr, Leakesville, MS 39451",
             "lat": 31.14888741,
             "lng": -88.56852748,
-            "languages": [],
             "name": "Leakesville Medical Center",
             "center_type": "Service Delivery Site"
         },
@@ -1147,7 +1003,6 @@
             "address": "39455 Highway 63 N, Richton, MS 39476",
             "lat": 31.34720224,
             "lng": -88.763188,
-            "languages": [],
             "name": "School Health Services - Sand Hill School Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1155,7 +1010,6 @@
             "address": "175 Annex Rd, Leakesville, MS 39451",
             "lat": 31.14502417,
             "lng": -88.5295028,
-            "languages": [],
             "name": "School Health Services-Leakesville Elementary School Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1163,7 +1017,6 @@
             "address": "109 Hospital Dr, Bay Saint Louis, MS 39520",
             "lat": 30.31547535,
             "lng": -89.35406913,
-            "languages": [],
             "name": "BAY ST. LOUIS HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1171,7 +1024,6 @@
             "address": "1046 Division St, Biloxi, MS 39530",
             "lat": 30.40354044,
             "lng": -88.90075224,
-            "languages": [],
             "name": "COASTAL FAMILY HEALTH CENTER ADMINISTRATION",
             "center_type": "Administrative"
         },
@@ -1179,7 +1031,6 @@
             "address": "15024 Martin Luther King Jr Blvd, Gulfport, MS 39501",
             "lat": 30.40405251,
             "lng": -89.08726033,
-            "languages": [],
             "name": "GULFPORT HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1187,7 +1038,6 @@
             "address": "739 Division St, Biloxi, MS 39530",
             "lat": 30.40313692,
             "lng": -88.88702828,
-            "languages": [],
             "name": "Medical/Dental Mobile Unit",
             "center_type": "Service Delivery Site"
         },
@@ -1195,7 +1045,6 @@
             "address": "735 Division St, Biloxi, MS 39530",
             "lat": 30.40313616,
             "lng": -88.88696976,
-            "languages": [],
             "name": "BILOXI PEDIATRIC HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1203,7 +1052,6 @@
             "address": "1025 Division St Ste A, Biloxi, MS 39530",
             "lat": 30.40339993,
             "lng": -88.89958317,
-            "languages": [],
             "name": "Coastal Family Health Center Pharmacy",
             "center_type": "Administrative"
         },
@@ -1211,7 +1059,6 @@
             "address": "9113 Highway 49, Gulfport, MS 39503",
             "lat": 30.41552671,
             "lng": -89.09312187,
-            "languages": [],
             "name": "Coastal Family Health Center Pharmacy-Gulfport",
             "center_type": "Service Delivery Site"
         },
@@ -1219,7 +1066,6 @@
             "address": "3446 Big Ridge Rd, Diberville, MS 39540",
             "lat": 30.44664648,
             "lng": -88.89763394,
-            "languages": [],
             "name": "D' IBERVILLE HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1227,7 +1073,6 @@
             "address": "715A Division St, Biloxi, MS 39530",
             "lat": 30.40313233,
             "lng": -88.88667717,
-            "languages": [],
             "name": "Biloxi Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1235,7 +1080,6 @@
             "address": "23453 Central Dr, Saucier, MS 39574",
             "lat": 30.63020995,
             "lng": -89.13246726,
-            "languages": [],
             "name": "SAUCIER HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1243,7 +1087,6 @@
             "address": "257 Davis Ave, Pass Christian, MS 39571",
             "lat": 30.31871311,
             "lng": -89.24309729,
-            "languages": [],
             "name": "PASS CHRISTIAN HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1251,7 +1094,6 @@
             "address": "100 W Front St, Hattiesburg, MS 39401",
             "lat": 31.32620544,
             "lng": -89.28980391,
-            "languages": [],
             "name": "HATTIESBURG FAMILY HEALTH CENTER DOWNTOWN",
             "center_type": "Service Delivery Site"
         },
@@ -1259,7 +1101,6 @@
             "address": "44 Brooklyn Janice Rd, Brooklyn, MS 39425",
             "lat": 31.05861255,
             "lng": -89.18217725,
-            "languages": [],
             "name": "BROOKLYN FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1267,7 +1108,6 @@
             "address": "1179 Highway 42, Petal, MS 39465",
             "lat": 31.35049627,
             "lng": -89.20334336,
-            "languages": [],
             "name": "Petal Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -1275,7 +1115,6 @@
             "address": "62 Old Airport Rd, Hattiesburg, MS 39401",
             "lat": 31.27736309,
             "lng": -89.28174179,
-            "languages": [],
             "name": "WOMEN'S HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1283,7 +1122,6 @@
             "address": "68 Old Airport Rd, Hattiesburg, MS 39401",
             "lat": 31.27736309,
             "lng": -89.28155489,
-            "languages": [],
             "name": "HATTIESBURG COMMUNITY DENTAL CTR",
             "center_type": "Service Delivery Site"
         },
@@ -1291,7 +1129,6 @@
             "address": "1145 Highway 42, Petal, MS 39465",
             "lat": 31.35049595,
             "lng": -89.20596156,
-            "languages": [],
             "name": "Petal High School",
             "center_type": "Service Delivery Site"
         },
@@ -1299,7 +1136,6 @@
             "address": "400 Hillcrest Loop, Petal, MS 39465",
             "lat": 31.3355816,
             "lng": -89.25838589,
-            "languages": [],
             "name": "Petal Upper Elementary School",
             "center_type": "Service Delivery Site"
         },
@@ -1307,7 +1143,6 @@
             "address": "64 Old Airport Rd, Hattiesburg, MS 39401",
             "lat": 31.27736309,
             "lng": -89.28167949,
-            "languages": [],
             "name": "SeMRHI Support Services Center",
             "center_type": "Service Delivery Site"
         },
@@ -1315,7 +1150,6 @@
             "address": "66 Old Airport Rd, Hattiesburg, MS 39401",
             "lat": 31.27740052,
             "lng": -89.28194399,
-            "languages": [],
             "name": "HATTIESBURG FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1323,7 +1157,6 @@
             "address": "203 Highway 42, Petal, MS 39465",
             "lat": 31.34671746,
             "lng": -89.25860249,
-            "languages": [],
             "name": "Petal Middle School",
             "center_type": "Service Delivery Site"
         },
@@ -1331,7 +1164,6 @@
             "address": "180 Wsf Tatum Drive Ext, Hattiesburg, MS 39401",
             "lat": 31.29471549,
             "lng": -89.29686452,
-            "languages": [],
             "name": "N.R. Burger School and Community Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1339,7 +1171,6 @@
             "address": "404 Lillie Burney St, Hattiesburg, MS 39401",
             "lat": 31.30373678,
             "lng": -89.3062988,
-            "languages": [],
             "name": "Hattiesburg Public School and COMMUNITY CLINIC ",
             "center_type": "Service Delivery Site"
         },
@@ -1347,7 +1178,6 @@
             "address": "36 Panther Stadium Dr, Petal, MS 39465",
             "lat": 31.35372569,
             "lng": -89.20243375,
-            "languages": [],
             "name": "Petal School Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1355,7 +1185,6 @@
             "address": "60 Herrington Rd, Petal, MS 39465",
             "lat": 31.35427439,
             "lng": -89.21333233,
-            "languages": [],
             "name": "Petal Primary School",
             "center_type": "Service Delivery Site"
         },
@@ -1363,7 +1192,6 @@
             "address": "5488 U S Highway 49, Hattiesburg, MS 39401",
             "lat": 31.28793758,
             "lng": -89.29984115,
-            "languages": [],
             "name": "SOUTHEAST MISSISSIPPI RURAL HEALTH INITIATIVE, INC.",
             "center_type": "Administrative"
         },
@@ -1371,7 +1199,6 @@
             "address": "605 Stadium Dr, Hattiesburg, MS 39401",
             "lat": 31.33190132,
             "lng": -89.30673957,
-            "languages": [],
             "name": "HATTIESBURG High School & COMMUNITY CLIN.",
             "center_type": "Service Delivery Site"
         },
@@ -1379,7 +1206,6 @@
             "address": "222 S 27th Ave, Hattiesburg, MS 39401",
             "lat": 31.32119716,
             "lng": -89.33005986,
-            "languages": [],
             "name": "Minor Care Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1387,7 +1213,6 @@
             "address": "1911 Read Rd, Picayune, MS 39466",
             "lat": 30.542166,
             "lng": -89.66260544,
-            "languages": [],
             "name": "Picayune Family Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -1395,7 +1220,6 @@
             "address": "404 S Main St, New Augusta, MS 39462",
             "lat": 31.20172326,
             "lng": -89.03495188,
-            "languages": [],
             "name": "NEW AUGUSTA FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1403,7 +1227,6 @@
             "address": "1411 Bradley Ave, Beaumont, MS 39423",
             "lat": 31.1655507,
             "lng": -88.91972896,
-            "languages": [],
             "name": "BEAUMONT FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1411,7 +1234,6 @@
             "address": "628 Main St, Columbia, MS 39429",
             "lat": 31.25087488,
             "lng": -89.83424692,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc., --Columbia",
             "center_type": "Service Delivery Site"
         },
@@ -1419,7 +1241,6 @@
             "address": "431 Old Highway 13 S, Columbia, MS 39429",
             "lat": 31.14813065,
             "lng": -89.75118962,
-            "languages": [],
             "name": "Family Health Care Clinic, Columbia--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1427,7 +1248,6 @@
             "address": "325 Kokomo Rd, Kokomo, MS 39643",
             "lat": 31.21095598,
             "lng": -90.00439656,
-            "languages": [],
             "name": "Family Health Care Clinic, Kokomo--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1435,7 +1255,6 @@
             "address": "Williamsburg Rd, Bassfield, MS 39421",
             "lat": 31.42697739,
             "lng": -89.75186962,
-            "languages": [],
             "name": "Family Health Care Clinic,  Bassfield2--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1443,7 +1262,6 @@
             "address": "1016 Highway 42, Sumrall, MS 39482",
             "lat": 31.41275078,
             "lng": -89.55690341,
-            "languages": [],
             "name": "SUMRALL FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1451,7 +1269,6 @@
             "address": "598 W 11th Ave, Lumberton, MS 39455",
             "lat": 30.99970996,
             "lng": -89.45791781,
-            "languages": [],
             "name": "LUMBERTON FAMILY HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1459,7 +1276,6 @@
             "address": "117 S 11th Ave, Laurel, MS 39440",
             "lat": 31.68932285,
             "lng": -89.13993541,
-            "languages": [],
             "name": "FAMILY HEALTH CENTER, INC.",
             "center_type": "Service Delivery Site"
         },
@@ -1467,7 +1283,6 @@
             "address": "203 Broad St, Laurel, MS 39443",
             "lat": 31.78314507,
             "lng": -89.03666523,
-            "languages": [],
             "name": "SANDERSVILLE HEALTH CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1475,7 +1290,6 @@
             "address": "103 S 12th Ave, Laurel, MS 39440",
             "lat": 31.68917974,
             "lng": -89.14130023,
-            "languages": [],
             "name": "FAMILY HEALTH CTR - OB/GYN Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1483,7 +1297,6 @@
             "address": "130 S High St, Shubuta, MS 39360",
             "lat": 31.85967322,
             "lng": -88.69951951,
-            "languages": [],
             "name": "SHUBUTA MEDICAL/DENTAL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1491,7 +1304,6 @@
             "address": "130 S High St, Shubuta, MS 39360",
             "lat": 31.85967322,
             "lng": -88.69951951,
-            "languages": [],
             "name": "OUTREACH HEALTH SERVICES, INC.",
             "center_type": "Administrative"
         },
@@ -1499,7 +1311,6 @@
             "address": "1415 S Harper Rd, Corinth, MS 38834",
             "lat": 34.91859795,
             "lng": -88.49752501,
-            "languages": [],
             "name": "Corinth Health Care Associates",
             "center_type": "Service Delivery Site"
         },
@@ -1507,7 +1318,6 @@
             "address": "15921 Boundary Dr, Ashland, MS 38603",
             "lat": 34.82871107,
             "lng": -89.18937727,
-            "languages": [],
             "name": "Benton Medical Center - North Benton County Health Care, Inc.",
             "center_type": "Service Delivery Site"
         },
@@ -1515,7 +1325,6 @@
             "address": "15921 Boundary Dr, Ashland, MS 38603",
             "lat": 34.82871107,
             "lng": -89.18937727,
-            "languages": [],
             "name": "Mobile Unit",
             "center_type": "Service Delivery Site"
         },
@@ -1523,7 +1332,6 @@
             "address": "105 Legion Ave, Calhoun City, MS 38916",
             "lat": 33.87020859,
             "lng": -89.31704632,
-            "languages": [],
             "name": "Family Health Care Clinic, Inc., Calhoun City",
             "center_type": "Service Delivery Site"
         },
@@ -1531,7 +1339,6 @@
             "address": "125 Carter Dr, Calhoun City, MS 38916",
             "lat": 33.74172732,
             "lng": -89.37256405,
-            "languages": [],
             "name": "Family Health Care Clinic, Calhoun City--Head Start",
             "center_type": "Service Delivery Site"
         },
@@ -1539,7 +1346,6 @@
             "address": "106 Walker St, Houlka, MS 38850",
             "lat": 34.03748761,
             "lng": -89.02258879,
-            "languages": [],
             "name": "Access Family Health Services - Houlka",
             "center_type": "Service Delivery Site"
         },
@@ -1547,7 +1353,6 @@
             "address": "499 Gloster Creek Vlg, Tupelo, MS 38801",
             "lat": 34.25195621,
             "lng": -88.71896033,
-            "languages": [],
             "name": "Access Family Health Services - Tupelo",
             "center_type": "Service Delivery Site"
         },
@@ -1555,7 +1360,6 @@
             "address": "182 W Main St, Nettleton, MS 38858",
             "lat": 34.08913101,
             "lng": -88.62712653,
-            "languages": [],
             "name": "Access Family Health Services - Nettleton",
             "center_type": "Service Delivery Site"
         },
@@ -1563,7 +1367,6 @@
             "address": "154 Mount Pleasant Rd, Holly Springs, MS 38635",
             "lat": 34.95607407,
             "lng": -89.52585014,
-            "languages": [],
             "name": "MT. PLEASANT FAMILY HLTH CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1571,7 +1374,6 @@
             "address": "34 Brunswick St, Byhalia, MS 38611",
             "lat": 34.87184459,
             "lng": -89.68820572,
-            "languages": [],
             "name": "BYHALIA FAMILY DENTAL CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1579,7 +1381,6 @@
             "address": "12 Brunswick St, Byhalia, MS 38611",
             "lat": 34.8720004,
             "lng": -89.68820665,
-            "languages": [],
             "name": "DBA BYHALIA FAMILY HEALTH CENTER",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -1587,7 +1388,6 @@
             "address": "60021 Monroe St, Smithville, MS 38870",
             "lat": 34.07201954,
             "lng": -88.39488227,
-            "languages": [],
             "name": "ACCESS Family Health Services - Smithville",
             "center_type": "Service Delivery Site"
         },
@@ -1595,7 +1395,6 @@
             "address": "63450 Highway 25 N, Smithville, MS 38870",
             "lat": 34.06913339,
             "lng": -88.39587986,
-            "languages": [],
             "name": "ACCESS Family Health Services Administrative Office",
             "center_type": "Administrative"
         },
@@ -1603,7 +1402,6 @@
             "address": "60024 Olive St, Smithville, MS 38870",
             "lat": 34.06698883,
             "lng": -88.39376656,
-            "languages": [],
             "name": "Access Family Dental Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1611,7 +1409,6 @@
             "address": "353 Highway 15 N, Pontotoc, MS 38863",
             "lat": 34.26788611,
             "lng": -89.02053044,
-            "languages": [],
             "name": "MississippiCare - 113",
             "center_type": "Service Delivery Site"
         },
@@ -1619,7 +1416,6 @@
             "address": "208 N 1st St, Booneville, MS 38829",
             "lat": 34.65877416,
             "lng": -88.5645591,
-            "languages": [],
             "name": "Booneville Community Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -1627,7 +1423,6 @@
             "address": "643 W Service Dr, Coldwater, MS 38618",
             "lat": 34.68735821,
             "lng": -89.97852737,
-            "languages": [],
             "name": "M.J. Edwards Center",
             "center_type": "Service Delivery Site"
         },
@@ -1635,7 +1430,6 @@
             "address": "749 S Line St, Ripley, MS 38663",
             "lat": 34.7236097,
             "lng": -88.95663055,
-            "languages": [],
             "name": "Ripley Health Care Associates",
             "center_type": "Service Delivery Site"
         },
@@ -1643,7 +1437,6 @@
             "address": "531 Main St, Walnut, MS 38683",
             "lat": 34.94460645,
             "lng": -88.90060176,
-            "languages": [],
             "name": "WALNUT MEDICAL CENTER",
             "center_type": "Service Delivery Site"
         },
@@ -1651,7 +1444,6 @@
             "address": "1310 Main St, Tishomingo, MS 38873",
             "lat": 34.63853743,
             "lng": -88.23202306,
-            "languages": [],
             "name": "Tishomingo Health Care Associates",
             "center_type": "Service Delivery Site"
         },
@@ -1659,7 +1451,6 @@
             "address": "7535 Airways Blvd, Southaven, MS 38671",
             "lat": 34.969356,
             "lng": -89.98993355,
-            "languages": [],
             "name": "DeSoto Community Health Center",
             "center_type": "Service Delivery Site"
         },
@@ -1667,7 +1458,6 @@
             "address": "5681 Highway 363, Mantachie, MS 38855",
             "lat": 34.32359429,
             "lng": -88.49070969,
-            "languages": [],
             "name": "Mantachie Rural Health Care, Inc.",
             "center_type": "Administrative/Service Delivery Site"
         },
@@ -1675,7 +1465,6 @@
             "address": "12725 Highway 23 N, Tremont, MS 38876",
             "lat": 34.23806532,
             "lng": -88.26258555,
-            "languages": [],
             "name": "Access Family Health Services - Tremont",
             "center_type": "Service Delivery Site"
         },
@@ -1683,7 +1472,6 @@
             "address": "5510 Highway 363, Mantachie, MS 38855",
             "lat": 34.32189858,
             "lng": -88.48865846,
-            "languages": [],
             "name": "Mantachie Rural Health Care Behavioral Health Clinic",
             "center_type": "Service Delivery Site"
         },
@@ -1691,7 +1479,6 @@
             "address": "5500 Highway 363, Mantachie, MS 38855",
             "lat": 34.32188686,
             "lng": -88.48864283,
-            "languages": [],
             "name": "MANTACHIE RURAL HEALTH CARE, INC. DENTAL",
             "center_type": "Service Delivery Site"
         },
@@ -1699,7 +1486,6 @@
             "address": "14130 Highway 15 S Ste D, Louisville, MS 39339",
             "lat": 33.0555582,
             "lng": -89.06471844,
-            "languages": [],
             "name": "Winston County Family Medical Center",
             "center_type": "Service Delivery Site"
         },
@@ -1707,7 +1493,6 @@
             "address": "232 Starlyn Ave, New Albany, MS 38652",
             "lat": 34.49728764,
             "lng": -89.03559854,
-            "languages": [],
             "name": "New Albany Health Care Associates",
             "center_type": "Service Delivery Site"
         },
@@ -1715,7 +1500,6 @@
             "address": "3312 Oak St, Vicksburg, MS 39180",
             "lat": 32.3281272,
             "lng": -90.89167269,
-            "languages": [],
             "name": "JACKSON-HINDS TRI-COUNTY HEALTH GROUP SITE",
             "center_type": "Administrative"
         },
@@ -1723,7 +1507,6 @@
             "address": "1203 Mission Park Dr, Vicksburg, MS 39180",
             "lat": 32.34065711,
             "lng": -90.86292729,
-            "languages": [],
             "name": "JACKSON-HINDS VICKSBURG WARREN FAMILY HEALTH CARE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1731,7 +1514,6 @@
             "address": "1414 Hospital St, Greenville, MS 38703",
             "lat": 33.41186047,
             "lng": -91.03480136,
-            "languages": [],
             "name": "GREENVILLE SATELLITE CLINIC",
             "center_type": "Service Delivery Site"
         },
@@ -1739,7 +1521,6 @@
             "address": "100 E Washington St, Hollandale, MS 38748",
             "lat": 33.16891388,
             "lng": -90.85375788,
-            "languages": [],
             "name": "Hollandale Satellite",
             "center_type": "Service Delivery Site"
         },
@@ -1747,7 +1528,6 @@
             "address": "2363 Highway 1 S, Greenville, MS 38701",
             "lat": 33.353082,
             "lng": -91.04151811,
-            "languages": [],
             "name": "South Greenville Satellite",
             "center_type": "Service Delivery Site"
         }

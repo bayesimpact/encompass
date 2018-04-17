@@ -78,10 +78,12 @@ async function codegenAPITypes() {
   await mkdir('src/constants/api/')
   console.info('  Created folder src/constants/api/')
 
+  // TODO compile from schema for every file in this subdir, without explicitly listing here.
   await Promise.all([
     compileJSONSchema('adequacies-request'),
     compileJSONSchema('adequacies-response'),
     compileJSONSchema('available-service-areas-response'),
+    compileJSONSchema('census-data-response'),
     compileJSONSchema('geocode-request'),
     compileJSONSchema('geocode-response'),
     compileJSONSchema('representative-points-request'),
@@ -114,6 +116,7 @@ function genCensusMapping(object: object) {
 * This file was automatically generated.
 * DO NOT MODIFY IT BY HAND. Instead, run "yarn codegen" to regenerate it.
 */
+import { CONFIG } from '../config/config'
 
 type censusMapping = {
   [category: string]: string[]
@@ -121,7 +124,11 @@ type censusMapping = {
 
 export const CENSUS_MAPPING_ERROR = 'No Census Mapping Detected'
 
-export const CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
+export let CENSUS_MAPPING: censusMapping = ${inspect(object, { breakLength: Infinity, depth: null, maxArrayLength: null })}
+
+if (!CONFIG.is_census_data_available) {
+  CENSUS_MAPPING = { unvailable: [] }
+}
 `
 }
 

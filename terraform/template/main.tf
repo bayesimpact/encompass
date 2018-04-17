@@ -240,7 +240,7 @@ resource "aws_lb_listener" "na_app_elb_listener_443" {
   certificate_arn = "${var.ssl_certificate_arn}"
 
   default_action {
-    target_group_arn = "${aws_lb_target_group.na_lb_tg_80.arn}"
+    target_group_arn = "${aws_lb_target_group.na_lb_tg_8081.arn}"
     type = "forward"
   }
 }

@@ -15,8 +15,8 @@ class TestOpenRouteDrivingTime():
 
     def setup(self):
         """Initialize a measurer for use in the test cases."""
-        self.api_key = os.environ.get('ORS_TOKEN', 'fake')
-        self.measurer = time.OpenRouteDrivingTime(api_key=self.api_key)
+        self.access_token = os.environ.get('ORS_TOKEN', 'fake')
+        self.measurer = time.OpenRouteDrivingTime(access_token=self.access_token)
 
     @mock.patch('backend.models.time.distance_matrix')
     def test_get_matrix(self, mock_distance_matrix):
@@ -31,7 +31,7 @@ class TestOpenRouteDrivingTime():
 
     def test_distance_matrix(self):
         """Check that the distance_matrix function is working of a correct API is provided."""
-        if self.api_key != 'fake':
+        if self.access_token != 'fake':
             matrix_durations = self.measurer._get_matrix(
                 source_points=[NEWPORT_RI],
                 destination_points=[CLEVELAND_OH, CLEVELAND_OH]

@@ -22,8 +22,8 @@ class TestOSRMDrivingTimeMetric():
         """Check that the OSRM time matches expectations."""
         measurements = self.measurer._measure_one_to_many_points(NEWPORT_RI, [CLEVELAND_OH])
         # measure_one_to_many_points return measurements in seconds.
-        # The time should be more than 10 hours (600 minutes) but less than 20 hours (1200 minutes).
-        assert abs(float(measurements[0]) / 60 - 900.0) < 300.0
+        # The time should be more than 200 minutes (~3 hours) but less than 2000 minutes (33 hours).
+        assert abs(float(measurements[0]) / 60 - 1100.0) < 900.0
 
     def test_closest(self):
         """Check that the closest method works as expected."""

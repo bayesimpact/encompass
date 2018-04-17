@@ -2,6 +2,7 @@ import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
 import { tail } from 'lodash'
 import * as React from 'react'
+import { CONFIG } from '../../config/config'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
@@ -23,7 +24,7 @@ export let CensusAdequacyCharts = withStore('adequacies', 'method')<Props>(({ se
 
   // Calculate summaryStatistics for each group.
   let populationByAdequacyByGroup = summaryStatisticsByServiceAreaAndCensus(serviceAreas, censusCategory, store)
-  let censusGroups = ['Total'].concat(CENSUS_MAPPING[censusCategory])
+  let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
     <CensusDataChart
@@ -32,11 +33,13 @@ export let CensusAdequacyCharts = withStore('adequacies', 'method')<Props>(({ se
       censusGroups={censusGroups}
       populationByAdequacyByGroup={populationByAdequacyByGroup}
     />
-    <CensusDataChart
-      percent={false}
-      measurementMethod={method}
-      censusGroups={tail(censusGroups)} // Don't include total population in absolute value chart.
-      populationByAdequacyByGroup={populationByAdequacyByGroup}
-    />
+    {CONFIG.is_census_data_available ?
+      <CensusDataChart
+        percent={false}
+        measurementMethod={method}
+        censusGroups={tail(censusGroups)} // Don't include total population in absolute value chart.
+        populationByAdequacyByGroup={populationByAdequacyByGroup}
+      /> : null
+    }
   </div>
 })

@@ -3,13 +3,14 @@ import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
+import { CONFIG } from '../../config/config'
 import { withStore } from '../../services/store'
 import './FilterBar.css'
 
 export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
   return <Paper className='FilterBar' zDepth={1}>
     <div className='Filter -FixedWidthBig'>
-      <span>Method</span>
+      <span>Measure</span>
       <DropDownMenu
         className='DropDownMenu -Compact'
         onChange={(_e, _i, value) => {
@@ -23,7 +24,8 @@ export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
         value={store.get('method')}
       >
         <MenuItem value='driving_time' primaryText='Driving Time' disabled={!store.get('allowDrivingTime')} />
-        <MenuItem value='haversine' primaryText='Haversine Distance' />
+        <MenuItem value='straight_line' primaryText='Straight-line Distance' />
+        <MenuItem value='walking_time' primaryText='Walking Time' disabled={!CONFIG.is_walking_available} />
       </DropDownMenu>
     </div>
   </Paper>

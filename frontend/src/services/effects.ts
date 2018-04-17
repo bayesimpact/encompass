@@ -1,18 +1,27 @@
 import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
+import { CONFIG } from '../config/config'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
 import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
-import { getAdequacies, getRepresentativePoints, isPostGeocodeSuccessResponse, postGeocode } from './api'
+import {
+  getAdequacies, getCensusData, getRepresentativePoints,
+  getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
+  postGeocode
+} from './api'
 import { Store } from './store'
 
-// const { APP_IS_PUBLIC } = process.env
+/**
+ * Determine whether to use the static behaviours or the dynamic ones.
+ */
+const appIsStatic = CONFIG.staticAssets.appIsStatic
 
 export function withEffects(store: Store) {
   /**
@@ -21,12 +30,24 @@ export function withEffects(store: Store) {
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
-      let points = await getRepresentativePoints({ service_area_ids: serviceAreas })
+      const selectedDataset = store.get('selectedDataset')
+
+      // Clear the points when unselecting a dataset.
+      if (serviceAreas.length === 0) {
+        store.set('representativePoints')([])
+      }
+
+      // Get representative points.
+      const points = appIsStatic ? await getStaticRPs(selectedDataset) :
+        await getRepresentativePoints({ service_area_ids: serviceAreas })
+
+      // Get census information at the service area level.
+      const censusData = CONFIG.is_census_data_available ? appIsStatic ? await getStaticDemographics(selectedDataset) :
+        await getCensusData({ service_area_ids: serviceAreas }) : {}
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
       // then cancel this operation.
-      let fake_demographic = { all: { All: 100.0 } }
       if (!equals(serviceAreas, store.get('serviceAreas'))) {
         return
       }
@@ -36,9 +57,9 @@ export function withEffects(store: Store) {
       store.set('representativePoints')(
         points.map(_ => ({
           ..._,
-          demographics: fake_demographic,
           population: _.population,
-          serviceAreaId: _.service_area_id
+          serviceAreaId: _.service_area_id,
+          demographics: censusData[_.service_area_id]
         }))
       )
     })
@@ -145,15 +166,14 @@ export function withEffects(store: Store) {
       // To avoid an inconsistent state, we fetch the latest representative points here.
       //
       // TODO: Do this more elegantly to avoid the double-computation.
-      let [adequacies, points] = await Promise.all([
-        getAdequacies({
+      const adequacies = appIsStatic ? await getStaticAdequacies(store.get('selectedDataset'), store.get('method')) :
+        await getAdequacies({
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas,
           dataset_hint: safeDatasetHint(store.get('selectedDataset'))
-        }),
-        representativePoints
-      ])
+        })
+      const points = representativePoints
 
       // Sanity check: If the user changed service areas between when the
       // POST /api/representative_points request was dispatched and now,
@@ -189,8 +209,6 @@ export function withEffects(store: Store) {
         return selectedCounties.includes(parseSerializedServiceArea(sA).county)
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Name') {
-      store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
 
@@ -198,7 +216,7 @@ export function withEffects(store: Store) {
    * Filter counties by urban/rural if the countyTypeSelector is in use.
    */
   store.on('selectedCountyType').subscribe(selectedCountyType => {
-    if (selectedCountyType !== null) {
+    if (selectedCountyType === 'Urban' || selectedCountyType === 'Rural') {
       let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
         let { state, county } = parseSerializedServiceArea(sA)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
@@ -206,7 +224,7 @@ export function withEffects(store: Store) {
         return (selectedCountyType === 'Urban') ? urban : !urban
       })
       store.set('selectedServiceAreas')(selectedServiceAreas)
-    } else if (store.get('selectedFilterMethod') === 'County Type') {
+    } else if (selectedCountyType === 'All') {
       store.set('selectedServiceAreas')(store.get('serviceAreas'))
     }
   })
@@ -215,10 +233,14 @@ export function withEffects(store: Store) {
    * If the user selects a new selector method, re-select all service areas.
    * And reset selectors to 'All Counties'.
    */
-  store.on('selectedFilterMethod').subscribe(_ => {
-    if (store.set('selectedServiceAreas') !== null) {
-      store.set('selectedServiceAreas')(null)
+  store.on('selectedFilterMethod').subscribe(selectedFilterMethod => {
+    if (selectedFilterMethod === 'County Type') {
       store.set('selectedCountyType')(null)
+    }
+    if (selectedFilterMethod === 'All') {
+      store.set('selectedServiceAreas')(null)
+    }
+    if (selectedFilterMethod === 'County Name') {
       store.set('selectedCounties')(null)
     }
   })
@@ -231,12 +253,13 @@ export function withEffects(store: Store) {
     .subscribe(() => {
       store.set('counties')([])
       store.set('selectedCounties')(null)
+      store.set('useCustomCountyUpload')(null)
     })
 
   /**
    * When the user adds representative points,
    * make sure that providers appear on top.
-   * TODO - Invetsigate less hacky method.
+   * TODO - Investigate less hacky method.
    */
   store
     .on('representativePoints')
@@ -263,7 +286,7 @@ export function withEffects(store: Store) {
       } else {
         let chunkSize = Math.floor(representativePoints.length / 10)
         store.set('pointFeatureCollections')(
-          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies)(rpChunk))
+          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies, store.get('method'))(rpChunk))
         )
       }
     })
@@ -297,13 +320,28 @@ export function withEffects(store: Store) {
     .on('route')
     .subscribe(route => {
       if (route === '/add-data') {
-        store.set('allowDrivingTime')(false)
-        store.set('method')('haversine')
+        store.set('allowDrivingTime')(CONFIG.analysis.allow_driving_time)
+        store.set('method')('straight_line')
       } else if (route === '/datasets') {
         store.set('allowDrivingTime')(false)
-        store.set('method')('haversine')
+        store.set('method')('straight_line')
       }
     })
+
+  /**
+   * Select all states when "All" is selected in Add dataset DatasetCountySelection.
+   */
+  store
+    .on('useCustomCountyUpload')
+    .subscribe(useCustomUpload => {
+      if (useCustomUpload) {
+        store.set('serviceAreas')([])
+      } else if (useCustomUpload === false) {
+        store.set('serviceAreas')(SERVICE_AREAS_BY_STATE[store.get('selectedState')])
+        store.set('uploadedServiceAreasFilename')(null)
+      }
+    })
+
   return store
 }
 
@@ -321,29 +359,35 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'haversine') {
+  if (method === 'straight_line') {
     if (adequacy.to_closest_provider / 1000 <= 5) {
-      return AdequacyMode.ADEQUATE_15
+      return AdequacyMode.ADEQUATE_0
     }
     if (adequacy.to_closest_provider / 1000 <= 10) {
-      return AdequacyMode.ADEQUATE_30
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider / 1000 <= 20) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
     }
+    if (adequacy.to_closest_provider / 1000 > 20) {
+      return AdequacyMode.INADEQUATE
+    }
+    return AdequacyMode.OUT_OF_SCOPE
   }
 
   if (method === 'driving_time') {
-    if (adequacy.to_closest_provider <= 15) {
-      return AdequacyMode.ADEQUATE_15
-    }
     if (adequacy.to_closest_provider <= 30) {
-      return AdequacyMode.ADEQUATE_30
+      return AdequacyMode.ADEQUATE_0
+    }
+    if (adequacy.to_closest_provider <= 45) {
+      return AdequacyMode.ADEQUATE_1
     }
     if (adequacy.to_closest_provider <= 60) {
-      return AdequacyMode.ADEQUATE_60
+      return AdequacyMode.ADEQUATE_2
+    }
+    if (adequacy.to_closest_provider > 60) {
+      return AdequacyMode.INADEQUATE
     }
   }
-
-  return AdequacyMode.INADEQUATE
+  return AdequacyMode.OUT_OF_SCOPE
 }

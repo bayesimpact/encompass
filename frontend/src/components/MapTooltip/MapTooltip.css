@@ -14,7 +14,7 @@
 }
 
 .MapTooltip table {
-  font-size: var(--medium-font);
+  font-size: var(--medium-font-size);
   color: var(--text);
 }
 
@@ -22,12 +22,17 @@
   padding: 0 10px;
 }
 
+.MapTooltip a {
+  font-weight: var(--medium-weight) !important;
+  color: var(--text);
+}
+
 .MapTooltip tr :first-child {
   font-weight: var(--heavy-weight);
 }
 
 .MapTooltip .controls  {
-   font-size: var(--medium-font);
+   font-size: var(--medium-font-size);
    color: var(--text);
  }
 

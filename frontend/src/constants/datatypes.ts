@@ -14,9 +14,9 @@ export type Adequacy = {
 }
 
 export enum AdequacyMode {
-  ADEQUATE_15 = 'ADEQUATE_15',
-  ADEQUATE_30 = 'ADEQUATE_30',
-  ADEQUATE_60 = 'ADEQUATE_60',
+  ADEQUATE_0 = 'ADEQUATE_0',
+  ADEQUATE_1 = 'ADEQUATE_1',
+  ADEQUATE_2 = 'ADEQUATE_2',
   INADEQUATE = 'INADEQUATE',
   OUT_OF_SCOPE = 'OUT_OF_SCOPE'
 }
@@ -26,7 +26,42 @@ export type CensusGroup = {
   censusGroup: string
 }
 
-export type CountyType = 'Rural' | 'Urban'
+export type Config = {
+  enable_geocoding: boolean
+  is_census_data_available: boolean
+  is_walking_available: boolean
+  limit_upload_file_size: boolean
+  show_about_dialog_on_start: boolean
+  title_suffix: string
+  api: {
+    [key: string]: string | boolean
+  }
+  analysis: {
+    [key: string]: boolean
+  }
+  dataset: {
+    [key: string]: boolean
+  }
+  staticAssets: {
+    appIsStatic: boolean,
+    rootUrl: string
+    csv: {
+      useStaticCsvs: boolean,
+      path: string
+    }
+    representativePoints: {
+      path: string
+    }
+    adequacies: {
+      path: string
+    }
+    demographics: {
+      path: string
+    }
+  }
+}
+
+export type CountyType = 'All' | 'Rural' | 'Urban'
 
 export type Dataset = {
   dataSources: string,
@@ -34,7 +69,7 @@ export type Dataset = {
   description: string
   name: string
   subtitle: string
-  hint: string
+  hint?: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
 }
@@ -48,19 +83,13 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_time' | 'haversine'
+export type Method = 'driving_time' | 'straight_line' | 'walking_time'
 
 export type PopulationByAdequacy = number[]
 
 export type Provider = {
   address: string
-  lat?: number
-  lng?: number
-  languages: string[]
-  npi?: string
-  name?: string
-  specialty?: string
-  center_type?: string
+  [K: string]: number | string | string[] | undefined
 }
 
 export type GeocodedProvider = Provider & {
@@ -84,6 +113,7 @@ export type RepresentativePoint = {
   demographics?: any
   serviceAreaId: string
   zip: string
+  // [K: string]: number | string | string[]
 }
 
 export type FilterMethod = 'All' | 'County Name' | 'County Type'

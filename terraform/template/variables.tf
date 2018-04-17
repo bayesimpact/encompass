@@ -67,6 +67,7 @@ variable "aws_region" {
   default     = "us-west-2" # Default to Oregon
 }
 
+# Default value is for the nonprod wildcard cert.
 variable "ssl_certificate_arn" {
   description = "ARN for SSL cert to use in LBs"
   type        = "string"

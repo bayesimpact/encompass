@@ -31,7 +31,7 @@ let validateHeadersDefault: ValidateHeaders = (columns, fields) =>
   chain(columns)
     .map((c, n) => {
       if (c.required && fields.findIndex(_ => c.aliases.some(a => a.toLowerCase() === safeLowerCase(_))) < 0) {
-        return new ParseError(0, n, c, `Missing column "${c.aliases[0]}"`)
+        return new ParseError(0, n, c, `Missing column "${c.aliases[0]}."`)
       }
       return undefined
     })
@@ -87,7 +87,7 @@ function getEmptyError(
     let field = fields[i]
     // TODO: Why is field sometimes undefined?
     if (required && isEmpty(field)) {
-      return new ParseError(rowIndex, i, columns[i], 'Expected a value, but the field is empty')
+      return new ParseError(rowIndex, i, columns[i], 'Expected a value, but the field is empty.')
     }
   }
 }
@@ -131,6 +131,6 @@ export class ParseError {
     public message: string
   ) { }
   toString() {
-    return `CSV Parse Error at row ${this.rowIndex} field ${this.columnIndex} (${this.column.aliases[0]}): ${this.message}`
+    return `Error at row ${this.rowIndex} for field ${this.column.aliases[0]}: ${this.message}`
   }
 }
