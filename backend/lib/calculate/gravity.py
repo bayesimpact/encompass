@@ -15,7 +15,6 @@ References:
     Wang, F. (2012) Measurement, optimization, and impact of health care accessibility:
     a methodological review. Annals of the Association of American Geographers 102, 1104–1112.
 """
-import collections
 import itertools
 import logging
 import math
@@ -44,6 +43,7 @@ def _measure_one_to_many(point, locations, measurer):
         source_points=[point_coords],
         destination_points=supply_locations
     )
+    # TODO: Determine exactly which keys are needed in the response.
     return {
         'id': point['id'],
         'locations': locations,
@@ -90,7 +90,7 @@ def calculate_measurement_matrix(
         shape=(len(points), len(locations)), fill_value=float('inf')
     )
     for i, response in enumerate(measurements_by_point):
-        for j, distance in zip(response['location_ids'], response['measurements']):
+        for j, distance in enumerate(response['measurements']):
             measurement_matrix[i][j] = distance
 
     return measurement_matrix
