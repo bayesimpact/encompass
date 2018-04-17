@@ -118,6 +118,9 @@ CONFIG = {
         },
         'mapbox': {
             'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
+        },
+        'walking': {
+            'adequacy_executor_type': multiprocessing.dummy.Pool,  # For I/O-bound tasks.
         }
     },
     'logging': {

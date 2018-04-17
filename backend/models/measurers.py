@@ -10,7 +10,8 @@ def get_measurer(name, **kwargs):
 
 MEASURER_NAME_TO_CLASS_MAPPING = {
     'haversine': distance.HaversineDistance,
+    'open_route_service_driving': time.OpenRouteDrivingTime,
     'osrm': time.OSRMDrivingTime,
     'mapbox': time.MapBoxDrivingTime,
-    'open_route_service_driving': time.OpenRouteDrivingTime
+    'walking': time.MapBoxWalkingTime
 }
