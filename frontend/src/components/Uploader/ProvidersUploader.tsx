@@ -56,7 +56,7 @@ const COLUMNS = [
   { aliases: ['Postal Code', 'Zip', 'ZipCode', 'Zip Code'] },
   { aliases: ['Health Center Type'] },
   { aliases: ['Latitude', 'lat'] },
-  { aliases: ['Longitude', 'long', 'lng'] },
+  { aliases: ['Longitude', 'long', 'lon', 'lng'] },
   { aliases: ['NPI'] },
   { aliases: ['First Name'] },
   { aliases: ['Last Name'] },
