@@ -6,7 +6,7 @@ import './MapLegend.css'
 
 export let MapLegend = withStore('method')(({ store }) =>
   <ul className='MapLegend'>
-    Access Zone
+    Population by Access
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0] }}
@@ -37,6 +37,7 @@ export function getLegend(method: Method, standard: AdequacyMode) {
       }
       break
     case 'driving_time':
+    case 'walking_time':
       switch (standard) {
         case AdequacyMode.ADEQUATE_0: return '0-30 min'
         case AdequacyMode.ADEQUATE_1: return '30-45 min'

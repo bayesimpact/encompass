@@ -12,9 +12,9 @@ import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
 import {
-    getAdequacies, getCensusData, getRepresentativePoints,
-    getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
-    postGeocode
+  getAdequacies, getCensusData, getRepresentativePoints,
+  getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
+  postGeocode
 } from './api'
 import { Store } from './store'
 
@@ -168,10 +168,10 @@ export function withEffects(store: Store) {
       // TODO: Do this more elegantly to avoid the double-computation.
       const adequacies = appIsStatic ? await getStaticAdequacies(store.get('selectedDataset'), store.get('method')) :
         await getAdequacies({
-            method,
-            providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
-            service_area_ids: serviceAreas,
-            dataset_hint: safeDatasetHint(store.get('selectedDataset'))
+          method,
+          providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
+          service_area_ids: serviceAreas,
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
         })
       const points = representativePoints
 
@@ -375,7 +375,7 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'driving_time') {
+  if (method === 'driving_time' || method === 'walking_time') {
     if (adequacy.to_closest_provider <= 30) {
       return AdequacyMode.ADEQUATE_0
     }
