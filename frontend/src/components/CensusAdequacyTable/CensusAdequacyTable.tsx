@@ -6,7 +6,7 @@ import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/datatypes'
-import { withStore } from '../../services/store'
+import { Store, withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
@@ -58,17 +58,20 @@ export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ ser
       </tr>
       {
         censusGroups.map(censusGroup =>
-          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], format)
+          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], format, store)
         )
       }
     </StatsBox>
   </div>
 })
 
-function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format) {
+function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format, store: Store) {
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
   return (
-    <tr>
+    <tr onClick={_ => {
+      store.set('selectedCensusGroup')(censusGroup)
+    }
+    }>
       <td>{censusGroup}</td>
       {
         populationByAdequacy.map(_ => {

@@ -1,3 +1,4 @@
+import * as gfilter from 'geojson-filter'
 import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
@@ -274,21 +275,34 @@ export function withEffects(store: Store) {
     )
 
   /**
-   * Rebuild the geojson whenever the adequacies change.
+   * Rebuild the geojson whenever the adequacies or selectedCensusGroup change.
    */
-  store
-    .on('adequacies')
+  Observable
+    .combineLatest(
+      store.on('adequacies'),
+      store.on('selectedCensusGroup').startWith(store.get('selectedCensusGroup'))
+    )
     .filter(Boolean)
-    .subscribe(adequacies => {
+    .subscribe(async ([adequacies, selectedCensusGroup]) => {
       let representativePoints = store.get('representativePoints')
       if (representativePoints === null) {
         store.set('pointFeatureCollections')(null)
       } else {
         let chunkSize = Math.floor(representativePoints.length / 10)
+        let filter = ['>=', 'population', 1]
         store.set('pointFeatureCollections')(
-          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies, store.get('method'))(rpChunk))
+          chunk(representativePoints, chunkSize).map(rpChunk => gfilter(representativePointsToGeoJSON(
+            adequacies, store.get('method'), store.get('selectedCensusCategory'), selectedCensusGroup)(rpChunk),
+            filter)
+          )
         )
       }
+    })
+
+  store
+    .on('selectedCensusCategory')
+    .subscribe(_ => {
+      store.set('selectedCensusGroup')('Total Population')
     })
 
   /**
@@ -310,6 +324,7 @@ export function withEffects(store: Store) {
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
         store.set('selectedFilterMethod')('All')
+        store.set('selectedCensusGroup')('Total Population')
       }
     })
 

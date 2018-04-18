@@ -4,9 +4,10 @@ import { AdequacyMode, Method } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
 import './MapLegend.css'
 
-export let MapLegend = withStore('method')(({ store }) =>
+export let MapLegend = withStore('method', 'selectedCensusGroup')(({ store }) =>
   <ul className='MapLegend'>
     Population by Access
+    <li><i>{store.get('selectedCensusGroup')}</i></li>
     <li><div
       className='Splotch'
       style={{ backgroundColor: ADEQUACY_COLORS[AdequacyMode.ADEQUATE_0] }}
