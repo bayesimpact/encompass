@@ -18,6 +18,8 @@ jobs:
                   touch .env
                   echo 'POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy' >> .env
                   echo 'POSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres' >> .env
+                  echo "GEOCODIO_KEY=$GEOCODIO_KEY" >> .env
+
             - run:
                 name: Build containers
                 command: |
