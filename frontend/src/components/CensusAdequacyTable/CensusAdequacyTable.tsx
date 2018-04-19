@@ -19,7 +19,8 @@ type Props = {
 
 // Force first column to be larger than the other ones.
 let firstColumnStyle = {
-  width: '30%'
+  width: '30%',
+  whiteSpace: 'normal'
 }
 
 /**
@@ -48,7 +49,7 @@ export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCens
   let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
-    <Table
+    <Table className='StatsTable'
       onRowSelection={rows => {
         store.set('selectedCensusGroup')(censusGroups[Number(rows[0].toString())])
         console.log(censusGroups[Number(rows[0].toString())])
@@ -86,7 +87,7 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
   return (
     <TableRow selected={selected}>
-      <TableRowColumn>{censusGroup}</TableRowColumn>
+      <TableRowColumn style={firstColumnStyle}>{censusGroup}</TableRowColumn>
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {

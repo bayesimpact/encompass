@@ -177,5 +177,10 @@ a {
 }
 
 .NumericTableCell {
-  text-align: right;
+  text-align: right !important;
+}
+
+.StatsTable * {
+  padding-left: 7px !important;
+  padding-right: 7px !important;
 }
