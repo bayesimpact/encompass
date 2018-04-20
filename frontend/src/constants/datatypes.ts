@@ -72,6 +72,7 @@ export type Dataset = {
   hint?: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
+  usaWide?: boolean
 }
 
 export type Format = 'Percentage' | 'Number'

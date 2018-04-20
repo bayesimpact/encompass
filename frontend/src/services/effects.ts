@@ -126,11 +126,15 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null) {
+  function safeDatasetHint(dataset: Dataset | null, state: string) {
     if (dataset === null) {
       return ''
     }
-    return dataset['hint']
+    let hint = dataset['hint']
+    if (dataset.usaWide) {
+      hint = hint + '_' + state
+    }
+    return hint
   }
 
   /**
@@ -172,7 +176,7 @@ export function withEffects(store: Store) {
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'), store.get('selectedState'))
         })
       const points = representativePoints
 

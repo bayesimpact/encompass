@@ -4,6 +4,7 @@ import { SERVICE_AREAS_BY_STATE } from './zipCodes'
 export let DATASETS: Dataset[] = [
   // FIXME: Programatically read in datasets.
   // tslint:disable:no-var-requires
+  inferServiceAreaIds(require('./datasets/US_mental_health.json')),
   inferServiceAreaIds(require('./datasets/MS_HCSD_and_Look-Alike_MS.json')),
   inferServiceAreaIds(require('./datasets/FL_HCSD_and_Look-Alike_FL.json')),
   inferServiceAreaIds(require('./datasets/FL_fl_endocrinologists.json')),
