@@ -32,7 +32,7 @@ export let AnalyticsDrawer = withStore(
       <div className='Selectors'>
         <SelectorBlock />
       </div>
-      <div className='CensusAnalytics'>
+      <div>
         <CensusAnalytics />
       </div>
       <div className='Description'>
