@@ -184,6 +184,7 @@ a {
   padding-left: 7px !important;
   padding-right: 7px !important;
   font-size: var(--medium-font-size) !important;
+  text-overflow: unset !important;
 }
 
 .StatsTable th {
