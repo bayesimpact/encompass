@@ -34,13 +34,11 @@ export let CensusAnalytics = withStore(
     </div>
   }
   return <div className='CensusAnalytics'>
-    <StatsBox className='HighLevelStats' withBorders withFixedColumns>
+    <StatsBox className='HighLevelStats' withBorders withFixedColumns withSingleRow>
       <tr>
         <th>Total Population</th>
-        <th>Providers</th>
-      </tr>
-      <tr>
         <td className='NumericTableCell'>{formatNumber(totalPopulation)}</td>
+        <th>Providers</th>
         <td className='NumericTableCell'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>

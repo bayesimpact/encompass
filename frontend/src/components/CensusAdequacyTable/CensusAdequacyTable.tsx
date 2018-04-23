@@ -62,10 +62,10 @@ export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCens
       >
         <TableRow>
           <TableHeaderColumn style={firstColumnStyle}>Group</TableHeaderColumn>
-          <TableHeaderColumn>{getLegend(method, AdequacyMode.ADEQUATE_0)}</TableHeaderColumn>
-          <TableHeaderColumn>{getLegend(method, AdequacyMode.ADEQUATE_1)}</TableHeaderColumn>
-          <TableHeaderColumn>{getLegend(method, AdequacyMode.ADEQUATE_2)}</TableHeaderColumn>
-          <TableHeaderColumn>{getLegend(method, AdequacyMode.INADEQUATE)}</TableHeaderColumn>
+          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_0)}</TableHeaderColumn>
+          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_1)}</TableHeaderColumn>
+          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_2)}</TableHeaderColumn>
+          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.INADEQUATE)}</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody

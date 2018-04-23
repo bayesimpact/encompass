@@ -183,4 +183,10 @@ a {
 .StatsTable * {
   padding-left: 7px !important;
   padding-right: 7px !important;
+  font-size: var(--medium-font-size) !important;
+}
+
+.StatsTable th {
+  color: var(--muted) !important;
+  font-weight: var(--medium-weight) !important;
 }
