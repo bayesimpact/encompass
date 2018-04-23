@@ -37,9 +37,9 @@ export let CensusAnalytics = withStore(
     <StatsBox className='HighLevelStats' withBorders withFixedColumns withSingleRow>
       <tr>
         <th>Total Population</th>
-        <td className='NumericTableCell'>{formatNumber(totalPopulation)}</td>
+        <td className='RightAlignedCell'>{formatNumber(totalPopulation)}</td>
         <th>Providers</th>
-        <td className='NumericTableCell'>{formatNumber(totalProviders)}</td>
+        <td className='RightAlignedCell'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
     <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />

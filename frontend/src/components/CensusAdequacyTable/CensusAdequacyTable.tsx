@@ -49,7 +49,7 @@ export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCens
   let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
-    <Table className='StatsTable'
+    <Table className='MuiTable'
       onRowSelection={rows => {
         store.set('selectedCensusGroup')(censusGroups[Number(rows[0].toString())])
         console.log(censusGroups[Number(rows[0].toString())])
@@ -62,10 +62,10 @@ export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCens
       >
         <TableRow>
           <TableHeaderColumn style={firstColumnStyle}>Group</TableHeaderColumn>
-          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_0)}</TableHeaderColumn>
-          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_1)}</TableHeaderColumn>
-          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.ADEQUATE_2)}</TableHeaderColumn>
-          <TableHeaderColumn className='NumericTableCell'>{getLegend(method, AdequacyMode.INADEQUATE)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_0)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_1)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_2)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.INADEQUATE)}</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody
@@ -91,9 +91,9 @@ function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: Pop
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {
-            return (<TableRowColumn className='NumericTableCell'>{formatPercentage(100 * _ / totalPopulation)}</TableRowColumn>)
+            return (<TableRowColumn className='RightAlignedCell'>{formatPercentage(100 * _ / totalPopulation)}</TableRowColumn>)
           } else {
-            return (<TableRowColumn className='NumericTableCell'>{formatNumber(_)}</TableRowColumn>)
+            return (<TableRowColumn className='RightAlignedCell'>{formatNumber(_)}</TableRowColumn>)
           }
         })
       }
