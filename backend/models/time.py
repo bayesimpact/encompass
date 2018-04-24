@@ -165,10 +165,17 @@ class APITime(Measurer):
         """
         distance_responses = self._measure_one_to_many_points(origin=origin, point_list=point_list)
 
-        min_idx, min_measurement = min(
-            enumerate(distance_responses),
-            key=operator.itemgetter(1)
-        )
+        try:
+            min_idx, min_measurement = min(
+                enumerate(distance_responses),
+                key=operator.itemgetter(1)
+            )
+        except TypeError:
+            logger.warning(
+                'No parsable data from API, returning an absurdly large time for {}'.format(origin)
+            )
+            logger.warning('API returned {}'.format(distance_responses))
+            return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
         return float(min_measurement) / 60.0, point_list[min_idx]
 
 

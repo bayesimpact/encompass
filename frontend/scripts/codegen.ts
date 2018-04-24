@@ -37,9 +37,9 @@ async function main() {
 }
 
 async function codegenZIPCodes() {
-  let r = await Axios.get('http://localhost:8080/api/available-service-areas/')
+  let r = await Axios.get('http://localhost:8082/api/available-service-areas/')
   if (r.status !== 200) {
-    throw 'Error GETting http://localhost:8080/api/available-service-areas/. Is the server running?'
+    throw 'Error GETting http://localhost:8082/api/available-service-areas/. Is the server running?'
   }
 
   type ZipsByCountyByState = Record<string, {
