@@ -97,7 +97,7 @@ def adequacy_request(app, flask_request, engine):
     )
 
 
-@cache(hint_fields=('dataset_hint', 'measurer_name'))
+@cache(prefix='adequacy', hint_fields=('dataset_hint', 'measurer_name'))
 def construct_adequacy_response(
     dataset_hint,
     measurer_name,
