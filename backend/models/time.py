@@ -78,6 +78,7 @@ def _get_matrix_http(
 
 # TODO - Abstract as APIMeasurer.
 # TODO - Better handling of api_url and access_token.
+# FIXME - Use smart url merge.
 class APITime(Measurer):
     """Class for API driving time measurements."""
 
@@ -109,18 +110,25 @@ class APITime(Measurer):
         Result is a list of durations in seconds.
         """
         if self.max_matrix_size is None:
-            return self._get_matrix(source_points=[origin], destination_points=point_list)[0]
-
-        measurements = []
-        for batch in iterators.iterate_in_slices(
-            iterable=iter(point_list),
-                batch_size=self.max_matrix_size - 1):
-            measurements.extend(
-                self._get_matrix(
-                    source_points=[origin],
-                    destination_points=batch)[0]
-            )
-        return measurements
+            measurements = self._get_matrix(
+                source_points=[origin],
+                destination_points=point_list)[0]
+        else:
+            measurements = []
+            for batch in iterators.iterate_in_slices(
+                iterable=iter(point_list),
+                    batch_size=self.max_matrix_size - 1):
+                measurements.extend(
+                    self._get_matrix(
+                        source_points=[origin],
+                        destination_points=batch)[0]
+                )
+        # To avoid errors if data is missing, we replace missing durations
+        # with ABSURDLY_LARGE_TIME_IN_SECONDS.
+        return [
+            measurement if measurement is not None else ABSURDLY_LARGE_TIME_IN_MINUTES * 60
+            for measurement in measurements
+        ]
 
     def closest_with_early_exit(self, origin, point_list, exit_distance):
         """
@@ -153,6 +161,9 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
+            logger.warning(
+                'No relevant points, returning an absurdly large time for {}'.format(origin)
+            )
             return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
 
         return self.closest(origin=origin, point_list=relevant_points)
@@ -164,7 +175,6 @@ class APITime(Measurer):
         min_measurement is returned in minutes.
         """
         distance_responses = self._measure_one_to_many_points(origin=origin, point_list=point_list)
-
         min_idx, min_measurement = min(
             enumerate(distance_responses),
             key=operator.itemgetter(1)
