@@ -74,6 +74,8 @@ type Actions = {
 
   selectedCensusCategory: string
 
+  selectedCensusGroup: string
+
   selectedCounties: string[] | null
 
   selectedCountyType: CountyType | null
@@ -166,6 +168,7 @@ let store = withEffects(createStore<Actions>({
   representativePoints: [],
   route: '/datasets',
   selectedCensusCategory: Object.keys(CENSUS_MAPPING)[0] ? Object.keys(CENSUS_MAPPING)[0] : CENSUS_MAPPING_ERROR,
+  selectedCensusGroup: 'Total Population',
   selectedCounties: null,
   selectedCountyType: null,
   selectedDataset: null,

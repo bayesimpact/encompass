@@ -4,7 +4,6 @@ import functools
 from backend.lib.calculate import gravity
 from backend.lib.database.postgres import connect
 from backend.lib.fetch import representative_points
-from backend.lib.utils.datatypes import Point
 
 from backend.models.measurers import get_measurer
 
@@ -30,14 +29,11 @@ class TestGravityCalculations():
     def test_measure_one_to_many(self):
         """Test measure_one_to_many."""
         point = {'id': 0, 'latitude': 32.74753421600008, 'longitude': -122.2316317029999}
-        locations = [
-            Point(latitude=location['latitude'], longitude=location['longitude'])
-            for location in self.locations
-        ]
-        output = gravity._measure_one_to_many(point, locations, get_measurer('haversine'))
+        output = gravity._measure_one_to_many(point, self.locations, get_measurer('haversine'))
         expected = {
             'id': 0,
-            'locations': locations,
+            'locations': self.locations,
+            'location_ids': [1, 2],
             'measurements': [399476.6135406669, 0],
         }
         assert output == expected

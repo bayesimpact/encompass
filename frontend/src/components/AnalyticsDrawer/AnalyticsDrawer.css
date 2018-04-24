@@ -16,4 +16,3 @@
   display: inline-block;
   width: calc(100% - var(--analytics-title-width) - 24px);
 }
-

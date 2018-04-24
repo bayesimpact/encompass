@@ -71,6 +71,7 @@ services:
         - ./shared:/app/shared:ro
         - ./explorer:/home/jovyan/work:rw
         - ./data/:/home/jovyan/work/data/:rw
+        - ./frontend/src:/usr/src/app/src:rw
       env_file:
         - .env
       command: bash -c "start-notebook.sh --NotebookApp.token=''"

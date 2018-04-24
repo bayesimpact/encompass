@@ -1,3 +1,4 @@
+import * as gfilter from 'geojson-filter'
 import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
@@ -125,11 +126,15 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null) {
+  function safeDatasetHint(dataset: Dataset | null, state: string) {
     if (dataset === null) {
       return ''
     }
-    return dataset['hint']
+    let hint = dataset['hint']
+    if (dataset.usaWide) {
+      hint = hint + '_' + state
+    }
+    return hint
   }
 
   /**
@@ -171,7 +176,7 @@ export function withEffects(store: Store) {
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'), store.get('selectedState'))
         })
       const points = representativePoints
 
@@ -274,21 +279,34 @@ export function withEffects(store: Store) {
     )
 
   /**
-   * Rebuild the geojson whenever the adequacies change.
+   * Rebuild the geojson whenever the adequacies or selectedCensusGroup change.
    */
-  store
-    .on('adequacies')
+  Observable
+    .combineLatest(
+      store.on('adequacies'),
+      store.on('selectedCensusGroup').startWith(store.get('selectedCensusGroup'))
+    )
     .filter(Boolean)
-    .subscribe(adequacies => {
+    .subscribe(async ([adequacies, selectedCensusGroup]) => {
       let representativePoints = store.get('representativePoints')
       if (representativePoints === null) {
         store.set('pointFeatureCollections')(null)
       } else {
         let chunkSize = Math.floor(representativePoints.length / 10)
+        let filter = ['>=', 'population', 1]
         store.set('pointFeatureCollections')(
-          chunk(representativePoints, chunkSize).map(rpChunk => representativePointsToGeoJSON(adequacies, store.get('method'))(rpChunk))
+          chunk(representativePoints, chunkSize).map(rpChunk => gfilter(representativePointsToGeoJSON(
+            adequacies, store.get('method'), store.get('selectedCensusCategory'), selectedCensusGroup)(rpChunk),
+            filter)
+          )
         )
       }
+    })
+
+  store
+    .on('selectedCensusCategory')
+    .subscribe(_ => {
+      store.set('selectedCensusGroup')('Total Population')
     })
 
   /**
@@ -310,6 +328,7 @@ export function withEffects(store: Store) {
         store.set('route')('/datasets')
         store.set('serviceAreas')([])
         store.set('selectedFilterMethod')('All')
+        store.set('selectedCensusGroup')('Total Population')
       }
     })
 
@@ -375,7 +394,7 @@ function getAdequacyMode(
     return AdequacyMode.OUT_OF_SCOPE
   }
 
-  if (method === 'driving_time') {
+  if (method === 'driving_time' || method === 'walking_time') {
     if (adequacy.to_closest_provider <= 30) {
       return AdequacyMode.ADEQUATE_0
     }

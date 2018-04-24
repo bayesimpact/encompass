@@ -1,5 +1,6 @@
 import * as extent from 'esri-extent'
 import { pickBy } from 'lodash'
+import { CENSUS_MAPPING } from '../constants/census'
 import { Adequacies, GeocodedProvider, Method, RepresentativePoint } from '../constants/datatypes'
 import { formatGMapsCoordinates, formatGMapsDirection } from '../utils/formatters'
 
@@ -7,8 +8,8 @@ import { formatGMapsCoordinates, formatGMapsDirection } from '../utils/formatter
 export let providersToGeoJSON = toGeoJSON(providerToFeature)
 
 /** TODO: Memoize */
-export let representativePointsToGeoJSON = (adequacies: Adequacies, method: Method) =>
-  toGeoJSON(representativePointToFeature(adequacies, method))
+export let representativePointsToGeoJSON = (adequacies: Adequacies, method: Method, censusCategory: string, censusGroup: string) =>
+  toGeoJSON(representativePointToFeature(adequacies, method, censusCategory, censusGroup))
 
 function toGeoJSON<T>(f: (point: T) => GeoJSON.Feature<GeoJSON.GeometryObject>) {
   return (points: T[]): GeoJSON.FeatureCollection<GeoJSON.GeometryObject> => ({
@@ -34,13 +35,13 @@ function providerToFeature(
   }
 }
 
-export function representativePointToFeature(adequacies: Adequacies, method: Method) {
+export function representativePointToFeature(adequacies: Adequacies, method: Method, censusCategory: string, censusGroup: string) {
   return (point: RepresentativePoint): GeoJSON.Feature<GeoJSON.Point> => ({
     id: point.id,
     type: 'Feature',
     properties: {
       county: point.county,
-      population: Math.round(point.population),
+      population: getCensusGroupPopulation(point, censusCategory, censusGroup),
       location: formatGMapsCoordinates(point.lat, point.lng),
       adequacyMode: adequacyModeToString(adequacies, point.id),
       closestProvider: toClosestProviderToString(adequacies, method, point.id),
@@ -51,6 +52,13 @@ export function representativePointToFeature(adequacies: Adequacies, method: Met
       coordinates: [point.lng, point.lat]
     }
   })
+}
+
+function getCensusGroupPopulation(point: RepresentativePoint, censusCategory: string, censusGroup: string) {
+  if (!CENSUS_MAPPING[censusCategory].includes(censusGroup)) {
+    return point.population
+  }
+  return point.population / 100 * (point.demographics[censusCategory][censusGroup] || 0)
 }
 
 /**

@@ -3,7 +3,7 @@
     "is_census_data_available": false,
     "_backend": "Configuration used by the backend.",
     "use_address_cache": true,
-    "geocoder": "oxcoder",
+    "geocoder": "geocodio",
     "measurer": {
         "straight_line": "haversine",
         "driving_time": "osrm",

@@ -12,10 +12,14 @@
     right: 20px;
 }
 
-.CensusAnalytics .CircularProgress {
-  padding-bottom: 20px;
+.CircularProgress {
+  margin-bottom: 20px;
 }
 
 .CensusAnalytics .CensusDataChart {
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.CensusAnalytics .HighLevelStats {
+  margin-bottom: 10px;
 }
