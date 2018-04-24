@@ -16,10 +16,9 @@ let request = (method: 'GET' | 'POST') =>
     <T>(body: object) => {
 
       // Set JSON headers
-      let headers = new Headers
+      let headers = new Headers()
       headers.set('Accept', 'application/json, text/plain, */*')
       headers.set('Content-Type', 'application/json')
-
       // Send request
       return fetch(API_ROOT + url, {
         body: JSON.stringify(body),

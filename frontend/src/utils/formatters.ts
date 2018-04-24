@@ -1,3 +1,4 @@
+import { Dataset } from '../constants/datatypes'
 import { State } from '../constants/states'
 import { serializeServiceArea } from './serializers'
 import { capitalizeWords, snakeCase } from './string'
@@ -141,4 +142,11 @@ export function parseSerializedServiceArea(serializedServiceArea: string) {
     state: serializedServiceArea.slice(0, 2) as State,
     zip: serializedServiceArea.slice(-5)
   }
+}
+
+export function safeDatasetHint(dataset: Dataset | null) {
+  if (dataset === null) {
+    return ''
+  }
+  return dataset['hint']
 }

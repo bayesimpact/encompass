@@ -41,6 +41,9 @@ export type Config = {
   analysis: {
     [key: string]: boolean
   }
+  cache: {
+    [key: string]: string | boolean
+  }
   dataset: {
     [key: string]: boolean
   }
