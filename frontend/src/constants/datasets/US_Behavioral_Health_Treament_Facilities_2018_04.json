@@ -2,7 +2,7 @@
     "dataSources": "CA, Behavioral_Health_Treament_Facility_listing_2018_04",
     "description": "CA, Behavioral_Health_Treament_Facility_listing_2018_04",
     "state": "ca",
-    "name": "US Wide Behavioral Health Treament Facilities",
+    "name": "US Behavioral Health Treament Facilities",
     "usaWide": true,
     "providers": [
         {
