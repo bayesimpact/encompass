@@ -3,6 +3,7 @@ import * as React from 'react'
 import { isMobile } from 'react-device-detect'
 import '../../services/effects'
 import { withStore } from '../../services/store'
+import { isWebGLEnabled } from '../../utils/webgl'
 import { ErrorBar } from '../ErrorBar/ErrorBar'
 import { SuccessBar } from '../ErrorBar/ErrorBar'
 import { FilterBar } from '../FilterBar/FilterBar'
@@ -18,6 +19,12 @@ import './App.css'
  */
 if (isMobile) {
   alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.')
+}
+
+if (isWebGLEnabled()){
+  alert('hello world u have webgl :)')
+} else {
+  alert('hello world ur webgl dont work :(')
 }
 
 export let App = withStore('error', 'success')(({ store }) =>
