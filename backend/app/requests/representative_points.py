@@ -67,7 +67,7 @@ def representative_points_request(app, flask_request, engine):
     return representative_point_response
 
 
-@cache(hint_fields=('service_area_ids', 'include_census_data'))
+@cache(prefix='representative_points', hint_fields=('service_area_ids', 'include_census_data'))
 def construct_representative_point_response(service_area_ids, include_census_data, engine):
     """Construct responses for /api/representative_points requests."""
     return representative_points.fetch_representative_points(

@@ -2,6 +2,7 @@ import 'chart.piecelabel.js'
 import 'chartjs-plugin-stacked100'
 import { isEmpty } from 'lodash'
 import CircularProgress from 'material-ui/CircularProgress'
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import * as React from 'react'
 import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
@@ -10,7 +11,6 @@ import { withStore } from '../../services/store'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
 import { getLegend } from '../MapLegend/MapLegend'
-import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = {
   serviceAreas: string[],
@@ -19,7 +19,8 @@ type Props = {
 
 // Force first column to be larger than the other ones.
 let firstColumnStyle = {
-  width: '30%'
+  width: '30%',
+  whiteSpace: 'normal'
 }
 
 /**
@@ -29,7 +30,7 @@ let firstColumnStyle = {
  */
 // (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ serviceAreas, censusCategory, store }) => {
+export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCensusGroup')<Props>(({ serviceAreas, censusCategory, store }) => {
   if (isEmpty(store.get('adequacies'))) {
     return <div className='CensusAdequacyTable Flex -Center'>
       <CircularProgress
@@ -48,37 +49,54 @@ export let CensusAdequacyTable = withStore('adequacies', 'method')<Props>(({ ser
   let censusGroups = ['Total Population'].concat(CENSUS_MAPPING[censusCategory])
 
   return <div>
-    <StatsBox className='HighLevelStats' withBorders withFixedColumns>
-      <tr>
-        <th style={firstColumnStyle}>Group</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_0)}</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_1)}</th>
-        <th>{getLegend(method, AdequacyMode.ADEQUATE_2)}</th>
-        <th>{getLegend(method, AdequacyMode.INADEQUATE)}</th>
-      </tr>
-      {
-        censusGroups.map(censusGroup =>
-          adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], format)
-        )
+    <Table className='MuiTable'
+      onRowSelection={rows => {
+        store.set('selectedCensusGroup')(censusGroups[Number(rows[0].toString())])
+        console.log(censusGroups[Number(rows[0].toString())])
       }
-    </StatsBox>
+      }
+    >
+      <TableHeader
+        displaySelectAll={false}
+        adjustForCheckbox={false}
+      >
+        <TableRow>
+          <TableHeaderColumn style={firstColumnStyle}>Group</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_0)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_1)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.ADEQUATE_2)}</TableHeaderColumn>
+          <TableHeaderColumn className='RightAlignedCell'>{getLegend(method, AdequacyMode.INADEQUATE)}</TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody
+        displayRowCheckbox={false}
+        showRowHover={true}
+        deselectOnClickaway={false}
+      >
+        {
+          censusGroups.map(censusGroup =>
+            adequacyRowByCensusGroup(censusGroup, populationByAdequacyByGroup[censusGroup], format, censusGroup === store.get('selectedCensusGroup'))
+          )
+        }
+      </TableBody>
+    </Table>
   </div>
 })
 
-function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format) {
+function adequacyRowByCensusGroup(censusGroup: string, populationByAdequacy: PopulationByAdequacy, format: Format, selected: boolean) {
   let totalPopulation = populationByAdequacy.reduce((a: number, b: number) => a + b)
   return (
-    <tr>
-      <td>{censusGroup}</td>
+    <TableRow selected={selected}>
+      <TableRowColumn style={firstColumnStyle}>{censusGroup}</TableRowColumn>
       {
         populationByAdequacy.map(_ => {
           if (format === 'Percentage') {
-            return (<td className='NumericTableCell'>{formatPercentage(100 * _ / totalPopulation)}</td>)
+            return (<TableRowColumn className='RightAlignedCell'>{formatPercentage(100 * _ / totalPopulation)}</TableRowColumn>)
           } else {
-            return (<td className='NumericTableCell'>{formatNumber(_)}</td>)
+            return (<TableRowColumn className='RightAlignedCell'>{formatNumber(_)}</TableRowColumn>)
           }
         })
       }
-    </tr>
+    </TableRow>
   )
 }

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 CACHE_DIRECTORY = config.get('cache.directory')
 
 
-def cache(hint_fields):
+def cache(hint_fields, prefix=None):
     """
     Decorator function for caching API responses.
 
@@ -24,18 +24,18 @@ def cache(hint_fields):
     def wrap(f):
         @six.wraps(f)
         def wrapped_f(**kwargs):
-            return _cache(func=f, hint_fields=hint_fields, **kwargs)
+            return _cache(func=f, hint_fields=hint_fields, prefix=prefix, **kwargs)
         return wrapped_f
     return wrap
 
 
 # TODO: Consider separating cache.enabled into cache.read_from_cache
 # and cache.write_to_cache.
-def _cache(func, hint_fields, **kwargs):
+def _cache(func, hint_fields, prefix, **kwargs):
     function_name = func.__name__
     hint_values = [kwargs.get(field) for field in hint_fields]
     cache_filepath = _get_cached_filepath(
-        prefix=function_name,
+        prefix=prefix or function_name,
         hint_values=hint_values,
     )
     # If caching is disabled or a hint is missing, call the function normally.

@@ -4,6 +4,8 @@
 
 declare module 'chart.piecelabel.js'
 
+declare module 'geojson-filter'
+
 declare module 'mui-icons/cmdi/*'
 
 declare module 'react-autocomplete'

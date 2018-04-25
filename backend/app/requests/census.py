@@ -37,7 +37,7 @@ def census_info_by_service_area_request(app, flask_request, engine):
     )
 
 
-@cache(hint_fields=('service_area_ids',))
+@cache(prefix='census', hint_fields=('service_area_ids',))
 def construct_census_info_response(service_area_ids, engine):
     """Construct responses for /api/census-data-by-service-area/ requests."""
     return census.fetch_census_info_by_service_area(

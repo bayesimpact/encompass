@@ -176,6 +176,18 @@ a {
   top: 3px !important;
 }
 
-.NumericTableCell {
-  text-align: right;
+.RightAlignedCell {
+  text-align: right !important;
+}
+
+.MuiTable * {
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+  font-size: var(--medium-font-size) !important;
+  text-overflow: unset !important;
+}
+
+.MuiTable th {
+  color: var(--muted) !important;
+  font-weight: var(--medium-weight) !important;
 }

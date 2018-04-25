@@ -29,6 +29,7 @@ export type CensusGroup = {
 export type Config = {
   enable_geocoding: boolean
   is_census_data_available: boolean
+  is_walking_available: boolean
   limit_upload_file_size: boolean
   show_about_dialog_on_start: boolean
   title_suffix: string
@@ -45,8 +46,8 @@ export type Config = {
     appIsStatic: boolean,
     rootUrl: string
     csv: {
-        useStaticCsvs: boolean,
-        path: string
+      useStaticCsvs: boolean,
+      path: string
     }
     representativePoints: {
       path: string
@@ -71,6 +72,7 @@ export type Dataset = {
   hint?: string
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
+  usaWide?: boolean
 }
 
 export type Format = 'Percentage' | 'Number'
@@ -82,7 +84,7 @@ export type GeoJSONEventData = EventData & {
   features: GeoJSON.Feature<GeoJSON.GeometryObject>[]
 }
 
-export type Method = 'driving_time' | 'straight_line'
+export type Method = 'driving_time' | 'straight_line' | 'walking_time'
 
 export type PopulationByAdequacy = number[]
 

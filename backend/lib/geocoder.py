@@ -21,18 +21,32 @@ logger = logging.getLogger(__name__)
 class GeocodioCoder():
     """Geocodio geocoder class."""
 
-    def __init__(self, api_key=os.environ.get('GEOCODIO_KEY', None)):
+    def __init__(self, api_key=os.environ.get('GEOCODIO_KEY')):
         """Initialize Geocodio geocoder class."""
         self.client = GeocodioClient(api_key)
 
     @staticmethod
     def _format_result(address, geocoding_result):
         """Format an address and geocoding result for use throughout the application."""
-        return {
-            'address': address,
-            'latitude': geocoding_result.coords[0],
-            'longitude': geocoding_result.coords[1],
-        }
+        try:
+            return {
+                'address': address,
+                'latitude': geocoding_result['results'][0]['location']['lat'],
+                'longitude': geocoding_result['results'][0]['location']['lng'],
+            }
+        except (IndexError, KeyError):
+            pass
+
+        try:
+            return {
+                'address': address,
+                'latitude': geocoding_result.coords[0],
+                'longitude': geocoding_result.coords[1],
+            }
+        except Exception as error:
+            logger.warning(error)
+            logger.warning(geocoding_result)
+            return None
 
     def geocode(self, address):
         """Geocode a single point with Geocodio."""
