@@ -1,11 +1,13 @@
 import Dialog from 'material-ui/Dialog'
+import IconButton from 'material-ui/IconButton'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import * as React from 'react'
 import { SecureLink } from '../../utils/link'
 import './AboutDialog.css'
 
 type Props = {
   isOpen: boolean
-  onCloseClick: (buttonClicked: boolean) => void
+  onCloseClick: () => void
 }
 
 export let AboutDialog: React.StatelessComponent<Props> = ({
@@ -18,7 +20,13 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   return <Dialog
     autoScrollBodyContent={true}
     open={isOpen}
-    onRequestClose={onCloseClick}>
+    onRequestClose={onCloseClick}
+    title={
+      <div className='DialogCloseButton'>
+        <IconButton onClick={onCloseClick}><NavigationClose /></IconButton>
+      </div>
+    }
+  >
     <div>
       <div className='Flex -Center'>
         <img className='AboutLogoImg' alt='bayes-logo' src='https://www.bayesimpact.org/images/logo_sq.png' />
