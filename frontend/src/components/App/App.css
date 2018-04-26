@@ -190,4 +190,5 @@ a {
 .MuiTable th {
   color: var(--muted) !important;
   font-weight: var(--medium-weight) !important;
+  height: 48px !important;
 }
