@@ -7,22 +7,30 @@ import { CONFIG } from '../../config/config'
 import { withStore } from '../../services/store'
 import { SecureLink } from '../../utils/link'
 import { AboutDialog } from '../AboutDialog/AboutDialog'
+import { MethodsDialog } from '../MethodsDialog/MethodsDialog'
 import './Header.css'
 
 let title = 'Encompass' + CONFIG.title_suffix
 
-export let Header = withStore('isAboutDialogOpen')(({ store }) =>
+export let Header = withStore('modal')(({ store }) =>
   < AppBar
     className='Header'
     title={SecureLink('.', title, '_self')}
     iconElementRight={
       <div>
         <AboutDialog
-          isOpen={store.get('isAboutDialogOpen')}
-          onCloseClick={() => store.set('isAboutDialogOpen')(false)} />
+          isOpen={store.get('modal') === 'About'}
+          onCloseClick={() => store.set('modal')(null)} />
+        <MethodsDialog
+          isOpen={store.get('modal') === 'Methods'}
+          onCloseClick={() => store.set('modal')(null)} />
+        <FlatButton
+          label='Methods'
+          onClick={() => store.set('modal')('Methods')}
+          style={{ color: '#fff' }} />
         <FlatButton
           label='About'
-          onClick={() => store.set('isAboutDialogOpen')(true)}
+          onClick={() => store.set('modal')('About')}
           style={{ color: '#fff' }} />
         <IconButton
           href='https://github.com/bayesimpact/encompass'

@@ -3,7 +3,7 @@ import { Map } from 'mapbox-gl'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
-import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, Provider, RepresentativePoint, Route } from '../constants/datatypes'
+import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, ModalName, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { State } from '../constants/states'
 import { withEffects } from './effects'
@@ -32,9 +32,9 @@ type Actions = {
   success: string | null
 
   /**
-   * Control opening of the about page.
+   * Control which modal is displayed
    */
-  isAboutDialogOpen: boolean
+  modal: ModalName | null
 
   /**
    * Control selection of counties for add dataset drawer.
@@ -156,7 +156,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
-  isAboutDialogOpen: CONFIG.show_about_dialog_on_start,
+  modal: CONFIG.show_about_dialog_on_start ? 'About' : null,
   useCustomCountyUpload: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
