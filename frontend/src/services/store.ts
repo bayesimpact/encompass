@@ -1,6 +1,7 @@
 import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
-import { connect, createStore, Store as BabyduxStore } from 'undux'
+import { isMobile } from 'react-device-detect'
+import { connect, createStore, Store as BabyduxStore, withLogger } from 'undux'
 import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
 import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, ModalName, Provider, RepresentativePoint, Route } from '../constants/datatypes'
@@ -150,13 +151,13 @@ type Actions = {
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */
-let store = withEffects(createStore<Actions>({
+let store = withLogger(withEffects(createStore<Actions>({
   adequacies: {},
   allowDrivingTime: true,
   counties: [],
   error: null,
   success: null,
-  modal: CONFIG.show_about_dialog_on_start ? 'About' : null,
+  modal: isMobile ? 'MobileAlert' : (CONFIG.show_about_dialog_on_start ? 'About' : null),
   useCustomCountyUpload: null,
   map: null,
   mapCenter: DEFAULT_MAP_CENTER,
@@ -183,7 +184,7 @@ let store = withEffects(createStore<Actions>({
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null,
   pointFeatureCollections: null
-}))
+})))
 
 export let withStore = connect(store)
 
