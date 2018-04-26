@@ -22,7 +22,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
     open={isOpen}
     onRequestClose={onCloseClick}
     title={
-      <div className='CloseButton'>
+      <div className='DialogCloseButton'>
         <IconButton onClick={onCloseClick}><NavigationClose /></IconButton>
       </div>
     }

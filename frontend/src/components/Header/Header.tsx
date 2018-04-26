@@ -26,7 +26,12 @@ export let Header = withStore('modal')(({ store }) =>
           onCloseClick={() => store.set('modal')(null)} />
         <FlatButton
           label='Methodology'
-          onClick={() => store.set('modal')('Methodology')}
+          onClick={() => {
+            console.log('opening the modal')
+            store.set('modal')('Methodology')
+            console.log('i set the store')
+
+          }}
           style={{ color: '#fff' }} />
         <FlatButton
           label='About'
