@@ -1,6 +1,8 @@
 import { EventData } from 'mapbox-gl'
 import { State } from './states'
 
+export type ModalName = 'About' | 'Methodology'
+
 export type Adequacies = {
   [representativePointId: string]: Adequacy
 }
