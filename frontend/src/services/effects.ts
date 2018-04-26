@@ -58,7 +58,7 @@ export function withEffects(store: Store) {
       store.set('representativePoints')(
         points.map(_ => ({
           ..._,
-          population: _.population,
+          population: Number(_.population),
           serviceAreaId: _.service_area_id,
           demographics: censusData[_.service_area_id]
         }))
