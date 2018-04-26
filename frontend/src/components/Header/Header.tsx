@@ -7,7 +7,7 @@ import { CONFIG } from '../../config/config'
 import { withStore } from '../../services/store'
 import { SecureLink } from '../../utils/link'
 import { AboutDialog } from '../AboutDialog/AboutDialog'
-import { MethodsDialog } from '../MethodsDialog/MethodsDialog'
+import { MethodologyDialog } from '../MethodologyDialog/MethodologyDialog'
 import './Header.css'
 
 let title = 'Encompass' + CONFIG.title_suffix
@@ -21,12 +21,12 @@ export let Header = withStore('modal')(({ store }) =>
         <AboutDialog
           isOpen={store.get('modal') === 'About'}
           onCloseClick={() => store.set('modal')(null)} />
-        <MethodsDialog
-          isOpen={store.get('modal') === 'Methods'}
+        <MethodologyDialog
+          isOpen={store.get('modal') === 'Methodology'}
           onCloseClick={() => store.set('modal')(null)} />
         <FlatButton
           label='Methods'
-          onClick={() => store.set('modal')('Methods')}
+          onClick={() => store.set('modal')('Methodology')}
           style={{ color: '#fff' }} />
         <FlatButton
           label='About'
