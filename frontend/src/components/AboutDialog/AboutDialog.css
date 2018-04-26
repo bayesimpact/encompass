@@ -1,3 +1,14 @@
+@import "../../index.css";
+
 .AboutLogoImg {
     height: 140px;
+}
+
+.CloseButton {
+    padding: 0px !important;
+    text-align: right !important;
+}
+
+.CloseButton svg {
+    color: var(--light) !important;
 }
