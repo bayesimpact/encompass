@@ -25,7 +25,6 @@
   padding: 20px;
   position: absolute !important;
   width: calc(100%-40px) !important;
-  padding-bottom: 150px !important;
 }
 
 .LeftPane .DownloadDatasetLink {
