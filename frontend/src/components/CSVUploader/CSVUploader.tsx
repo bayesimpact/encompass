@@ -5,7 +5,6 @@ import { withStore } from '../../services/store'
 import './CSVUploader.css'
 
 type Props = {
-  className?: string,
   label: string
   onUpload(file: File): void
 }
