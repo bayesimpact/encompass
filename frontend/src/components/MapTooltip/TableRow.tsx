@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { formatNumber } from '../../utils/formatters'
 import { SecureLink } from '../../utils/link'
 import { capitalizeWords } from '../../utils/string'
 
@@ -17,6 +18,7 @@ export let TableRow: React.StatelessComponent<Props> = ({ name, value }) => {
       <td>{SecureLink(value, 'View on Google Maps')}</td>
     </tr>
   }
+  value = isNaN(Number(value)) ? value : formatNumber(Number(value))
   return <tr>
     <td>{capitalizeWords(name)}</td>
     <td>{value}</td>
