@@ -79,7 +79,7 @@ export async function getStaticDemographics(selectedDataset: Dataset | null) {
   return body as PostCensusDataResponse
 }
 
-function getStaticRPUrl(selectedDataset: Dataset | null): string {
+export function getStaticRPUrl(selectedDataset: Dataset | null): string {
   const rootUrl = CONFIG.staticAssets.rootUrl
   const path = CONFIG.staticAssets.representativePoints.path
   if (!selectedDataset) {
@@ -89,7 +89,7 @@ function getStaticRPUrl(selectedDataset: Dataset | null): string {
   return `${rootUrl}${path}${datasetString}.json`
 }
 
-function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
+export function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
   const rootUrl = CONFIG.staticAssets.rootUrl
   const path = CONFIG.staticAssets.adequacies.path
   if (!selectedDataset) {
@@ -100,7 +100,7 @@ function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): 
   return `${rootUrl}${path}${datasetString}-${methodString}.json`
 }
 
-function getStaticDemographicsUrl(selectedDataset: Dataset | null) {
+export function getStaticDemographicsUrl(selectedDataset: Dataset | null) {
   const rootUrl = CONFIG.staticAssets.rootUrl
   const path = CONFIG.staticAssets.demographics.path
   if (!selectedDataset) {

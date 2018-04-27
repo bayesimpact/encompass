@@ -20,6 +20,7 @@
     "watch": "npm start"
   },
   "dependencies": {
+    "aws-sdk": "^2.229.1",
     "chart.piecelabel.js": "^0.8.2",
     "chartjs-plugin-stacked100": "^0.4.5",
     "esri-extent": "^1.1.3",
