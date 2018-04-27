@@ -22,7 +22,7 @@ export let AnalyticsDrawer = withStore(
       </div>
     }
 
-    return <div className='AnalyticsDrawer'>
+    return <div className='AnalyticsDrawer Drawer'>
       <BackLink />
       <h2 className='Secondary'>{selectedDataset.name}</h2>
       <div className='Description'>

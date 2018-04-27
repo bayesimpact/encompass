@@ -17,7 +17,7 @@ const githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHu
 const contactUsLink = SecureLink('mailto:encompass@bayesimpact.org?subject=Driving%Time%20Analysis', 'contact us')
 
 export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
-  <div className='AddDatasetDrawer'>
+  <div className='AddDatasetDrawer Drawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
     <div className='ExplainerText'>
