@@ -4,6 +4,10 @@
     "dataSources": "Provider Data: - <a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018.",
     "state": "fl",
     "name": "Health Centers in Florida",
+    "defaultDemographics": {
+        "censusCategory": "Income",
+        "censusGroup": "Total Population"
+    },
     "providers": [
         {
             "address": "402 E Ash St, Perry, FL 32347",

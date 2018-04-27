@@ -78,6 +78,7 @@ export type Dataset = {
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
   usaWide?: boolean
+  defaultDemographics?: CensusGroup
 }
 
 export type Format = 'Percentage' | 'Number'

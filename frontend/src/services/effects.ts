@@ -323,6 +323,10 @@ export function withEffects(store: Store) {
         store.set('providers')(selectedDataset.providers)
         store.set('selectedState')(selectedDataset.state)
         store.set('route')('/analytics')
+        if (selectedDataset.defaultDemographics) {
+          store.set('selectedCensusCategory')(selectedDataset.defaultDemographics.censusCategory.toLowerCase())
+          store.set('selectedCensusGroup')(selectedDataset.defaultDemographics.censusGroup)
+        }
       } else {
         store.set('providers')([])
         store.set('route')('/datasets')

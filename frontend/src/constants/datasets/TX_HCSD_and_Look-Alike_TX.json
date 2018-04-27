@@ -4,6 +4,10 @@
     "dataSources": "Provider Data: <a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018.",
     "state": "tx",
     "name": "Health Centers in Texas",
+    "defaultDemographics": {
+        "censusCategory": "Income",
+        "censusGroup": "Total Population"
+    },
     "providers": [
         {
             "address": "602 Titus St Ste 130, Gilmer, TX 75644",
