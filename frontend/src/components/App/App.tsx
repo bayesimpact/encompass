@@ -17,7 +17,7 @@ import './App.css'
  * Check to see if the client is mobile and display a warning if they are.
  */
 
-export let App = withStore('error', 'success', 'modal')(({ store }) =>
+export let App = withStore('error', 'success', 'alert')(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>
       <Header />
@@ -33,9 +33,8 @@ export let App = withStore('error', 'success', 'modal')(({ store }) =>
         onClose={() => store.set('success')(null)}
       />
       <AlertDialog
-        message='Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.'
-        isOpen={store.get('modal') === 'MobileAlert'}
-        onCloseClick={() => store.set('modal')(null)}
+        message={store.get('alert')}
+        onCloseClick={() => store.set('alert')(null)}
       /> : null}
     </div>
   </MuiThemeProvider>

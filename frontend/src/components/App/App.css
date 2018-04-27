@@ -205,4 +205,5 @@ a {
 /* Get rid of the border between title and body */
 .DialogCloseButton + div {
   border-top: unset !important;
+  border-bottom: unset !important;
 }
