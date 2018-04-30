@@ -24,7 +24,7 @@ if (isMobile) {
  * redirected to instructions for how to enable it.
  */
 if (!isWebGLEnabled()){
-  if (window.confirm('Unfortunately, WebGL is not enabled in your browser and you will not be able to display the map. Click "ok" to learn more, or "cancel" to load Encompass without the map.')){
+  if (window.confirm('Unfortunately, WebGL is not enabled in your browser and you will not be able to display the map. Click "OK" to learn more, or "Cancel" to load Encompass without the map.')){
     window.location.href = 'https://get.webgl.org/'
   }
 }
