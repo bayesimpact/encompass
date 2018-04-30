@@ -13,18 +13,20 @@ import { MapView } from '../MapView/MapView'
 import './App.css'
 
 /**
- * Typescript complains about implicit type when using import for this package.
- *
  * Check to see if the client is mobile and display a warning if they are.
  */
 if (isMobile) {
   alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.')
 }
 
-if (isWebGLEnabled()){
-  alert('hello world u have webgl :)')
-} else {
-  alert('hello world ur webgl dont work :(')
+/**
+ * Check to see if WebGL is supported and if it isn't, offer the user the opportunity to be
+ * redirected to instructions for how to enable it.
+ */
+if (!isWebGLEnabled()){
+  if (window.confirm('Unfortunately, WebGL is not enabled in your browser and you will not be able to display the map. Click "ok" to learn more, or "cancel" to load Encompass without the map.')){
+    window.location.href = 'https://get.webgl.org/'
+  }
 }
 
 export let App = withStore('error', 'success')(({ store }) =>
