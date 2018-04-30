@@ -35,7 +35,7 @@ export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ servic
     </div>
   }
 
-  let populationByAdequacy = summaryStatisticsByServiceArea(serviceAreas, store)
+  let populationByAdequacy = summaryStatisticsByServiceArea(serviceAreas, store.get('adequacies'), store.get('representativePoints'))
 
   let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let method = store.get('method')

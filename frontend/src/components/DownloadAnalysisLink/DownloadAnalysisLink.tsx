@@ -5,12 +5,13 @@ import * as React from 'react'
 import * as ReactGA from 'react-ga'
 import { CONFIG } from '../../config/config'
 import { CENSUS_MAPPING } from '../../constants/census'
-import { AdequacyMode, Dataset, Method } from '../../constants/datatypes'
+import { Adequacies, AdequacyMode, Dataset, Method, Provider, RepresentativePoint } from '../../constants/datatypes'
 import { Store, withStore } from '../../services/store'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea, summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { download } from '../../utils/download'
+import { parseSerializedServiceArea } from '../../utils/formatters'
 import { snakeCase } from '../../utils/string'
 import { getLegend } from '../MapLegend/MapLegend'
 
@@ -51,14 +52,20 @@ function onClick(store: Store) {
     if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
       return
     }
-    buildCsvFromData(method, store)
+    buildCsvFromData(
+      method,
+      store.get('serviceAreas'),
+      store.get('adequacies'),
+      store.get('providers'),
+      store.get('representativePoints')
+    )
   }
 }
 
 /**
  * Build an analysis CSV for download from the census data.
  */
-function buildCsvFromData(method: Method, store: Store) {
+export function buildCsvFromData(method: Method, serviceAreas: string[], adequacies: Adequacies, providers: Provider[], representativePoints: RepresentativePoint[]) {
   let censusCategories = Object.keys(CENSUS_MAPPING).sort()
   let headers = [
     'county',
@@ -72,26 +79,27 @@ function buildCsvFromData(method: Method, store: Store) {
   ]
 
   headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
-
-  let serviceAreas = store.get('serviceAreas')
   let data = serviceAreas.map(_ => {
-    let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
-    let adequacies = adequaciesFromServiceArea([_], store)
-    let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
-
+    let adequaciesForServiceArea = adequaciesFromServiceArea([_], adequacies, representativePoints)
+    let representativePointsForServiceArea = representativePointsFromServiceAreas([_], representativePoints)
+    let populationByAnalytics = summaryStatisticsByServiceArea([_], adequacies, representativePoints)
+    let specialty = providers[0].specialty // TODO: Is this safe to assume?
+    if (specialty == null) {
+      specialty = '-'
+    }
     let dataRow = [
-      representativePoint.county,
+      parseSerializedServiceArea(_).county,
       populationByAnalytics[0],
       populationByAnalytics[1],
       populationByAnalytics[2],
       populationByAnalytics[3],
-      minMeasure(adequacies),
-      averageMeasure(adequacies),
-      maxMeasure(adequacies)
+      minMeasure(adequaciesForServiceArea),
+      averageMeasure(adequaciesForServiceArea),
+      maxMeasure(adequaciesForServiceArea)
     ]
     // getDataForCensusCategories assumes that demographics are given at the service area level.
-    // Checkout getDataForCensusCategoriesByPoint if you need more accurate calculations.
-    dataRow.push.apply(dataRow, getDataForCensusCategories(representativePoint.demographics!, populationByAnalytics, censusCategories))
+    // Checkout getDataForCensusCategoriesSlow if you need mnore accurate calculations.
+    dataRow.push.apply(dataRow, getDataForCensusCategories(representativePointsForServiceArea.value()[0].demographics!, populationByAnalytics, censusCategories))
     return dataRow
   })
   let csv = generateCSV(headers, data)
