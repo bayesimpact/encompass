@@ -74,7 +74,6 @@ function buildCsvFromData(method: Method, store: Store) {
   headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
   let serviceAreas = store.get('serviceAreas')
-
   let data = serviceAreas.map(_ => {
     let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
     let adequacies = adequaciesFromServiceArea([_], store)
@@ -90,7 +89,9 @@ function buildCsvFromData(method: Method, store: Store) {
       averageMeasure(adequacies),
       maxMeasure(adequacies)
     ]
-    dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
+    // getDataForCensusCategories assumes that demographics are given at the service area level.
+    // Checkout getDataForCensusCategoriesByPoint if you need more accurate calculations.
+    dataRow.push.apply(dataRow, getDataForCensusCategories(representativePoint.demographics!, populationByAnalytics, censusCategories))
     return dataRow
   })
   let csv = generateCSV(headers, data)
@@ -121,11 +122,23 @@ function getHeadersForCensusCategories(method: Method, censusCategories: string[
       ))))
 }
 
-function getDataForCensusCategories(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
+// We are currenltly using Census information at the service area level and implemented a faster version of getDataForCensusCategories
+// below. getDataForCensusCategoriesSlow provides an implementation that works at the representative point level.
+export function getDataForCensusCategoriesByPoint(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
   return flattenDeep(
     censusCategories.map(_ => {
       let summary = summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)
       return CENSUS_MAPPING[_].map(group => summary[group])
+    })
+  )
+}
+
+function getDataForCensusCategories(demographics: any, populationByAnalytics: number[], censusCategories: string[]) {
+  return flattenDeep(
+    censusCategories.map(_ => {
+      return CENSUS_MAPPING[_].map(group => {
+        return (populationByAnalytics.map(category => category * 0.01 * demographics[_][group] || 0))
+      })
     })
   )
 }
