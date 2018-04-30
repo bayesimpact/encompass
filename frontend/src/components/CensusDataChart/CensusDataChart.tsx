@@ -6,9 +6,9 @@ import * as React from 'react'
 import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
+import { getLegend } from '../../utils/adequacy'
 import { StatisticsByGroup } from '../../utils/data'
 import { formatLabel, formatLargeNumberWithUnit, formatNumber, formatPercentage } from '../../utils/formatters'
-import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
     percent: boolean,
