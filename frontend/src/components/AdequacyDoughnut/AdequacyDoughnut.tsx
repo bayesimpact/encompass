@@ -7,9 +7,9 @@ import { Doughnut } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
+import { getLegend } from '../../utils/adequacy'
 import { summaryStatisticsByServiceArea } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { getLegend } from '../MapLegend/MapLegend'
 import { StatsBox } from '../StatsBox/StatsBox'
 
 type Props = {

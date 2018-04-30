@@ -3,11 +3,11 @@ import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { CONFIG } from '../config/config'
-import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { Dataset, GeocodedProvider, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
+import { getAdequacyMode } from '../utils/adequacy'
 import { parseSerializedServiceArea } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
@@ -366,51 +366,4 @@ export function withEffects(store: Store) {
     })
 
   return store
-}
-
-let ONE_MILE_IN_METERS = 1609.344
-let ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
-
-function getAdequacyMode(
-  adequacy: PostAdequaciesResponse[0],
-  method: Method,
-  serviceAreaId: string,
-  selectedServiceAreas: string[] | null
-): AdequacyMode {
-
-  if (selectedServiceAreas && !selectedServiceAreas.includes(serviceAreaId)) {
-    return AdequacyMode.OUT_OF_SCOPE
-  }
-
-  if (method === 'straight_line') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 10) {
-      return AdequacyMode.ADEQUATE_0
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 20) {
-      return AdequacyMode.ADEQUATE_1
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
-      return AdequacyMode.ADEQUATE_2
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES > 30) {
-      return AdequacyMode.INADEQUATE
-    }
-    return AdequacyMode.OUT_OF_SCOPE
-  }
-
-  if (method === 'driving_time' || method === 'walking_time') {
-    if (adequacy.to_closest_provider <= 30) {
-      return AdequacyMode.ADEQUATE_0
-    }
-    if (adequacy.to_closest_provider <= 45) {
-      return AdequacyMode.ADEQUATE_1
-    }
-    if (adequacy.to_closest_provider <= 60) {
-      return AdequacyMode.ADEQUATE_2
-    }
-    if (adequacy.to_closest_provider > 60) {
-      return AdequacyMode.INADEQUATE
-    }
-  }
-  return AdequacyMode.OUT_OF_SCOPE
 }
