@@ -8,9 +8,9 @@ import { CENSUS_MAPPING } from '../../constants/census'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Format, PopulationByAdequacy } from '../../constants/datatypes'
 import { withStore } from '../../services/store'
+import { getLegend } from '../../utils/adequacy'
 import { summaryStatisticsByServiceAreaAndCensus } from '../../utils/data'
 import { formatNumber, formatPercentage } from '../../utils/formatters'
-import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
   serviceAreas: string[],
