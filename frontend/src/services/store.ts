@@ -1,5 +1,6 @@
 import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
+import { isMobile } from 'react-device-detect'
 import { connect, createStore, Store as BabyduxStore } from 'undux'
 import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
@@ -30,6 +31,11 @@ type Actions = {
    * Success, exposed to user via Snackbar.
    */
   success: string | null
+
+  /**
+   * Alert, exposed to user as a modal.
+   */
+  alert: string | null
 
   /**
    * Control which modal is displayed
@@ -156,6 +162,7 @@ let store = withEffects(createStore<Actions>({
   counties: [],
   error: null,
   success: null,
+  alert: isMobile ? 'Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.' : null,
   modal: CONFIG.show_about_dialog_on_start ? 'About' : null,
   useCustomCountyUpload: null,
   map: null,

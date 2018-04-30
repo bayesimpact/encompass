@@ -44,10 +44,13 @@ function onClick(store: Store) {
     label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
   })
 
-  if (useStaticCsvs){ // If in production, use the cached static CSVs.
+  if (useStaticCsvs) { // If in production, use the cached static CSVs.
     const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
     window.open(staticCsvUrl)
   } else { // Otherwise, generate the CSV.
+    if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
+      return
+    }
     buildCsvFromData(method, store)
   }
 }
@@ -71,17 +74,12 @@ function buildCsvFromData(method: Method, store: Store) {
   headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
   let serviceAreas = store.get('serviceAreas')
-  if (serviceAreas.length > 100) {
-    alert('There are many service areas in this state! Preparing the file may take a minute or two...')
-  }
+
   let data = serviceAreas.map(_ => {
     let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
     let adequacies = adequaciesFromServiceArea([_], store)
     let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
-    let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
-    if (specialty == null) {
-      specialty = '-'
-    }
+
     let dataRow = [
       representativePoint.county,
       populationByAnalytics[0],
@@ -104,7 +102,7 @@ function buildCsvFromData(method: Method, store: Store) {
  * Build URL for static CSV for selected dataset and adequacy measure.
  */
 function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
-  if (!selectedDataset){
+  if (!selectedDataset) {
     return
   }
   const datasetString = kebabCase(selectedDataset.name)
