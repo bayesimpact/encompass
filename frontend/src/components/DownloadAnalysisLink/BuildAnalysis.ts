@@ -1,13 +1,17 @@
+import { kebabCase } from 'lodash'
 import { flattenDeep } from 'lodash'
+import { CONFIG } from '../../config/config'
 import { CENSUS_MAPPING } from '../../constants/census'
-import { Adequacies, AdequacyMode, Method, RepresentativePoint } from '../../constants/datatypes'
+import { Adequacies, AdequacyMode, Dataset, Method, RepresentativePoint } from '../../constants/datatypes'
 import { getLegend } from '../../utils/adequacy'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea } from '../../utils/data'
-import { download } from '../../utils/download'
 import { parseSerializedServiceArea } from '../../utils/formatters'
 import { snakeCase } from '../../utils/string'
+
+const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
+const staticCsvPath: string = CONFIG.staticAssets.csv.path
 
 /**
  * Build an analysis CSV for download from the census data.
@@ -49,10 +53,7 @@ export function buildCsvFromData(method: Method, serviceAreas: string[], adequac
     dataRow.push.apply(dataRow, getDataForCensusCategories(representativePointsForServiceArea.value()[0].demographics!, populationByAnalytics, censusCategories))
     return dataRow
   })
-  let csv = generateCSV(headers, data)
-  console.log(csv)
-  // Sample filename: encompass-analysis-haversine-2018-03-06.csv
-  download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
+  return generateCSV(headers, data)
 }
 
 function getHeadersForCensusCategories(method: Method, censusCategories: string[]) {
@@ -91,4 +92,16 @@ function getDataForCensusCategories(demographics: any, populationByAnalytics: nu
 
 function formatLegend(string: string) {
   return snakeCase(string.replace('<', 'lt').replace('>', 'gt').replace('-', ' to ').replace('+', ' plus ').replace('Years', 'yrs'))
+}
+
+/**
+ * Build URL for static CSV for selected dataset and adequacy measure.
+ */
+export function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
+  if (!selectedDataset) {
+    return ''
+  }
+  const datasetString = kebabCase(selectedDataset.name)
+  const methodString = kebabCase(method.toString())
+  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
 }

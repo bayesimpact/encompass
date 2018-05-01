@@ -1,18 +1,16 @@
-import { kebabCase } from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
 import { CONFIG } from '../../config/config'
-import { Dataset, Method } from '../../constants/datatypes'
+
 import { Store, withStore } from '../../services/store'
-import { buildCsvFromData } from './BuildAnalysis'
+import { download } from '../../utils/download'
+import { buildCsvFromData, getStaticCsvUrl } from './BuildAnalysis'
 
 import './DownloadAnalysisLink.css'
 
 const useStaticCsvs: boolean = CONFIG.staticAssets.csv.useStaticCsvs
-const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
-const staticCsvPath: string = CONFIG.staticAssets.csv.path
 
 export let DownloadAnalysisLink = withStore()(({ store }) =>
   <FlatButton
@@ -42,26 +40,13 @@ function onClick(store: Store) {
     const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
     window.open(staticCsvUrl)
   } else { // Otherwise, generate the CSV.
-    if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
-      return
-    }
-    buildCsvFromData(
+    let csv = buildCsvFromData(
       method,
       store.get('serviceAreas'),
       store.get('adequacies'),
       store.get('representativePoints')
     )
+    // Sample filename: encompass-analysis-haversine-2018-03-06.csv
+    download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
   }
-}
-
-/**
- * Build URL for static CSV for selected dataset and adequacy measure.
- */
-function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
-  if (!selectedDataset) {
-    return
-  }
-  const datasetString = kebabCase(selectedDataset.name)
-  const methodString = kebabCase(method.toString())
-  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
 }

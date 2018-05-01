@@ -6,10 +6,10 @@ import Axios from 'axios'
 import 'isomorphic-fetch'
 import { chain, keyBy } from 'lodash'
 import { seq } from 'promise-seq'
-import { buildCsvFromData } from '../src/components/DownloadAnalysisLink/BuildAnalysis'
+import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildAnalysis'
 import { CONFIG } from '../src/config/config'
 import { DATASETS } from '../src/constants/datasets'
-import { Adequacies, AdequacyMode, Method } from '../src/constants/datatypes'
+import { Adequacies, Method } from '../src/constants/datatypes'
 import {
   getAdequacies, getCensusData, getRepresentativePoints, getStaticAdequacyUrl, getStaticDemographicsUrl, getStaticRPUrl
 } from '../src/services/api'
@@ -108,9 +108,12 @@ function cacheAdequacies() {
         .value()
       let CSVResult = buildCsvFromData(
         method, dataset.serviceAreaIds, storeLikeAdequacies, storeLikeRps, true)
-      if (uploadToS3 && adequacies) {
+      console.log(CSVResult)
+      if (uploadToS3 && adequacies && method) {
         let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)), Body: JSON.stringify(adequacies), ContentType: 'application/json', ACL: 'public-read' }
         s3.putObject(adequacyParams, s3Callback)
+        let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)), Body: JSON.stringify(CSVResult), ContentType: 'application/json', ACL: 'public-read' }
+        s3.putObject(CSVResultsParams, s3Callback)
       }
     }))
   }))
