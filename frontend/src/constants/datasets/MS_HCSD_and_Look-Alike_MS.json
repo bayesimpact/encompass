@@ -4,6 +4,10 @@
     "dataSources": "Provider Data: <a href=\"https://datawarehouse.hrsa.gov/\" target=\"_blank\">U.S. HHS Health Resources & Services Administration</a>, Feb 2018.",
     "state": "ms",
     "name": "Health Centers in Mississippi",
+    "defaultDemographics": {
+        "censusCategory": "Income",
+        "censusGroup": "Total Population"
+    },
     "providers": [
         {
             "address": "102 S Martin Luther King Jr Dr, Indianola, MS 38751",

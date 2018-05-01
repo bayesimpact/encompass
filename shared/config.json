@@ -87,7 +87,7 @@
         "appIsStatic": false,
         "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
         "csv": {
-            "useStaticCsvs": true,
+            "useStaticCsvs": false,
             "path": "results-csv/"
         },
         "representativePoints": {

@@ -4,6 +4,10 @@
     "subtitle": "All Endocrinologists in Florida marketplace plans",
     "state": "fl",
     "name": "Endocrinologists in Florida",
+    "defaultDemographics": {
+        "censusCategory": "Age",
+        "censusGroup": "Total Population"
+    },
     "providers": [
         {
             "address": "1450 NW 10TH AVE, MIAMI, FL 33136",

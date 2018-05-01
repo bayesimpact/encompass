@@ -43,7 +43,7 @@ let tiles = [
 let DatasetTilePicker = TilePicker<Dataset>()
 
 export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
-  <div className='DatasetsDrawer'>
+  <div className='DatasetsDrawer Drawer'>
     <p>Welcome to Encompass, a geographic analysis tool built by {SecureLink('http://www.bayesimpact.org', 'Bayes Impact')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
     <DatasetTilePicker
       onChange={onChange(store)}

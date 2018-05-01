@@ -47,3 +47,7 @@
     left: 20px;
     right: 20px;
 }
+
+.LeftPane .Drawer {
+  padding-bottom: 100px;
+}

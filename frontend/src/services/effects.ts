@@ -58,7 +58,7 @@ export function withEffects(store: Store) {
       store.set('representativePoints')(
         points.map(_ => ({
           ..._,
-          population: _.population,
+          population: Number(_.population),
           serviceAreaId: _.service_area_id,
           demographics: censusData[_.service_area_id]
         }))
@@ -323,6 +323,10 @@ export function withEffects(store: Store) {
         store.set('providers')(selectedDataset.providers)
         store.set('selectedState')(selectedDataset.state)
         store.set('route')('/analytics')
+        if (selectedDataset.defaultDemographics) {
+          store.set('selectedCensusCategory')(selectedDataset.defaultDemographics.censusCategory.toLowerCase())
+          store.set('selectedCensusGroup')(selectedDataset.defaultDemographics.censusGroup)
+        }
       } else {
         store.set('providers')([])
         store.set('route')('/datasets')
