@@ -250,7 +250,7 @@ export function withEffects(store: Store) {
       store.set('selectedCounties')(null)
       store.set('useCustomCountyUpload')(null)
       let dataset = store.get('selectedDataset')
-      if (dataset) {
+      if (dataset && store.get('route') === '/analytics') {
         dataset.state = selectedState
         store.set('selectedDataset')(dataset)
       }
@@ -310,6 +310,9 @@ export function withEffects(store: Store) {
   store
     .on('selectedDataset')
     .subscribe(selectedDataset => {
+      if (selectedDataset && store.get('route') === '/analytics') {
+        return
+      }
       if (selectedDataset && store.get('route') === '/add-data') {
         store.set('route')('/analytics')
       }
