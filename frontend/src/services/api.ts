@@ -83,7 +83,7 @@ function getStaticDatasetString(selectedDataset: Dataset | null): string {
   if (!selectedDataset) {
     throw new Error('No dataset selected.')
   }
-  return kebabCase(`${selectedDataset.name}_${selectedDataset.state}`)
+  return safeDatasetHint(selectedDataset)
 }
 
 export function getStaticRPUrl(selectedDataset: Dataset | null): string {
