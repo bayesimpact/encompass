@@ -78,7 +78,7 @@ function cacheData() {
       }
 
       return seq(...METHODS.map(method => async () => {
-        console.log('  Getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
+        console.log('  Getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + `and state ${state}` + ' for ' + method)
         let adequacies = await getAdequacies({
           method,
           providers: dataset.providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
@@ -104,7 +104,7 @@ function cacheData() {
           method, dataset.serviceAreaIds, storeLikeAdequacies, storeLikeRps, true)
 
         if (uploadToS3 && adequacies) {
-          console.log('  Uploading Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
+          console.log('  Uploading Adequacy and result CSV for ' + safeDatasetHint(dataset) + `and state ${state}` + ' for ' + method)
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)), Body: JSON.stringify(adequacies), ContentType: 'application/json', ACL: 'public-read' }
           s3.putObject(adequacyParams, s3Callback)
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)), Body: JSON.stringify(CSVResult), ContentType: 'application/json', ACL: 'public-read' }
