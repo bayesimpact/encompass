@@ -4,11 +4,11 @@ import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { CONFIG } from '../config/config'
 import { Error, Success } from '../constants/api/geocode-response'
-import { Dataset, GeocodedProvider, Provider } from '../constants/datatypes'
+import { GeocodedProvider, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { getAdequacyMode } from '../utils/adequacy'
-import { parseSerializedServiceArea } from '../utils/formatters'
+import { parseSerializedServiceArea, safeDatasetHint } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
@@ -126,17 +126,6 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null, state: string) {
-    if (dataset === null) {
-      return ''
-    }
-    let hint = dataset['hint']
-    if (dataset.usaWide) {
-      hint = hint + '_' + state
-    }
-    return hint
-  }
-
   /**
    * Fetch adequacies when providers, representative points, or method change
    */
@@ -176,7 +165,7 @@ export function withEffects(store: Store) {
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'), store.get('selectedState'))
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
         })
       const points = representativePoints
 
@@ -255,11 +244,16 @@ export function withEffects(store: Store) {
    */
   store
     .on('selectedState')
-    .subscribe(() => {
+    .subscribe((selectedState) => {
       store.set('adequacies')({})
       store.set('counties')([])
       store.set('selectedCounties')(null)
       store.set('useCustomCountyUpload')(null)
+      let dataset = store.get('selectedDataset')
+      if (dataset) {
+        dataset.state = selectedState
+        store.set('selectedDataset')(dataset)
+      }
     })
 
   /**
