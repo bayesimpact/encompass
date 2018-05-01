@@ -1,8 +1,8 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import * as React from 'react'
-import { isMobile } from 'react-device-detect'
 import '../../services/effects'
 import { withStore } from '../../services/store'
+import { AlertDialog } from '../AlertDialog/AlertDialog'
 import { ErrorBar } from '../ErrorBar/ErrorBar'
 import { SuccessBar } from '../ErrorBar/ErrorBar'
 import { FilterBar } from '../FilterBar/FilterBar'
@@ -16,11 +16,8 @@ import './App.css'
  *
  * Check to see if the client is mobile and display a warning if they are.
  */
-if (isMobile) {
-  alert('Encompass is not optimized for mobile devices yet. Please visit using a desktop browser for better performance and usability.')
-}
 
-export let App = withStore('error', 'success')(({ store }) =>
+export let App = withStore('error', 'success', 'alert')(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>
       <Header />
@@ -35,6 +32,10 @@ export let App = withStore('error', 'success')(({ store }) =>
         message={store.get('success')}
         onClose={() => store.set('success')(null)}
       />
+      <AlertDialog
+        message={store.get('alert')}
+        onCloseClick={() => store.set('alert')(null)}
+      /> : null}
     </div>
   </MuiThemeProvider>
 )

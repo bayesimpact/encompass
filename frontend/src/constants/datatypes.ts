@@ -1,6 +1,8 @@
 import { EventData } from 'mapbox-gl'
 import { State } from './states'
 
+export type ModalName = 'About' | 'Methodology'
+
 export type Adequacies = {
   [representativePointId: string]: Adequacy
 }
@@ -39,6 +41,9 @@ export type Config = {
   analysis: {
     [key: string]: boolean
   }
+  cache: {
+    [key: string]: string | boolean
+  }
   dataset: {
     [key: string]: boolean
   }
@@ -73,6 +78,7 @@ export type Dataset = {
   providers: GeocodedProvider[],
   serviceAreaIds: string[]
   usaWide?: boolean
+  defaultDemographics?: CensusGroup
 }
 
 export type Format = 'Percentage' | 'Number'

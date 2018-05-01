@@ -42,6 +42,7 @@ export let CensusAnalytics = withStore(
         <td className='RightAlignedCell'>{formatNumber(totalProviders)}</td>
       </tr>
     </StatsBox>
+    <div className='TableHelpText'>Click on a row to filter data on the map.</div>
     <CensusAdequacyTable serviceAreas={selectedServiceAreas} censusCategory={selectedCensusCategory} />
     < div className='DownloadLink'>
       <DownloadAnalysisLink />

@@ -44,10 +44,13 @@ function onClick(store: Store) {
     label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
   })
 
-  if (useStaticCsvs){ // If in production, use the cached static CSVs.
+  if (useStaticCsvs) { // If in production, use the cached static CSVs.
     const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
     window.open(staticCsvUrl)
   } else { // Otherwise, generate the CSV.
+    if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
+      return
+    }
     buildCsvFromData(method, store)
   }
 }
@@ -71,17 +74,11 @@ function buildCsvFromData(method: Method, store: Store) {
   headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
   let serviceAreas = store.get('serviceAreas')
-  if (serviceAreas.length > 100) {
-    alert('There are many service areas in this state! Preparing the file may take a minute or two...')
-  }
   let data = serviceAreas.map(_ => {
     let representativePoint = representativePointsFromServiceAreas([_], store).value()[0]
     let adequacies = adequaciesFromServiceArea([_], store)
     let populationByAnalytics = summaryStatisticsByServiceArea([_], store)
-    let specialty = store.get('providers')[0].specialty // TODO: Is this safe to assume?
-    if (specialty == null) {
-      specialty = '-'
-    }
+
     let dataRow = [
       representativePoint.county,
       populationByAnalytics[0],
@@ -92,7 +89,9 @@ function buildCsvFromData(method: Method, store: Store) {
       averageMeasure(adequacies),
       maxMeasure(adequacies)
     ]
-    dataRow.push.apply(dataRow, getDataForCensusCategories([_], censusCategories, store))
+    // getDataForCensusCategories assumes that demographics are given at the service area level.
+    // Checkout getDataForCensusCategoriesByPoint if you need more accurate calculations.
+    dataRow.push.apply(dataRow, getDataForCensusCategories(representativePoint.demographics!, populationByAnalytics, censusCategories))
     return dataRow
   })
   let csv = generateCSV(headers, data)
@@ -104,7 +103,7 @@ function buildCsvFromData(method: Method, store: Store) {
  * Build URL for static CSV for selected dataset and adequacy measure.
  */
 function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
-  if (!selectedDataset){
+  if (!selectedDataset) {
     return
   }
   const datasetString = kebabCase(selectedDataset.name)
@@ -123,11 +122,23 @@ function getHeadersForCensusCategories(method: Method, censusCategories: string[
       ))))
 }
 
-function getDataForCensusCategories(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
+// We are currenltly using Census information at the service area level and implemented a faster version of getDataForCensusCategories
+// below. getDataForCensusCategoriesSlow provides an implementation that works at the representative point level.
+export function getDataForCensusCategoriesByPoint(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
   return flattenDeep(
     censusCategories.map(_ => {
       let summary = summaryStatisticsByServiceAreaAndCensus(serviceAreas!, _, store)
       return CENSUS_MAPPING[_].map(group => summary[group])
+    })
+  )
+}
+
+function getDataForCensusCategories(demographics: any, populationByAnalytics: number[], censusCategories: string[]) {
+  return flattenDeep(
+    censusCategories.map(_ => {
+      return CENSUS_MAPPING[_].map(group => {
+        return (populationByAnalytics.map(category => category * 0.01 * demographics[_][group] || 0))
+      })
     })
   )
 }

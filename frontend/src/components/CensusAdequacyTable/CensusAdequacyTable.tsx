@@ -51,8 +51,9 @@ export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCens
   return <div>
     <Table className='MuiTable'
       onRowSelection={rows => {
-        store.set('selectedCensusGroup')(censusGroups[Number(rows[0].toString())])
-        console.log(censusGroups[Number(rows[0].toString())])
+        if (rows.length) {
+          store.set('selectedCensusGroup')(censusGroups[Number(rows[0].toString())])
+        }
       }
       }
     >

@@ -5,12 +5,12 @@
 :root {
 
   /* colors */
-  --primary: #607d8b;
-  --primary-dark: #34515e;
-  --primary-light: #8eacbb;
-  --secondary: #3f51b5;
-  --secondary-dark: #002984;
-  --secondary-light: #757de8;
+  --primary: #2b3e80;
+  --primary-dark: #20316a;
+  --primary-light: #90a9ff;
+  --secondary: #577dff;
+  --secondary-dark: #20316a;
+  --secondary-light: #90a9ff;
 
   --extralight: rgba(0, 0, 0, 0.06);
   --verylight: rgba(0, 0, 0, 0.12);

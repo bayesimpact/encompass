@@ -4,6 +4,10 @@
     "description": "The passing of <a href=\"https://rewire.news/legislative-tracker/law/texas-omnibus-abortion-bill-hb-2-2013/\" target=\"_blank\">Texas House Bill 2</a> closed nearly 75% of abortion clinics in rural and low-income areas between 2013 and 2014. Although HB2 was overturned in 2016, many clinics have not re-opened. Use this map to explore the accessibility of existing clinics in and around Texas.",
     "state": "tx",
     "name": "Abortion Clinics in Texas",
+    "defaultDemographics": {
+        "censusCategory": "Sex",
+        "censusGroup": "Female"
+    },
     "providers": [
         {
             "address": "1902 S IH-35 Suite A, Austin, TX 78704",

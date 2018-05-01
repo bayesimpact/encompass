@@ -1,3 +1,5 @@
+@import "../../index.css";
+
 .CensusAnalytics .p {
     margin-top: 2px;
   }
@@ -21,5 +23,11 @@
 }
 
 .CensusAnalytics .HighLevelStats {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.TableHelpText {
+  font-size: var(--small-font-size);
+  color: var(--light);
+  font-style: italic;
 }
