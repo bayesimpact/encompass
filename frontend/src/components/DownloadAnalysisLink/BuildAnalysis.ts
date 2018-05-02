@@ -8,6 +8,7 @@ import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea } from '../../utils/data'
 import { parseSerializedServiceArea } from '../../utils/formatters'
+import { precisionRound } from '../../utils/numbers'
 import { snakeCase } from '../../utils/string'
 
 const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
@@ -106,12 +107,4 @@ export function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method)
   const datasetString = kebabCase(selectedDataset.name)
   const methodString = kebabCase(method.toString())
   return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
-}
-
-/**
- * Convenience function for rounding without using toFixed (which is for formatting).
- */
-function precisionRound(number: number, precision: number): number {
-  const factor = Math.pow(10, precision)
-  return Math.round(number * factor) / factor
 }
