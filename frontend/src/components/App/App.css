@@ -30,6 +30,11 @@ h2 {
   text-transform: uppercase;
 }
 
+h4 {
+  font-size: var(--mediumlarge-font-size);
+  font-weight: var(--heavy-weight);
+}
+
 hr {
   border-top: 1px solid var(--verylight);
 }
@@ -194,8 +199,8 @@ a {
 }
 
 .DialogCloseButton {
-  padding: 0px !important;
   text-align: right !important;
+  padding: 0px !important;
 }
 
 .DialogCloseButton svg {

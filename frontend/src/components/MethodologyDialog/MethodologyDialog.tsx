@@ -1,8 +1,9 @@
 import Dialog from 'material-ui/Dialog'
 import IconButton from 'material-ui/IconButton'
-import { NavigationClose } from 'material-ui/svg-icons'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import * as React from 'react'
 import { SecureLink } from '../../utils/link'
+import './MethodologyDialog.css'
 
 type Props = {
   isOpen: boolean
@@ -37,13 +38,9 @@ export let MethodologyDialog: React.StatelessComponent<Props> = ({
     autoScrollBodyContent={true}
     open={isOpen}
     onRequestClose={onCloseClick}
-    title={
-      <div className='DialogCloseButton'>
-        <IconButton onClick={onCloseClick}><NavigationClose /></IconButton>
-      </div>
-    }>
-    <div>
-    <h2>Methodology</h2>
+    title={<div className='DialogCloseButton'><IconButton onClick={onCloseClick}><NavigationClose /></IconButton></div>}>
+    <div className='Methodology'>
+      <h2>Methodology</h2>
       <p>
         Encompass is an open-source project, and is built entirely on open-source platforms and datasets.
         We are committed to building open-source to promote transparency, build trust across stakeholders, and make our algorithms more accessible to the public sector.
