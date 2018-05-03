@@ -32,7 +32,7 @@ def _represent_point_as_str(point):
     return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
 
 
-@retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=5, wait_fixed=200)
+@retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
 def _get_matrix_http(
         source_points, destination_points, api_url='', access_token='', max_matrix_size=None):
     """
@@ -84,7 +84,7 @@ class APITime(Measurer):
 
     def __init__(
             self, access_token='', api_url='',
-            early_exit_outer_radius=120.0 * 10**3,
+            early_exit_outer_radius=200.0 * 10**3,
             *args, **kwargs):
         """Initialize the distance class with for an API measurer."""
         self.access_token = access_token
@@ -136,6 +136,8 @@ class APITime(Measurer):
 
         The exit_distance uses haversine distance (in meters).
         """
+        if not point_list:
+            logger.warning('No point in point_list, what are you doing here?')
         haversine_distances = [
             self._haversine_measurer.measure_between_two_points(origin, point)
             for point in point_list
@@ -161,8 +163,11 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
-            logger.warning('No relevant points, returning an absurdly large time.')
-            return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
+            logger.warning('No relevant points, returning a very large number * min_haversine.')
+            return (
+                min_haversine_distance / TIME_TO_DISTANCE_HOURS_TO_METERS * 60.0 * 2,
+                point_list[min_haversine_idx]
+            )
 
         return self.closest(origin=origin, point_list=relevant_points)
 

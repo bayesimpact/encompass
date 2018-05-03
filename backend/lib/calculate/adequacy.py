@@ -15,14 +15,14 @@ from backend.models.measurers import get_measurer
 ONE_MILE_IN_METERS = 1609.344
 ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
 # Adequacy results will be inaccurate with smaller RELEVANCY_RADIUS_IN_METERS values.
-RELEVANCY_RADIUS_IN_METERS = 80.0 * ONE_MILE_IN_METERS
+RELEVANCY_RADIUS_IN_METERS = 300.0 * ONE_MILE_IN_METERS
 
 
 logger = logging.getLogger(__name__)
 
 
 def _find_closest_location(point, locations, measurer, exit_distance_in_meters=None, index=None):
-    """Find closest provider from to a representative point."""
+    """Find closest provider to a representative point."""
     if index and index % 100 == 0:
         logger.info('Processing point #{}'.format(index))
     point_coords = Point(latitude=point['latitude'], longitude=point['longitude'])

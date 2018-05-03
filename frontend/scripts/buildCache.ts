@@ -29,7 +29,7 @@ const s3Bucket = 'encompass-public-data'
 const s3 = new S3()
 const uploadToS3 = true
 const forceS3Upload = true
-const cacheUSAWide = false
+const cacheUSAWide = true
 
 main()
 
