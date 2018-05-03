@@ -24,7 +24,6 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
 
 DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
-
 function onClick(store: Store) {
   // Get which dataset/method to produce CSV for.
   const method = store.get('method')

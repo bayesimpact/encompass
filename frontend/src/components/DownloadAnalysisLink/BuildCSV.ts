@@ -20,10 +20,10 @@ export function buildCsvFromData(method: Method, serviceAreas: string[], adequac
   let censusCategories = Object.keys(CENSUS_MAPPING).sort()
   let headers = [
     'county',
-    'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_0)),
-    'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_1)),
-    'total_' + formatLegend(getLegend(method, AdequacyMode.ADEQUATE_2)),
-    'total_' + formatLegend(getLegend(method, AdequacyMode.INADEQUATE)),
+    'total_' + formatCSVColumnTitle(getLegend(method, AdequacyMode.ADEQUATE_0)),
+    'total_' + formatCSVColumnTitle(getLegend(method, AdequacyMode.ADEQUATE_1)),
+    'total_' + formatCSVColumnTitle(getLegend(method, AdequacyMode.ADEQUATE_2)),
+    'total_' + formatCSVColumnTitle(getLegend(method, AdequacyMode.INADEQUATE)),
     'min_' + method,
     'avg_' + method,
     'max_' + method
@@ -60,12 +60,12 @@ function getHeadersForCensusCategories(method: Method, censusCategories: string[
       getLegend(method, AdequacyMode.ADEQUATE_1),
       getLegend(method, AdequacyMode.ADEQUATE_2),
       getLegend(method, AdequacyMode.INADEQUATE)].map(
-        legend => formatLegend([_, group, legend].join('_'))
+        legend => formatCSVColumnTitle([_, group, legend].join('_'))
       ))))
 }
 
 /**
- * We are currenltly using Census information at the service area level and implemented a faster version of getDataForCensusCategories
+ * We are currently using Census information at the service area level and implemented a faster version of getDataForCensusCategories
  * below. getDataForCensusCategoriesSlow provides an implementation that works at the representative point level.
  * function getDataForCensusCategoriesSlow(serviceAreas: string[] | null, censusCategories: string[], store: Store) {
  *   return flattenDeep(
@@ -87,7 +87,7 @@ function getDataForCensusCategories(demographics: any, populationByAnalytics: nu
   )
 }
 
-function formatLegend(string: string) {
+function formatCSVColumnTitle(string: string) {
   return snakeCase(string.replace('<', 'lt').replace('>', 'gt').replace('-', ' to ').replace('+', ' plus ').replace('Years', 'yrs'))
 }
 

@@ -11,6 +11,7 @@ import { CONFIG } from '../src/config/config'
 import { DATASETS } from '../src/constants/datasets'
 import { Adequacies, Dataset, Method, RepresentativePoint } from '../src/constants/datatypes'
 import { State, STATES } from '../src/constants/states'
+import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
 import {
   getAdequacies, getCensusData, getRepresentativePoints, getStaticAdequacyUrl, getStaticDemographicsUrl, getStaticRPUrl
 } from '../src/services/api'
@@ -86,8 +87,7 @@ function cacheData() {
 
         let storeLikeAdequacies = createStoreLikeAdequacies(storeLikeRps, adequacies, method, dataset)
 
-        let CSVResult = buildCsvFromData(
-          method, dataset.serviceAreaIds, storeLikeAdequacies, storeLikeRps, true)
+        let CSVResult = buildCsvFromData(method, dataset.serviceAreaIds, storeLikeAdequacies, storeLikeRps)
 
         if (adequacies) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
@@ -120,7 +120,7 @@ function uploadIFFNotExists(params: S3.HeadObjectRequest, body: string, hint: st
   })
 }
 
-function createStoreLikeRps(representativePoints: any, census: any) {
+function createStoreLikeRps(representativePoints: PostRepresentativePointsResponse, census: any) {
   return representativePoints.map(_ => ({
     ..._,
     population: Number(_.population),
