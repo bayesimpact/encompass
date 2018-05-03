@@ -24,6 +24,7 @@ export let DownloadAnalysisLink = withStore()(({ store }) =>
 
 DownloadAnalysisLink.displayName = 'DownloadAnalysisLink'
 
+
 function onClick(store: Store) {
   // Get which dataset/method to produce CSV for.
   const method = store.get('method')
@@ -36,10 +37,13 @@ function onClick(store: Store) {
     label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
   })
 
-  if (useStaticCsvs) { // If activated, use the cached static CSVs.
+  if (useStaticCsvs) { // If in production, use the cached static CSVs.
     const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
     window.open(staticCsvUrl)
   } else { // Otherwise, generate the CSV.
+    if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
+      return
+    }
     let csv = buildCsvFromData(
       method,
       store.get('serviceAreas'),

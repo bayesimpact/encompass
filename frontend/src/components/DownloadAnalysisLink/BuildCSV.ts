@@ -31,9 +31,6 @@ export function buildCsvFromData(method: Method, serviceAreas: string[], adequac
 
   headers.push.apply(headers, getHeadersForCensusCategories(method, censusCategories))
 
-  if (!noAlert && serviceAreas.length > 100) {
-    alert('There are many service areas in this state! Preparing the file may take a moment...')
-  }
   let data = serviceAreas.map(_ => {
     let adequaciesForServiceArea = adequaciesFromServiceArea([_], adequacies, representativePoints)
     let representativePointsForServiceArea = representativePointsFromServiceAreas([_], representativePoints)
