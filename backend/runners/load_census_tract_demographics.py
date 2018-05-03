@@ -91,7 +91,7 @@ def _create_census_table_from_csv(raw_csv_path, target_table):
     engine.execute(create_table_query)
 
 
-def _upload_csv(csv_path, target_table, sep=','):
+def _upload_csv(csv_path, target_table, sep=',', with_header=False):
     """Upload a (headerless) csv to the target table via a COPY command."""
     print('Uploading {} to table {}.'.format(csv_path, target_table))
     engine = connect.create_db_engine()
@@ -100,10 +100,11 @@ def _upload_csv(csv_path, target_table, sep=','):
     with open(csv_path, 'r') as csv_file:
         cur.copy_expert(
             sql="""
-                COPY {} FROM STDIN
+                COPY {target_table} FROM STDIN
                 WITH CSV
+                {header}
                 DELIMITER AS ','
-            """.format(target_table),
+            """.format(target_table=target_table, header=' HEADER ' if with_header else ''),
             file=csv_file
         )
     conn.commit()
