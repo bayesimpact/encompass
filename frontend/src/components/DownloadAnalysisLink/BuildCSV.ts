@@ -16,7 +16,7 @@ const staticCsvPath: string = CONFIG.staticAssets.csv.path
 /**
  * Build an analysis CSV for download from the census data.
  */
-export function buildCsvFromData(method: Method, serviceAreas: string[], adequacies: Adequacies, representativePoints: RepresentativePoint[], noAlert?: boolean) {
+export function buildCsvFromData(method: Method, serviceAreas: string[], adequacies: Adequacies, representativePoints: RepresentativePoint[]) {
   let censusCategories = Object.keys(CENSUS_MAPPING).sort()
   let headers = [
     'county',
