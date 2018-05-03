@@ -6,7 +6,7 @@ import Axios from 'axios'
 import 'isomorphic-fetch'
 import { chain, keyBy } from 'lodash'
 import { seq } from 'promise-seq'
-import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildAnalysis'
+import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildCSV'
 import { CONFIG } from '../src/config/config'
 import { DATASETS } from '../src/constants/datasets'
 import { Adequacies, Dataset, Method, RepresentativePoint } from '../src/constants/datatypes'
@@ -27,6 +27,7 @@ const METHODS: Method[] = ['driving_time', 'straight_line']
 const s3Bucket = 'encompass-public-data'
 const s3 = new S3()
 const uploadToS3 = true
+const forceS3Upload = false
 const cacheUSAWide = false
 
 main()
@@ -42,7 +43,7 @@ async function main() {
   //   throw Error('Caching is not activated in the config file.')
   // }
   await testAPIAccess()
-  console.info('Cache Census, Rps, Adequacies and CSVs')
+  console.info('Starting cache of Census, Rps, Adequacies and CSVs')
   await cacheData()
 }
 
@@ -59,6 +60,7 @@ function cacheData() {
     console.log(`Dealing with ${safeDatasetHint(dataset)}...`)
     return seq(...states.map(state => async () => {
       dataset.state = state
+
       console.log(`  Getting Rps and Census for ${safeDatasetHint(dataset)}`)
       let representativePoints = await getRepresentativePoints({ service_area_ids: dataset.serviceAreaIds })
       let census = await getCensusData({ service_area_ids: dataset.serviceAreaIds })
@@ -66,8 +68,8 @@ function cacheData() {
       let rpParams = { Bucket: s3Bucket, Key: getS3Key(getStaticRPUrl(dataset)) }
       let censusParams = { Bucket: s3Bucket, Key: getS3Key(getStaticDemographicsUrl(dataset)) }
 
-      await uploadIFFNotExists(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset))
-      await uploadIFFNotExists(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset))
+      await uploadIFFNotExists(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset), forceS3Upload)
+      await uploadIFFNotExists(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset), forceS3Upload)
 
       console.log(`  Done getting Rps and Census for ${safeDatasetHint(dataset)}`)
 
@@ -90,8 +92,8 @@ function cacheData() {
         if (adequacies) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
-          await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset))
-          await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset))
+          await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset), forceS3Upload)
+          await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset), forceS3Upload)
         }
         console.log('  Done getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
       }))
@@ -109,11 +111,11 @@ function s3Callback(err: any, data: any) { err ? console.log(JSON.stringify(err)
 function uploadIFFNotExists(params: S3.HeadObjectRequest, body: string, hint: string, forceS3Upload?: boolean) {
   s3.headObject(params, function (err, _) {
     if (forceS3Upload || err && uploadToS3) {
-      console.log(`  Uploading to S3 for ${hint}`)
+      console.log(`  Uploading to S3 - ${hint}`)
       params = Object.assign(params, { Body: body, ContentType: 'application/json', ACL: 'public-read' })
       s3.putObject(params, s3Callback)
     } else {
-      console.log(`  Object already exists for ${hint}`)
+      console.log(`  Object already exists - ${hint}`)
     }
   })
 }
