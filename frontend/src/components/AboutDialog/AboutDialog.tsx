@@ -13,8 +13,8 @@ type Props = {
 export let AboutDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
-  let bayesLink = SecureLink('https://www.bayesimpact.org', 'Bayes Impact')
-  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
+  let bayesLink = SecureLink('https://www.thebeaconlabs.org', 'Beacon Labs')
+  let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
   let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub repository')
 
   return <Dialog
@@ -29,7 +29,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   >
     <div>
       <div className='Flex -Center'>
-        <img className='AboutLogoImg' alt='bayes-logo' src='https://www.bayesimpact.org/images/logo_sq.png' />
+        <img className='AboutLogoImg' alt='bayes-logo' src='https://s3-us-west-2.amazonaws.com/encompass-public-data/images/BeaconLabs.png' />
       </div>
       <p>
         Encompass is an analytics and mapping tool built by {bayesLink} that enables policymakers, researchers,

@@ -71,7 +71,7 @@ module.exports = {
       filename: 'index.html',
       template: 'src/index.ejs',
       title: 'bayes-network-adequacy-explorer',
-      favicon: path.join(__dirname, 'src/images/favicon.png')
+      favicon: path.join(__dirname, 'src/images/favicon.ico')
     }),
     new ForkTsCheckerWebpackPlugin
   ]
