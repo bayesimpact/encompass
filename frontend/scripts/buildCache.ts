@@ -10,8 +10,8 @@ import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAna
 import { CONFIG } from '../src/config/config'
 import { DATASETS } from '../src/constants/datasets'
 import { Adequacies, Dataset, Method, RepresentativePoint } from '../src/constants/datatypes'
-import { State, STATES } from '../src/constants/states'
 import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
+import { State, STATES } from '../src/constants/states'
 import {
   getAdequacies, getCensusData, getRepresentativePoints, getStaticAdequacyUrl, getStaticDemographicsUrl, getStaticRPUrl
 } from '../src/services/api'
