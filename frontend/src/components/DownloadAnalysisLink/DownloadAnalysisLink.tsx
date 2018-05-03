@@ -3,7 +3,6 @@ import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
 import * as ReactGA from 'react-ga'
 import { CONFIG } from '../../config/config'
-
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
 import { buildCsvFromData, getStaticCsvUrl } from './BuildCSV'
