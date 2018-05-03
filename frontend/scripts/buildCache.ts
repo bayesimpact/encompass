@@ -8,9 +8,9 @@ import { chain, keyBy } from 'lodash'
 import { seq } from 'promise-seq'
 import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildCSV'
 import { CONFIG } from '../src/config/config'
+import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
 import { DATASETS } from '../src/constants/datasets'
 import { Adequacies, Dataset, Method, RepresentativePoint } from '../src/constants/datatypes'
-import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
 import { State, STATES } from '../src/constants/states'
 import {
   getAdequacies, getCensusData, getRepresentativePoints, getStaticAdequacyUrl, getStaticDemographicsUrl, getStaticRPUrl
