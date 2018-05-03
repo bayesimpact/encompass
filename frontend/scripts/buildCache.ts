@@ -28,7 +28,7 @@ const METHODS: Method[] = ['driving_time', 'straight_line']
 const s3Bucket = 'encompass-public-data'
 const s3 = new S3()
 const uploadToS3 = true
-const forceS3Upload = false
+const forceS3Upload = true
 const cacheUSAWide = false
 
 main()
@@ -92,8 +92,8 @@ function cacheData() {
         if (adequacies) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
-          await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset), forceS3Upload)
-          await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset), forceS3Upload)
+          await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
+          await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
         }
         console.log('  Done getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
       }))

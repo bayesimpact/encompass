@@ -21,8 +21,10 @@ RELEVANCY_RADIUS_IN_METERS = 80.0 * ONE_MILE_IN_METERS
 logger = logging.getLogger(__name__)
 
 
-def _find_closest_location(point, locations, measurer, exit_distance_in_meters=None):
+def _find_closest_location(point, locations, measurer, exit_distance_in_meters=None, index=None):
     """Find closest provider from to a representative point."""
+    if index and index % 100 == 0:
+        logger.info('Processing point #{}'.format(index))
     point_coords = Point(latitude=point['latitude'], longitude=point['longitude'])
     if not exit_distance_in_meters:
         closest_distance, closest_provider = measurer.closest(
@@ -193,7 +195,10 @@ def calculate_adequacies(
     n_processors = measurer_config['n_adequacy_processors']
     exit_distance = measurer_config['exit_distance_in_miles'] * ONE_MILE_IN_METERS
 
-    logger.debug('Starting {} executors for adequacy calculations...'.format(n_processors))
+    logger.info(
+        'Starting {} executors for {} adequacy calculations...'.format(n_processors, len(points))
+    )
+
     with executor_type(processes=n_processors) as executor:
         adequacies = executor.starmap(
             func=_find_closest_location,
@@ -201,7 +206,8 @@ def calculate_adequacies(
                 points,
                 locations_to_check_by_point,
                 itertools.repeat(measurer),
-                itertools.repeat(exit_distance)
+                itertools.repeat(exit_distance),
+                range(0, len(points))
             )
         )
 

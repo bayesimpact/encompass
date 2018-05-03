@@ -32,7 +32,7 @@ def _represent_point_as_str(point):
     return '{lng},{lat}'.format(lat=point.latitude, lng=point.longitude)
 
 
-@retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=10, wait_fixed=2000)
+@retry(retry_on_result=_retry_if_result_none, stop_max_attempt_number=5, wait_fixed=200)
 def _get_matrix_http(
         source_points, destination_points, api_url='', access_token='', max_matrix_size=None):
     """
@@ -67,10 +67,10 @@ def _get_matrix_http(
         url=request_url.format(points=coordinates),
         params=params
     )
-
     try:
         response.raise_for_status()
-    except requests.HTTPError:
+    except requests.HTTPError as error:
+        logger.warning('Measure API request error - {}'.format(error))
         return None
     content = response.json()
     return content['durations']
@@ -161,9 +161,7 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
-            logger.warning(
-                'No relevant points, returning an absurdly large time for {}'.format(origin)
-            )
+            logger.warning('No relevant points, returning an absurdly large time.')
             return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
 
         return self.closest(origin=origin, point_list=relevant_points)

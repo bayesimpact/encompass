@@ -58,7 +58,6 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
 )
 def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
-    logger.info('Calculating adequacies.')
     try:
         request = flask_request.get_json(force=True)
     except json.JSONDecodeError:
@@ -75,6 +74,8 @@ def adequacy_request(app, flask_request, engine):
     service_area_ids = request['service_area_ids']
     measurer_methods = config.get('measurer').keys()
     dataset_hint = request.get('dataset_hint', None)
+
+    logger.info('Calculating adequacies with hint {}.'.format(dataset_hint))
 
     if request['method'] in measurer_methods:
         measurer_name = config.get('measurer')[request['method']]

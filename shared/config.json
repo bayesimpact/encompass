@@ -84,8 +84,8 @@
     "limit_upload_file_size": false,
     "show_about_dialog_on_start": false,
     "staticAssets": {
-        "appIsStatic": false,
-        "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
+        "appIsStatic": true,
+        "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/",
         "csv": {
             "useStaticCsvs": false,
             "path": "results-csv/"
