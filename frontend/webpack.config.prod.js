@@ -65,7 +65,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.prod.ejs',
-      title: 'Encompass - from Beacon Labs',
+      title: 'Encompass - Beacon Labs',
       favicon: path.join(__dirname, 'src/images/favicon.ico')
     }),
     new webpack.DefinePlugin({
