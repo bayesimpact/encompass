@@ -1,6 +1,7 @@
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
+import { white } from 'material-ui/styles/colors'
 import GithubIcon from 'mui-icons/cmdi/github'
 import * as React from 'react'
 import { CONFIG } from '../../config/config'
@@ -38,7 +39,7 @@ export let Header = withStore('modal')(({ store }) =>
           tooltip='Go to this project on GitHub'
           tooltipPosition='bottom-left'
           touch={true}
-        > <GithubIcon /></IconButton>
+        > <GithubIcon color={white} /></IconButton>
       </div>
     }
     showMenuIconButton={false}
