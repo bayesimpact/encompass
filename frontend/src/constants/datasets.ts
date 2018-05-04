@@ -13,7 +13,7 @@ export let DATASETS: Dataset[] = [
   inferServiceAreaIds(require('./datasets/FL_fl_endocrinologists.json'))
 ]
 
-function inferServiceAreaIds(dataset: Dataset) {
+export function inferServiceAreaIds(dataset: Dataset) {
   if (dataset.serviceAreaIds.length === 0) {
     dataset.serviceAreaIds = SERVICE_AREAS_BY_STATE[dataset.state]
   }

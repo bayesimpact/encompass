@@ -123,6 +123,9 @@ class APITime(Measurer):
                         source_points=[origin],
                         destination_points=batch)[0]
                 )
+
+        if all(x is None for x in measurements):
+            logger.warning('API only return None data. Everything alright?')
         # To avoid errors if data is missing, we replace missing durations
         # with ABSURDLY_LARGE_TIME_IN_SECONDS.
         return [

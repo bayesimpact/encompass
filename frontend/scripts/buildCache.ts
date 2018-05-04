@@ -9,7 +9,7 @@ import { seq } from 'promise-seq'
 import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildCSV'
 import { CONFIG } from '../src/config/config'
 import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
-import { DATASETS } from '../src/constants/datasets'
+import { DATASETS, inferServiceAreaIds } from '../src/constants/datasets'
 import { Adequacies, Dataset, Method, RepresentativePoint } from '../src/constants/datatypes'
 import { State, STATES } from '../src/constants/states'
 import {
@@ -61,10 +61,19 @@ function cacheData() {
     console.log(`Dealing with ${safeDatasetHint(dataset)}...`)
     return seq(...states.map(state => async () => {
       dataset.state = state
+      dataset.serviceAreaIds = []
+      dataset = inferServiceAreaIds(dataset)
 
       console.log(`  Getting Rps and Census for ${safeDatasetHint(dataset)}`)
       let representativePoints = await getRepresentativePoints({ service_area_ids: dataset.serviceAreaIds })
       let census = await getCensusData({ service_area_ids: dataset.serviceAreaIds })
+      if (!representativePoints) {
+        throw Error('Empty response for RPs.')
+      }
+
+      if (!census) {
+        throw Error('Empty response for census.')
+      }
 
       let rpParams = { Bucket: s3Bucket, Key: getS3Key(getStaticRPUrl(dataset)) }
       let censusParams = { Bucket: s3Bucket, Key: getS3Key(getStaticDemographicsUrl(dataset)) }
@@ -94,6 +103,8 @@ function cacheData() {
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
           await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
           await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
+        } else {
+          throw Error('Empty response for adequacies.')
         }
         console.log('  Done getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
       }))
