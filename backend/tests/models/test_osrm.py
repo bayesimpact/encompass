@@ -1,4 +1,6 @@
 """Test MapBox API."""
+import math
+
 from backend.lib.utils.datatypes import Point
 from backend.models import time
 
@@ -80,5 +82,5 @@ class TestOSRMDrivingTimeMetric():
         )
 
         mock_closest.assert_not_called()
-        assert min_time == 10**42
-        assert closest_town == MIAMI_FL
+        assert math.floor(min_time) == 990
+        assert closest_town == NEWPORT_RI
