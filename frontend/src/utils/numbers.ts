@@ -8,3 +8,11 @@ export function maybeParseFloat(string: string | null) {
   }
   return float
 }
+
+/**
+ * Convenience function for rounding without using toFixed (which is for formatting).
+ */
+export function precisionRound(number: number, precision: number): number {
+  const factor = Math.pow(10, precision)
+  return Math.round(number * factor) / factor
+}
