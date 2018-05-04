@@ -84,7 +84,7 @@
     "limit_upload_file_size": false,
     "show_about_dialog_on_start": false,
     "staticAssets": {
-        "appIsStatic": false,
+        "appIsStatic": true,
         "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/",
         "csv": {
             "useStaticCsvs": false,
