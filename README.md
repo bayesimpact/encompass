@@ -16,6 +16,6 @@ __[Launch Encompass](https://encompass.thebeaconlabs.org)__
 ![alt text](data/images/encompass_texas.png)
 
 ## How to contribute
-__Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@thebeaconlabs.org](mailto:encmpass@thebeaconlabs.org).
+__Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@thebeaconlabs.org](mailto:encompass@thebeaconlabs.org).
 
 __Developers__: We want to invite the developer community to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
