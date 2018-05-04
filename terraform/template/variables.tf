@@ -45,13 +45,13 @@ variable "load_balancer_name" {
 }
 
 variable "default_subnets" {
-  description = "Default subnets in us-west-2 for Bayes Impact default VPC"
+  description = "Default subnets in us-west-2 for Beacon Labs default VPC"
   type        = "list"
   default     = ["subnet-ac9498ea", "subnet-7a9d531f"]
 }
 
 variable "default_vpc_cidr_block" {
-  description = "CIDR block for default us-west-2 Bayes Impact VPC"
+  description = "CIDR block for default us-west-2 Beacon Labs VPC"
   type        = "string"
   default     = "172.31.0.0/16"
 }
