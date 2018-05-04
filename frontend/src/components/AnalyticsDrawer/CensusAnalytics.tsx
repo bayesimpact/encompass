@@ -17,7 +17,6 @@ export let CensusAnalytics = withStore(
   'selectedServiceAreas',
   'serviceAreas'
 )(({ store }) => {
-
   let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')
   let populationByAdequacy = summaryStatisticsByServiceArea(selectedServiceAreas, store)

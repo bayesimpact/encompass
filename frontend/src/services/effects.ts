@@ -256,6 +256,7 @@ export function withEffects(store: Store) {
   store
     .on('selectedState')
     .subscribe(() => {
+      store.set('adequacies')({})
       store.set('counties')([])
       store.set('selectedCounties')(null)
       store.set('useCustomCountyUpload')(null)
