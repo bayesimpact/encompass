@@ -70,7 +70,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.ejs',
-      title: 'Encompass - Beacon Labs',
+      title: 'Encompass by Beacon Labs',
       favicon: path.join(__dirname, 'src/images/favicon.ico')
     }),
     new ForkTsCheckerWebpackPlugin
