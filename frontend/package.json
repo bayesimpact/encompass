@@ -1,8 +1,8 @@
 {
-  "name": "@bayesimpact/tds",
+  "name": "@beaconlabs/encompass",
   "version": "1.0.0",
   "main": "dist/bundle.js",
-  "repository": "git@github.com:bayesimpact/tds.git",
+  "repository": "git@github.com:beaconlabs/encompass.git",
   "author": "Boris Cherny <boris@performancejs.com>",
   "license": "Apache-2.0",
   "scripts": {
