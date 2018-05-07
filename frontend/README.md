@@ -10,7 +10,7 @@
 Clone this repo:
 
 ```sh
-git clone git@github.com:beaconlabs/encompass.git
+git clone git@github.com:BeaconLabs/encompass.git
 ```
 
 ## Build & Run
