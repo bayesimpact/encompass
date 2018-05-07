@@ -1,10 +1,10 @@
 # Encompass
 
-[![Build Status][build]](https://circleci.com/gh/bayesimpact/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status][build]](https://circleci.com/gh/beaconlabs/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
-[build]: https://img.shields.io/circleci/project/bayesimpact/encompass.svg?branch=master&style=flat-square
+[build]: https://img.shields.io/circleci/project/beaconlabs/encompass.svg?branch=master&style=flat-square
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/encompass)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/beaconlabs/encompass.svg?columns=all)](http://waffle.io/beaconlabs/encompass)
 
 ## Introduction
 Encompass is an analytics and mapping tool by [Beacon Labs](http://thebeaconlabs.org) that enables policymakers, researchers, and consumer advocates to analyze how accessibility to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged communities. Existing tools used to map systems at this scale are prohibitively expensive, require significant amounts of manual data processing, and are too coarse in their analysis methods to accurately depict accessibility issues. We set out to build a solution that eliminates those barriers.
@@ -18,4 +18,4 @@ __[Launch Encompass](https://encompass.thebeaconlabs.org)__
 ## How to contribute
 __Researchers__: We’d love to collaborate with any researchers who might find our tool useful! Please let us know what other applications or datasets you would like to analyze with Encompass. Send your inquiries to [encompass@thebeaconlabs.org](mailto:encompass@thebeaconlabs.org).
 
-__Developers__: We want to invite the developer community to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/bayesimpact/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.
+__Developers__: We want to invite the developer community to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read [CONTRIBUTING.md](https://github.com/beaconlabs/encompass/blob/master/CONTRIBUTING.md) to learn more about how you can get involved.

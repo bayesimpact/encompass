@@ -15,7 +15,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
 }) => {
   let beaconLink = SecureLink('https://www.thebeaconlabs.org', 'Beacon Labs')
   let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
-  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub repository')
+  let githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub repository')
 
   return <Dialog
     autoScrollBodyContent={true}
