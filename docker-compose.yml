@@ -42,6 +42,7 @@ services:
         - ./frontend/public:/usr/src/app/public:rw
         - ./shared:/usr/src/app/src/shared:ro
         - ./shared:/usr/src/shared:ro
+        - ./frontend/dist:rw
       build:
         context: .
         dockerfile: ./frontend/Dockerfile

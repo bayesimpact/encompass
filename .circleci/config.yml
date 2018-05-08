@@ -93,6 +93,19 @@ jobs:
                         docker-compose -f docker-compose.yml -f docker-compose.remote.yml up -d backend frontend
                     '
 
+    deploy-static-prod:
+        machine:
+            docker_layer_caching: true
+        steps:
+            - run:
+                name: Build bundle
+                command: |
+                    docker-compose run frontend 'yarn; yarn build:prod'
+            - run:
+                name: Push to S3
+                command: |
+                    aws s3 cp frontend/dist/* s3://encompass-public-data/cci-test --recursive
+
 workflows:
     version: 2
     build:
@@ -141,3 +154,16 @@ workflows:
                 filters:
                     branches:
                         only: deploy-demo
+
+    build-deploy-static-prod:
+        jobs:
+            - build_frontend:
+                filters:
+                    branches:
+                        only: deploy-static-prod
+            - deploy-static-prod:
+                requires:
+                    - build_frontend
+                filters:
+                    branches:
+                        only: deploy-static-prod
