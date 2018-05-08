@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:9.11.1
 
 ENV MAPBOX_TOKEN "$MAPBOX_TOKEN"
 
