@@ -2,7 +2,7 @@
 
 [![Build Status][build]](https://circleci.com/gh/BeaconLabs/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
 
-[build]: https://img.shields.io/circleci/project/BeaconLabs/encompass.svg?branch=master&style=flat-square
+[build]: https://img.shields.io/circleci/project/BeaconLabs/encompass/master.svg
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/beaconlabs/encompass.svg?columns=all)](http://waffle.io/beaconlabs/encompass)
 
