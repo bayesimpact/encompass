@@ -160,10 +160,10 @@ workflows:
             - build_frontend:
                 filters:
                     branches:
-                        only: deploy-static-prod
+                        only: philip-deploy-static-site
             - deploy-static-prod:
                 requires:
                     - build_frontend
                 filters:
                     branches:
-                        only: deploy-static-prod
+                        only: philip-deploy-static-site
