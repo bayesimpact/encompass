@@ -6,7 +6,7 @@ We want to invite the vast community of developers to contribute to our mission 
 
 ### 0. Clone this repository
 ```bash
-git clone git@github.com:bayesimpact/encompass.git
+git clone git@github.com:beaconlabs/encompass.git
 ```
 
 ### 1. Install Docker
