@@ -1,9 +1,4 @@
-# Time Distance Standards (Frontend) [![Build Status][build]](https://circleci.com/gh/beaconlabs/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
-
-[build]: https://img.shields.io/circleci/project/beaconlabs/encompass.svg?branch=master&style=flat-square
-[apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-
-> Explore Healthcare network adequacies and population distance to services.
+# Encompass (Frontend)
 
 ## Install
 
@@ -50,7 +45,3 @@ When the shape of an API endpoint changes, or when available service areas chang
 ```sh
 yarn test
 ```
-
-## License
-
-Apache2
