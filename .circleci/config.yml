@@ -100,7 +100,7 @@ jobs:
             - run:
                 name: Build bundle
                 command: |
-                    docker-compose run frontend 'yarn; yarn build:prod'
+                    docker-compose run frontend bash -c 'yarn && yarn build:prod'
             - run:
                 name: Push to S3
                 command: |
