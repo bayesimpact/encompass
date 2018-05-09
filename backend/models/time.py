@@ -70,7 +70,7 @@ def _get_matrix_http(
     try:
         response.raise_for_status()
     except requests.HTTPError as error:
-        logger.warning('Measure API request error - {}'.format(error))
+        logger.error('Measure API request error - {}'.format(error))
         return None
     content = response.json()
     return content['durations']
@@ -125,7 +125,7 @@ class APITime(Measurer):
                 )
 
         if all(x is None for x in measurements):
-            logger.warning('API only return None data. Everything alright?')
+            logger.warning('API only returned None data.')
         # To avoid errors if data is missing, we replace missing durations
         # with ABSURDLY_LARGE_TIME_IN_SECONDS.
         return [
@@ -139,8 +139,6 @@ class APITime(Measurer):
 
         The exit_distance uses haversine distance (in meters).
         """
-        if not point_list:
-            logger.warning('No point in point_list, what are you doing here?')
         haversine_distances = [
             self._haversine_measurer.measure_between_two_points(origin, point)
             for point in point_list
