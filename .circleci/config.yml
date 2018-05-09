@@ -102,6 +102,10 @@ jobs:
                 name: Create env file
                 command: |
                     touch .env
+                    echo "ENV=$ENV" >> .env
+                    echo "API_ROOT=$API_ROOT" >> .env
+                    echo "MAPBOX_TOKEN=$MAPBOX_TOKEN" >> .env
+                    echo "GA_ID=$GA_ID" >> .env
             - run:
                 name: Build bundle
                 command: |
