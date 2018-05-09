@@ -97,6 +97,7 @@ jobs:
         machine:
             docker_layer_caching: true
         steps:
+            - checkout
             - run:
                 name: Build bundle
                 command: |
