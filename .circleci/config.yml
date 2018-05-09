@@ -109,7 +109,7 @@ jobs:
             - run:
                 name: Push to S3
                 command: |
-                    aws s3 cp /usr/src/dist/* s3://encompass-public-data/cci-test --recursive
+                    aws s3 cp frontend/dist/* s3://encompass-public-data/cci-test --recursive
 
 workflows:
     version: 2
