@@ -3,12 +3,12 @@ import { chain, chunk, filter, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
 import { Observable } from 'rx'
 import { CONFIG } from '../config/config'
-import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { Error, Success } from '../constants/api/geocode-response'
-import { AdequacyMode, Dataset, GeocodedProvider, Method, Provider } from '../constants/datatypes'
+import { GeocodedProvider, Provider } from '../constants/datatypes'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
-import { parseSerializedServiceArea } from '../utils/formatters'
+import { getAdequacyMode } from '../utils/adequacy'
+import { parseSerializedServiceArea, safeDatasetHint } from '../utils/formatters'
 import { boundingBox, representativePointsToGeoJSON } from '../utils/geojson'
 import { equals } from '../utils/list'
 import { getPropCaseInsensitive } from '../utils/serializers'
@@ -126,17 +126,6 @@ export function withEffects(store: Store) {
     store.set('providers')(geocodedProviders)
   })
 
-  function safeDatasetHint(dataset: Dataset | null, state: string) {
-    if (dataset === null) {
-      return ''
-    }
-    let hint = dataset['hint']
-    if (dataset.usaWide) {
-      hint = hint + '_' + state
-    }
-    return hint
-  }
-
   /**
    * Fetch adequacies when providers, representative points, or method change
    */
@@ -176,7 +165,7 @@ export function withEffects(store: Store) {
           method,
           providers: providers.map((_, n) => ({ latitude: _.lat, longitude: _.lng, id: n })),
           service_area_ids: serviceAreas,
-          dataset_hint: safeDatasetHint(store.get('selectedDataset'), store.get('selectedState'))
+          dataset_hint: safeDatasetHint(store.get('selectedDataset'))
         })
       const points = representativePoints
 
@@ -255,10 +244,16 @@ export function withEffects(store: Store) {
    */
   store
     .on('selectedState')
-    .subscribe(() => {
+    .subscribe((selectedState) => {
+      store.set('adequacies')({})
       store.set('counties')([])
       store.set('selectedCounties')(null)
       store.set('useCustomCountyUpload')(null)
+      let dataset = store.get('selectedDataset')
+      if (dataset && store.get('route') === '/analytics') {
+        dataset.state = selectedState
+        store.set('selectedDataset')(dataset)
+      }
     })
 
   /**
@@ -315,6 +310,9 @@ export function withEffects(store: Store) {
   store
     .on('selectedDataset')
     .subscribe(selectedDataset => {
+      if (selectedDataset && store.get('route') === '/analytics') {
+        return
+      }
       if (selectedDataset && store.get('route') === '/add-data') {
         store.set('route')('/analytics')
       }
@@ -366,51 +364,4 @@ export function withEffects(store: Store) {
     })
 
   return store
-}
-
-let ONE_MILE_IN_METERS = 1609.344
-let ONE_METER_IN_MILES = 1.0 / ONE_MILE_IN_METERS
-
-function getAdequacyMode(
-  adequacy: PostAdequaciesResponse[0],
-  method: Method,
-  serviceAreaId: string,
-  selectedServiceAreas: string[] | null
-): AdequacyMode {
-
-  if (selectedServiceAreas && !selectedServiceAreas.includes(serviceAreaId)) {
-    return AdequacyMode.OUT_OF_SCOPE
-  }
-
-  if (method === 'straight_line') {
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 10) {
-      return AdequacyMode.ADEQUATE_0
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 20) {
-      return AdequacyMode.ADEQUATE_1
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES <= 30) {
-      return AdequacyMode.ADEQUATE_2
-    }
-    if (adequacy.to_closest_provider * ONE_METER_IN_MILES > 30) {
-      return AdequacyMode.INADEQUATE
-    }
-    return AdequacyMode.OUT_OF_SCOPE
-  }
-
-  if (method === 'driving_time' || method === 'walking_time') {
-    if (adequacy.to_closest_provider <= 30) {
-      return AdequacyMode.ADEQUATE_0
-    }
-    if (adequacy.to_closest_provider <= 45) {
-      return AdequacyMode.ADEQUATE_1
-    }
-    if (adequacy.to_closest_provider <= 60) {
-      return AdequacyMode.ADEQUATE_2
-    }
-    if (adequacy.to_closest_provider > 60) {
-      return AdequacyMode.INADEQUATE
-    }
-  }
-  return AdequacyMode.OUT_OF_SCOPE
 }

@@ -1,12 +1,12 @@
 # Contributing
-We want to invite the vast community of developers to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read the following instructions to start contributing to this project.
+We want to invite the developer community to contribute to our mission of promoting a culture of evidence-based and transparent policymaking. Please read the following instructions to start contributing to this project.
 
 
 ## Installation
 
 ### 0. Clone this repository
 ```bash
-git clone git@github.com:bayesimpact/encompass.git
+git clone git@github.com:beaconlabs/encompass.git
 ```
 
 ### 1. Install Docker
@@ -26,10 +26,11 @@ IS_AWS=FALSE
 ```
 
 * `MAPBOX_TOKEN`: API key provided by [Mapbox](mapbox.com) for mapping.
-(https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html).
-* `POSTGRES_URL`: URL for database to use for the application. This might be `localhost` for development.
+* `POSTGRES_URL`: URL for database used by the application. This might be `localhost` for development.
 
-To use with an AWS RDS instance, additional environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` are Required for AWS CLI. In addition, `IS_AWS` should be set to `TRUE`. This is to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
+To use with an AWS RDS instance, the additional environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` are [required](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html) for using the AWS CLI. In addition, `IS_AWS` should be set to `TRUE`. This variable helps to initialize the database correctly when using an RDS instance. You will not need this environment variable if you are not using an RDS database.
+
+All data required to initialize an RDS instance can be found in [this S3 bucket](http://encompass-public-data.s3.amazonaws.com/).
 
 ### 3. Run the app
 
@@ -41,7 +42,7 @@ docker-compose -f docker-compose.yml -f docker-compose.local.yml up backend fron
 
 ## Local Development
 
-Three docker containers are available for development:
+Three Docker containers are available for development:
 
 - [Frontend](frontend/Dockerfile): React/TypeScript app to fetch and visualize network adequacies.
 - [Backend](backend/Dockerfile): Flask/uWSGI/Nginx-powered REST API to geocode providers and compute network adequacies.
@@ -92,9 +93,9 @@ make initialize-local-db
 To pull the latest version and refresh the dockers, simply run `make deploy` in the main directory.
 
 ### Remote Deployment
-Sample [Terraform](terraform.io) configuration is provided in the [/terraform directory](/terraform). Further information is available [here](/terraform/README.md).
+A sample [Terraform](terraform.io) configuration is provided in the [/terraform directory](/terraform). Further information is available [here](/terraform/README.md).
 
-Sample [CircleCI](circleci.com) configuration is provided in the [/.circleci directory](/.circleci). The default configurations are setup to run all tests and coverage on any branch, and to update remote environments on specific branches. You can modify this configuration to match your own remote environment schema.
+Sample [CircleCI](circleci.com) configuration is provided in the [/.circleci directory](/.circleci). The default configurations are set up to run all tests and coverage on any branch and to update remote environments on specific branches. You can modify this configuration to match your own remote environment schema.
 
 To use these CircleCI jobs for deployment, you'll need to set up keys in CircleCI to allow SSH access to your application servers. You'll also need to set the relevant environment variables up containing the DNS names for your application servers.
 

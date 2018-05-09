@@ -148,5 +148,5 @@ export function safeDatasetHint(dataset: Dataset | null) {
   if (dataset === null) {
     return ''
   }
-  return dataset['hint']
+  return dataset['hint'] + '_' + dataset.state
 }

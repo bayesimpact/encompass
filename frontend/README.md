@@ -1,16 +1,11 @@
-# Time Distance Standards (Frontend) [![Build Status][build]](https://circleci.com/gh/bayesimpact/encompass) [![apache2]](https://www.apache.org/licenses/LICENSE-2.0)
-
-[build]: https://img.shields.io/circleci/project/bayesimpact/encompass.svg?branch=master&style=flat-square
-[apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-
-> Explore Healthcare network adequacies and population distance to services.
+# Encompass (Frontend)
 
 ## Install
 
 Clone this repo:
 
 ```sh
-git clone git@github.com:bayesimpact/encompass.git
+git clone git@github.com:beaconlabs/encompass.git
 ```
 
 ## Build & Run
@@ -50,7 +45,3 @@ When the shape of an API endpoint changes, or when available service areas chang
 ```sh
 yarn test
 ```
-
-## License
-
-Apache2

@@ -17,4 +17,6 @@
   position: relative;
     bottom: -3px;
   width: 16px;
+  border-radius: 50%;
+  opacity: 0.8;
 }

@@ -65,8 +65,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.prod.ejs',
-      title: 'bayes-network-adequacy-explorer',
-      favicon: path.join(__dirname, 'src/images/favicon.png')
+      title: 'Encompass by Beacon Labs',
+      favicon: path.join(__dirname, 'src/images/favicon.ico')
     }),
     new webpack.DefinePlugin({
       'process.env.ENV': JSON.stringify(process.env.ENV),

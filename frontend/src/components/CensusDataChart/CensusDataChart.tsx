@@ -6,9 +6,9 @@ import * as React from 'react'
 import { HorizontalBar } from 'react-chartjs-2'
 import { ADEQUACY_COLORS } from '../../constants/colors'
 import { AdequacyMode, Method } from '../../constants/datatypes'
+import { getLegend } from '../../utils/adequacy'
 import { StatisticsByGroup } from '../../utils/data'
 import { formatLabel, formatLargeNumberWithUnit, formatNumber, formatPercentage } from '../../utils/formatters'
-import { getLegend } from '../MapLegend/MapLegend'
 
 type Props = {
     percent: boolean,
@@ -20,7 +20,7 @@ type Props = {
 // Dimensions for determining chart height.
 const percentChartBarWidth = 32
 const numberChartBarWidth = 12
-const xAxisHeight = 40
+const xAxisHeight = 56
 const legendHeight = 45
 const barPadding = 8
 
@@ -57,7 +57,7 @@ export let CensusDataChart: React.StatelessComponent<Props> = ({ percent, measur
     let formatxAxisLabels = (value: any) => { return percent ? `${formatPercentage(value, 0)}` : `${formatLargeNumberWithUnit(value)}` }
 
     let chartHeight: number = percent ? censusGroups.length * (percentChartBarWidth + barPadding) + legendHeight + xAxisHeight :
-        censusGroups.length * ((numberChartBarWidth * 4) + barPadding) + xAxisHeight
+        censusGroups.length * ((numberChartBarWidth * 4.5) + barPadding) + xAxisHeight
 
     let options = {
         maintainAspectRatio: false,

@@ -67,10 +67,10 @@ def _get_matrix_http(
         url=request_url.format(points=coordinates),
         params=params
     )
-
     try:
         response.raise_for_status()
-    except requests.HTTPError:
+    except requests.HTTPError as error:
+        logger.error('Measure API request error - {}'.format(error))
         return None
     content = response.json()
     return content['durations']
@@ -78,13 +78,14 @@ def _get_matrix_http(
 
 # TODO - Abstract as APIMeasurer.
 # TODO - Better handling of api_url and access_token.
+# TODO - Explain the different behaviors of exit distances and early_exit_outer_radius.
 # FIXME - Use smart url merge.
 class APITime(Measurer):
     """Class for API driving time measurements."""
 
     def __init__(
             self, access_token='', api_url='',
-            early_exit_outer_radius=120.0 * 10**3,
+            early_exit_outer_radius=200.0 * 10**3,
             *args, **kwargs):
         """Initialize the distance class with for an API measurer."""
         self.access_token = access_token
@@ -123,6 +124,9 @@ class APITime(Measurer):
                         source_points=[origin],
                         destination_points=batch)[0]
                 )
+
+        if all(x is None for x in measurements):
+            logger.warning('API only returned None data.')
         # To avoid errors if data is missing, we replace missing durations
         # with ABSURDLY_LARGE_TIME_IN_SECONDS.
         return [
@@ -161,10 +165,11 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
-            logger.warning(
-                'No relevant points, returning an absurdly large time for {}'.format(origin)
+            logger.warning('No relevant points, returning a very large number * min_haversine.')
+            return (
+                min_haversine_distance / TIME_TO_DISTANCE_HOURS_TO_METERS * 60.0 * 2,
+                point_list[min_haversine_idx]
             )
-            return ABSURDLY_LARGE_TIME_IN_MINUTES, point_list[0]
 
         return self.closest(origin=origin, point_list=relevant_points)
 

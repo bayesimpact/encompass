@@ -13,8 +13,8 @@ import { ProvidersUploader } from '../Uploader/ProvidersUploader'
 import { ServiceAreasUploader } from '../Uploader/ServiceAreasUploader'
 import './AddDatasetDrawer.css'
 
-const githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub')
-const contactUsLink = SecureLink('mailto:encompass@bayesimpact.org?subject=Driving%Time%20Analysis', 'contact us')
+const githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub')
+const contactUsLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=Driving%Time%20Analysis', 'contact us')
 
 export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
   <div className='AddDatasetDrawer Drawer'>

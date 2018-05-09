@@ -1,8 +1,9 @@
 import Dialog from 'material-ui/Dialog'
 import IconButton from 'material-ui/IconButton'
-import { NavigationClose } from 'material-ui/svg-icons'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import * as React from 'react'
 import { SecureLink } from '../../utils/link'
+import './MethodologyDialog.css'
 
 type Props = {
   isOpen: boolean
@@ -12,8 +13,8 @@ type Props = {
 export let MethodologyDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
-  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
-  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub repository')
+  let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
+  let githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub repository')
   let ghsLink = SecureLink('http://ghsl.jrc.ec.europa.eu/', 'European Commission Global Human Settlement (GHS)')
   let ghsPopLink = SecureLink('http://ghsl.jrc.ec.europa.eu/ghs_pop.php', 'GHS Population Grid')
   let unrasterizeLink = SecureLink('https://github.com/tetraptych/unrasterize', 'unrasterize')
@@ -37,13 +38,9 @@ export let MethodologyDialog: React.StatelessComponent<Props> = ({
     autoScrollBodyContent={true}
     open={isOpen}
     onRequestClose={onCloseClick}
-    title={
-      <div className='DialogCloseButton'>
-        <IconButton onClick={onCloseClick}><NavigationClose /></IconButton>
-      </div>
-    }>
-    <div>
-    <h2>Methodology</h2>
+    title={<div className='DialogCloseButton'><IconButton onClick={onCloseClick}><NavigationClose /></IconButton></div>}>
+    <div className='Methodology'>
+      <h2>Methodology</h2>
       <p>
         Encompass is an open-source project, and is built entirely on open-source platforms and datasets.
         We are committed to building open-source to promote transparency, build trust across stakeholders, and make our algorithms more accessible to the public sector.
