@@ -8,6 +8,7 @@ import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-re
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 import { Dataset, Method } from '../constants/datatypes'
+import { safeDatasetHint } from '../utils/formatters'
 
 const API_ROOT = CONFIG.api.backend_root
 
@@ -79,23 +80,24 @@ export async function getStaticDemographics(selectedDataset: Dataset | null) {
   return body as PostCensusDataResponse
 }
 
-export function getStaticRPUrl(selectedDataset: Dataset | null): string {
-  const rootUrl = CONFIG.staticAssets.rootUrl
-  const path = CONFIG.staticAssets.representativePoints.path
+function getStaticDatasetString(selectedDataset: Dataset | null): string {
   if (!selectedDataset) {
     throw new Error('No dataset selected.')
   }
-  const datasetString = kebabCase(selectedDataset.name)
+  return safeDatasetHint(selectedDataset)
+}
+
+export function getStaticRPUrl(selectedDataset: Dataset | null): string {
+  const rootUrl = CONFIG.staticAssets.rootUrl
+  const path = CONFIG.staticAssets.representativePoints.path
+  const datasetString = getStaticDatasetString(selectedDataset)
   return `${rootUrl}${path}${datasetString}.json`
 }
 
 export function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Method): string {
   const rootUrl = CONFIG.staticAssets.rootUrl
   const path = CONFIG.staticAssets.adequacies.path
-  if (!selectedDataset) {
-    throw new Error('No dataset selected.')
-  }
-  const datasetString = kebabCase(selectedDataset.name)
+  const datasetString = getStaticDatasetString(selectedDataset)
   const methodString = kebabCase(method.toString())
   return `${rootUrl}${path}${datasetString}-${methodString}.json`
 }
@@ -103,10 +105,7 @@ export function getStaticAdequacyUrl(selectedDataset: Dataset | null, method: Me
 export function getStaticDemographicsUrl(selectedDataset: Dataset | null) {
   const rootUrl = CONFIG.staticAssets.rootUrl
   const path = CONFIG.staticAssets.demographics.path
-  if (!selectedDataset) {
-    throw new Error('No dataset selected.')
-  }
-  const datasetString = kebabCase(selectedDataset.name)
+  const datasetString = getStaticDatasetString(selectedDataset)
   return `${rootUrl}${path}${datasetString}.json`
 }
 

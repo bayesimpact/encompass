@@ -6,29 +6,30 @@ import { populationByCensus, totalPopulation } from './analytics'
 
 export function adequaciesFromServiceArea(
   serviceAreas: string[],
-  store: Store
+  adequacies: Adequacies,
+  representativePoints: RepresentativePoint[]
 ): Lazy<Adequacy[]> {
-  return chain(store.get('representativePoints'))
+  return chain(representativePoints)
     .filter(_ => serviceAreas.includes(_.serviceAreaId))
-    .map(_ => store.get('adequacies')[_.id])
+    .map(_ => adequacies[_.id])
     .filter(Boolean)
 }
 
 export function representativePointsFromServiceAreas(
   serviceAreas: string[],
-  store: Store
+  representativePoints: RepresentativePoint[]
 ): Lazy<RepresentativePoint[]> {
   let hash = keyBy(serviceAreas)
-  return chain(store.get('representativePoints'))
+  return chain(representativePoints)
     .filter(_ => _.serviceAreaId in hash)
 }
 
 export function summaryStatisticsByServiceArea(
   serviceAreas: string[],
-  store: Store
+  adequacies: Adequacies,
+  representativePoints: RepresentativePoint[]
 ) {
-  let adequacies = store.get('adequacies')
-  let rps = representativePointsFromServiceAreas(serviceAreas, store)
+  let rps = representativePointsFromServiceAreas(serviceAreas, representativePoints)
   return summaryStatistics(rps, adequacies)
 }
 
@@ -58,7 +59,7 @@ export function summaryStatisticsByServiceAreaAndCensus(
   store: Store
 ) {
   let adequacies = store.get('adequacies')
-  let rps = representativePointsFromServiceAreas(serviceAreas, store)
+  let rps = representativePointsFromServiceAreas(serviceAreas, store.get('representativePoints'))
   let censusCategoryGroups = CENSUS_MAPPING[censusCategory]
   let statisticsByGroup: StatisticsByGroup = {}
   censusCategoryGroups.forEach(censusGroup => {

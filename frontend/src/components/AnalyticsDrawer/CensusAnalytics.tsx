@@ -20,7 +20,7 @@ export let CensusAnalytics = withStore(
 
   let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')
-  let populationByAdequacy = summaryStatisticsByServiceArea(selectedServiceAreas, store)
+  let populationByAdequacy = summaryStatisticsByServiceArea(selectedServiceAreas, store.get('adequacies'), store.get('representativePoints'))
   let totalPopulation = populationByAdequacy.reduce(function (a, b) { return a + b }, 0)
   let totalProviders = store.get('providers').length
 

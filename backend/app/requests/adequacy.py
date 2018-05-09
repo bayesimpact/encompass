@@ -58,7 +58,6 @@ def mock_adequacy_calculation(provider_ids, service_area_ids):
 )
 def adequacy_request(app, flask_request, engine):
     """Handle /api/adequacy/ requests."""
-    logger.info('Calculating adequacies.')
     try:
         request = flask_request.get_json(force=True)
     except json.JSONDecodeError:
@@ -78,11 +77,14 @@ def adequacy_request(app, flask_request, engine):
 
     if request['method'] in measurer_methods:
         measurer_name = config.get('measurer')[request['method']]
+
     else:
         logger.warning(
             'Could not find measurer method {}. Defaulting to haversine.'.format(request['method'])
         )
         measurer_name = config.get('measurer')['straight_line']
+
+    logger.info('Calculating adequacies with hint {} - {}.'.format(dataset_hint, measurer_name))
 
     # Exit early if there is no data.
     if not (provider_locations and service_area_ids):
