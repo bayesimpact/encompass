@@ -99,6 +99,10 @@ jobs:
         steps:
             - checkout
             - run:
+                name: Create env file
+                command: |
+                    touch .env
+            - run:
                 name: Build bundle
                 command: |
                     docker-compose run frontend bash -c 'yarn && yarn build:prod'
