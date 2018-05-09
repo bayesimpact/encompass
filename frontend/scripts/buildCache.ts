@@ -78,8 +78,8 @@ function cacheData() {
       let rpParams = { Bucket: s3Bucket, Key: getS3Key(getStaticRPUrl(dataset)) }
       let censusParams = { Bucket: s3Bucket, Key: getS3Key(getStaticDemographicsUrl(dataset)) }
 
-      await uploadIFFNotExists(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset), forceS3Upload)
-      await uploadIFFNotExists(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset), forceS3Upload)
+      await uploadFileToS3(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset), forceS3Upload)
+      await uploadFileToS3(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset), forceS3Upload)
 
       console.log(`  Done getting Rps and Census for ${safeDatasetHint(dataset)}`)
 
@@ -101,8 +101,8 @@ function cacheData() {
         if (adequacies) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
-          await uploadIFFNotExists(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
-          await uploadIFFNotExists(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
+          await uploadFileToS3(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
+          await uploadFileToS3(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
         } else {
           throw Error('Empty response for adequacies.')
         }
@@ -117,9 +117,15 @@ function getS3Key(s3URL: string) {
   return s3Key
 }
 
+/**
+ * Simple call back function for S3 uploads.
+ */
 function s3Callback(err: any, data: any) { err ? console.log(JSON.stringify(err) + ' ' + JSON.stringify(data)) : console.log('Success') }
 
-function uploadIFFNotExists(params: S3.HeadObjectRequest, body: string, hint: string, forceS3Upload?: boolean) {
+/**
+ * Upload file to S3 if file does not exist or forceS3Upload flag is set to true.
+*/
+function uploadFileToS3(params: S3.HeadObjectRequest, body: string, hint: string, forceS3Upload?: boolean) {
   s3.headObject(params, function (err, _) {
     if (forceS3Upload || err && uploadToS3) {
       console.log(`  Uploading to S3 - ${hint}`)
@@ -131,6 +137,9 @@ function uploadIFFNotExists(params: S3.HeadObjectRequest, body: string, hint: st
   })
 }
 
+/**
+ * Mimick the format of representativepoints as they are kept in Store to be used for CSV generation.
+*/
 function createStoreLikeRps(representativePoints: PostRepresentativePointsResponse, census: any) {
   return representativePoints.map(_ => ({
     ..._,
@@ -140,6 +149,9 @@ function createStoreLikeRps(representativePoints: PostRepresentativePointsRespon
   }))
 }
 
+/**
+ * Mimick the format of adequacies as they are kept in Store to be used for CSV generation.
+*/
 function createStoreLikeAdequacies(storeLikeRps: RepresentativePoint[], adequacies: any[], method: Method, dataset: Dataset) {
   let hash = keyBy(storeLikeRps, 'id')
   let storeLikeAdequacies: Adequacies = chain(storeLikeRps)

@@ -78,6 +78,7 @@ def _get_matrix_http(
 
 # TODO - Abstract as APIMeasurer.
 # TODO - Better handling of api_url and access_token.
+# TODO - Explain the different behaviors of exit distances and early_exit_outer_radius.
 # FIXME - Use smart url merge.
 class APITime(Measurer):
     """Class for API driving time measurements."""
