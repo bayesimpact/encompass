@@ -78,8 +78,10 @@ function cacheData() {
       let rpParams = { Bucket: s3Bucket, Key: getS3Key(getStaticRPUrl(dataset)) }
       let censusParams = { Bucket: s3Bucket, Key: getS3Key(getStaticDemographicsUrl(dataset)) }
 
-      await uploadFileToS3(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset), forceS3Upload)
-      await uploadFileToS3(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset), forceS3Upload)
+      if (uploadToS3) {
+        await uploadFileToS3(rpParams, JSON.stringify(representativePoints), 'Rps ' + safeDatasetHint(dataset), forceS3Upload)
+        await uploadFileToS3(censusParams, JSON.stringify(census), 'Census ' + safeDatasetHint(dataset), forceS3Upload)
+      }
 
       console.log(`  Done getting Rps and Census for ${safeDatasetHint(dataset)}`)
 
@@ -93,18 +95,19 @@ function cacheData() {
           service_area_ids: dataset.serviceAreaIds,
           dataset_hint: safeDatasetHint(dataset)
         })
+        if (!adequacies) {
+          throw Error('Empty response for adequacies.')
+        }
 
         let storeLikeAdequacies = createStoreLikeAdequacies(storeLikeRps, adequacies, method, dataset)
 
         let CSVResult = buildCsvFromData(method, dataset.serviceAreaIds, storeLikeAdequacies, storeLikeRps)
 
-        if (adequacies) {
+        if (uploadToS3) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
           let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
           await uploadFileToS3(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
           await uploadFileToS3(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
-        } else {
-          throw Error('Empty response for adequacies.')
         }
         console.log('  Done getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
       }))
@@ -127,7 +130,8 @@ function s3Callback(err: any, data: any) { err ? console.log(JSON.stringify(err)
 */
 function uploadFileToS3(params: S3.HeadObjectRequest, body: string, hint: string, forceS3Upload?: boolean) {
   s3.headObject(params, function (err, _) {
-    if (forceS3Upload || err && uploadToS3) {
+    // An error is raised if no object exists.
+    if (forceS3Upload || err) {
       console.log(`  Uploading to S3 - ${hint}`)
       params = Object.assign(params, { Body: body, ContentType: 'application/json', ACL: 'public-read' })
       s3.putObject(params, s3Callback)
