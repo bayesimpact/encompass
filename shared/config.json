@@ -87,7 +87,7 @@
     "show_about_dialog_on_start": false,
     "staticAssets": {
         "appIsStatic": true,
-        "rootUrl": "https://s3-us-west-2.amazonaws.com/encompass-public-data/",
+        "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
         "csv": {
             "useStaticCsvs": false,
             "path": "results-csv/"
