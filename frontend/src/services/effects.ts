@@ -275,6 +275,7 @@ export function withEffects(store: Store) {
 
   /**
    * Rebuild the geojson whenever the adequacies or selectedCensusGroup change.
+   * Also close any open representative point tooltips.
    */
   Observable
     .combineLatest(
@@ -295,6 +296,8 @@ export function withEffects(store: Store) {
             filter)
           )
         )
+        // Close any open representative point tooltips.
+        store.set('selectedRepresentativePoint')(null)
       }
     })
 

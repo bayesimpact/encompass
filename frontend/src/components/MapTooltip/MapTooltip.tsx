@@ -51,10 +51,6 @@ function _togglePrevProvider(store: Store) {
   store.set('providerIndex')(index - 1)
 }
 
-/**
- * TODO: expose info for all providers with the same address,
- * not only the first one.
- */
 export let ProviderPopup = withStore('providerIndex')<ProviderProps>(({ store, point: { features, lngLat } }) => {
   let index = store.get('providerIndex')
   let maxIndex = features.length - 1
