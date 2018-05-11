@@ -249,6 +249,7 @@ export function withEffects(store: Store) {
       store.set('counties')([])
       store.set('selectedCounties')(null)
       store.set('useCustomCountyUpload')(null)
+      store.set('selectedFilterMethod')('All')
       let dataset = store.get('selectedDataset')
       if (dataset && store.get('route') === '/analytics') {
         dataset.state = selectedState
