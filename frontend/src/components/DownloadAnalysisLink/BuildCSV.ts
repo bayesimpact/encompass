@@ -99,6 +99,7 @@ export function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method)
     return ''
   }
   const datasetString = kebabCase(selectedDataset.name)
+  const state = selectedDataset.state
   const methodString = kebabCase(method.toString())
-  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
+  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${state}-${methodString}.csv`
 }
