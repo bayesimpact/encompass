@@ -6,7 +6,7 @@ import Axios from 'axios'
 import 'isomorphic-fetch'
 import { chain, keyBy } from 'lodash'
 import { seq } from 'promise-seq'
-import { buildCsvFromData, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildCSV'
+import { buildCsvFromData, getCsvName, getStaticCsvUrl } from '../src/components/DownloadAnalysisLink/BuildCSV'
 import { CONFIG } from '../src/config/config'
 import { PostRepresentativePointsResponse } from '../src/constants/api/representative-points-response'
 import { DATASETS, inferServiceAreaIds } from '../src/constants/datasets'
@@ -105,9 +105,9 @@ function cacheData() {
 
         if (uploadToS3) {
           let adequacyParams = { Bucket: s3Bucket, Key: getS3Key(getStaticAdequacyUrl(dataset, method)) }
-          let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(dataset, method)) }
+          let CSVResultsParams = { Bucket: s3Bucket, Key: getS3Key(getStaticCsvUrl(getCsvName(dataset, method))) }
           await uploadFileToS3(adequacyParams, JSON.stringify(adequacies), 'Adequacies ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
-          await uploadFileToS3(CSVResultsParams, JSON.stringify(CSVResult), 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
+          await uploadFileToS3(CSVResultsParams, CSVResult, 'CSV Results ' + safeDatasetHint(dataset) + ' - ' + method, forceS3Upload)
         }
         console.log('  Done getting Adequacy and result CSV for ' + safeDatasetHint(dataset) + ' for ' + method)
       }))
@@ -128,15 +128,15 @@ function s3Callback(err: any, data: any) { err ? console.log(JSON.stringify(err)
 /**
  * Upload file to S3 if file does not exist or forceS3Upload flag is set to true.
 */
-function uploadFileToS3(params: S3.HeadObjectRequest, body: string, hint: string, forceS3Upload?: boolean) {
+function uploadFileToS3(params: S3.HeadObjectRequest, body: string, description: string, forceS3Upload?: boolean) {
   s3.headObject(params, function (err, _) {
     // An error is raised if no object exists.
     if (forceS3Upload || err) {
-      console.log(`  Uploading to S3 - ${hint}`)
-      params = Object.assign(params, { Body: body, ContentType: 'application/json', ACL: 'public-read' })
+      console.log(`  Uploading to S3 - ${description}`)
+      params = Object.assign(params, { Body: body, ACL: 'public-read', ContentDisposition: 'attachment' })
       s3.putObject(params, s3Callback)
     } else {
-      console.log(`  Object already exists - ${hint}`)
+      console.log(`  Object already exists - ${description}`)
     }
   })
 }

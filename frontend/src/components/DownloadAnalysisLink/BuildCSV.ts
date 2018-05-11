@@ -7,7 +7,7 @@ import { getLegend } from '../../utils/adequacy'
 import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea } from '../../utils/data'
-import { parseSerializedServiceArea } from '../../utils/formatters'
+import { parseSerializedServiceArea, safeDatasetHint } from '../../utils/formatters'
 import { snakeCase } from '../../utils/string'
 
 const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
@@ -94,11 +94,15 @@ function formatCSVColumnTitle(string: string) {
 /**
  * Build URL for static CSV for selected dataset and adequacy measure.
  */
-export function getStaticCsvUrl(selectedDataset: Dataset | null, method: Method) {
+export function getCsvName(selectedDataset: Dataset | null, method: Method) {
   if (!selectedDataset) {
-    return ''
+    throw Error('No dataset selected.')
   }
-  const datasetString = kebabCase(selectedDataset.name)
+  const datasetString = kebabCase(safeDatasetHint(selectedDataset))
   const methodString = kebabCase(method.toString())
-  return `${staticCsvRootUrl}${staticCsvPath}${datasetString}-${methodString}.csv`
+  return `${datasetString}-${methodString}.csv`
+}
+
+export function getStaticCsvUrl(csvName: string) {
+  return `${staticCsvRootUrl}${staticCsvPath}${csvName}`
 }

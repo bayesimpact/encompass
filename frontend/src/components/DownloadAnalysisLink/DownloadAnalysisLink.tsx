@@ -5,7 +5,7 @@ import * as ReactGA from 'react-ga'
 import { CONFIG } from '../../config/config'
 import { Store, withStore } from '../../services/store'
 import { download } from '../../utils/download'
-import { buildCsvFromData, getStaticCsvUrl } from './BuildCSV'
+import { buildCsvFromData, getCsvName, getStaticCsvUrl } from './BuildCSV'
 
 import './DownloadAnalysisLink.css'
 
@@ -35,8 +35,9 @@ function onClick(store: Store) {
     label: selectedDataset ? selectedDataset.name : 'Unknown Dataset'
   })
 
+  const csvName = getCsvName(selectedDataset, method)
   if (useStaticCsvs) { // If in production, use the cached static CSVs.
-    const staticCsvUrl = getStaticCsvUrl(selectedDataset, method)
+    const staticCsvUrl = getStaticCsvUrl(csvName)
     window.open(staticCsvUrl)
   } else { // Otherwise, generate the CSV.
     if (store.get('serviceAreas').length > 100 && !confirm('Preparing the file for this state may take a couple of minutes. \n\nPress OK to continue.')) {
@@ -48,7 +49,6 @@ function onClick(store: Store) {
       store.get('adequacies'),
       store.get('representativePoints')
     )
-    // Sample filename: encompass-analysis-haversine-2018-03-06.csv
-    download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
+    download(csv, 'text/csv', csvName)
   }
 }
