@@ -31,7 +31,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
       </div>
     }
   >
-    <div>
+    <div className='AboutDialog'>
       <div className='Flex -Center'>
         <img className='AboutLogoImg' alt='beacon-logo' src='https://s3-us-west-2.amazonaws.com/encompass-public-data/images/BeaconLabs.png' />
       </div>
@@ -45,12 +45,10 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
         If you are a researcher or policy expert, we would love to hear from you. Please contact us at {emailLink} and let us know how Encompass
         might be useful to you. If you are a software developer interested in contributing to our mission, please visit our {githubLink} for more details.
       </p>
+      <hr />
       <p>
         Your use of Encompass is governed by the {termsOfUseLink}. By using Encompass, you agree to the Terms of Use and
-        our {privacyPolicyLink}.
-      </p>
-      <p>
-        The source code for Encompass is available for download as open source software at the following site: {githubLongLink}
+        our {privacyPolicyLink}. The source code for Encompass is available for download as open source software at the following site: {githubLongLink}.
       </p>
       <p>
         The source code for Encompass is licensed under the Apache License, Version 2.0 (the “License”). You may not use the source code except in compliance
