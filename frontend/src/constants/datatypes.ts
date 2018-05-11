@@ -34,6 +34,7 @@ export type Config = {
   is_walking_available: boolean
   limit_upload_file_size: boolean
   show_about_dialog_on_start: boolean
+  absurdly_large_placeholder_time: Number
   title_suffix: string
   api: {
     [key: string]: string | boolean
