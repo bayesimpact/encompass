@@ -78,11 +78,11 @@
     "dataset": {
         "enable_custom_service_area_upload": false,
         "enable_save_as_json": true,
-        "enable_upload_your_own": true
+        "enable_upload_your_own": false
     },
     "is_walking_available": false,
     "limit_upload_file_size": false,
-    "show_about_dialog_on_start": false,
+    "show_about_dialog_on_start": true,
     "staticAssets": {
         "appIsStatic": true,
         "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",
