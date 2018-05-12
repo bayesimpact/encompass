@@ -1,5 +1,6 @@
 import * as extent from 'esri-extent'
 import { pickBy } from 'lodash'
+import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING } from '../constants/census'
 import { Adequacies, GeocodedProvider, Method, RepresentativePoint } from '../constants/datatypes'
 import { formatGMapsCoordinates, formatGMapsDirection } from '../utils/formatters'
@@ -82,6 +83,9 @@ function toClosestProviderToString(adequacies: Adequacies, method: Method, point
     case 'straight_line':
       return Math.round((adequacies[pointId].toClosestProvider / 1609.34)).toString() + ' miles'
     case 'driving_time':
+      if (adequacies[pointId].toClosestProvider === CONFIG.absurdly_large_placeholder_time) {
+        return 'Unknown'
+      }
       return Math.round(adequacies[pointId].toClosestProvider).toString() + ' minutes'
   }
 }

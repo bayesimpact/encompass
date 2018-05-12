@@ -1,6 +1,7 @@
 {
     "enable_geocoding": true,
     "is_census_data_available": true,
+    "absurdly_large_placeholder_time": 1e42,
     "_backend": "Configuration used by the backend.",
     "use_address_cache": true,
     "geocoder": "geocodio",
