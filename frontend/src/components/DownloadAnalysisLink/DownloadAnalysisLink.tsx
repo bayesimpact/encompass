@@ -1,3 +1,4 @@
+import { kebabCase } from 'lodash'
 import FlatButton from 'material-ui/FlatButton'
 import DownloadIcon from 'material-ui/svg-icons/file/file-download'
 import * as React from 'react'
@@ -48,7 +49,11 @@ function onClick(store: Store) {
       store.get('adequacies'),
       store.get('representativePoints')
     )
-    // Sample filename: encompass-analysis-haversine-2018-03-06.csv
-    download(csv, 'text/csv', `encompass-analysis-${method}-${new Date().toJSON().slice(0, 10)}.csv`)
+    // Build the output filename.
+    const datasetString = selectedDataset ? kebabCase(selectedDataset.name) : 'unknown'
+    const state = selectedDataset ? selectedDataset.state : ''
+    const methodString = kebabCase(method.toString())
+    const filename = `${datasetString}-${state}-${methodString}.csv`
+    download(csv, 'text/csv', filename)
   }
 }
