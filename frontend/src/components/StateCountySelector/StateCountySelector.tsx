@@ -5,20 +5,17 @@ import { CONFIG } from '../../config/config'
 import { State, STATES } from '../../constants/states'
 import { Store, withStore } from '../../services/store'
 
-export let StateCountySelector = withStore(
-    'selectedState',
-    'useCustomCountyUpload'
-)(({ store }) =>
-    <div>
-        <StateSelector
-            onChange={state => onStateChange(state, store)}
-            value={store.get('selectedState')}
-        />
-        <CountySelector
-            onChange={value => store.set('useCustomCountyUpload')(value)}
-            value={store.get('useCustomCountyUpload')}
-        />
-    </div>
+export let StateCountySelector = withStore(({ store }) =>
+  <div>
+    <StateSelector
+      onChange={state => onStateChange(state, store)}
+      value={store.get('selectedState')}
+    />
+    <CountySelector
+      onChange={value => store.set('useCustomCountyUpload')(value)}
+      value={store.get('useCustomCountyUpload')}
+    />
+  </div>
 )
 
 function onStateChange(state: State, store: Store) {

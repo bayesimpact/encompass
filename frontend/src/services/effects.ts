@@ -1,10 +1,13 @@
 import * as gfilter from 'geojson-filter'
-import { chain, chunk, filter, keyBy, uniq } from 'lodash'
+import { chain, chunk, keyBy, uniq } from 'lodash'
 import { LngLat, LngLatBounds } from 'mapbox-gl'
-import { Observable } from 'rx'
+import { combineLatest } from 'rxjs'
+import { filter, startWith } from 'rxjs/operators'
+import { Plugin } from 'undux'
 import { CONFIG } from '../config/config'
 import { Error, Success } from '../constants/api/geocode-response'
 import { GeocodedProvider, Provider } from '../constants/datatypes'
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
 import { SERVICE_AREAS_BY_STATE } from '../constants/zipCodes'
 import { ZIPS_BY_COUNTY_BY_STATE } from '../constants/zipCodesByCountyByState'
 import { getAdequacyMode } from '../utils/adequacy'
@@ -17,26 +20,36 @@ import {
   getStaticAdequacies, getStaticDemographics, getStaticRPs, isPostGeocodeSuccessResponse,
   postGeocode
 } from './api'
-import { Store } from './store'
+import { State } from './store'
 
 /**
  * Determine whether to use the static behaviours or the dynamic ones.
  */
 const appIsStatic = CONFIG.staticAssets.appIsStatic
 
-export function withEffects(store: Store) {
+export let withEffects: Plugin<State> = store => {
   /**
    * Update representative points when serviceAreas change.
    */
   store
     .on('serviceAreas')
     .subscribe(async serviceAreas => {
-      const selectedDataset = store.get('selectedDataset')
 
       // Clear the points when unselecting a dataset.
       if (serviceAreas.length === 0) {
+        store.set('counties')([])
         store.set('representativePoints')([])
+
+        // TODO: Do this declaratively
+        let map = store.get('map')
+        if (map) {
+          map.setCenter(new mapboxgl.LngLat(DEFAULT_MAP_CENTER.lng, DEFAULT_MAP_CENTER.lat))
+          map.setZoom(DEFAULT_MAP_ZOOM[0])
+        }
+        return
       }
+
+      const selectedDataset = store.get('selectedDataset')
 
       // Get representative points.
       const points = appIsStatic ? await getStaticRPs(selectedDataset) :
@@ -129,14 +142,13 @@ export function withEffects(store: Store) {
   /**
    * Fetch adequacies when providers, representative points, or method change
    */
-  Observable
-    .combineLatest(
-      store.on('providers'),
-      store.on('representativePoints'),
-      store.on('selectedServiceAreas').startWith(store.get('selectedServiceAreas')),
-      store.on('route'),
-      store.on('method').startWith(store.get('method'))
-    )
+  combineLatest(
+    store.on('providers'),
+    store.on('representativePoints'),
+    store.on('selectedServiceAreas').pipe(startWith(store.get('selectedServiceAreas'))),
+    store.on('route'),
+    store.on('method').pipe(startWith(store.get('method')))
+  )
     .subscribe(async ([providers, representativePoints, selectedServiceAreas, route, method]) => {
       // Reset adequacies.
       store.set('adequacies')({})
@@ -196,12 +208,13 @@ export function withEffects(store: Store) {
 
   /**
    * Update selectedServiceAreas when selected county changes.
+   * TODO: Optimize this to avoid n^2 lookup.
    */
   store.on('selectedCounties').subscribe(selectedCounties => {
     if (selectedCounties !== null) {
-      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
-        return selectedCounties.includes(parseSerializedServiceArea(sA).county)
-      })
+      let selectedServiceAreas = store.get('serviceAreas').filter(_ =>
+        selectedCounties.includes(parseSerializedServiceArea(_).county)
+      )
       store.set('selectedServiceAreas')(selectedServiceAreas)
     }
   })
@@ -211,8 +224,8 @@ export function withEffects(store: Store) {
    */
   store.on('selectedCountyType').subscribe(selectedCountyType => {
     if (selectedCountyType === 'Urban' || selectedCountyType === 'Rural') {
-      let selectedServiceAreas = filter(store.get('serviceAreas'), function (sA) {
-        let { state, county } = parseSerializedServiceArea(sA)
+      let selectedServiceAreas = store.get('serviceAreas').filter(_ => {
+        let { state, county } = parseSerializedServiceArea(_)
         let nhcs_code = getPropCaseInsensitive(ZIPS_BY_COUNTY_BY_STATE[state], county).nhcs_code
         let urban = nhcs_code <= 4
         return (selectedCountyType === 'Urban') ? urban : !urban
@@ -278,12 +291,13 @@ export function withEffects(store: Store) {
    * Rebuild the geojson whenever the adequacies or selectedCensusGroup change.
    * Also close any open representative point tooltips.
    */
-  Observable
-    .combineLatest(
-      store.on('adequacies'),
-      store.on('selectedCensusGroup').startWith(store.get('selectedCensusGroup'))
+  combineLatest(
+    store.on('adequacies'),
+    store.on('selectedCensusGroup').pipe(startWith(store.get('selectedCensusGroup')))
+  )
+    .pipe(
+      filter(Boolean)
     )
-    .filter(Boolean)
     .subscribe(async ([adequacies, selectedCensusGroup]) => {
       let representativePoints = store.get('representativePoints')
       if (representativePoints === null) {

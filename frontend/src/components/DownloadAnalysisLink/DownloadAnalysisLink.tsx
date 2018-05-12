@@ -11,7 +11,7 @@ import './DownloadAnalysisLink.css'
 
 const useStaticCsvs: boolean = CONFIG.staticAssets.csv.useStaticCsvs
 
-export let DownloadAnalysisLink = withStore()(({ store }) =>
+export let DownloadAnalysisLink = withStore(({ store }) =>
   <FlatButton
     className='DownloadAnalysisLink Button -Primary'
     icon={<DownloadIcon />}

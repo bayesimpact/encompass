@@ -18,7 +18,7 @@ type Props = {
 }
 
 // Force first column to be larger than the other ones.
-let firstColumnStyle = {
+let firstColumnStyle: React.CSSProperties = {
   width: '30%',
   whiteSpace: 'normal'
 }
@@ -30,7 +30,7 @@ let firstColumnStyle = {
  */
 // (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let CensusAdequacyTable = withStore('adequacies', 'method', 'selectedCensusGroup')<Props>(({ serviceAreas, censusCategory, store }) => {
+export let CensusAdequacyTable = withStore<Props>(({ serviceAreas, censusCategory, store }) => {
   if (isEmpty(store.get('adequacies'))) {
     return <div className='CensusAdequacyTable Flex -Center'>
       <CircularProgress

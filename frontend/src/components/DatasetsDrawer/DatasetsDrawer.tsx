@@ -42,7 +42,7 @@ let tiles = [
 ]
 let DatasetTilePicker = TilePicker<Dataset>()
 
-export let DatasetsDrawer = withStore('selectedDataset')(({ store }) =>
+export let DatasetsDrawer = withStore(({ store }) =>
   <div className='DatasetsDrawer Drawer'>
     <p>Welcome to Encompass, a geographic analysis tool built by {SecureLink('http://www.thebeaconlabs.org', 'Beacon Labs')}. Choose one of the datasets below to begin exploring the accessibility of health care services in different regions of the U.S.</p>
     <DatasetTilePicker

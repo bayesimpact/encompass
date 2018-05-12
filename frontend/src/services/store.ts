@@ -1,15 +1,15 @@
 import { FeatureCollection, GeometryObject } from 'geojson'
 import { Map } from 'mapbox-gl'
 import { isMobile } from 'react-device-detect'
-import { connect, createStore, Store as BabyduxStore } from 'undux'
+import { connect, createStore, Store as UnduxStore } from 'undux'
 import { CONFIG } from '../config/config'
 import { CENSUS_MAPPING, CENSUS_MAPPING_ERROR } from '../constants/census'
 import { Adequacies, CountyType, Dataset, FilterMethod, Format, GeocodedProvider, GeoJSONEventData, Method, ModalName, Provider, RepresentativePoint, Route } from '../constants/datatypes'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '../constants/map'
-import { State } from '../constants/states'
+import { State as StateShortName } from '../constants/states'
 import { withEffects } from './effects'
 
-type Actions = {
+export type State = {
 
   adequacies: Adequacies
 
@@ -117,7 +117,7 @@ type Actions = {
    * `shortName` of the currently selected state.
    * Users set this in the Service Area drawer.
    */
-  selectedState: State
+  selectedState: StateShortName
 
   /**
    * Strings representing county-zip tuples selected by the user in the
@@ -156,7 +156,7 @@ type Actions = {
 /**
  * Note: Do not export this. Use `withStore` or effects (see effects.ts) instead.
  */
-let store = withEffects(createStore<Actions>({
+let initialState: State = {
   adequacies: {},
   allowDrivingTime: true,
   counties: [],
@@ -174,7 +174,7 @@ let store = withEffects(createStore<Actions>({
   providers: [],
   representativePoints: [],
   route: '/datasets',
-  selectedCensusCategory: Object.keys(CENSUS_MAPPING)[0] ? Object.keys(CENSUS_MAPPING)[0] : CENSUS_MAPPING_ERROR,
+  selectedCensusCategory: Object.keys(CENSUS_MAPPING)[0] || CENSUS_MAPPING_ERROR,
   selectedCensusGroup: 'Total Population',
   selectedCounties: null,
   selectedCountyType: null,
@@ -190,11 +190,10 @@ let store = withEffects(createStore<Actions>({
   uploadedProvidersFilename: null,
   uploadedServiceAreasFilename: null,
   pointFeatureCollections: null
-}))
+}
+
+let store = withEffects(createStore(initialState))
 
 export let withStore = connect(store)
 
-export type Store = BabyduxStore<Actions>
-
-// for debugging
-(window as any).store = store
+export type Store = UnduxStore<State>

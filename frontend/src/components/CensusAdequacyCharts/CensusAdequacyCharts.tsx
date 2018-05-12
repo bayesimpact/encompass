@@ -19,7 +19,7 @@ type Props = {
  * TODO: Fix typings upstream in DefinitelyTyped/chart.js
  */
 
-export let CensusAdequacyCharts = withStore('adequacies', 'method')<Props>(({ serviceAreas, censusCategory, store }) => {
+export let CensusAdequacyCharts = withStore<Props>(({ serviceAreas, censusCategory, store }) => {
   let method = store.get('method')
 
   // Calculate summaryStatistics for each group.
