@@ -54,6 +54,9 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
         The source code for Encompass is licensed under the Apache License, Version 2.0 (the “License”). You may not use the source code except in compliance
         with the License. You may obtain a copy of the License at: {licenseLink}.
       </p>
+      <p>
+        Copyright © Beacon Labs 2018. All rights reserved.
+      </p>
     </div>
   </Dialog>
 }
