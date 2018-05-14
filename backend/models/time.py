@@ -167,7 +167,9 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
-            logger.warning('No relevant points, returning a very large number * min_haversine.')
+            logger.warning(
+                'No relevant points. Returning min_haversine * time_to_distance_multiplier.'
+            )
             return (
                 min_haversine_distance / TIME_TO_DISTANCE_HOURS_TO_METERS * 60.0 * 2,
                 point_list[min_haversine_idx]
