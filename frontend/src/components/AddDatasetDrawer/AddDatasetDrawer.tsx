@@ -16,7 +16,7 @@ import './AddDatasetDrawer.css'
 const githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub')
 const contactUsLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=Driving%Time%20Analysis', 'contact us')
 
-export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUpload')(({ store }) =>
+export let AddDatasetDrawer = withStore(({ store }) =>
   <div className='AddDatasetDrawer Drawer'>
     <BackLink />
     <h2 className='Secondary'>Upload your data to explore</h2>
@@ -40,7 +40,7 @@ export let AddDatasetDrawer = withStore('selectedDataset', 'useCustomCountyUploa
   </div >
 )
 
-let AnalyzerButton = withStore('uploadedProvidersFilename')(({ store }) =>
+let AnalyzerButton = withStore(({ store }) =>
   <div>
     <RaisedButton
       className={'Button -Primary'}
@@ -82,7 +82,7 @@ function Analyze(store: Store) {
   }
 }
 
-let DownloadDatasetLink = withStore()(({ store }) =>
+let DownloadDatasetLink = withStore(({ store }) =>
   <div>
     <FlatButton
       className='DownloadDatasetLink Button -Primary'

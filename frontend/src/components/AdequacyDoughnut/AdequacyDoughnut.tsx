@@ -23,7 +23,7 @@ type Props = {
  */
 (Chart as any).defaults.global.legend.labels.usePointStyle = true
 
-export let AdequacyDoughnut = withStore('adequacies', 'method')<Props>(({ serviceAreas, store }) => {
+export let AdequacyDoughnut = withStore<Props>(({ serviceAreas, store }) => {
 
   if (isEmpty(store.get('adequacies'))) {
     return <div className='AdequacyDoughnut Flex -Center'>

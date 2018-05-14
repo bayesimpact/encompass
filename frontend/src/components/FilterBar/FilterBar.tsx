@@ -7,7 +7,7 @@ import { CONFIG } from '../../config/config'
 import { withStore } from '../../services/store'
 import './FilterBar.css'
 
-export let FilterBar = withStore('method', 'allowDrivingTime')(({ store }) => {
+export let FilterBar = withStore(({ store }) => {
   return <Paper className='FilterBar' zDepth={1}>
     <div className='Filter -FixedWidthBig'>
       <span>Measure</span>

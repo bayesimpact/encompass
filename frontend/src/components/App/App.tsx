@@ -26,7 +26,7 @@ if (!isWebGLEnabled()){
   }
 }
 
-export let App = withStore('error', 'success', 'alert')(({ store }) =>
+export let App = withStore(({ store }) =>
   <MuiThemeProvider>
     <div className='App'>
       <Header />

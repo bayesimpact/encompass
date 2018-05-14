@@ -13,7 +13,7 @@ let drawers = {
   '/add-data': AddDatasetDrawer
 }
 
-export let LeftPane = withStore('route')(({ store }) =>
+export let LeftPane = withStore(({ store }) =>
   <>
     {map(drawers, (Component, route) =>
       <Drawer

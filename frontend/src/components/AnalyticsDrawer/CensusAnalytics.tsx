@@ -12,11 +12,7 @@ import { DownloadAnalysisLink } from '../DownloadAnalysisLink/DownloadAnalysisLi
 import { StatsBox } from '../StatsBox/StatsBox'
 import './CensusAnalytics.css'
 
-export let CensusAnalytics = withStore(
-  'adequacies',
-  'selectedServiceAreas',
-  'serviceAreas'
-)(({ store }) => {
+export let CensusAnalytics = withStore(({ store }) => {
 
   let selectedServiceAreas = store.get('selectedServiceAreas') ? store.get('selectedServiceAreas')! : store.get('serviceAreas')
   let selectedCensusCategory = store.get('selectedCensusCategory')

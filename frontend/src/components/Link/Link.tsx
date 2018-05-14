@@ -9,7 +9,7 @@ type Props = {
   to: Route
 }
 
-export let Link = withStore()<Props>(({ children, className, onClick, store, to }) =>
+export let Link = withStore<Props>(({ children, className, onClick, store, to }) =>
   <a
     className={'Link ' + (className || '')}
     onClick={e => {
@@ -23,7 +23,7 @@ export let Link = withStore()<Props>(({ children, className, onClick, store, to 
 )
 Link.displayName = 'Link'
 
-export let BackLink = withStore()(({ store }) =>
+export let BackLink = withStore(({ store }) =>
   <Link
     className='Muted Uppercase'
     onClick={() => {

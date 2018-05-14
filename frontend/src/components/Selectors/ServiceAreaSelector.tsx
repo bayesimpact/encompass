@@ -17,7 +17,7 @@ const styles = {
   }
 }
 
-export let ServiceAreaSelector = withStore('counties')<Props>(({ className, onChange, store, values }) => {
+export let ServiceAreaSelector = withStore<Props>(({ className, onChange, store, values }) => {
   let menuItems = chain(store.get('counties'))
     .map(_ => <MenuItem value={_} key={_} primaryText={capitalizeWords(_)} />)
     .value()

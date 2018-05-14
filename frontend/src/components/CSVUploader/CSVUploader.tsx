@@ -9,7 +9,7 @@ type Props = {
   onUpload(file: File): void
 }
 
-export let CSVUploader = withStore('alert')<Props>(({ label, onUpload, store }) =>
+export let CSVUploader = withStore<Props>(({ label, onUpload, store }) =>
   <div>
     <FlatButton
       className='CSVUploader Button -Secondary'
