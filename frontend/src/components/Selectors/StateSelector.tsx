@@ -11,6 +11,10 @@ type StateSelectorProps = {
   store: Store
 }
 
+/**
+ * This State Selector is used to select a state to view for US-wide datasets. These datasets
+ * include points for the entire US and allow the user to select which states to view.
+ */
 export let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ className, store, value }) =>
   <DropDownMenu
     className={className ? className : undefined}
