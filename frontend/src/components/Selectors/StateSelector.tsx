@@ -32,7 +32,7 @@ export let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ clas
 function onStateChange(value: State, store: Store) {
   ReactGA.event({
     category: 'Filter',
-    action: 'Selected a State',
+    action: 'Selected a state in a US-wide dataset',
     label: value.toString()
   })
   store.set('selectedState')(value)
