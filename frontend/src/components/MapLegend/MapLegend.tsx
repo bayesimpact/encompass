@@ -5,7 +5,7 @@ import { withStore } from '../../services/store'
 import { getLegend } from '../../utils/adequacy'
 import './MapLegend.css'
 
-export let MapLegend = withStore('method', 'selectedCensusGroup')(({ store }) =>
+export let MapLegend = withStore(({ store }) =>
   <ul className='MapLegend'>
     Population by Access
     <li><i>{store.get('selectedCensusGroup')}</i></li>

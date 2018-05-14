@@ -4,7 +4,7 @@ import { PostAdequaciesRequest } from '../constants/api/adequacies-request'
 import { PostAdequaciesResponse } from '../constants/api/adequacies-response'
 import { PostCensusDataResponse } from '../constants/api/census-data-response'
 import { PostGeocodeRequest } from '../constants/api/geocode-request'
-import { Error, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
+import { Error as GeocodeError, PostGeocodeResponse, Success } from '../constants/api/geocode-response'
 import { PostRepresentativePointsRequest } from '../constants/api/representative-points-request'
 import { PostRepresentativePointsResponse } from '../constants/api/representative-points-response'
 import { Dataset, Method } from '../constants/datatypes'
@@ -35,7 +35,7 @@ let POST = request('POST')
 //
 
 export function isPostGeocodeSuccessResponse(
-  response: Success | Error
+  response: Success | GeocodeError
 ): response is Success {
   return response.status === 'success'
 }

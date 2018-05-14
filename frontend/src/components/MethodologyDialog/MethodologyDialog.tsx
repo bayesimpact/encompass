@@ -31,7 +31,7 @@ export let MethodologyDialog: React.StatelessComponent<Props> = ({
   )
   let worldS3Link = SecureLink(
     'https://s3-us-west-2.amazonaws.com/encompass-public-data/GHSL/world_mw-8_t-0.05.geojson',
-    'World'
+    'world'
   )
 
   return <Dialog

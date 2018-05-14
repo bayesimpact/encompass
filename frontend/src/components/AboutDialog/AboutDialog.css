@@ -3,3 +3,11 @@
 .AboutLogoImg {
     height: 80px;
 }
+
+.AboutDialog hr {
+    width: 20%;
+    margin-left: 40%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

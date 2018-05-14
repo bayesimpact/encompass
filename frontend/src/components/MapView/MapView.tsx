@@ -77,14 +77,7 @@ function removePopup(store: Store) {
 const SCALE_CONTROL_STYLE = { bottom: 30, right: 58 }
 const ZOOM_CONTROL_STYLE = { bottom: 30, right: 19 }
 
-export let MapView = withStore(
-  'pointFeatureCollections',
-  'mapCenter',
-  'providerIndex',
-  'providers',
-  'selectedProvider',
-  'selectedRepresentativePoint'
-)(({ store }) => {
+export let MapView = withStore(({ store }) => {
   let providers = store.get('providers')
   let selectedRepresentativePoint = store.get('selectedRepresentativePoint')
   let selectedProvider = store.get('selectedProvider')

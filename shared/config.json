@@ -1,6 +1,7 @@
 {
     "enable_geocoding": true,
     "is_census_data_available": true,
+    "absurdly_large_placeholder_time": 1e42,
     "_backend": "Configuration used by the backend.",
     "use_address_cache": true,
     "geocoder": "geocodio",
@@ -78,11 +79,11 @@
     "dataset": {
         "enable_custom_service_area_upload": false,
         "enable_save_as_json": true,
-        "enable_upload_your_own": true
+        "enable_upload_your_own": false
     },
     "is_walking_available": false,
     "limit_upload_file_size": false,
-    "show_about_dialog_on_start": false,
+    "show_about_dialog_on_start": true,
     "staticAssets": {
         "appIsStatic": true,
         "rootUrl": "https://d3qtklqrtque1g.cloudfront.net/",

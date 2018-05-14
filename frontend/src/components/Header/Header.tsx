@@ -13,7 +13,7 @@ import './Header.css'
 
 let title = 'Encompass' + CONFIG.title_suffix
 
-export let Header = withStore('modal')(({ store }) =>
+export let Header = withStore(({ store }) =>
   < AppBar
     className='Header'
     title={SecureLink('.', title, '_self')}

@@ -12,7 +12,7 @@ import './Uploader.css'
 /**
  * TODO: Show loading indicator while CSV is uploading + parsing
  */
-export let ProvidersUploader = withStore('uploadedProvidersFilename')(({ store }) =>
+export let ProvidersUploader = withStore(({ store }) =>
   <div className='Flex Uploader'>
     <CSVUploader label='Upload Providers' onUpload={onFileSelected(store)} />
     <span className='Ellipsis Muted SmallFont'>

@@ -4,6 +4,7 @@ import os
 import requests
 import logging
 
+from backend.config import config
 from backend.lib.utils import iterators
 from backend.models import distance
 from backend.models.base import Measurer
@@ -19,7 +20,8 @@ logger = logging.getLogger(__name__)
 
 # TODO: Determine a more intelligent way for converting distance to time.
 TIME_TO_DISTANCE_HOURS_TO_METERS = 104607.0  # 65 miles per hour in meters per hour.
-ABSURDLY_LARGE_TIME_IN_MINUTES = 10**42  # Placeholder value when no nearby providers are found.
+
+ABSURDLY_LARGE_TIME_IN_MINUTES = config.get('absurdly_large_placeholder_time') # Placeholder value when no nearby providers are found.
 
 
 def _retry_if_result_none(result):
@@ -165,7 +167,9 @@ class APITime(Measurer):
         ]
 
         if not relevant_points:
-            logger.warning('No relevant points, returning a very large number * min_haversine.')
+            logger.warning(
+                'No relevant points. Returning min_haversine * time_to_distance_multiplier.'
+            )
             return (
                 min_haversine_distance / TIME_TO_DISTANCE_HOURS_TO_METERS * 60.0 * 2,
                 point_list[min_haversine_idx]

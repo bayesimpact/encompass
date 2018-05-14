@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const RobotstxtPlugin = require("robotstxt-webpack-plugin").default
 
 module.exports = {
   mode: 'production',
@@ -74,6 +75,14 @@ module.exports = {
       'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
       'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       'process.env.GA_ID': JSON.stringify(process.env.GA_ID)
+    }),
+    new RobotstxtPlugin({
+      policy: [
+        {
+          userAgent: "*",
+          disallow: "/"
+        }
+      ]
     })
   ]
 }
