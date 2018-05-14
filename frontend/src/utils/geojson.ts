@@ -116,6 +116,14 @@ export function boundingBox(points: RepresentativePoint[]) {
     }
   })))
 
+  /**
+   * FIXME - Less hacky handling of -180 and 0 degree spanning boundaries.
+   * Handle weird zoom behavior for Alaska and boundaries crossing the antemeridian.
+  */
+  if (xmin < -150 && xmax > 0) {
+    xmax = -140
+  }
+
   return {
     sw: { lat: ymin, lng: xmin },
     ne: { lat: ymax, lng: xmax }
