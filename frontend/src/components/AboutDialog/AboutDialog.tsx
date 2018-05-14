@@ -16,8 +16,8 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   let beaconLink = SecureLink('https://www.thebeaconlabs.org', 'Beacon Labs')
   let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
   let githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub repository')
-  let termsOfUseLink = SecureLink('https://thebeaconlabs.org/terms-of-use', 'Terms of Use')
-  let privacyPolicyLink = SecureLink('https://thebeaconlabs.org/privacy-policy', 'Privacy Policy')
+  let termsOfUseLink = SecureLink('https://www.thebeaconlabs.org/terms-of-use', 'Terms of Use')
+  let privacyPolicyLink = SecureLink('https://www.thebeaconlabs.org/privacy-policy', 'Privacy Policy')
   let licenseLink = SecureLink('http://www.apache.org/licenses/LICENSE-2.0', 'http://www.apache.org/licenses/LICENSE-2.0')
   let githubLongLink = SecureLink('https://github.com/beaconlabs/encompass', 'https://github.com/beaconlabs/encompass')
 
