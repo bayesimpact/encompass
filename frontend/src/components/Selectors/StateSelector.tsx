@@ -1,6 +1,7 @@
 import { DropDownMenu } from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import { State, STATES } from '../../constants/states'
 import { Store } from '../../services/store'
 
@@ -21,7 +22,15 @@ export let StateSelector: React.StatelessComponent<StateSelectorProps> = ({ clas
     )}
   </DropDownMenu >
 
+/**
+ * As part of State selection, send an event to GA.
+ */
 function onStateChange(value: State, store: Store) {
+  ReactGA.event({
+    category: 'Filter',
+    action: 'Selected a State',
+    label: value.toString()
+  })
   store.set('selectedState')(value)
   store.set('useCustomCountyUpload')(false)
   store.set('selectedCounties')(null)
