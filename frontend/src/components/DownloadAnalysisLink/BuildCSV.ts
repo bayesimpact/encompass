@@ -8,11 +8,12 @@ import { averageMeasure, maxMeasure, minMeasure } from '../../utils/analytics'
 import { generateCSV } from '../../utils/csv'
 import { adequaciesFromServiceArea, representativePointsFromServiceAreas, summaryStatisticsByServiceArea } from '../../utils/data'
 import { parseSerializedServiceArea, safeDatasetHint } from '../../utils/formatters'
+import { precisionRound } from '../../utils/numbers'
 import { snakeCase } from '../../utils/string'
 
 const staticCsvRootUrl: string = CONFIG.staticAssets.rootUrl
 const staticCsvPath: string = CONFIG.staticAssets.csv.path
-
+const defaultPrecision: number = 2 // Default decimal precision for CSV.
 /**
  * Build an analysis CSV for download from the census data.
  */
@@ -81,7 +82,7 @@ function getDataForCensusCategories(demographics: any, populationByAnalytics: nu
   return flattenDeep(
     censusCategories.map(_ => {
       return CENSUS_MAPPING[_].map(group => {
-        return (populationByAnalytics.map(category => category * 0.01 * demographics[_][group] || 0))
+        return (populationByAnalytics.map(category => precisionRound(category * 0.01 * demographics[_][group] || 0, defaultPrecision)))
       })
     })
   )
