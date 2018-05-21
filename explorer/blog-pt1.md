@@ -1,8 +1,8 @@
 ## Geographic Population Distribution Datasets
 
-## Background
+## Background and Overview
 
-In order to provide the public
+In order to best provide the public with ...
 
 The Health Resources and Services Administration (HSRA) designates certain geographic regions as [shortage areas](https://datawarehouse.hrsa.gov/topics/shortageAreas.aspx) in order to allocate federal funding to support critical healthcare services in these areas<sup>[0](#footnote-hpsas)</sup>.
 
@@ -51,10 +51,10 @@ These datasets have the potential to provide very granular information about pop
 
 Down-sampling the data can help combat this downside, resulting in more reasonable numbers of representative points for use in computation-heavy workflows (e.g., driving-time or routing calculations). This is the methdology we ultimately used in Encompass, where we wanted to display access across the country at a very high level of detail.
 
-* **Accessibility**: High. Several
-* **Ease-of-use**: Varies. These datasets depend on newer technology, meaning that the research and user communities are still young. If used, the additional post-processing step of re-sampling the data to a lower resolution could make adoption more difficult.
-* **Validity**: Not well understood. Many sources normalize population totals within census units, ensuring validity in the aggregate, but the population numbers for individual pixels are less certain.
-* **Granularity**: Extremely high. Open datasets have resolutions of 100, 250, 1000 meters per pixel.
+* **Accessibility**: High. As mentioned above, multiple datasets are available under open licenses.
+* **Ease-of-use**: Varies. These datasets depend on newer technology, meaning that the research and user communities are still young. If used, the additional compute-heavy post-processing step of re-sampling the data to a lower resolution could make adoption more difficult.
+* **Validity**: Not well understood. Many sources normalize population totals within census units, ensuring validity in the aggregate, but the accuracy of the population numbers for individual pixels is less certain.
+* **Granularity**: Extremely high. Openly available datasets have resolutions of 100, 250, 1000 meters per pixel.
 
 ## Conclusions
 
@@ -64,7 +64,7 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 <a name="footnote-hpsas">0</a>: Two such designations are Health Professional Shortage Areas (HPSAs) and Medically Underserved Areas (MUAs). Separate HPSA designations exist for primary care, mental health, and dental health services.
 
-<a name="footnote-mailing-addresses">1</a>: Note that mailing addresses can fail spectacularly for this purpose in places without well-defined mailing routes——for instance, in rural locations where residents pick up their mail from a single post office that isn't close to their place of residence.
+<a name="footnote-mailing-addresses">1</a>: Note that mailing addresses can fail spectacularly for this purpose in places without well-defined mailing routes—for instance, in rural locations where residents pick up their mail from a single post office that isn't close to their place of residence.
 
 <a name="footnote-zip-code-annoyances">2</a>: For example, ZIP codes are mailing routes, not polygons (source), putting the concept of a "ZIP code centroid" on shaky footing. Moreover, the routes themselves are not publicly available: the USPS sells [a variety](https://postalpro.usps.com/address-quality/delivery-statistics-product) of [products](https://postalpro.usps.com/address-quality/carrier-route-product) from which route information could be derived, but their price is a major barrier to adoption.
 
@@ -72,7 +72,7 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 <a name="footnote-alaska">3</a>: And Alaska.
 
-<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids is on or near the road network, posing further problems for applications using travel time as a key metric.
+<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids are on or near the road network, posing further problems for applications using travel time as a metric.
 
 <a name="footnote-gridded-population-of-the-world">3</a>: Both based on CIESIN's [Gridded Population of the World dataset](http://sedac.ciesin.columbia.edu/data/collection/gpw-v4).
 
