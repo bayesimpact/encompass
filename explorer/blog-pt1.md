@@ -1,10 +1,12 @@
-## Research Blog Post, parte une
+## Geographic Population Distribution Datasets
 
-## I want to know where the people are
+## Background
 
-(TODO: HRSAs MUAs etc.)
+In order to provide the public
 
-Consider the case of [Encompass](https://encompass.thebeaconlabs.org/), a Beacon Labs initiative to measure access between people and providers of critical social services like hospitals and primary care providers. When building this tool, we examined different sources of population information to determine where people live and work. Our goal was to provide transparent, easily-reproducible, and precise analyses of geographic access. With that goal in mind, four guiding principles in our decision among data sources were accessibility, ease-of-use, validity, and granularity:
+The Health Resources and Services Administration (HSRA) designates certain geographic regions as [shortage areas](https://datawarehouse.hrsa.gov/topics/shortageAreas.aspx) in order to allocate federal funding to support critical healthcare services in these areas<sup>[0](#footnote-hpsas)</sup>.
+
+Earlier in 2018, Beacon Labs launched [Encompass](https://encompass.thebeaconlabs.org/), an initiative to measure access between people and providers of critical social services like hospitals and primary care providers. When building this tool, we examined different sources of population information to determine where people live and work. Our goal was to provide transparent, easily-reproducible, and precise analyses of geographic access. With that goal in mind, four guiding principles in our decision among data sources were accessibility, ease-of-use, validity, and granularity:
 
 * **Accessibility**: Is the data open-source and publicly accessible? Is the cost to acquire / license the data prohibitively expensive?
 * **Ease-of-use**: Is the data thoroughly and credibly researched and curated? Up-to-date? Is it structured and cleaned in a way that's easy to work with? Are there existing frameworks / tools / methodologies for understanding the data and incorporating it with other datasets / applications?
@@ -19,7 +21,7 @@ The United States Potal Service (USPS) is a natural place to look for this infor
 
 Legislation like the [Knox-Keene Act](https://www.dmhc.ca.gov/aboutthedmhc/lawsregulations.aspx#knoxkeene) in California enshrine ZIP codes as a fundamental unit of regulation, making their continued usage for representing population unavoidable.
 
-* **Accessibility**: Very low. The steep cost of obtaining actual route data and the restrictive terms of use pose serious challenges for using official USPS ZIP code data.
+* **Accessibility**: Very low. The steep cost of obtaining actual route data and the restrictive terms of use pose serious challenges for using official USPS ZIP code data. Third-party sources for this data are common but lack transparent, reproducible methodologies<sup>[1](#footnote-third-party-vendors)</sup>.
 * **Ease-of-use**: Low. The frequent updates and additions mean that the data becomes out-of-date quickly. ZIP codes can span multiple administrative subdivisions (e.g., counties or even states), increasing the difficulty of integrating this information with other data sources.
 * **Validity**: Low, since the intended purpose of this data is to track mailing addresses, not where people live. In rural areas without mailing routes, this problem is crippling.
 * **Granularity**: Medium to high. There are roughly 42,000 ZIP codes in the United States (compared to 74,000 census tracts), so choosing a single point per ZIP code is not particularly granular. On the other hand, route-level data with many points per ZIP code (as used in the [Every Door Direct Mail Tool](https://eddm.usps.com/eddm/customer/routeSearch.action)) has the potential to be very granular.
@@ -32,7 +34,7 @@ In urban areas, these divisions do an excellent job of representing population d
 
 TODO: Mapbox studio screenshot
 
-This complication might not pose a problem for certain use cases, especially when data is being aggregated at the county or state levels. On the other hand, this systemic blind spot poses serious problems for the determination of MUAs and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
+This complication might not pose a problem for certain use cases, especially when data is being aggregated at the county or state levels. On the other hand, this systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
 
 The problem is most pronounced in the less densely populated states of the Mountain West<sup>[3](#footnote-alaska)</sup>, but also affects large, rural counties nationwide.
 
@@ -60,14 +62,17 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 ## Footnotes
 
+<a name="footnote-hpsas">0</a>: Two such designations are Health Professional Shortage Areas (HPSAs) and Medically Underserved Areas (MUAs). Separate HPSA designations exist for primary care, mental health, and dental health services.
+
 <a name="footnote-mailing-addresses">1</a>: Note that mailing addresses can fail spectacularly for this purpose in places without well-defined mailing routes——for instance, in rural locations where residents pick up their mail from a single post office that isn't close to their place of residence.
 
 <a name="footnote-zip-code-annoyances">2</a>: For example, ZIP codes are mailing routes, not polygons (source), putting the concept of a "ZIP code centroid" on shaky footing. Moreover, the routes themselves are not publicly available: the USPS sells [a variety](https://postalpro.usps.com/address-quality/delivery-statistics-product) of [products](https://postalpro.usps.com/address-quality/carrier-route-product) from which route information could be derived, but their price is a major barrier to adoption.
 
+<a name="#footnote-third-party-vendors">3</a>: One specific third-party solution provides users with 100 points per ZIP code, operating under the assumption that each point represents the same number of people. How these points are generated remains a total black box to the end users. Despite these facts, the solution has been widely adopted.
+
 <a name="footnote-alaska">3</a>: And Alaska.
 
-<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids is on or near the road network, posing further problems for applications using driving distance or time. TODO: Find an example of this?
+<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids is on or near the road network, posing further problems for applications using travel time as a key metric.
 
 <a name="footnote-gridded-population-of-the-world">3</a>: Both based on CIESIN's [Gridded Population of the World dataset](http://sedac.ciesin.columbia.edu/data/collection/gpw-v4).
-
 
