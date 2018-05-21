@@ -2,9 +2,9 @@
 
 ## Background and Overview
 
-In order to best provide the public with ...
+In order to best provide the public with TODO
 
-The Health Resources and Services Administration (HSRA) designates certain geographic regions as [shortage areas](https://datawarehouse.hrsa.gov/topics/shortageAreas.aspx) in order to allocate federal funding to support critical healthcare services in these areas<sup>[0](#footnote-hpsas)</sup>.
+For instance, the Health Resources and Services Administration (HSRA) designates certain geographic regions as [shortage areas](https://datawarehouse.hrsa.gov/topics/shortageAreas.aspx) in order to allocate federal funding to support critical healthcare services in these areas<sup>[0](#footnote-hpsas)</sup>.
 
 Earlier in 2018, Beacon Labs launched [Encompass](https://encompass.thebeaconlabs.org/), an initiative to measure access between people and providers of critical social services like hospitals and primary care providers. When building this tool, we examined different sources of population information to determine where people live and work. Our goal was to provide transparent, easily-reproducible, and precise analyses of geographic access. With that goal in mind, four guiding principles in our decision among data sources were accessibility, ease-of-use, validity, and granularity:
 
@@ -58,7 +58,7 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 ## Conclusions
 
-
+TODO
 
 ## Footnotes
 
@@ -66,13 +66,13 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 <a name="footnote-mailing-addresses">1</a>: Note that mailing addresses can fail spectacularly for this purpose in places without well-defined mailing routes—for instance, in rural locations where residents pick up their mail from a single post office that isn't close to their place of residence.
 
-<a name="footnote-zip-code-annoyances">2</a>: For example, ZIP codes are mailing routes, not polygons (source), putting the concept of a "ZIP code centroid" on shaky footing. Moreover, the routes themselves are not publicly available: the USPS sells [a variety](https://postalpro.usps.com/address-quality/delivery-statistics-product) of [products](https://postalpro.usps.com/address-quality/carrier-route-product) from which route information could be derived, but their price is a major barrier to adoption.
+<a name="footnote-zip-code-annoyances">2</a>: For example, [ZIP codes are mailing routes, not polygons](https://gis.stackexchange.com/a/2693/118314), putting the concept of a "ZIP code centroid" on shaky footing. Moreover, the routes themselves are not publicly available: the USPS sells [a variety](https://postalpro.usps.com/address-quality/delivery-statistics-product) of [products](https://postalpro.usps.com/address-quality/carrier-route-product) from which route information could be derived, but their price is a major barrier to adoption.
 
-<a name="#footnote-third-party-vendors">3</a>: One specific third-party solution provides users with 100 points per ZIP code, operating under the assumption that each point represents the same number of people. How these points are generated remains a total black box to the end users. Despite these facts, the solution has been widely adopted.
+<a name="#footnote-third-party-vendors">3</a>: One specific third-party solution provides users with 100 points per ZIP code, operating under the assumption that each point represents the same number of people. How these points are generated remains a total black box to the end users. Despite these facts, the software has been widely adopted and is commonly used to measure access to care.
 
 <a name="footnote-alaska">3</a>: And Alaska.
 
-<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids are on or near the road network, posing further problems for applications using travel time as a metric.
+<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids fall on or near the road network, posing further problems for applications using travel time as a metric.
 
 <a name="footnote-gridded-population-of-the-world">3</a>: Both based on CIESIN's [Gridded Population of the World dataset](http://sedac.ciesin.columbia.edu/data/collection/gpw-v4).
 
