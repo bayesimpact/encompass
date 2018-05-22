@@ -32,9 +32,8 @@ In contrast, the Census Bureau is explicitly tasked with counting the number of 
 
 In urban areas, these divisions do an excellent job of representing population distribution and density, but their fidelity in rural areas is much less consistent. Consider the case of TODO, where more than TODO people live 15 miles away from their census tract centroid:
 
-![alt text](data/images/wy_campbell.png)
+![alt text](data/images/wy_campbell_county.png)
 ![alt text](data/images/az_mohave_county.png)
-![alt text](data/images/ut_tooele_county.png)
 ![alt text](data/images/nv_elko_county.png)
 ![alt text](data/images/nm_catron_county.png)
 
