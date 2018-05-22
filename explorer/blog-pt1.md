@@ -32,11 +32,11 @@ In contrast, the Census Bureau is explicitly tasked with counting the number of 
 
 In urban areas, these divisions do an excellent job of representing population distribution and density, but their fidelity in rural areas is much less consistent. Consider the case of TODO, where more than TODO people live 15 miles away from their census tract centroid:
 
-![alt text](data/images/wy_campbell)
-![alt text](data/images/az_mohave_county)
-![alt text](data/images/ut_tooele_county)
-![alt text](data/images/nv_elko_county)
-![alt text](data/images/nm_catron_county)
+![alt text](data/images/wy_campbell.png)
+![alt text](data/images/az_mohave_county.png)
+![alt text](data/images/ut_tooele_county.png)
+![alt text](data/images/nv_elko_county.png)
+![alt text](data/images/nm_catron_county.png)
 
 This complication might not pose a problem for certain use cases, especially when data is being aggregated at the county or state levels. On the other hand, this systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
 
