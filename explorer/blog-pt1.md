@@ -35,7 +35,9 @@ In urban areas, these divisions do an excellent job of representing population d
 <!-- ![alt text](data/images/wy_campbell_county.png)
 ![alt text](data/images/az_mohave_county.png)
 ![alt text](data/images/nv_elko_county.png)
- -->![alt text](data/images/nm_catron_county.png)
+ -->
+
+ ![alt text](data/images/nm_catron_county.png)
 
 Note that 30 minutes is a commonly-used threshold for access to critical healthcare services, meaning that inaccuracies of 15 minutes in either direction. This systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
 
