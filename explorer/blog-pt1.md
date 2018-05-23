@@ -30,14 +30,14 @@ Legislation like the [Knox-Keene Act](https://www.dmhc.ca.gov/aboutthedmhc/lawsr
 
 In contrast, the Census Bureau is explicitly tasked with counting the number of residents across several geographic subdivisions of the country. The Bureau releases [population-weighted centroids](https://www.census.gov/geo/reference/centersofpop.html) for census tracts and block groups. Maybe these geographic units can provide a passably-faithful representation of population distribution?
 
-In urban areas, these divisions do an excellent job of representing population distribution and density, but their fidelity in rural areas is much less consistent. Consider the case of TODO, where more than TODO people live 15 miles away from their census tract centroid:
+In urban areas, these divisions do an excellent job of representing population distribution and density, but their fidelity in rural areas is much less consistent. Consider the case of Catron County, New Mexico, where 87% of the population lives 15 miles away from their census tract centroid:
 
-![alt text](data/images/wy_campbell_county.png)
+<!-- ![alt text](data/images/wy_campbell_county.png)
 ![alt text](data/images/az_mohave_county.png)
 ![alt text](data/images/nv_elko_county.png)
-![alt text](data/images/nm_catron_county.png)
+ -->![alt text](data/images/nm_catron_county.png)
 
-This complication might not pose a problem for certain use cases, especially when data is being aggregated at the county or state levels. On the other hand, this systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
+Note that 30 minutes is a commonly-used threshold for access to critical healthcare services, meaning that inaccuracies of 15 minutes in either direction. This systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
 
 The problem is most pronounced in the less densely populated states of the Mountain West<sup>[3](#footnote-alaska)</sup>, but also affects large, rural counties nationwide.
 
@@ -61,7 +61,7 @@ Down-sampling the data can help combat this downside, resulting in more reasonab
 
 ## Conclusions
 
-TODO
+It might not pose a problem for certain use cases, especially when data is being aggregated at the county or state levels.
 
 ## Footnotes
 
