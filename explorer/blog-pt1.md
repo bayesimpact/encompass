@@ -77,7 +77,7 @@ It might not pose a problem for certain use cases, especially when data is being
 
 <a name="footnote-alaska">3</a>: And Alaska.
 
-<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids fall on or near the road network, posing further problems for applications using travel time as a metric. For example, the northernmost census tract centroid in Mohave County, Arizona, is halfway between the towns of Beaver Dam and Colorado City, but the coordinates are incredibly remote at roughly 1.6 hours away from the nearest town.
+<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids fall on or near the road network, posing further problems for applications using travel time as a metric. For example, the northernmost census tract centroid in Mohave County, Arizona, is halfway between the towns of Beaver Dam and Colorado City, but the coordinates are incredibly remote more than 100 minutes to the nearest town.
 
 <a name="footnote-gridded-population-of-the-world">3</a>: Both based on CIESIN's [Gridded Population of the World dataset](http://sedac.ciesin.columbia.edu/data/collection/gpw-v4).
 
