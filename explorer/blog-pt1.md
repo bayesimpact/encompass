@@ -39,9 +39,9 @@ In urban areas, these divisions do an excellent job of representing population d
 
  ![alt text](data/images/nm_catron_county.png)
 
-Note that 30 minutes is a commonly-used threshold for access to critical healthcare services, meaning that inaccuracies of 15 minutes in either direction. This systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
+Note that 30 minutes is a commonly-used threshold for access to critical healthcare services, meaning that inaccuracies of 15 minutes in either direction can easily result in misclassification of access. This systemic blind spot poses serious problems for the determination of medically-underserved areas and the allocation of public resources to mitigate problems caused by poor geographic access, since it means that methods that use census centroids tend to over-estimate access in the very places where it is worst<sup>[3](#footnote-centroids-near-roads)</sup>.
 
-The problem is most pronounced in the less densely populated states of the Mountain West<sup>[3](#footnote-alaska)</sup>, but also affects large, rural counties nationwide.
+The problem is most pronounced in the less densely populated states of the Mountain West<sup>[3](#footnote-alaska)</sup>, but also affects large, rural counties nationwide. In some counties (like Catron County above) there is only a single census tract, m
 
 * **Accessibility**: Very high. The Census Bureau makes demographic data accessible through the [American Fact Finder](https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml). See also the [TIGER Shapefiles](https://www.census.gov/geo/maps-data/data/tiger-line.html) for census boundaries.
 * **Ease-of-use**: Very high. Census data informs many existing applications and is a common source for demographic information across many fields of research.
@@ -77,7 +77,7 @@ It might not pose a problem for certain use cases, especially when data is being
 
 <a name="footnote-alaska">3</a>: And Alaska.
 
-<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids fall on or near the road network, posing further problems for applications using travel time as a metric.
+<a name="footnote-centroids-near-roads">3</a>: Note that there's no guarantee that the population-weighted centroids fall on or near the road network, posing further problems for applications using travel time as a metric. For example, the northernmost census tract centroid in Mohave County, Arizona, is halfway between the towns of Beaver Dam and Colorado City, but the coordinates are incredibly remote at roughly 1.6 hours away from the nearest town.
 
 <a name="footnote-gridded-population-of-the-world">3</a>: Both based on CIESIN's [Gridded Population of the World dataset](http://sedac.ciesin.columbia.edu/data/collection/gpw-v4).
 
