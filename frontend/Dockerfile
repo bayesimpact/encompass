@@ -1,6 +1,9 @@
 FROM node:9.11.1
 
+ARG MAPBOX_TOKEN
 ENV MAPBOX_TOKEN "$MAPBOX_TOKEN"
+ARG GA_ID
+ENV GA_ID "$GA_ID"
 
 # Set up nginx to proxy requests.
 # Should probably switch to express since we are in a node container anyway.

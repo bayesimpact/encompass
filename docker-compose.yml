@@ -43,6 +43,9 @@ services:
         - ./shared:/usr/src/app/src/shared:ro
         - ./shared:/usr/src/shared:ro
       build:
+        args:
+          - GA_ID
+          - MAPBOX_TOKEN
         context: .
         dockerfile: ./frontend/Dockerfile
       ports:
