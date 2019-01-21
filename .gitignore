@@ -14,8 +14,7 @@ models/notebooks/cache
 .env
 
 # Build
-dist
-web-app/frontend/dist/*
+/frontend/public/
 
 # NPM
 node_modules
@@ -34,3 +33,6 @@ data/private/*
 # Terraform local state
 **/.terraform/
 **/*.tfstate*
+
+# Firebase Cache
+**/.firebase/

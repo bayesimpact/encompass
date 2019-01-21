@@ -45,3 +45,15 @@ When the shape of an API endpoint changes, or when available service areas chang
 ```sh
 yarn test
 ```
+
+## Firebase
+
+To deploy it as a standalone frontend on Firebase:
+
+```sh
+docker-compose build frontend
+docker-compose run --rm frontend bash -c "cp dist/* public/"
+cd frontend
+firebase deploy
+cd -
+```
