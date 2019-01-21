@@ -8,7 +8,7 @@ locals {
   load_balancer_name = "${var.load_balancer_name}-${var.env_name}"
 }
 
-# Beacon Labs Default VPC.
+# Bayes Impact Default VPC.
 resource "aws_vpc" "main" {
   cidr_block       = "${var.default_vpc_cidr_block}"
   instance_tenancy = "default"

@@ -13,13 +13,13 @@ type Props = {
 export let AboutDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
-  let beaconLink = SecureLink('https://www.thebeaconlabs.org', 'Beacon Labs')
-  let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
-  let githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub repository')
-  let termsOfUseLink = SecureLink('https://www.thebeaconlabs.org/terms-of-use', 'Terms of Use')
-  let privacyPolicyLink = SecureLink('https://www.thebeaconlabs.org/privacy-policy', 'Privacy Policy')
+  let bayesLink = SecureLink('https://www.bayesimpact.org', 'Bayes Impact')
+  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
+  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub repository')
+  let termsOfUseLink = SecureLink('https://www.bayesimpact.org/terms-of-use', 'Terms of Use')
+  let privacyPolicyLink = SecureLink('https://www.bayesimpact.org/privacy-policy', 'Privacy Policy')
   let licenseLink = SecureLink('http://www.apache.org/licenses/LICENSE-2.0', 'http://www.apache.org/licenses/LICENSE-2.0')
-  let githubLongLink = SecureLink('https://github.com/beaconlabs/encompass', 'https://github.com/beaconlabs/encompass')
+  let githubLongLink = SecureLink('https://github.com/bayesimpact/encompass', 'https://github.com/bayesimpact/encompass')
 
   return <Dialog
     autoScrollBodyContent={true}
@@ -33,10 +33,10 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   >
     <div className='AboutDialog'>
       <div className='Flex -Center'>
-        <img className='AboutLogoImg' alt='beacon-logo' src='https://s3-us-west-2.amazonaws.com/encompass-public-data/images/BeaconLabs.png' />
+        <img className='AboutLogoImg' alt='bayes-logo' src='https://www.bayesimpact.org/images/logo_sq.png' />
       </div>
       <p>
-        Encompass is an analytics and mapping tool built by {beaconLink} that enables policymakers, researchers, and consumer advocates to analyze how accessibility
+        Encompass is an analytics and mapping tool built by {bayesLink} that enables policymakers, researchers, and consumer advocates to analyze how accessibility
         to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged
         communities. Existing tools used to map systems at this scale are prohibitively expensive, require significant amounts of manual data processing, and are too
         coarse to accurately depict accessibility issues. We set out to build a solution that eliminates those barriers.
@@ -55,7 +55,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
         with the License. You may obtain a copy of the License at: {licenseLink}.
       </p>
       <p>
-        Copyright © Beacon Labs 2018. All rights reserved.
+        Copyright © Bayes Impact 2018. All rights reserved.
       </p>
     </div>
   </Dialog>

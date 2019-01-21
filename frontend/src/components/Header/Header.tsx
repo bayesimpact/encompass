@@ -34,7 +34,7 @@ export let Header = withStore(({ store }) =>
           onClick={() => store.set('modal')('About')}
           style={{ color: '#fff' }} />
         <IconButton
-          href='https://github.com/beaconlabs/encompass'
+          href='https://github.com/bayesimpact/encompass'
           target='_blank'
           tooltip='Go to this project on GitHub'
           tooltipPosition='bottom-left'
