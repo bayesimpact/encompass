@@ -13,8 +13,8 @@ type Props = {
 export let MethodologyDialog: React.StatelessComponent<Props> = ({
   isOpen, onCloseClick
 }) => {
-  let emailLink = SecureLink('mailto:encompass@thebeaconlabs.org?subject=About%20Encompass', 'encompass@thebeaconlabs.org')
-  let githubLink = SecureLink('https://github.com/beaconlabs/encompass', 'GitHub repository')
+  let emailLink = SecureLink('mailto:encompass@bayesimpact.org?subject=About%20Encompass', 'encompass@bayesimpact.org')
+  let githubLink = SecureLink('https://github.com/bayesimpact/encompass', 'GitHub repository')
   let ghsLink = SecureLink('http://ghsl.jrc.ec.europa.eu/', 'European Commission Global Human Settlement (GHS)')
   let ghsPopLink = SecureLink('http://ghsl.jrc.ec.europa.eu/ghs_pop.php', 'GHS Population Grid')
   let unrasterizeLink = SecureLink('https://github.com/tetraptych/unrasterize', 'unrasterize')
