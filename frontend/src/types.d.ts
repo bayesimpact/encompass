@@ -22,6 +22,8 @@ declare module 'react-device-detect' {
   export = detect
 }
 
+declare module '*.png'
+
 /**
  * Globals
  */

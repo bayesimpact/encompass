@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -12,7 +13,8 @@ module.exports = {
     // hot: true,
     https: false,
     port: 8081,
-    disableHostCheck: true
+    disableHostCheck: true,
+    publicPath: '/'
   },
   entry: './src/index.tsx',
   externals: {
@@ -40,6 +42,11 @@ module.exports = {
           transpileOnly: true
         },
         test: /\.tsx?$/,
+      },
+      {
+        include: path.resolve(__dirname, 'src'),
+        loader: 'file-loader',
+        test: /\.png$/,
       },
       {
         include: path.resolve(__dirname, 'src'),
@@ -72,6 +79,13 @@ module.exports = {
       template: 'src/index.ejs',
       title: 'bayes-network-adequacy-explorer',
       favicon: path.join(__dirname, 'src/images/favicon.png')
+    }),
+    new webpack.DefinePlugin({
+      'process.env.ENV': JSON.stringify(process.env.ENV),
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
+      'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
+      'process.env.GA_ID': JSON.stringify(process.env.GA_ID)
     }),
     new ForkTsCheckerWebpackPlugin
   ]

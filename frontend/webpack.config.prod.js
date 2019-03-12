@@ -12,7 +12,8 @@ module.exports = {
     // hot: true,
     https: false,
     port: 8081,
-    disableHostCheck: true
+    disableHostCheck: true,
+    publicPath: '/'
   },
   entry: './src/index.tsx',
   externals: {
@@ -40,6 +41,11 @@ module.exports = {
           transpileOnly: false
         },
         test: /\.tsx?$/,
+      },
+      {
+        include: path.resolve(__dirname, 'src'),
+        loader: 'file-loader',
+        test: /\.png$/,
       },
       {
         test: /\.css$/,

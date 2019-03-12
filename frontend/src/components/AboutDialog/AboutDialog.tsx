@@ -5,6 +5,9 @@ import * as React from 'react'
 import { SecureLink } from '../../utils/link'
 import './AboutDialog.css'
 
+// TODO(pascal): Understand how to use import instead of require for the image.
+const logo = require('../../images/logo.png')
+
 type Props = {
   isOpen: boolean
   onCloseClick: () => void
@@ -33,7 +36,7 @@ export let AboutDialog: React.StatelessComponent<Props> = ({
   >
     <div className='AboutDialog'>
       <div className='Flex -Center'>
-        <img className='AboutLogoImg' alt='bayes-logo' src='https://www.bayesimpact.org/images/logo_sq.png' />
+        <img className='AboutLogoImg' alt='bayes-logo' src={logo} />
       </div>
       <p>
         Encompass is an analytics and mapping tool built by {bayesLink} that enables policymakers, researchers, and consumer advocates to analyze how accessibility
