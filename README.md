@@ -4,7 +4,6 @@
 
 [build]: https://img.shields.io/circleci/project/bayesimpact/encompass/master.svg
 [apache2]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/bayesimpact/encompass.svg?columns=all)](http://waffle.io/bayesimpact/encompass)
 
 ## Introduction
 Encompass is an analytics and mapping tool by [Bayes Impact](http://bayesimpact.org) that enables policymakers, researchers, and consumer advocates to analyze how accessibility to social services varies across demographic groups. Inadequate and untimely access to health care services is a major barrier to health equity for disadvantaged communities. Existing tools used to map systems at this scale are prohibitively expensive, require significant amounts of manual data processing, and are too coarse in their analysis methods to accurately depict accessibility issues. We set out to build a solution that eliminates those barriers.
