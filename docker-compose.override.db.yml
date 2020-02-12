@@ -16,6 +16,7 @@ services:
         - ./backend/config/entrypoint-local.sh:/entrypoint.sh:ro
       environment:
         - POSTGRES_URL=postgres://postgres:example@db.local:5432/network_adequacy
+        - POSTGRES_URL_POSTGRES=postgres://postgres:example@db.local:5432/postgres
 
     db:
       image: mdillon/postgis

@@ -43,6 +43,9 @@ def install():
 def install_aws():
     """Install Postgis to Postgres on AWS."""
     # In the postgres database.
+    # POSTGRES_URL_POSTGRES is the URL of the system DB on which to install the
+    # extensions as opposed to POSTGRES_URL which is the DB used by the rest of
+    # the encompass app.
     postgres_db = connect.create_db_engine(os.getenv('POSTGRES_URL_POSTGRES'))
     create_command = '\n'.join(
         CREATE_EXTENSION.format(extension=extension)
