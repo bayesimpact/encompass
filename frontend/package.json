@@ -27,7 +27,7 @@
     "geojson-filter": "^0.1.4",
     "material-ui-next": "npm:material-ui@next",
     "mui-icons": "^1.2.1",
-    "papaparse": "^4.3.7",
+    "papaparse": "^5.2.0",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.0",
     "react-device-detect": "^0.1.0",
