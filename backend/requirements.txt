@@ -2,7 +2,7 @@
 boto3==1.4.7
 # Flask and UWSGI
 flask==0.12.2
-Flask-Cors==3.0.3
+Flask-Cors==3.0.9
 uwsgi==2.0.15
 werkzeug==0.12.2
 # Geo methods
